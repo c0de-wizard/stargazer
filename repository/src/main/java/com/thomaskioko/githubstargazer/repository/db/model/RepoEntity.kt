@@ -1,0 +1,21 @@
+package com.thomaskioko.githubstargazer.repository.db.model
+
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(
+    tableName = "repo"
+)
+data class RepoEntity(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val repoId: Long,
+    val name: String,
+    val description: String?,
+    val userName: String,
+    val stargazersCount: Int,
+    val forksCount: Int,
+    val contributorsUrl: String,
+    val createdDate: String,
+    val updatedDate: String
+)
