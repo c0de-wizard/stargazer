@@ -54,6 +54,7 @@ dependencies {
 
 
     testImplementation Dependencies.Testing.junit
+    testImplementation Dependencies.Testing.truth
     androidTestImplementation Dependencies.Testing.androidJunit
     androidTestImplementation Dependencies.Testing.androidEspressoCore
 }

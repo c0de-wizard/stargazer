@@ -70,5 +70,6 @@ object Dependencies {
         val junit = "junit:junit:4.12"
         val androidJunit = "androidx.test.ext:junit:1.1.2"
         val androidEspressoCore = "androidx.test.espresso:espresso-core:3.3.0"
+        val truth = "com.google.truth:truth:1.0.1"
     }
 }
