@@ -1,4 +1,4 @@
-package com.thomaskioko.githubstargazer
+package com.thomaskioko.githubstargazer.core
 
 import org.junit.Assert.*
 import org.junit.Test
