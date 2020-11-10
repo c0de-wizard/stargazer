@@ -66,6 +66,12 @@ object Dependencies {
         }
     }
 
+    object Room {
+        private const val version = "2.3.0-alpha02"
+        val roomKtx = "androidx.room:room-ktx:$version"
+        val compiler = "androidx.room:room-compiler:$version"
+    }
+
     object Testing {
         val junit = "junit:junit:4.12"
         val androidJunit = "androidx.test.ext:junit:1.1.2"
