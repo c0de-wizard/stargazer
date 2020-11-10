@@ -39,6 +39,7 @@ object Dependencies {
         val core = "com.google.dagger:dagger:$version"
         val compiler = "com.google.dagger:dagger-compiler:$version"
         val processor = "com.google.dagger:dagger-android-processor:$version"
+        val support = "com.google.dagger:dagger-android-support:$version"
     }
 
     object Kotlin {
