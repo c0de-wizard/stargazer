@@ -1,4 +1,4 @@
-package com.thomaskioko.githubstargazer.repository.model
+package com.thomaskioko.githubstargazer.repository.api.model
 
 import com.squareup.moshi.JsonClass
 

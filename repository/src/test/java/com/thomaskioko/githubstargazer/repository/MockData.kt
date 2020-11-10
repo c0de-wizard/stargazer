@@ -1,7 +1,7 @@
 package com.thomaskioko.githubstargazer.repository
 
-import com.thomaskioko.githubstargazer.repository.model.RepoResponse
-import com.thomaskioko.githubstargazer.repository.model.UserResponse
+import com.thomaskioko.githubstargazer.repository.api.model.RepoResponse
+import com.thomaskioko.githubstargazer.repository.api.model.UserResponse
 
 object MockData {
 

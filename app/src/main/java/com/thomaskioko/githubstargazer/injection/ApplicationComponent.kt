@@ -2,7 +2,7 @@ package com.thomaskioko.githubstargazer.injection
 
 import android.content.Context
 import com.thomaskioko.githubstargazer.core.injection.component.ApplicationDependencies
-import com.thomaskioko.githubstargazer.repository.GithubRepository
+import com.thomaskioko.githubstargazer.repository.api.GithubRepository
 import com.thomaskioko.githubstargazer.repository.injection.GitHubApiModule
 import dagger.BindsInstance
 import dagger.Component
