@@ -46,15 +46,9 @@ dependencies {
     implementation Dependencies.Coroutines.core
     implementation Dependencies.Coroutines.android
 
-    implementation Dependencies.Dagger.daggerAndroid
-    implementation(Dependencies.Dagger.daggerSupport) {
-        exclude group: 'com.android.support', module: 'support-v4'
-        exclude group: 'com.android.support', module: 'support-annotation'
-        exclude group: 'com.android.support', module: 'support-compat'
-    }
-
-    kapt Dependencies.Dagger.daggerCompiler
-    kapt Dependencies.Dagger.daggerProcessor
+    implementation Dependencies.Dagger.core
+    kapt Dependencies.Dagger.compiler
+    kapt Dependencies.Dagger.processor
 
     testImplementation Dependencies.Testing.junit
     androidTestImplementation Dependencies.Testing.androidJunit

@@ -39,6 +39,20 @@ dependencies {
     implementation Dependencies.Kotlin.stdlib
     implementation Dependencies.AndroidX.coreKtx
 
+    implementation Dependencies.Retrofit.retrofit
+    implementation Dependencies.Retrofit.retrofitCoroutinesConverter
+    implementation Dependencies.OkHttp.okhttp
+    implementation Dependencies.OkHttp.loggingInterceptor
+
+    implementation Dependencies.Retrofit.Moshi.core
+    implementation Dependencies.Retrofit.Moshi.converter
+    kapt Dependencies.Retrofit.Moshi.kapt
+
+    implementation Dependencies.Dagger.core
+    kapt Dependencies.Dagger.compiler
+    kapt Dependencies.Dagger.processor
+
+
     testImplementation Dependencies.Testing.junit
     androidTestImplementation Dependencies.Testing.androidJunit
     androidTestImplementation Dependencies.Testing.androidEspressoCore

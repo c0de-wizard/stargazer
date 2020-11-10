@@ -5,12 +5,23 @@ apply plugin: 'kotlin-android'
 
 dependencies {
 
+    implementation project(':core')
+    implementation project(':repository')
+
     implementation Dependencies.Kotlin.stdlib
     implementation Dependencies.AndroidX.coreKtx
     implementation Dependencies.AndroidX.appCompat
     implementation Dependencies.AndroidX.constraintLayout
 
     implementation Dependencies.material
+
+    implementation Dependencies.Dagger.core
+    kapt Dependencies.Dagger.compiler
+    kapt Dependencies.Dagger.processor
+
+    implementation Dependencies.Retrofit.Moshi.core
+    implementation Dependencies.Retrofit.Moshi.converter
+    kapt Dependencies.Retrofit.Moshi.kapt
 
     testImplementation Dependencies.Testing.junit
     androidTestImplementation Dependencies.Testing.androidJunit
