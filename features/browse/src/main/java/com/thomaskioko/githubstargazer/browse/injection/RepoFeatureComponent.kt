@@ -1,5 +1,6 @@
 package com.thomaskioko.githubstargazer.browse.injection
 
+import com.thomaskioko.githubstargazer.browse.injection.module.ReposViewModelModule
 import com.thomaskioko.githubstargazer.browse.ui.RepoListFragment
 import com.thomaskioko.githubstargazer.core.injection.component.ApplicationDependencies
 import com.thomaskioko.githubstargazer.core.injection.scope.ScreenScope
@@ -9,7 +10,10 @@ import dagger.Component
 @ScreenScope
 @Component(
     dependencies = [ApplicationDependencies::class],
-    modules = [DatabaseModule::class]
+    modules = [
+        DatabaseModule::class,
+        ReposViewModelModule::class
+    ]
 )
 interface RepoFeatureComponent {
 
