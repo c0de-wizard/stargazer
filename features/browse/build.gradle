@@ -1,10 +1,8 @@
 import com.thomaskioko.githubstargazer.buildsrc.Dependencies
 
-plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-}
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 30
@@ -36,6 +34,7 @@ android {
 }
 
 dependencies {
+    implementation project(':core')
 
     implementation Dependencies.Kotlin.stdlib
     implementation Dependencies.AndroidX.coreKtx
@@ -43,6 +42,19 @@ dependencies {
     implementation Dependencies.AndroidX.constraintLayout
 
     implementation Dependencies.material
+
+    implementation Dependencies.Coroutines.core
+    implementation Dependencies.Coroutines.android
+
+    implementation Dependencies.Dagger.daggerAndroid
+    implementation(Dependencies.Dagger.daggerSupport) {
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'support-annotation'
+        exclude group: 'com.android.support', module: 'support-compat'
+    }
+
+    kapt Dependencies.Dagger.daggerCompiler
+    kapt Dependencies.Dagger.daggerProcessor
 
     testImplementation Dependencies.Testing.junit
     androidTestImplementation Dependencies.Testing.androidJunit
