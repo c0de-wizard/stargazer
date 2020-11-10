@@ -47,6 +47,7 @@ dependencies {
     implementation Dependencies.Coroutines.core
     implementation Dependencies.Coroutines.android
 
+    implementation Dependencies.Dagger.android
     implementation Dependencies.Dagger.core
     kapt Dependencies.Dagger.compiler
     kapt Dependencies.Dagger.processor
