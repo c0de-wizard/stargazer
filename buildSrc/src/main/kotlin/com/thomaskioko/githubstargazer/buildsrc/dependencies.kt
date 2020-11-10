@@ -39,6 +39,7 @@ object Dependencies {
         val core = "com.google.dagger:dagger:$version"
         val compiler = "com.google.dagger:dagger-compiler:$version"
         val processor = "com.google.dagger:dagger-android-processor:$version"
+        val support = "com.google.dagger:dagger-android-support:$version"
     }
 
     object Kotlin {
@@ -64,6 +65,12 @@ object Dependencies {
             val kapt = "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
             val converter = "com.squareup.retrofit2:converter-moshi:2.4.0"
         }
+    }
+
+    object Room {
+        private const val version = "2.3.0-alpha02"
+        val roomKtx = "androidx.room:room-ktx:$version"
+        val compiler = "androidx.room:room-compiler:$version"
     }
 
     object Testing {

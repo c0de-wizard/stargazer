@@ -1,7 +1,7 @@
 package com.thomaskioko.githubstargazer.repository.injection
 
 import com.squareup.moshi.Moshi
-import com.thomaskioko.githubstargazer.repository.service.GitHubService
+import com.thomaskioko.githubstargazer.repository.api.service.GitHubService
 import dagger.Module
 import dagger.Provides
 import okhttp3.Call

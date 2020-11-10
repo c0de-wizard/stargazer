@@ -1,15 +1,14 @@
 package com.thomaskioko.githubstargazer.repository
 
-import com.thomaskioko.githubstargazer.repository.api.model.RepoResponse
-import com.thomaskioko.githubstargazer.repository.api.model.UserResponse
+import com.thomaskioko.githubstargazer.repository.db.model.RepoEntity
 
-object MockData {
+object MockEntityData {
 
-    fun getRepoResponse() = RepoResponse(
-        id = 1L,
+    fun makeRepoEntity(repoId: Long) = RepoEntity(
+        repoId = repoId,
         name = "Square",
         description = "Some cool description about the app",
-        owner = UserResponse(id = 1L, login = "ninja"),
+        userName = "ninja",
         stargazersCount = 1,
         forksCount = 1,
         contributorsUrl = "",

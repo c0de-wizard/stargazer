@@ -3,6 +3,7 @@ package com.thomaskioko.githubstargazer.repository
 import com.thomaskioko.githubstargazer.repository.MockData.getRepoResponse
 import kotlinx.coroutines.runBlocking
 import com.google.common.truth.Truth.assertThat
+import com.thomaskioko.githubstargazer.repository.api.GithubRepository
 import org.junit.Before
 import org.junit.Test
 

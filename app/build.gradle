@@ -16,6 +16,7 @@ dependencies {
     implementation Dependencies.material
 
     implementation Dependencies.Dagger.core
+    implementation Dependencies.Dagger.support
     kapt Dependencies.Dagger.compiler
     kapt Dependencies.Dagger.processor
 
