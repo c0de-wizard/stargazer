@@ -23,6 +23,8 @@ dependencies {
     implementation Dependencies.Retrofit.Moshi.converter
     kapt Dependencies.Retrofit.Moshi.kapt
 
+    implementation Dependencies.OkHttp.loggingInterceptor
+
     testImplementation Dependencies.Testing.junit
     androidTestImplementation Dependencies.Testing.androidJunit
     androidTestImplementation Dependencies.Testing.androidEspressoCore
