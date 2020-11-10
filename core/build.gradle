@@ -1,0 +1,47 @@
+import com.thomaskioko.githubstargazer.buildsrc.Dependencies
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation Dependencies.Kotlin.stdlib
+    implementation Dependencies.AndroidX.coreKtx
+    implementation Dependencies.AndroidX.appCompat
+    implementation Dependencies.AndroidX.constraintLayout
+    implementation Dependencies.AndroidX.Lifecycle.viewmodel
+
+    implementation Dependencies.material
+
+    implementation Dependencies.Coroutines.core
+    implementation Dependencies.Coroutines.reactive
+
+    implementation Dependencies.Dagger.core
+    kapt Dependencies.Dagger.compiler
+    kapt Dependencies.Dagger.processor
+
+    testImplementation Dependencies.Testing.junit
+    androidTestImplementation Dependencies.Testing.androidJunit
+    androidTestImplementation Dependencies.Testing.androidEspressoCore
+}
