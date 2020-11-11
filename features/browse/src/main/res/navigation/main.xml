@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    app:startDestination="@id/repoListFragment">
+
+    <fragment
+        android:id="@+id/repoListFragment"
+        android:name="com.thomaskioko.githubstargazer.browse.ui.RepoListFragment"
+        android:label="RepoListFragment">
+        <action
+            android:id="@+id/action_repoListFragment_to_repoDetailFragment"
+            app:destination="@id/repoDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/repoDetailFragment"
+        android:name="com.thomaskioko.githubstargazer.browse.ui.RepoDetailFragment"
+        android:label="RepoDetailFragment" >
+        <argument
+            android:name="repo_id"
+            app:argType="long" />
+    </fragment>
+</navigation>

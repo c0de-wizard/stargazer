@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.thomaskioko.githubstargazer.browse.data.model.RepoViewDataModel
 import com.thomaskioko.githubstargazer.browse.databinding.FragmentRepoListBinding
 import com.thomaskioko.githubstargazer.browse.injection.component.inject
@@ -29,8 +30,9 @@ class RepoListFragment : Fragment() {
     private lateinit var repoListAdapter: RepoListAdapter
 
     private val onRepoItemClick = object : RepoItemClick {
-        override fun onClick(view: View, repoId: Int) {
-            Timber.d("Repo with id: $repoId clicked")
+        override fun onClick(view: View, repoId: Long) {
+            val action = RepoListFragmentDirections.actionRepoListFragmentToRepoDetailFragment(repoId)
+            view.findNavController().navigate(action, null)
         }
     }
 
@@ -72,6 +74,7 @@ class RepoListFragment : Fragment() {
             is ViewState.Loading -> binding.loadingBar.visibility = View.VISIBLE
             is ViewState.Error -> {
                 binding.loadingBar.visibility = View.GONE
+                binding.tvInfo.visibility = View.VISIBLE
                 binding.tvInfo.text = viewState.message
                 Timber.e(viewState.message)
             }

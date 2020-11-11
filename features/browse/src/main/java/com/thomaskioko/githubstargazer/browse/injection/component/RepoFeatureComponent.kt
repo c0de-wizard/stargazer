@@ -1,6 +1,7 @@
 package com.thomaskioko.githubstargazer.browse.injection.component
 
 import com.thomaskioko.githubstargazer.browse.injection.module.ReposViewModelModule
+import com.thomaskioko.githubstargazer.browse.ui.RepoDetailFragment
 import com.thomaskioko.githubstargazer.browse.ui.RepoListFragment
 import com.thomaskioko.githubstargazer.core.injection.component.ApplicationDependencies
 import com.thomaskioko.githubstargazer.core.injection.component.applicationDependencies
@@ -19,6 +20,8 @@ interface RepoFeatureComponent {
 
     fun inject(fragment: RepoListFragment)
 
+    fun inject(fragment: RepoDetailFragment)
+
     @Component.Factory
     interface Factory {
 
@@ -27,6 +30,13 @@ interface RepoFeatureComponent {
 }
 
 fun RepoListFragment.inject() {
+    getComponent {
+        DaggerRepoFeatureComponent.factory()
+            .create(requireContext().applicationDependencies())
+    }.inject(this)
+}
+
+fun RepoDetailFragment.inject() {
     getComponent {
         DaggerRepoFeatureComponent.factory()
             .create(requireContext().applicationDependencies())

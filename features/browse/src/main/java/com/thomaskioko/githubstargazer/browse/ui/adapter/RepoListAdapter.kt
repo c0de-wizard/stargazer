@@ -54,5 +54,5 @@ class RepoItemViewHolder(
 }
 
 interface RepoItemClick {
-    fun onClick(view: View, repoId: Int)
+    fun onClick(view: View, repoId: Long)
 }

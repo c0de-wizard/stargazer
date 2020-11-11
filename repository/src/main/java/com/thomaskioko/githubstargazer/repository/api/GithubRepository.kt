@@ -23,4 +23,6 @@ class GithubRepository @Inject constructor(
             database.repoDao().getRepos()
         }
     }
+
+    suspend fun getRepoById(repoId: Long) = database.repoDao().getRepoById(repoId)
 }

@@ -52,4 +52,17 @@ class GithubRepositoryTest {
         assertThat(repos.size).isEqualTo(1)
         assertThat(repos).isEqualTo(makeRepoEntityList())
     }
+
+    @Test
+    fun `givenRepoId verify data isLoadedFrom Database`() = runBlocking {
+        val expected = makeRepoEntityList()[0]
+
+        whenever(repoDao.getRepoById(expected.repoId)).doReturn(expected)
+
+        val repoEntity = repository.getRepoById(expected.repoId)
+
+        verify(database.repoDao()).getRepoById(expected.repoId)
+
+        assertThat(repoEntity).isEqualTo(expected)
+    }
 }
