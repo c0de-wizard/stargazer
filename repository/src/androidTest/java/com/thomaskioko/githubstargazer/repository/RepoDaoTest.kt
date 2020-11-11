@@ -8,7 +8,6 @@ import com.thomaskioko.githubstargazer.repository.MockEntityData.makeRepoEntity
 import com.thomaskioko.githubstargazer.repository.db.GithubDatabase
 import kotlinx.coroutines.runBlocking
 import org.junit.After
-import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -37,12 +36,12 @@ internal class RepoDaoTest {
     @Test
     fun givenRepos_verifyDataIsSaved_onInsertRepos() = runBlocking {
 
-        val movies = listOf(
+        val list = listOf(
             makeRepoEntity(12314),
             makeRepoEntity(12)
         )
 
-        database.repoDao().insertRepos(movies)
+        database.repoDao().insertRepos(list)
 
         val repo = database.repoDao().getRepoById(12314)
 
@@ -50,14 +49,29 @@ internal class RepoDaoTest {
     }
 
     @Test
-    fun givenRepos_verifyDataIsDeleted_onClearRepos() = runBlocking {
+    fun givenRepos_verifyDataIsReturned_onGetRepos() = runBlocking {
 
-        val movies = listOf(
+        val list = listOf(
             makeRepoEntity(12314),
             makeRepoEntity(12)
         )
 
-        database.repoDao().insertRepos(movies)
+        database.repoDao().insertRepos(list)
+
+        val repo = database.repoDao().getRepos()
+
+        assertEquals(2, repo.size)
+    }
+
+    @Test
+    fun givenRepos_verifyDataIsDeleted_onClearRepos() = runBlocking {
+
+        val list = listOf(
+            makeRepoEntity(12314),
+            makeRepoEntity(12)
+        )
+
+        database.repoDao().insertRepos(list)
 
         database.repoDao().clearRepos()
 

@@ -1,6 +1,6 @@
 package com.thomaskioko.githubstargazer.repository.injection
 
-import android.app.Application
+import android.content.Context
 import com.thomaskioko.githubstargazer.repository.db.GithubDatabase
 import dagger.Module
 import dagger.Provides
@@ -9,7 +9,7 @@ import dagger.Provides
 object DatabaseModule {
 
     @Provides
-    fun provideGithubDatabase(app: Application) = GithubDatabase.getInstance(app)
+    fun provideGithubDatabase(context: Context) = GithubDatabase.getInstance(context)
 
     @Provides
     fun provideRepoDao(db: GithubDatabase) = db.repoDao()

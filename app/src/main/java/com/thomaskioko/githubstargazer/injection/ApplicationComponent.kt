@@ -2,7 +2,7 @@ package com.thomaskioko.githubstargazer.injection
 
 import android.content.Context
 import com.thomaskioko.githubstargazer.core.injection.component.ApplicationDependencies
-import com.thomaskioko.githubstargazer.repository.api.GithubRepository
+import com.thomaskioko.githubstargazer.repository.injection.DatabaseModule
 import com.thomaskioko.githubstargazer.repository.injection.GitHubApiModule
 import dagger.BindsInstance
 import dagger.Component
@@ -13,6 +13,7 @@ import javax.inject.Singleton
 @Component(
     modules = [
         GitHubApiModule::class,
+        DatabaseModule::class,
         AndroidSupportInjectionModule::class
     ]
 )

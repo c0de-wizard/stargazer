@@ -15,6 +15,7 @@ object BuildVersions {
 object Dependencies {
 
     val material = "com.google.android.material:material:1.2.1"
+    val timber = "com.jakewharton.timber:timber:4.5.1"
 
     object AndroidX {
         val appCompat = "androidx.appcompat:appcompat:1.1.0"
@@ -23,6 +24,7 @@ object Dependencies {
 
         object Lifecycle {
             private const val version = "2.2.0"
+            val livedata = "androidx.lifecycle:lifecycle-livedata-ktx:$version"
             val viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
         }
     }
@@ -36,6 +38,7 @@ object Dependencies {
 
     object Dagger {
         private const val version = "2.28"
+        val android = "com.google.dagger:dagger-android:$version"
         val core = "com.google.dagger:dagger:$version"
         val compiler = "com.google.dagger:dagger-compiler:$version"
         val processor = "com.google.dagger:dagger-android-processor:$version"
@@ -78,5 +81,20 @@ object Dependencies {
         val androidJunit = "androidx.test.ext:junit:1.1.2"
         val androidEspressoCore = "androidx.test.espresso:espresso-core:3.3.0"
         val truth = "com.google.truth:truth:1.0.1"
+        val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
+
+        object AndroidX {
+            val junit = "androidx.test.ext:junit:1.1.2"
+            val core = "androidx.arch.core:core-testing:2.1.0"
+            val fragment = "androidx.fragment:fragment-testing:1.2.4"
+        }
+
+        object Coroutines {
+            val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.2"
+        }
+
+        object Mockito {
+            val core = "org.mockito:mockito-core:2.25.1"
+        }
     }
 }

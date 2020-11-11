@@ -22,6 +22,15 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures {
+        viewBinding true
+        dataBinding true
+    }
+}
+
+kapt {
+    generateStubs = true
 }
 
 dependencies {
@@ -29,12 +38,9 @@ dependencies {
     implementation project(':repository')
 
     implementation Dependencies.Kotlin.stdlib
-    implementation Dependencies.AndroidX.coreKtx
-    implementation Dependencies.AndroidX.appCompat
-    implementation Dependencies.AndroidX.constraintLayout
-    implementation Dependencies.AndroidX.Lifecycle.viewmodel
 
-    implementation Dependencies.material
+    implementation Dependencies.AndroidX.appCompat
+    implementation Dependencies.AndroidX.Lifecycle.viewmodel
 
     implementation Dependencies.Coroutines.core
     implementation Dependencies.Coroutines.reactive
