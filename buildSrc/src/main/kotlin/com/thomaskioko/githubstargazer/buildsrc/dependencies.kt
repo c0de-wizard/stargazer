@@ -23,6 +23,7 @@ object Dependencies {
 
         object Lifecycle {
             private const val version = "2.2.0"
+            val livedata = "androidx.lifecycle:lifecycle-livedata-ktx:$version"
             val viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
         }
     }
@@ -80,6 +81,15 @@ object Dependencies {
         val androidEspressoCore = "androidx.test.espresso:espresso-core:3.3.0"
         val truth = "com.google.truth:truth:1.0.1"
         val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
+
+        object AndroidX {
+            val junit = "androidx.test.ext:junit:1.1.2"
+            val core = "androidx.arch.core:core-testing:2.1.0"
+        }
+
+        object Coroutines {
+            val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.2"
+        }
 
         object Mockito {
             val core = "org.mockito:mockito-core:2.25.1"
