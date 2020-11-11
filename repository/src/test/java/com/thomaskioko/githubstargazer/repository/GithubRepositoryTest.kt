@@ -3,8 +3,8 @@ package com.thomaskioko.githubstargazer.repository
 import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.whenever
-import com.thomaskioko.githubstargazer.repository.MockData.getRepoEntityList
-import com.thomaskioko.githubstargazer.repository.MockData.getRepoResponse
+import com.thomaskioko.githubstargazer.repository.MockData.makeRepoEntityList
+import com.thomaskioko.githubstargazer.repository.MockData.makeRepoResponse
 import com.thomaskioko.githubstargazer.repository.api.GithubRepository
 import com.thomaskioko.githubstargazer.repository.db.GithubDatabase
 import com.thomaskioko.githubstargazer.repository.db.dao.RepoDao
@@ -18,7 +18,7 @@ class GithubRepositoryTest {
 
     private val database = mock(GithubDatabase::class.java)
     private val repoDao = mock(RepoDao::class.java)
-    private val mockGitHubApi = MockGitHubApi().apply { repos = listOf(getRepoResponse()) }
+    private val mockGitHubApi = MockGitHubApi().apply { repos = listOf(makeRepoResponse()) }
 
     private lateinit var repository: GithubRepository
 
@@ -32,22 +32,22 @@ class GithubRepositoryTest {
     fun `givenDeviceIsConnected verify data isLoadedFrom Remote`() = runBlocking {
         val topRepos = repository.getTopRepos(true)
 
-        verify(database.repoDao()).insertRepos(getRepoEntityList())
+        verify(database.repoDao()).insertRepos(makeRepoEntityList())
 
         assertThat(topRepos.size).isEqualTo(1)
-        assertThat(topRepos).isEqualTo(getRepoEntityList())
+        assertThat(topRepos).isEqualTo(makeRepoEntityList())
     }
 
     @Test
     fun `givenDeviceIsNotConnected verify data isLoadedFrom Database`() = runBlocking {
 
-        whenever(repoDao.getRepos()).doReturn(getRepoEntityList())
+        whenever(repoDao.getRepos()).doReturn(makeRepoEntityList())
 
         val topRepos = repository.getTopRepos(false)
 
         verify(database.repoDao()).getRepos()
 
         assertThat(topRepos.size).isEqualTo(1)
-        assertThat(topRepos).isEqualTo(getRepoEntityList())
+        assertThat(topRepos).isEqualTo(makeRepoEntityList())
     }
 }
