@@ -21,6 +21,12 @@ interface RepoDao {
     @Query("SELECT * FROM repo where repoId = :repoId")
     suspend fun getRepoById(repoId: Long): RepoEntity
 
+    @Query("SELECT * FROM repo where isBookmarked = 1")
+    suspend fun getBookmarkedRepos(): List<RepoEntity>
+
+    @Query("UPDATE repo SET isBookmarked = :isBookmarked where repoId = :repoId")
+    suspend fun setBookmarkStatus(isBookmarked: Boolean, repoId: Long)
+
     @Query("DELETE FROM repo")
     suspend fun clearRepos()
 }
