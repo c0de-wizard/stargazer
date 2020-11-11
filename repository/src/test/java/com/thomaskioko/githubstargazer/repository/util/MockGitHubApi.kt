@@ -1,4 +1,4 @@
-package com.thomaskioko.githubstargazer.repository
+package com.thomaskioko.githubstargazer.repository.util
 
 import com.thomaskioko.githubstargazer.repository.api.model.RepoResponse
 import com.thomaskioko.githubstargazer.repository.api.model.TopReposResponse

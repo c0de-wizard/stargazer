@@ -1,7 +1,7 @@
 package com.thomaskioko.githubstargazer.repository.mapper
 
 import com.google.common.truth.Truth.*
-import com.thomaskioko.githubstargazer.repository.MockData.makeTopReposResponse
+import com.thomaskioko.githubstargazer.repository.util.MockData.makeTopReposResponse
 import com.thomaskioko.githubstargazer.repository.mapper.RepositoryMapper.mapResponseToEntityList
 import org.junit.Test
 

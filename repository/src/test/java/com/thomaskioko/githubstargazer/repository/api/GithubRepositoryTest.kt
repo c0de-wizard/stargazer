@@ -1,11 +1,11 @@
-package com.thomaskioko.githubstargazer.repository
+package com.thomaskioko.githubstargazer.repository.api
 
 import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.whenever
-import com.thomaskioko.githubstargazer.repository.MockData.makeRepoEntityList
-import com.thomaskioko.githubstargazer.repository.MockData.makeRepoResponse
-import com.thomaskioko.githubstargazer.repository.api.GithubRepository
+import com.thomaskioko.githubstargazer.repository.util.MockData.makeRepoEntityList
+import com.thomaskioko.githubstargazer.repository.util.MockData.makeRepoResponse
+import com.thomaskioko.githubstargazer.repository.util.MockGitHubApi
 import com.thomaskioko.githubstargazer.repository.db.GithubDatabase
 import com.thomaskioko.githubstargazer.repository.db.dao.RepoDao
 import kotlinx.coroutines.runBlocking
