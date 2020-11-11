@@ -19,7 +19,7 @@ interface RepoDao {
     suspend fun getRepos(): List<RepoEntity>
 
     @Query("SELECT * FROM repo where repoId = :repoId")
-    suspend fun getRepoById(repoId: Int): RepoEntity
+    suspend fun getRepoById(repoId: Long): RepoEntity
 
     @Query("DELETE FROM repo")
     suspend fun clearRepos()
