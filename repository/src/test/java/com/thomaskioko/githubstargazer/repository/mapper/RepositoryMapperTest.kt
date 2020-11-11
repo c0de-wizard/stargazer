@@ -1,7 +1,7 @@
 package com.thomaskioko.githubstargazer.repository.mapper
 
 import com.google.common.truth.Truth.*
-import com.thomaskioko.githubstargazer.repository.util.MockData.makeTopReposResponse
+import com.thomaskioko.githubstargazer.repository.util.MockData.makeRepoResponseList
 import com.thomaskioko.githubstargazer.repository.mapper.RepositoryMapper.mapResponseToEntityList
 import org.junit.Test
 
@@ -10,13 +10,13 @@ internal class RepositoryMapperTest {
     @Test
     fun `givenResponseList dataIsMappedTo EntityList`(){
 
-        val topReposResponse = makeTopReposResponse()
-        val entityList = mapResponseToEntityList(topReposResponse)
+        val reposResponse = makeRepoResponseList()
+        val entityList = mapResponseToEntityList(reposResponse)
 
-        val response = topReposResponse[0]
+        val response = reposResponse[0]
         val entity = entityList[0]
 
-        assertThat(topReposResponse.size).isEqualTo(entityList.size)
+        assertThat(reposResponse.size).isEqualTo(entityList.size)
         assertThat(response.id).isEqualTo(entity.repoId)
         assertThat(response.name).isEqualTo(entity.name)
         assertThat(response.owner.login).isEqualTo(entity.userName)

@@ -13,9 +13,9 @@ class GithubRepository @Inject constructor(
     private val database: GithubDatabase
 ) {
 
-    suspend fun getTopRepos(isConnected: Boolean): List<RepoEntity> {
+    suspend fun getRepos(isConnected: Boolean): List<RepoEntity> {
         return if (isConnected) {
-            val response = service.getTopRepositories()
+            val response = service.getRepositories()
             val entityList = mapResponseToEntityList(response)
             database.repoDao().insertRepos(entityList)
             database.repoDao().getRepos()

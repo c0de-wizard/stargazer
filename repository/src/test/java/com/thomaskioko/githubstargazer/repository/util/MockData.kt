@@ -18,7 +18,7 @@ object MockData {
         updatedDate = "1/11/1900"
     )
 
-    fun makeTopReposResponse() = listOf(
+    fun makeRepoResponseList() = listOf(
             RepoResponse(
                 id = 1L,
                 name = "Square",

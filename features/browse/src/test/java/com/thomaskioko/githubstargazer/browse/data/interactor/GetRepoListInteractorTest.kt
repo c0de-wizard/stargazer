@@ -22,7 +22,7 @@ internal class GetRepoListInteractorTest {
 
     @Test
     fun `whenever getReposIsInvoked expectedDataIsReturned`() = runBlocking {
-        whenever(repository.getTopRepos(true)).doReturn(makeRepoEntityList())
+        whenever(repository.getRepos(true)).doReturn(makeRepoEntityList())
 
         val expected = interactor(true).toList()
         val result = listOf(

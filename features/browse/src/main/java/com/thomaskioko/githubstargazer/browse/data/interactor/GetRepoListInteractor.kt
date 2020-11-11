@@ -18,7 +18,7 @@ class GetRepoListInteractor @Inject constructor(
 
         emit(ViewState.loading())
 
-        val result = repository.getTopRepos(params)
+        val result = repository.getRepos(params)
             .map { mapEntityToRepoViewModel(it) }
 
         emit(ViewState.success(result))

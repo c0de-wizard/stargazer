@@ -6,5 +6,5 @@ import retrofit2.http.GET
 interface GitHubService {
 
     @GET("orgs/square/repos")
-    suspend fun getTopRepositories(): List<RepoResponse>
+    suspend fun getRepositories(): List<RepoResponse>
 }

@@ -10,7 +10,7 @@ class MockGitHubApi @Inject constructor() : GitHubService {
 
     var repos = listOf<RepoResponse>()
 
-    override suspend fun getTopRepositories(): List<RepoResponse> {
+    override suspend fun getRepositories(): List<RepoResponse> {
         return repos
     }
 }
