@@ -2,11 +2,13 @@ import com.thomaskioko.githubstargazer.buildsrc.Dependencies
 
 apply from: "${rootDir}/gradle/android-build-config.gradle"
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 dependencies {
 
     implementation project(':core')
     implementation project(':repository')
+    implementation project(':features:browse')
 
     implementation Dependencies.Kotlin.stdlib
     implementation Dependencies.AndroidX.coreKtx
@@ -14,6 +16,7 @@ dependencies {
     implementation Dependencies.AndroidX.constraintLayout
 
     implementation Dependencies.material
+    implementation Dependencies.timber
 
     implementation Dependencies.Dagger.core
     implementation Dependencies.Dagger.support
