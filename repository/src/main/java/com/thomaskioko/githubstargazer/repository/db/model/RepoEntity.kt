@@ -17,5 +17,6 @@ data class RepoEntity(
     val forksCount: Int,
     val contributorsUrl: String,
     val createdDate: String,
-    val updatedDate: String
+    val updatedDate: String,
+    val isBookmarked: Boolean = false
 )

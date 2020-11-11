@@ -14,6 +14,7 @@ object ViewDataMapper {
         forksCount = entity.forksCount,
         contributorsUrl = entity.contributorsUrl,
         createdDate = entity.createdDate,
-        updatedDate = entity.updatedDate
+        updatedDate = entity.updatedDate,
+        isBookmarked = entity.isBookmarked
     )
 }

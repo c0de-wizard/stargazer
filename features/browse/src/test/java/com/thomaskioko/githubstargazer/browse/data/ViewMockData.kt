@@ -15,7 +15,8 @@ object ViewMockData {
             forksCount = 1,
             contributorsUrl = "",
             createdDate = "1/11/1900",
-            updatedDate = "1/11/1900"
+            updatedDate = "1/11/1900",
+            isBookmarked = false
         )
     )
 
@@ -30,7 +31,8 @@ object ViewMockData {
             forksCount = 1,
             contributorsUrl = "",
             createdDate = "1/11/1900",
-            updatedDate = "1/11/1900"
+            updatedDate = "1/11/1900",
+            isBookmarked = false
         )
     )
 }
