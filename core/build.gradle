@@ -29,12 +29,8 @@ dependencies {
     implementation project(':repository')
 
     implementation Dependencies.Kotlin.stdlib
-    implementation Dependencies.AndroidX.coreKtx
-    implementation Dependencies.AndroidX.appCompat
-    implementation Dependencies.AndroidX.constraintLayout
-    implementation Dependencies.AndroidX.Lifecycle.viewmodel
 
-    implementation Dependencies.material
+    implementation Dependencies.AndroidX.Lifecycle.viewmodel
 
     implementation Dependencies.Coroutines.core
     implementation Dependencies.Coroutines.reactive

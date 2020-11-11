@@ -26,6 +26,8 @@ dependencies {
 
     implementation Dependencies.OkHttp.loggingInterceptor
 
+    implementation Dependencies.Room.roomKtx
+
     testImplementation Dependencies.Testing.junit
     androidTestImplementation Dependencies.Testing.androidJunit
     androidTestImplementation Dependencies.Testing.androidEspressoCore
