@@ -52,7 +52,14 @@ dependencies {
     kapt Dependencies.Dagger.compiler
     kapt Dependencies.Dagger.processor
 
+    testImplementation Dependencies.Testing.Coroutines.test
+
     testImplementation Dependencies.Testing.junit
+    testImplementation Dependencies.Testing.truth
+    testImplementation Dependencies.Testing.mockitoKotlin
+
+    testImplementation Dependencies.Testing.Mockito.core
+
     androidTestImplementation Dependencies.Testing.androidJunit
     androidTestImplementation Dependencies.Testing.androidEspressoCore
 }
