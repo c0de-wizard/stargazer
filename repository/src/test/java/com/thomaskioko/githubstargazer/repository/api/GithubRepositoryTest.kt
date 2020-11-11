@@ -30,12 +30,14 @@ class GithubRepositoryTest {
 
     @Test
     fun `givenDeviceIsConnected verify data isLoadedFrom Remote`() = runBlocking {
-        val topRepos = repository.getTopRepos(true)
+        whenever(repoDao.getRepos()).doReturn(makeRepoEntityList())
+
+        val repos = repository.getRepos(true)
 
         verify(database.repoDao()).insertRepos(makeRepoEntityList())
 
-        assertThat(topRepos.size).isEqualTo(1)
-        assertThat(topRepos).isEqualTo(makeRepoEntityList())
+        assertThat(repos.size).isEqualTo(1)
+        assertThat(repos).isEqualTo(makeRepoEntityList())
     }
 
     @Test
@@ -43,11 +45,11 @@ class GithubRepositoryTest {
 
         whenever(repoDao.getRepos()).doReturn(makeRepoEntityList())
 
-        val topRepos = repository.getTopRepos(false)
+        val repos = repository.getRepos(false)
 
         verify(database.repoDao()).getRepos()
 
-        assertThat(topRepos.size).isEqualTo(1)
-        assertThat(topRepos).isEqualTo(makeRepoEntityList())
+        assertThat(repos.size).isEqualTo(1)
+        assertThat(repos).isEqualTo(makeRepoEntityList())
     }
 }
