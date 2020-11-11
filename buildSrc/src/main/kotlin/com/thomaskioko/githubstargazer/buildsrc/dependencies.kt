@@ -86,6 +86,7 @@ object Dependencies {
         object AndroidX {
             val junit = "androidx.test.ext:junit:1.1.2"
             val core = "androidx.arch.core:core-testing:2.1.0"
+            val fragment = "androidx.fragment:fragment-testing:1.2.4"
         }
 
         object Coroutines {
