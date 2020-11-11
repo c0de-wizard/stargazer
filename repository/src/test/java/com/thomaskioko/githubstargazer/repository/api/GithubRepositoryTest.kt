@@ -11,8 +11,7 @@ import com.thomaskioko.githubstargazer.repository.db.dao.RepoDao
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.verify
+import org.mockito.Mockito.*
 
 class GithubRepositoryTest {
 
@@ -64,5 +63,36 @@ class GithubRepositoryTest {
         verify(database.repoDao()).getRepoById(expected.repoId)
 
         assertThat(repoEntity).isEqualTo(expected)
+    }
+
+    @Test
+    fun `wheneverGetBookmarkedRepos verify data isLoadedFrom Database`() = runBlocking {
+
+        whenever(repoDao.getBookmarkedRepos()).doReturn(makeRepoEntityList())
+
+        val repoEntity = repository.getBookmarkedRepos()
+
+        verify(database.repoDao()).getBookmarkedRepos()
+
+        assertThat(repoEntity).isEqualTo(makeRepoEntityList())
+    }
+
+    @Test
+    fun `wheneverUpdateRepo verify data isLoadedFrom Database`() = runBlocking {
+        val entity = makeRepoEntityList()[0]
+
+        whenever(repoDao.setBookmarkStatus(anyBoolean(), anyLong())).doReturn(Unit)
+        whenever(repoDao.getRepoById(anyLong())).doReturn(entity)
+
+        repoDao.insertRepo(entity)
+
+        repository.updateRepoBookMarkStatus(entity.repoId, true)
+
+        val repoEntity = repository.getRepoById(entity.repoId)
+
+        verify(database.repoDao()).getRepoById(entity.repoId)
+
+        assertThat(repoEntity).isEqualTo(entity)
+        assertThat(repoEntity.isBookmarked).isEqualTo(entity.isBookmarked)
     }
 }

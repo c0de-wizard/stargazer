@@ -79,4 +79,29 @@ internal class RepoDaoTest {
 
         assertNull(repo)
     }
+
+    @Test
+    fun givenIsUpdated_verifyLatestDataIsReturned_onGetBookmarkedRepos() = runBlocking {
+
+        val list = listOf(
+            makeRepoEntity(12314),
+            makeRepoEntity(12)
+        )
+
+        database.repoDao().insertRepos(list)
+
+        val repo = database.repoDao().getRepoById(12314)
+        assertEquals(repo.isBookmarked, false)
+
+        //Update repo bookMarkState
+        database.repoDao().setBookmarkStatus(true, 12314)
+
+        val bookMarkList = database.repoDao().getBookmarkedRepos()
+        assertEquals(bookMarkList.size, 1)
+
+        val updatedRepo = database.repoDao().getRepoById(12314)
+
+        assertEquals(updatedRepo.isBookmarked, true)
+    }
+
 }

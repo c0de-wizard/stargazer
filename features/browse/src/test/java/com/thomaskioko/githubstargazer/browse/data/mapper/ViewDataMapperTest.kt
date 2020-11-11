@@ -27,5 +27,6 @@ internal class ViewDataMapperTest {
         assertThat(entity.contributorsUrl).isEqualTo(viewDataModel.contributorsUrl)
         assertThat(entity.createdDate).isEqualTo(viewDataModel.createdDate)
         assertThat(entity.updatedDate).isEqualTo(viewDataModel.updatedDate)
+        assertThat(entity.isBookmarked).isEqualTo(viewDataModel.isBookmarked)
     }
 }
