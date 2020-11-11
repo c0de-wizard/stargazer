@@ -5,6 +5,7 @@
     <application >
         <activity android:name=".ui.RepoActivity">
             <intent-filter>
+                <action android:name="com.thomaskioko.githubstargazer.browse.ui.open" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
