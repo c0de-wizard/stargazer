@@ -13,10 +13,10 @@ internal class RepositoryMapperTest {
         val topReposResponse = makeTopReposResponse()
         val entityList = mapResponseToEntityList(topReposResponse)
 
-        val response = topReposResponse.items[0]
+        val response = topReposResponse[0]
         val entity = entityList[0]
 
-        assertThat(topReposResponse.items.size).isEqualTo(entityList.size)
+        assertThat(topReposResponse.size).isEqualTo(entityList.size)
         assertThat(response.id).isEqualTo(entity.repoId)
         assertThat(response.name).isEqualTo(entity.name)
         assertThat(response.owner.login).isEqualTo(entity.userName)

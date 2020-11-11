@@ -1,7 +1,6 @@
 package com.thomaskioko.githubstargazer.repository.util
 
 import com.thomaskioko.githubstargazer.repository.api.model.RepoResponse
-import com.thomaskioko.githubstargazer.repository.api.model.TopReposResponse
 import com.thomaskioko.githubstargazer.repository.api.model.UserResponse
 import com.thomaskioko.githubstargazer.repository.db.model.RepoEntity
 
@@ -19,8 +18,7 @@ object MockData {
         updatedDate = "1/11/1900"
     )
 
-    fun makeTopReposResponse() = TopReposResponse (
-        items = listOf(
+    fun makeTopReposResponse() = listOf(
             RepoResponse(
                 id = 1L,
                 name = "Square",
@@ -33,7 +31,6 @@ object MockData {
                 updatedDate = "1/11/1900"
             )
         )
-    )
 
     fun makeRepoEntityList() = listOf(
         RepoEntity(
