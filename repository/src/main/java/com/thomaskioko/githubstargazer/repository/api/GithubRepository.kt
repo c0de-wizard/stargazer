@@ -18,7 +18,7 @@ class GithubRepository @Inject constructor(
             val response = service.getTopRepositories()
             val entityList = mapResponseToEntityList(response)
             database.repoDao().insertRepos(entityList)
-            entityList
+            database.repoDao().getRepos()
         } else {
             database.repoDao().getRepos()
         }
