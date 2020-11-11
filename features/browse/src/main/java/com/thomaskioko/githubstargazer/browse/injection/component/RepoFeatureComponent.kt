@@ -4,18 +4,14 @@ import com.thomaskioko.githubstargazer.browse.injection.module.ReposViewModelMod
 import com.thomaskioko.githubstargazer.browse.ui.RepoListFragment
 import com.thomaskioko.githubstargazer.core.injection.component.ApplicationDependencies
 import com.thomaskioko.githubstargazer.core.injection.component.applicationDependencies
-import com.thomaskioko.githubstargazer.core.injection.module.CoreModule
 import com.thomaskioko.githubstargazer.core.injection.scope.ScreenScope
-import com.thomaskioko.githubstargazer.core.injection.viewmodel.getComponent
-import com.thomaskioko.githubstargazer.repository.injection.DatabaseModule
+import com.thomaskioko.githubstargazer.core.viewmodel.getComponent
 import dagger.Component
 
 @ScreenScope
 @Component(
     dependencies = [ApplicationDependencies::class],
     modules = [
-        CoreModule::class,
-        DatabaseModule::class,
         ReposViewModelModule::class
     ]
 )
