@@ -27,6 +27,13 @@ object Dependencies {
             val livedata = "androidx.lifecycle:lifecycle-livedata-ktx:$version"
             val viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
         }
+
+        object Navigation {
+            private const val version = "2.3.0"
+            val fragment = "androidx.navigation:navigation-fragment-ktx:$version"
+            val runtime = "androidx.navigation:navigation-runtime-ktx:$version"
+            val ui = "androidx.navigation:navigation-ui-ktx:$version"
+        }
     }
 
     object Coroutines {
