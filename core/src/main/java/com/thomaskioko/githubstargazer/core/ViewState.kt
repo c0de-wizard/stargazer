@@ -1,4 +1,4 @@
-package com.thomaskioko.githubstargazer.core.injection
+package com.thomaskioko.githubstargazer.core
 
 /**
  * Describes state of the view at any

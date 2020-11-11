@@ -1,6 +1,6 @@
-package com.thomaskioko.githubstargazer.core.injection.interactor
+package com.thomaskioko.githubstargazer.core.interactor
 
-import com.thomaskioko.githubstargazer.core.injection.ViewState
+import com.thomaskioko.githubstargazer.core.ViewState
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
