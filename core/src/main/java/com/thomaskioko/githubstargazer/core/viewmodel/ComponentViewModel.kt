@@ -1,4 +1,4 @@
-package com.thomaskioko.githubstargazer.core.injection.viewmodel
+package com.thomaskioko.githubstargazer.core.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
