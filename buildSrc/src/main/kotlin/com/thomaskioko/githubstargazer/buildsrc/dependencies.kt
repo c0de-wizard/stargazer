@@ -15,6 +15,7 @@ object BuildVersions {
 object Dependencies {
 
     val material = "com.google.android.material:material:1.2.1"
+    val timber = "com.jakewharton.timber:timber:4.5.1"
 
     object AndroidX {
         val appCompat = "androidx.appcompat:appcompat:1.1.0"
