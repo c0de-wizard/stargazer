@@ -41,6 +41,7 @@ dependencies {
     implementation Dependencies.AndroidX.coreKtx
     implementation Dependencies.AndroidX.appCompat
     implementation Dependencies.AndroidX.constraintLayout
+    implementation Dependencies.AndroidX.Lifecycle.livedata
     implementation Dependencies.AndroidX.Lifecycle.viewmodel
 
     implementation Dependencies.material
@@ -53,14 +54,13 @@ dependencies {
     kapt Dependencies.Dagger.compiler
     kapt Dependencies.Dagger.processor
 
-    testImplementation Dependencies.Testing.Coroutines.test
-
     testImplementation Dependencies.Testing.junit
     testImplementation Dependencies.Testing.truth
     testImplementation Dependencies.Testing.mockitoKotlin
-
     testImplementation Dependencies.Testing.Mockito.core
+    testImplementation Dependencies.Testing.AndroidX.core
+    testImplementation Dependencies.Testing.Coroutines.test
 
-    androidTestImplementation Dependencies.Testing.androidJunit
+    androidTestImplementation Dependencies.Testing.AndroidX.junit
     androidTestImplementation Dependencies.Testing.androidEspressoCore
 }
