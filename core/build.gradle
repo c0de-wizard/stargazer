@@ -22,6 +22,15 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures {
+        viewBinding true
+        dataBinding true
+    }
+}
+
+kapt {
+    generateStubs = true
 }
 
 dependencies {
@@ -30,6 +39,7 @@ dependencies {
 
     implementation Dependencies.Kotlin.stdlib
 
+    implementation Dependencies.AndroidX.appCompat
     implementation Dependencies.AndroidX.Lifecycle.viewmodel
 
     implementation Dependencies.Coroutines.core
