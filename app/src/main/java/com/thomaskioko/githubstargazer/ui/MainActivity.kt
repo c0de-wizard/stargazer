@@ -3,7 +3,7 @@ package com.thomaskioko.githubstargazer.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.thomaskioko.githubstargazer.R
-import com.thomaskioko.githubstargazer.ui.navigation.NavigationRoute
+import com.thomaskioko.stargazer.actions.NavigationRoute
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

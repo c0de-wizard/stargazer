@@ -10,6 +10,7 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.thomaskioko.githubstargazer.browse.data.ViewMockData.makeRepoViewDataModelList
 import com.thomaskioko.githubstargazer.browse.data.interactor.GetRepoByIdInteractor
 import com.thomaskioko.githubstargazer.browse.data.interactor.GetRepoListInteractor
+import com.thomaskioko.githubstargazer.browse.data.interactor.UpdateRepoBookmarkStateInteractor
 import com.thomaskioko.githubstargazer.browse.data.model.RepoViewDataModel
 import com.thomaskioko.githubstargazer.browse.ui.util.CoroutineScopeRule
 import com.thomaskioko.githubstargazer.core.ViewState
@@ -23,10 +24,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 import org.mockito.ArgumentCaptor
-import org.mockito.ArgumentMatchers.anyBoolean
-import org.mockito.ArgumentMatchers.anyLong
 import org.mockito.Captor
-import org.mockito.Mockito
+import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
 
 @ExperimentalCoroutinesApi
@@ -46,6 +45,7 @@ internal class GetReposViewModelTest {
 
     private val interactor: GetRepoListInteractor = mock()
     private val getRepoByIdInteractor: GetRepoByIdInteractor = mock()
+    private val bookmarkStateInteractor: UpdateRepoBookmarkStateInteractor = mock()
     private val stateObserverList: Observer<ViewState<List<RepoViewDataModel>>> = mock()
     private val stateObserver: Observer<ViewState<RepoViewDataModel>> = mock()
 
@@ -55,7 +55,7 @@ internal class GetReposViewModelTest {
     fun before() {
         MockitoAnnotations.initMocks(this)
 
-        viewModel = GetReposViewModel(interactor, getRepoByIdInteractor)
+        viewModel = GetReposViewModel(interactor, getRepoByIdInteractor, bookmarkStateInteractor)
     }
 
     @Test
@@ -75,7 +75,7 @@ internal class GetReposViewModelTest {
 
             coroutineScope.advanceTimeBy(10)
 
-            verify(stateObserverList, Mockito.times(2))
+            verify(stateObserverList, times(2))
                 .onChanged(captorList.capture()) // onchange has been triggered twice
 
             verify(stateObserverList).onChanged(ViewState.success(makeRepoViewDataModelList()))
@@ -109,7 +109,7 @@ internal class GetReposViewModelTest {
 
             coroutineScope.advanceTimeBy(10)
 
-            verify(stateObserverList, Mockito.times(2))
+            verify(stateObserverList, times(2))
                 .onChanged(captorList.capture()) // onchange has been triggered twice
 
             verify(stateObserverList).onChanged(ViewState.Error(errorMessage))
@@ -136,7 +136,7 @@ internal class GetReposViewModelTest {
 
             coroutineScope.advanceTimeBy(10)
 
-            verify(stateObserver, Mockito.times(2))
+            verify(stateObserver, times(2))
                 .onChanged(captor.capture()) // onchange has been triggered twice
 
             verify(stateObserver).onChanged(ViewState.success(repoViewDataModel))
@@ -170,7 +170,7 @@ internal class GetReposViewModelTest {
 
             coroutineScope.advanceTimeBy(10)
 
-            verify(stateObserver, Mockito.times(2))
+            verify(stateObserver, times(2))
                 .onChanged(captor.capture()) // onchange has been triggered twice
 
             verify(stateObserver).onChanged(ViewState.Error(errorMessage))

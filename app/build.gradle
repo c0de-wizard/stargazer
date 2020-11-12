@@ -8,7 +8,9 @@ dependencies {
 
     implementation project(':core')
     implementation project(':repository')
+    implementation project(':navigator')
     implementation project(':features:browse')
+    implementation project(':features:bookmarks')
 
     implementation Dependencies.Kotlin.stdlib
     implementation Dependencies.AndroidX.coreKtx
