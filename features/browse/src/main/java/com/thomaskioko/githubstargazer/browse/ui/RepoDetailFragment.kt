@@ -6,14 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.thomaskioko.githubstargazer.browse.data.model.RepoViewDataModel
+import com.thomaskioko.githubstargazer.browse.data.model.UpdateObject
 import com.thomaskioko.githubstargazer.browse.databinding.FragmentRepoDetailBinding
 import com.thomaskioko.githubstargazer.browse.injection.component.inject
 import com.thomaskioko.githubstargazer.browse.ui.viewmodel.GetReposViewModel
 import com.thomaskioko.githubstargazer.core.ViewState
 import com.thomaskioko.githubstargazer.core.extensions.injectViewModel
 import com.thomaskioko.githubstargazer.core.viewmodel.AppViewModelFactory
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -26,7 +30,8 @@ class RepoDetailFragment : Fragment() {
     private val args: RepoDetailFragmentArgs by navArgs()
 
     private lateinit var binding: FragmentRepoDetailBinding
-    
+    private lateinit var viewDataModel: RepoViewDataModel
+
     override fun onAttach(context: Context) {
         inject()
         super.onAttach(context)
@@ -40,9 +45,21 @@ class RepoDetailFragment : Fragment() {
             viewmodel = injectViewModel<GetReposViewModel>(viewModelFactory).apply {
                 repoId = args.repoId
                 getRepoById().observe(viewLifecycleOwner) { handleViewStateResult(it) }
+
+                floatingActionButton.setOnClickListener { handleButtonClick(this) }
             }
         }
         return binding.root
+    }
+
+    private fun handleButtonClick(viewModel: GetReposViewModel) {
+        val isBookmarked = if (viewDataModel.isBookmarked) viewDataModel.isBookmarked else true
+        lifecycleScope.launch {
+            viewModel.updateBookmarkState(
+                UpdateObject(args.repoId, isBookmarked)
+            )
+                .collect { handleViewStateResult(it) }
+        }
     }
 
     private fun handleViewStateResult(viewState: ViewState<RepoViewDataModel>) {
@@ -51,6 +68,7 @@ class RepoDetailFragment : Fragment() {
             is ViewState.Success -> {
                 binding.loadingBar.visibility = View.GONE
                 binding.repo = viewState.data
+                viewDataModel = viewState.data
             }
             is ViewState.Error -> {
                 binding.loadingBar.visibility = View.GONE
