@@ -54,4 +54,4 @@ This is a dumb layer that simply acts as a route between modules using intent ac
 	- [x] Room.
 - [x] Load and display repositories.
 - [x] Bookmark repo.
-- [ ] Cleanup: Create common module: Contains shared UI classes.
+- [x] Cleanup: Create common module: Contains shared UI classes.
