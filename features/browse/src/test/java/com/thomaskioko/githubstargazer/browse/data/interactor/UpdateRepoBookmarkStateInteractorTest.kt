@@ -28,15 +28,13 @@ internal class UpdateRepoBookmarkStateInteractorTest {
         whenever(repository.getRepoById(anyLong())).doReturn(makeRepoEntityList()[0])
 
         val updateObject = UpdateObject(anyLong(), anyBoolean())
-        val expected = interactor(updateObject).toList()
-        val result = listOf(
+
+        val result = interactor(updateObject).toList()
+        val expected = listOf(
             ViewState.Loading(),
             ViewState.Success(makeRepoViewDataModelList()[0])
         )
 
-        interactor(updateObject)
-            .collect {
-                assertThat(expected).isEqualTo(result)
-            }
+        assertThat(result).isEqualTo(expected)
     }
 }

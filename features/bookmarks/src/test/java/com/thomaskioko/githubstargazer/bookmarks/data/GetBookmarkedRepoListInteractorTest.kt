@@ -26,15 +26,12 @@ internal class GetBookmarkedRepoListInteractorTest {
     fun `whenever getBookmarkedRepos expectedDataIsReturned`() = runBlocking {
         whenever(repository.getBookmarkedRepos()).doReturn(makeRepoEntityList())
 
-        val expected = interactor().toList()
-        val result = listOf(
+        val result = interactor().toList()
+        val expected = listOf(
             ViewState.Loading(),
             ViewState.Success(makeRepoViewDataModelList())
         )
 
-        interactor()
-            .collect {
-                assertThat(expected).isEqualTo(result)
-            }
+        assertThat(expected).isEqualTo(result)
     }
 }

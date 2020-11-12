@@ -23,6 +23,9 @@ jobs:
         with:
           java-version: 1.8
 
+      - name: Clean Build Cache
+        run: bash ./gradlew cleanBuildCache
+
       - name: Unit tests
         run: bash ./gradlew test --stacktrace
 

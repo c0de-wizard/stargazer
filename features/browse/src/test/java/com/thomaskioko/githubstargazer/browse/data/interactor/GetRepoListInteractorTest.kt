@@ -24,15 +24,12 @@ internal class GetRepoListInteractorTest {
     fun `whenever getReposIsInvoked expectedDataIsReturned`() = runBlocking {
         whenever(repository.getRepos(true)).doReturn(makeRepoEntityList())
 
-        val expected = interactor(true).toList()
-        val result = listOf(
+        val result = interactor(true).toList()
+        val expected = listOf(
             ViewState.Loading(),
             ViewState.Success(makeRepoViewDataModelList())
         )
 
-        interactor(true)
-            .collect {
-                assertThat(expected).isEqualTo(result)
-            }
+        assertThat(result).isEqualTo(expected)
     }
 }
