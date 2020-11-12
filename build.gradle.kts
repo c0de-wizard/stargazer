@@ -1,7 +1,6 @@
 import com.thomaskioko.githubstargazer.buildsrc.extensions.applyDefault
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-
 // all projects = root project + sub projects
 allprojects {
     repositories.applyDefault()
@@ -20,4 +19,3 @@ subprojects {
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
 }
-

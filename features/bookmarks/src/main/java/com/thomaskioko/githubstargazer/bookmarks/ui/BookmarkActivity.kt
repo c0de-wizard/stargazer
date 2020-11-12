@@ -1,7 +1,7 @@
 package com.thomaskioko.githubstargazer.bookmarks.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.thomaskioko.githubstargazer.bookmarks.R
 
 class BookmarkActivity : AppCompatActivity() {

@@ -13,5 +13,4 @@ object DatabaseModule {
 
     @Provides
     fun provideRepoDao(db: GithubDatabase) = db.repoDao()
-
 }

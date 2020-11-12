@@ -7,7 +7,6 @@ import androidx.room.RoomDatabase
 import com.thomaskioko.githubstargazer.repository.db.dao.RepoDao
 import com.thomaskioko.githubstargazer.repository.db.model.RepoEntity
 
-
 @Database(
     entities = [
         RepoEntity::class

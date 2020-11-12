@@ -14,5 +14,4 @@ interface ReposViewModelModule {
     @IntoMap
     @ViewModelKey(GetReposViewModel::class)
     fun bindViewModel(homeViewModel: GetReposViewModel): ViewModel
-
 }

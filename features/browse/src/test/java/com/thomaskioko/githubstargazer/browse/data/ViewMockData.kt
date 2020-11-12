@@ -1,7 +1,7 @@
 package com.thomaskioko.githubstargazer.browse.data
 
-import com.thomaskioko.githubstargazer.browse.data.model.RepoViewDataModel
 import com.thomaskioko.githubstargazer.repository.db.model.RepoEntity
+import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
 
 object ViewMockData {
 
@@ -10,7 +10,7 @@ object ViewMockData {
             repoId = 1L,
             name = "Square",
             description = "Some cool description about the app",
-            userName =  "ninja",
+            userName = "ninja",
             stargazersCount = 1,
             forksCount = 1,
             contributorsUrl = "",
@@ -26,7 +26,7 @@ object ViewMockData {
             repoId = 1L,
             name = "Square",
             description = "Some cool description about the app",
-            userName =  "ninja",
+            userName = "ninja",
             stargazersCount = 1,
             forksCount = 1,
             contributorsUrl = "",
@@ -34,5 +34,32 @@ object ViewMockData {
             updatedDate = "1/11/1900",
             isBookmarked = false
         )
+    )
+
+    fun makeRepoEntity() = RepoEntity(
+        id = 2,
+        repoId = 1L,
+        name = "Square",
+        description = "Some cool description about the app",
+        userName = "ninja",
+        stargazersCount = 1,
+        forksCount = 1,
+        contributorsUrl = "",
+        createdDate = "1/11/1900",
+        updatedDate = "1/11/1900",
+        isBookmarked = false
+    )
+
+    fun makeRepoViewDataModel() = RepoViewDataModel(
+        repoId = 1L,
+        name = "Square",
+        description = "Some cool description about the app",
+        userName = "ninja",
+        stargazersCount = 1,
+        forksCount = 1,
+        contributorsUrl = "",
+        createdDate = "1/11/1900",
+        updatedDate = "1/11/1900",
+        isBookmarked = false
     )
 }

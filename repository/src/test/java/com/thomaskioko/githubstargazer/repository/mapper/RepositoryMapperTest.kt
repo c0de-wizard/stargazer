@@ -1,14 +1,14 @@
 package com.thomaskioko.githubstargazer.repository.mapper
 
 import com.google.common.truth.Truth.*
-import com.thomaskioko.githubstargazer.repository.util.MockData.makeRepoResponseList
 import com.thomaskioko.githubstargazer.repository.mapper.RepositoryMapper.mapResponseToEntityList
+import com.thomaskioko.githubstargazer.repository.util.MockData.makeRepoResponseList
 import org.junit.Test
 
 internal class RepositoryMapperTest {
 
     @Test
-    fun `givenResponseList dataIsMappedTo EntityList`(){
+    fun `givenResponseList dataIsMappedTo EntityList`() {
 
         val reposResponse = makeRepoResponseList()
         val entityList = mapResponseToEntityList(reposResponse)

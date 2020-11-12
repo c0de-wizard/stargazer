@@ -1,7 +1,7 @@
-package com.thomaskioko.githubstargazer.browse.data.mapper
+package com.thomaskioko.stargazer.common_ui.mapper
 
-import com.thomaskioko.githubstargazer.browse.data.model.RepoViewDataModel
 import com.thomaskioko.githubstargazer.repository.db.model.RepoEntity
+import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
 
 object ViewDataMapper {
 

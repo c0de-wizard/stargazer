@@ -1,7 +1,7 @@
 package com.thomaskioko.githubstargazer.bookmarks
 
-import com.thomaskioko.githubstargazer.bookmarks.data.model.RepoViewDataModel
 import com.thomaskioko.githubstargazer.repository.db.model.RepoEntity
+import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
 
 object ViewMockData {
 
@@ -10,7 +10,7 @@ object ViewMockData {
             repoId = 1L,
             name = "Square",
             description = "Some cool description about the app",
-            userName =  "ninja",
+            userName = "ninja",
             stargazersCount = 1,
             forksCount = 1,
             contributorsUrl = "",
@@ -26,7 +26,7 @@ object ViewMockData {
             repoId = 1L,
             name = "Square",
             description = "Some cool description about the app",
-            userName =  "ninja",
+            userName = "ninja",
             stargazersCount = 1,
             forksCount = 1,
             contributorsUrl = "",
