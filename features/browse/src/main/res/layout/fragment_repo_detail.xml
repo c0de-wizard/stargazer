@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:src="@drawable/ic_add_bookmark_24"
+            android:src="@{repo.isBookmarked ? @drawable/ic_bookmarked_24 : @drawable/ic_add_bookmark_24}"
             app:backgroundTint="?attr/colorAccent"
             app:borderWidth="0dp"
             app:elevation="6dp"
