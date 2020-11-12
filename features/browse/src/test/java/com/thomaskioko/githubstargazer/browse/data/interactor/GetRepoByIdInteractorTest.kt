@@ -27,13 +27,13 @@ internal class GetRepoByIdInteractorTest {
     fun `whenever getRepoByIdIsInvoked expectedDataIsReturned`() = runBlocking {
         whenever(repository.getRepoById(anyLong())).doReturn(makeRepoEntity())
 
-        val expected = interactor(anyLong()).toList()
+        val expected = interactor(1).toList()
         val result = listOf(
             ViewState.Loading(),
             ViewState.Success(makeRepoViewDataModel())
         )
 
-        interactor(anyLong())
+        interactor(1)
             .collect {
                 assertThat(expected).isEqualTo(result)
             }
