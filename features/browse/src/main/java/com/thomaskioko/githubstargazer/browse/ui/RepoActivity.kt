@@ -1,13 +1,12 @@
 package com.thomaskioko.githubstargazer.browse.ui
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.thomaskioko.githubstargazer.browse.R
 import com.thomaskioko.githubstargazer.browse.databinding.ActivityRepoBinding
+import com.thomaskioko.stargazer.actions.NavigationRoute
 
 
 class RepoActivity : AppCompatActivity() {
@@ -30,15 +29,9 @@ class RepoActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_bookmarks -> internalIntent(
-                this,
-                "com.thomaskioko.githubstargazer.bookmarks.ui.open"
-            )
+            R.id.action_bookmarks -> startActivity(NavigationRoute.openBookmarkedActivity(this))
         }
 
         return super.onOptionsItemSelected(item)
     }
 }
-
-fun internalIntent(context: Context, action: String) =
-    Intent(action).setPackage(context.packageName)
