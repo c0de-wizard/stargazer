@@ -14,5 +14,4 @@ interface BookmarkViewModelModule {
     @IntoMap
     @ViewModelKey(GetBookmarkedReposViewModel::class)
     fun bindViewModel(viewModel: GetBookmarkedReposViewModel): ViewModel
-
 }

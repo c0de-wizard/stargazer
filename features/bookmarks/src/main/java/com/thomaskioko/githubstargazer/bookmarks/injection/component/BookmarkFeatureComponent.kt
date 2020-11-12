@@ -32,4 +32,3 @@ fun BookmarkedReposFragment.inject() {
             .create(requireContext().applicationDependencies())
     }.inject(this)
 }
-

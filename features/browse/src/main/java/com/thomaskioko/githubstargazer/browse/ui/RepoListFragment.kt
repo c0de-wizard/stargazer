@@ -6,17 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import com.thomaskioko.githubstargazer.browse.data.model.RepoViewDataModel
 import com.thomaskioko.githubstargazer.browse.databinding.FragmentRepoListBinding
 import com.thomaskioko.githubstargazer.browse.injection.component.inject
 import com.thomaskioko.githubstargazer.browse.ui.adapter.RepoItemClick
 import com.thomaskioko.githubstargazer.browse.ui.adapter.RepoListAdapter
 import com.thomaskioko.githubstargazer.browse.ui.viewmodel.GetReposViewModel
 import com.thomaskioko.githubstargazer.core.ViewState
+import com.thomaskioko.githubstargazer.core.extensions.injectViewModel
 import com.thomaskioko.githubstargazer.core.util.ConnectivityUtil.isConnected
 import com.thomaskioko.githubstargazer.core.viewmodel.AppViewModelFactory
-import com.thomaskioko.githubstargazer.core.extensions.injectViewModel
+import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -31,7 +34,8 @@ class RepoListFragment : Fragment() {
 
     private val onRepoItemClick = object : RepoItemClick {
         override fun onClick(view: View, repoId: Long) {
-            val action = RepoListFragmentDirections.actionRepoListFragmentToRepoDetailFragment(repoId)
+            val action =
+                RepoListFragmentDirections.actionRepoListFragmentToRepoDetailFragment(repoId)
             view.findNavController().navigate(action, null)
         }
     }
@@ -51,7 +55,9 @@ class RepoListFragment : Fragment() {
 
             viewmodel = injectViewModel<GetReposViewModel>(viewModelFactory).apply {
                 connectivityAvailable = isConnected(requireActivity())
-                getRepos().observe(viewLifecycleOwner) { handleResult(it) }
+                lifecycleScope.launch {
+                    getRepos().collect { handleResult(it) }
+                }
             }
 
             repoList.apply {

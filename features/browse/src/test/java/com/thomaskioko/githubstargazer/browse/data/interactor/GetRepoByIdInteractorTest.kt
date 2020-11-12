@@ -4,7 +4,9 @@ import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
+import com.thomaskioko.githubstargazer.browse.data.ViewMockData.makeRepoEntity
 import com.thomaskioko.githubstargazer.browse.data.ViewMockData.makeRepoEntityList
+import com.thomaskioko.githubstargazer.browse.data.ViewMockData.makeRepoViewDataModel
 import com.thomaskioko.githubstargazer.browse.data.ViewMockData.makeRepoViewDataModelList
 import com.thomaskioko.githubstargazer.core.ViewState
 import com.thomaskioko.githubstargazer.repository.api.GithubRepository
@@ -23,12 +25,12 @@ internal class GetRepoByIdInteractorTest {
 
     @Test
     fun `whenever getRepoByIdIsInvoked expectedDataIsReturned`() = runBlocking {
-        whenever(repository.getRepoById(anyLong())).doReturn(makeRepoEntityList()[0])
+        whenever(repository.getRepoById(anyLong())).doReturn(makeRepoEntity())
 
         val expected = interactor(anyLong()).toList()
         val result = listOf(
             ViewState.Loading(),
-            ViewState.Success(makeRepoViewDataModelList()[0])
+            ViewState.Success(makeRepoViewDataModel())
         )
 
         interactor(anyLong())

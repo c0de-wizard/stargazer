@@ -8,7 +8,6 @@ import com.thomaskioko.githubstargazer.browse.R
 import com.thomaskioko.githubstargazer.browse.databinding.ActivityRepoBinding
 import com.thomaskioko.stargazer.actions.NavigationRoute
 
-
 class RepoActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRepoBinding

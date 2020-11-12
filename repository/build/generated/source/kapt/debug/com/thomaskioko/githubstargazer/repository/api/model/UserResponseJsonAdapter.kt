@@ -15,50 +15,55 @@ import kotlin.text.buildString
 
 @Suppress("DEPRECATION", "unused", "ClassName", "REDUNDANT_PROJECTION")
 class UserResponseJsonAdapter(
-  moshi: Moshi
+    moshi: Moshi
 ) : JsonAdapter<UserResponse>() {
-  private val options: JsonReader.Options = JsonReader.Options.of("id", "login")
+    private val options: JsonReader.Options = JsonReader.Options.of("id", "login")
 
-  private val longAdapter: JsonAdapter<Long> = moshi.adapter(Long::class.java, emptySet(), "id")
+    private val longAdapter: JsonAdapter<Long> = moshi.adapter(Long::class.java, emptySet(), "id")
 
-  private val stringAdapter: JsonAdapter<String> = moshi.adapter(String::class.java, emptySet(),
-      "login")
-
-  override fun toString(): String = buildString(34) {
-      append("GeneratedJsonAdapter(").append("UserResponse").append(')') }
-
-  override fun fromJson(reader: JsonReader): UserResponse {
-    var id: Long? = null
-    var login: String? = null
-    reader.beginObject()
-    while (reader.hasNext()) {
-      when (reader.selectName(options)) {
-        0 -> id = longAdapter.fromJson(reader) ?: throw Util.unexpectedNull("id", "id", reader)
-        1 -> login = stringAdapter.fromJson(reader) ?: throw Util.unexpectedNull("login", "login",
-            reader)
-        -1 -> {
-          // Unknown name, skip it.
-          reader.skipName()
-          reader.skipValue()
-        }
-      }
-    }
-    reader.endObject()
-    return UserResponse(
-        id = id ?: throw Util.missingProperty("id", "id", reader),
-        login = login ?: throw Util.missingProperty("login", "login", reader)
+    private val stringAdapter: JsonAdapter<String> = moshi.adapter(
+        String::class.java, emptySet(),
+        "login"
     )
-  }
 
-  override fun toJson(writer: JsonWriter, value: UserResponse?) {
-    if (value == null) {
-      throw NullPointerException("value was null! Wrap in .nullSafe() to write nullable values.")
+    override fun toString(): String = buildString(34) {
+        append("GeneratedJsonAdapter(").append("UserResponse").append(')')
     }
-    writer.beginObject()
-    writer.name("id")
-    longAdapter.toJson(writer, value.id)
-    writer.name("login")
-    stringAdapter.toJson(writer, value.login)
-    writer.endObject()
-  }
+
+    override fun fromJson(reader: JsonReader): UserResponse {
+        var id: Long? = null
+        var login: String? = null
+        reader.beginObject()
+        while (reader.hasNext()) {
+            when (reader.selectName(options)) {
+                0 -> id = longAdapter.fromJson(reader) ?: throw Util.unexpectedNull("id", "id", reader)
+                1 -> login = stringAdapter.fromJson(reader) ?: throw Util.unexpectedNull(
+                    "login", "login",
+                    reader
+                )
+                -1 -> {
+                    // Unknown name, skip it.
+                    reader.skipName()
+                    reader.skipValue()
+                }
+            }
+        }
+        reader.endObject()
+        return UserResponse(
+            id = id ?: throw Util.missingProperty("id", "id", reader),
+            login = login ?: throw Util.missingProperty("login", "login", reader)
+        )
+    }
+
+    override fun toJson(writer: JsonWriter, value: UserResponse?) {
+        if (value == null) {
+            throw NullPointerException("value was null! Wrap in .nullSafe() to write nullable values.")
+        }
+        writer.beginObject()
+        writer.name("id")
+        longAdapter.toJson(writer, value.id)
+        writer.name("login")
+        stringAdapter.toJson(writer, value.login)
+        writer.endObject()
+    }
 }

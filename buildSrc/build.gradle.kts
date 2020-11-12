@@ -19,7 +19,6 @@ object PluginsVersions {
     const val NAVIGATION = "2.0.0-rc02"
 }
 
-
 dependencies {
     implementation("com.android.tools.build:gradle:${PluginsVersions.ANDROID_GRADLE}")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${PluginsVersions.KOTLIN}")

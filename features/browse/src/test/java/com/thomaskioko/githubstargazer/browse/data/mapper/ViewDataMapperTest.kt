@@ -2,7 +2,7 @@ package com.thomaskioko.githubstargazer.browse.data.mapper
 
 import com.google.common.truth.Truth.assertThat
 import com.thomaskioko.githubstargazer.browse.data.ViewMockData.makeRepoEntityList
-import com.thomaskioko.githubstargazer.browse.data.mapper.ViewDataMapper.mapEntityToRepoViewModel
+import com.thomaskioko.stargazer.common_ui.mapper.ViewDataMapper.mapEntityToRepoViewModel
 import org.junit.Test
 
 internal class ViewDataMapperTest {

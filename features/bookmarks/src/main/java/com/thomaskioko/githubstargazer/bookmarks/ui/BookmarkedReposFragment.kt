@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.thomaskioko.githubstargazer.bookmarks.R
-import com.thomaskioko.githubstargazer.bookmarks.data.model.RepoViewDataModel
 import com.thomaskioko.githubstargazer.bookmarks.databinding.FragmentBookmarkedReposBinding
 import com.thomaskioko.githubstargazer.bookmarks.injection.component.inject
 import com.thomaskioko.githubstargazer.bookmarks.ui.adapter.BookmarkRepoItemClick
@@ -16,9 +16,11 @@ import com.thomaskioko.githubstargazer.bookmarks.ui.viewmodel.GetBookmarkedRepos
 import com.thomaskioko.githubstargazer.core.ViewState
 import com.thomaskioko.githubstargazer.core.extensions.injectViewModel
 import com.thomaskioko.githubstargazer.core.viewmodel.AppViewModelFactory
+import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
-
 
 class BookmarkedReposFragment : Fragment() {
 
@@ -30,7 +32,7 @@ class BookmarkedReposFragment : Fragment() {
 
     private val onRepoItemClick = object : BookmarkRepoItemClick {
         override fun onClick(view: View, repoId: Long) {
-            //TODO:: update bookmark item to false
+            // TODO:: update bookmark item to false
         }
     }
 
@@ -40,13 +42,16 @@ class BookmarkedReposFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentBookmarkedReposBinding.inflate(inflater, container, false).apply {
 
             viewmodel = injectViewModel<GetBookmarkedReposViewModel>(viewModelFactory).apply {
-                getBookmarkedRepos().observe(viewLifecycleOwner) { handleResult(it) }
+                lifecycleScope.launch {
+                    getBookmarkedRepos().collect { handleResult(it) }
+                }
             }
 
             repoList.apply {
@@ -79,5 +84,4 @@ class BookmarkedReposFragment : Fragment() {
             }
         }
     }
-
 }

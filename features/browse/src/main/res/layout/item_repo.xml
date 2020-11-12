@@ -13,7 +13,7 @@
 
         <variable
             name="repo"
-            type="com.thomaskioko.githubstargazer.browse.data.model.RepoViewDataModel" />
+            type="com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel" />
     </data>
 
 
