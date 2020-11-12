@@ -1,9 +1,6 @@
 package com.thomaskioko.githubstargazer.repository.db.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.thomaskioko.githubstargazer.repository.db.model.RepoEntity
 
 @Dao
@@ -25,7 +22,7 @@ interface RepoDao {
     suspend fun getBookmarkedRepos(): List<RepoEntity>
 
     @Query("UPDATE repo SET isBookmarked = :isBookmarked where repoId = :repoId")
-    suspend fun setBookmarkStatus(isBookmarked: Boolean, repoId: Long)
+    suspend fun setBookmarkStatus(isBookmarked: Int, repoId: Long)
 
     @Query("DELETE FROM repo")
     suspend fun clearRepos()
