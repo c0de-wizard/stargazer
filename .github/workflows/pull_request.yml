@@ -27,7 +27,7 @@ jobs:
         run: bash ./gradlew cleanBuildCache
 
       - name: Unit tests
-        run: bash ./gradlew test --stacktrace
+        run: bash ./gradlew test --stacktrace --info
 
   buildApk:
     name: Generate APK
