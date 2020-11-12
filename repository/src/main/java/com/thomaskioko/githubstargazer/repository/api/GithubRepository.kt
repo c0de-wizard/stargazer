@@ -14,10 +14,10 @@ class GithubRepository @Inject constructor(
 ) {
 
     suspend fun getRepos(isConnected: Boolean): List<RepoEntity> {
-        return if (isConnected) {
+        val repoList = database.repoDao().getRepos()
+        return if (isConnected && repoList.isEmpty()) {
             val response = service.getRepositories()
-            val entityList = mapResponseToEntityList(response)
-            database.repoDao().insertRepos(entityList)
+            database.repoDao().insertRepos(mapResponseToEntityList(response))
             database.repoDao().getRepos()
         } else {
             database.repoDao().getRepos()
@@ -28,6 +28,6 @@ class GithubRepository @Inject constructor(
 
     suspend fun getBookmarkedRepos() = database.repoDao().getBookmarkedRepos()
 
-    suspend fun updateRepoBookMarkStatus(repoId: Long, isBookMarked: Boolean) =
+    suspend fun updateRepoBookMarkStatus(isBookMarked: Int, repoId: Long) =
         database.repoDao().setBookmarkStatus(isBookMarked, repoId)
 }
