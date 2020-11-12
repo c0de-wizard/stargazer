@@ -26,23 +26,20 @@ the option to use the gradle wrapper
 The architecture of the project follows the principles of Clean Architecture. Here's how the sample project implements it:
 
 ### Core
+
 This layer contains core classes shared between modules. It includes:
-	
-	- Application dagger interfaces, Scope annotations
-	- Generic classes eg Interactor, which enforces domain interactor implementation when extended.
-	- Common extension classes
+- Application dagger interfaces, Scope annotations
+- Generic classes eg Interactor, which enforces domain interactor implementation when extended.
+- Common extension classes
 
 ### Repository (Data Layer)
 This layer is responsible for fetching data. It contains cache and remote implementation.
 
 ### Features
-This layer is where we create different feature modules. Browse Repository & Bookmark Repository.
-
-Each module implements:
-	
-	- Injection: Each feature has it's own component with that injects the dependencies it needs. This allows each feature to have lean subcomponents
-	- Domain Logic Invokes the repository to get data and presents it to the ui layer. It also has mappers that transform objects to the required type. eg Entity -> ViewModelData
-	- UI: This is responsible displaying data.
+This layer is where we create different feature modules. Browse Repository & Bookmark Repository. Structure breakdown:
+- Injection: Each feature has it's own component with that injects the dependencies it needs. This allows each feature to have lean subcomponents
+- Domain Logic Invokes the repository to get data and presents it to the ui layer. It also has mappers that transform objects to the required type. eg Entity -> ViewModelData
+- UI: This is responsible displaying data.
  
 ### Navigator
 This is a dumb layer that simply acts as a route between modules using intent actions.
