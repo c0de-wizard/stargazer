@@ -24,7 +24,6 @@ object Dependencies {
 
         object Lifecycle {
             private const val version = "2.2.0"
-            val livedata = "androidx.lifecycle:lifecycle-livedata-ktx:$version"
             val viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
         }
 

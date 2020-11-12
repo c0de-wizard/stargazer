@@ -50,7 +50,6 @@ dependencies {
     implementation Dependencies.AndroidX.coreKtx
     implementation Dependencies.AndroidX.appCompat
     implementation Dependencies.AndroidX.constraintLayout
-    implementation Dependencies.AndroidX.Lifecycle.livedata
     implementation Dependencies.AndroidX.Lifecycle.viewmodel
 
     implementation Dependencies.AndroidX.Navigation.fragment
