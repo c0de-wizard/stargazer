@@ -3,11 +3,11 @@ package com.thomaskioko.githubstargazer.repository.api
 import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.whenever
+import com.thomaskioko.githubstargazer.repository.db.GithubDatabase
+import com.thomaskioko.githubstargazer.repository.db.dao.RepoDao
 import com.thomaskioko.githubstargazer.repository.util.MockData.makeRepoEntityList
 import com.thomaskioko.githubstargazer.repository.util.MockData.makeRepoResponse
 import com.thomaskioko.githubstargazer.repository.util.MockGitHubApi
-import com.thomaskioko.githubstargazer.repository.db.GithubDatabase
-import com.thomaskioko.githubstargazer.repository.db.dao.RepoDao
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
@@ -28,8 +28,9 @@ class GithubRepositoryTest {
     }
 
     @Test
-    fun `givenDeviceIsConnected verify data isLoadedFrom Remote`() = runBlocking {
-        whenever(repoDao.getRepos()).doReturn(makeRepoEntityList())
+    fun `givenDeviceIsConnected andDatabaseIsEmpty verify data isLoadedFrom Remote`() = runBlocking {
+        whenever(repoDao.getRepos()).doReturn(emptyList())
+        whenever(repository.getRepos(true)).doReturn(makeRepoEntityList())
 
         val repos = repository.getRepos(true)
 
@@ -46,7 +47,7 @@ class GithubRepositoryTest {
 
         val repos = repository.getRepos(false)
 
-        verify(database.repoDao()).getRepos()
+        verify(database.repoDao(), times(2)).getRepos()
 
         assertThat(repos.size).isEqualTo(1)
         assertThat(repos).isEqualTo(makeRepoEntityList())
@@ -81,12 +82,12 @@ class GithubRepositoryTest {
     fun `wheneverUpdateRepo verify data isLoadedFrom Database`() = runBlocking {
         val entity = makeRepoEntityList()[0]
 
-        whenever(repoDao.setBookmarkStatus(anyBoolean(), anyLong())).doReturn(Unit)
+        whenever(repoDao.setBookmarkStatus(anyInt(), anyLong())).doReturn(Unit)
         whenever(repoDao.getRepoById(anyLong())).doReturn(entity)
 
         repoDao.insertRepo(entity)
 
-        repository.updateRepoBookMarkStatus(entity.repoId, true)
+        repository.updateRepoBookMarkStatus(1, entity.repoId)
 
         val repoEntity = repository.getRepoById(entity.repoId)
 
