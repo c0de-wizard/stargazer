@@ -1,4 +1,4 @@
-package com.thomaskioko.githubstargazer.bookmarks.data
+package com.thomaskioko.githubstargazer.bookmarks.domain
 
 import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.doReturn
@@ -6,12 +6,11 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.thomaskioko.githubstargazer.bookmarks.ViewMockData.makeRepoEntityList
 import com.thomaskioko.githubstargazer.bookmarks.ViewMockData.makeRepoViewDataModelList
-import com.thomaskioko.githubstargazer.bookmarks.data.interactor.GetBookmarkedRepoListInteractor
+import com.thomaskioko.githubstargazer.bookmarks.domain.interactor.GetBookmarkedRepoListInteractor
 import com.thomaskioko.githubstargazer.core.ViewState
 import com.thomaskioko.githubstargazer.core.interactor.invoke
 import com.thomaskioko.githubstargazer.repository.api.GithubRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
