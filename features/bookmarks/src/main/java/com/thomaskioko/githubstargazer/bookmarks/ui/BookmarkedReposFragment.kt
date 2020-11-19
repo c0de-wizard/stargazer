@@ -12,7 +12,6 @@ import com.thomaskioko.githubstargazer.bookmarks.databinding.FragmentBookmarkedR
 import com.thomaskioko.githubstargazer.bookmarks.injection.component.inject
 import com.thomaskioko.githubstargazer.bookmarks.ui.adapter.BookmarkRepoItemClick
 import com.thomaskioko.githubstargazer.bookmarks.ui.adapter.RepoListAdapter
-import com.thomaskioko.githubstargazer.bookmarks.ui.viewmodel.GetBookmarkedReposViewModel
 import com.thomaskioko.githubstargazer.core.ViewState
 import com.thomaskioko.githubstargazer.core.extensions.injectViewModel
 import com.thomaskioko.githubstargazer.core.viewmodel.AppViewModelFactory
@@ -48,12 +47,7 @@ class BookmarkedReposFragment : Fragment() {
     ): View? {
         binding = FragmentBookmarkedReposBinding.inflate(inflater, container, false).apply {
 
-            viewmodel = injectViewModel<GetBookmarkedReposViewModel>(viewModelFactory).apply {
-                getBookmarkedRepos()
-                    .onEach(::handleResult)
-                    .launchIn(lifecycleScope)
-            }
-
+            viewmodel = injectViewModel(viewModelFactory)
             repoList.apply {
                 repoListAdapter = RepoListAdapter(onRepoItemClick)
                 adapter = repoListAdapter
@@ -61,6 +55,15 @@ class BookmarkedReposFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.viewmodel?.let {
+            it.getBookmarkedRepos()
+                .onEach(::handleResult)
+                .launchIn(lifecycleScope)
+        }
     }
 
     private fun handleResult(viewState: ViewState<List<RepoViewDataModel>>) {

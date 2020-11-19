@@ -12,7 +12,6 @@ import com.thomaskioko.githubstargazer.browse.databinding.FragmentRepoListBindin
 import com.thomaskioko.githubstargazer.browse.injection.component.inject
 import com.thomaskioko.githubstargazer.browse.ui.adapter.RepoItemClick
 import com.thomaskioko.githubstargazer.browse.ui.adapter.RepoListAdapter
-import com.thomaskioko.githubstargazer.browse.ui.viewmodel.GetReposViewModel
 import com.thomaskioko.githubstargazer.core.ViewState
 import com.thomaskioko.githubstargazer.core.extensions.injectViewModel
 import com.thomaskioko.githubstargazer.core.util.ConnectivityUtil.isConnected
@@ -53,13 +52,7 @@ class RepoListFragment : Fragment() {
 
         binding = FragmentRepoListBinding.inflate(inflater, container, false).apply {
 
-            viewmodel = injectViewModel<GetReposViewModel>(viewModelFactory).apply {
-                connectivityAvailable = isConnected(requireActivity())
-
-                getRepos()
-                    .onEach(::handleResult)
-                    .launchIn(lifecycleScope)
-            }
+            viewmodel = injectViewModel(viewModelFactory)
 
             repoList.apply {
                 repoListAdapter = RepoListAdapter(onRepoItemClick)
@@ -68,6 +61,16 @@ class RepoListFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.viewmodel?.let {
+            it.connectivityAvailable = isConnected(requireActivity())
+            it.getRepos()
+                .onEach(::handleResult)
+                .launchIn(lifecycleScope)
+        }
     }
 
     private fun handleResult(viewState: ViewState<List<RepoViewDataModel>>) {
