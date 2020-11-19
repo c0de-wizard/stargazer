@@ -17,6 +17,8 @@ import com.thomaskioko.githubstargazer.core.extensions.injectViewModel
 import com.thomaskioko.githubstargazer.core.viewmodel.AppViewModelFactory
 import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -44,9 +46,11 @@ class RepoDetailFragment : Fragment() {
         binding = FragmentRepoDetailBinding.inflate(inflater, container, false).apply {
             viewmodel = injectViewModel<GetReposViewModel>(viewModelFactory).apply {
                 repoId = args.repoId
-                lifecycleScope.launch {
-                    getRepoById().collect { handleViewStateResult(it) }
-                }
+
+                getRepoById()
+                    .onEach(::handleViewStateResult)
+                    .launchIn(lifecycleScope)
+
                 floatingActionButton.setOnClickListener { handleButtonClick(this) }
             }
         }

@@ -17,8 +17,8 @@ import com.thomaskioko.githubstargazer.core.ViewState
 import com.thomaskioko.githubstargazer.core.extensions.injectViewModel
 import com.thomaskioko.githubstargazer.core.viewmodel.AppViewModelFactory
 import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -49,9 +49,9 @@ class BookmarkedReposFragment : Fragment() {
         binding = FragmentBookmarkedReposBinding.inflate(inflater, container, false).apply {
 
             viewmodel = injectViewModel<GetBookmarkedReposViewModel>(viewModelFactory).apply {
-                lifecycleScope.launch {
-                    getBookmarkedRepos().collect { handleResult(it) }
-                }
+                getBookmarkedRepos()
+                    .onEach(::handleResult)
+                    .launchIn(lifecycleScope)
             }
 
             repoList.apply {
