@@ -1,4 +1,4 @@
-package com.thomaskioko.githubstargazer.browse.data
+package com.thomaskioko.githubstargazer.browse.domain
 
 import com.thomaskioko.githubstargazer.repository.db.model.RepoEntity
 import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel

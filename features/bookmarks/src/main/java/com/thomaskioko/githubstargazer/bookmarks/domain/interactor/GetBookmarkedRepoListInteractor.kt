@@ -1,4 +1,4 @@
-package com.thomaskioko.githubstargazer.browse.data.interactor
+package com.thomaskioko.githubstargazer.bookmarks.domain.interactor
 
 import com.thomaskioko.githubstargazer.core.ViewState
 import com.thomaskioko.githubstargazer.core.interactor.Interactor
@@ -10,18 +10,18 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class GetRepoByIdInteractor @Inject constructor(
+class GetBookmarkedRepoListInteractor @Inject constructor(
     private val repository: GithubRepository
-) : Interactor<Long, RepoViewDataModel>() {
+) : Interactor<Unit, List<RepoViewDataModel>>() {
 
-    override suspend fun run(params: Long): Flow<ViewState<RepoViewDataModel>> = flow {
+    override suspend fun run(params: Unit): Flow<ViewState<List<RepoViewDataModel>>> = flow {
 
         emit(ViewState.loading())
 
-        val entity = repository.getRepoById(params)
-        val repoViewDataModel = mapEntityToRepoViewModel(entity)
+        val result = repository.getBookmarkedRepos()
+            .map { mapEntityToRepoViewModel(it) }
 
-        emit(ViewState.success(repoViewDataModel))
+        emit(ViewState.success(result))
     }.catch {
         emit(ViewState.error(it.message.orEmpty()))
     }

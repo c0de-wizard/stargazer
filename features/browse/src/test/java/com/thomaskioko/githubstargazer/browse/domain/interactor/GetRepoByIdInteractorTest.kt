@@ -1,33 +1,33 @@
-package com.thomaskioko.githubstargazer.browse.data.interactor
+package com.thomaskioko.githubstargazer.browse.domain.interactor
 
 import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import com.thomaskioko.githubstargazer.browse.data.ViewMockData.makeRepoEntityList
-import com.thomaskioko.githubstargazer.browse.data.ViewMockData.makeRepoViewDataModelList
+import com.thomaskioko.githubstargazer.browse.domain.ViewMockData.makeRepoEntity
+import com.thomaskioko.githubstargazer.browse.domain.ViewMockData.makeRepoViewDataModel
 import com.thomaskioko.githubstargazer.core.ViewState
 import com.thomaskioko.githubstargazer.repository.api.GithubRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
+import org.mockito.ArgumentMatchers.anyLong
 
 @ExperimentalCoroutinesApi
-internal class GetRepoListInteractorTest {
+internal class GetRepoByIdInteractorTest {
 
     private val repository: GithubRepository = mock()
-    private val interactor = GetRepoListInteractor(repository)
+    private val interactor = GetRepoByIdInteractor(repository)
 
     @Test
-    fun `whenever getReposIsInvoked expectedDataIsReturned`() = runBlocking {
-        whenever(repository.getRepos(true)).doReturn(makeRepoEntityList())
+    fun `whenever getRepoByIdIsInvoked expectedDataIsReturned`() = runBlocking {
+        whenever(repository.getRepoById(anyLong())).doReturn(makeRepoEntity())
 
-        val result = interactor(true).toList()
+        val result = interactor(anyLong()).toList()
         val expected = listOf(
             ViewState.Loading(),
-            ViewState.Success(makeRepoViewDataModelList())
+            ViewState.Success(makeRepoViewDataModel())
         )
 
         assertThat(result).isEqualTo(expected)

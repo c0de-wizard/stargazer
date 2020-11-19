@@ -1,4 +1,4 @@
-package com.thomaskioko.githubstargazer.browse.data.interactor
+package com.thomaskioko.githubstargazer.browse.domain.interactor
 
 import com.thomaskioko.githubstargazer.core.ViewState
 import com.thomaskioko.githubstargazer.core.interactor.Interactor
