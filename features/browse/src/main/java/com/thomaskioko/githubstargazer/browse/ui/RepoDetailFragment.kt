@@ -8,16 +8,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
-import com.thomaskioko.githubstargazer.browse.data.model.UpdateObject
 import com.thomaskioko.githubstargazer.browse.databinding.FragmentRepoDetailBinding
+import com.thomaskioko.githubstargazer.browse.domain.model.UpdateObject
 import com.thomaskioko.githubstargazer.browse.injection.component.inject
-import com.thomaskioko.githubstargazer.browse.ui.viewmodel.GetReposViewModel
 import com.thomaskioko.githubstargazer.core.ViewState
 import com.thomaskioko.githubstargazer.core.extensions.injectViewModel
 import com.thomaskioko.githubstargazer.core.viewmodel.AppViewModelFactory
 import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -42,24 +41,29 @@ class RepoDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentRepoDetailBinding.inflate(inflater, container, false).apply {
-            viewmodel = injectViewModel<GetReposViewModel>(viewModelFactory).apply {
-                repoId = args.repoId
-                lifecycleScope.launch {
-                    getRepoById().collect { handleViewStateResult(it) }
-                }
-                floatingActionButton.setOnClickListener { handleButtonClick(this) }
-            }
+            viewmodel = injectViewModel(viewModelFactory)
         }
         return binding.root
     }
 
-    private fun handleButtonClick(viewModel: GetReposViewModel) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.floatingActionButton.setOnClickListener { handleButtonClick() }
+
+        binding.viewmodel?.let {
+            it.repoId = args.repoId
+            it.getRepoById()
+                .onEach(::handleViewStateResult)
+                .launchIn(lifecycleScope)
+        }
+    }
+
+    private fun handleButtonClick() {
         val isBookmarked = if (viewDataModel.isBookmarked) viewDataModel.isBookmarked else true
-        lifecycleScope.launch {
-            viewModel.updateBookmarkState(
-                UpdateObject(args.repoId, isBookmarked)
-            )
-                .collect { handleViewStateResult(it) }
+        binding.viewmodel?.let {
+            it.updateBookmarkState(UpdateObject(args.repoId, isBookmarked))
+                .onEach(::handleViewStateResult)
+                .launchIn(lifecycleScope)
         }
     }
 

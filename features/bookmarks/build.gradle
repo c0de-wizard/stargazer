@@ -69,6 +69,7 @@ dependencies {
 
     testImplementation Dependencies.Testing.junit
     testImplementation Dependencies.Testing.truth
+    testImplementation Dependencies.Testing.turbine
     testImplementation Dependencies.Testing.mockitoKotlin
     testImplementation Dependencies.Testing.Mockito.core
     testImplementation Dependencies.Testing.AndroidX.core

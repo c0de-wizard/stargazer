@@ -1,26 +1,25 @@
 package com.thomaskioko.githubstargazer.browse.ui.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.google.common.truth.Truth.assertThat
+import app.cash.turbine.test
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import com.thomaskioko.githubstargazer.browse.data.ViewMockData.makeRepoViewDataModelList
-import com.thomaskioko.githubstargazer.browse.data.interactor.GetRepoByIdInteractor
-import com.thomaskioko.githubstargazer.browse.data.interactor.GetRepoListInteractor
-import com.thomaskioko.githubstargazer.browse.data.interactor.UpdateRepoBookmarkStateInteractor
-import com.thomaskioko.githubstargazer.browse.data.model.UpdateObject
+import com.thomaskioko.githubstargazer.browse.domain.ViewMockData.makeRepoViewDataModelList
+import com.thomaskioko.githubstargazer.browse.domain.interactor.GetRepoByIdInteractor
+import com.thomaskioko.githubstargazer.browse.domain.interactor.GetRepoListInteractor
+import com.thomaskioko.githubstargazer.browse.domain.interactor.UpdateRepoBookmarkStateInteractor
+import com.thomaskioko.githubstargazer.browse.domain.model.UpdateObject
 import com.thomaskioko.githubstargazer.core.ViewState
-import com.thomaskioko.githubstargazer.core.ViewState.Error
-import com.thomaskioko.githubstargazer.core.ViewState.Loading
+import com.thomaskioko.githubstargazer.core.ViewState.*
 import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -28,7 +27,9 @@ import org.junit.rules.TestRule
 import org.mockito.Mockito.anyBoolean
 import org.mockito.Mockito.anyLong
 import org.mockito.MockitoAnnotations
+import kotlin.time.ExperimentalTime
 
+@ExperimentalTime
 @ExperimentalCoroutinesApi
 internal class GetReposViewModelTest {
 
@@ -49,26 +50,24 @@ internal class GetReposViewModelTest {
     }
 
     @Test
-    fun `givenSuccessfulResponse verify successStateIsReturned`() = runBlockingTest {
+    fun `givenSuccessfulResponse verify successStateIsReturned`() = runBlocking {
         val flow = flow {
             emit(Loading())
             delay(10)
-            emit(ViewState.Success(makeRepoViewDataModelList()))
+            emit(Success(makeRepoViewDataModelList()))
         }
 
-        whenever(interactor(anyBoolean())).doReturn(flow)
+        whenever(interactor(anyBoolean())) doReturn (flow)
 
-        val list = viewModel.getRepos().toList()
-
-        // Check whether first data is loading
-        assertThat(list.first()).isEqualTo(Loading<ViewState<RepoViewDataModel>>())
-
-        // Check second/last item is success
-        assertThat(list.last()).isEqualTo(ViewState.success(makeRepoViewDataModelList()))
+        viewModel.getRepos().test {
+            assertEquals(expectItem(), Loading<ViewState<List<RepoViewDataModel>>>())
+            assertEquals(expectItem(), Success(makeRepoViewDataModelList()))
+            expectNoEvents()
+        }
     }
 
     @Test
-    fun `givenFailureResponse verify errorStateIsReturned`() = runBlockingTest {
+    fun `givenFailureResponse verify errorStateIsReturned`() = runBlocking {
         val errorMessage = "Something went wrong"
 
         val flow: Flow<ViewState<List<RepoViewDataModel>>> = flow {
@@ -79,37 +78,33 @@ internal class GetReposViewModelTest {
 
         whenever(interactor(anyBoolean())).doReturn(flow)
 
-        val list = viewModel.getRepos().toList()
-
-        // Check whether first data is loading
-        assertThat(list.first()).isEqualTo(Loading<ViewState<RepoViewDataModel>>())
-
-        // Check second/last item is Error
-        assertThat(list.last()).isEqualTo(Error<ViewState<RepoViewDataModel>>(errorMessage))
+        viewModel.getRepos().test {
+            assertEquals(expectItem(), Loading<ViewState<List<RepoViewDataModel>>>())
+            assertEquals(expectItem(), Error<ViewState<RepoViewDataModel>>(errorMessage))
+            expectNoEvents()
+        }
     }
 
     @Test
-    fun `givenRepoId verify successStateIsReturned`() = runBlockingTest {
+    fun `givenRepoId verify successStateIsReturned`() = runBlocking {
         val repoViewDataModel = makeRepoViewDataModelList()[0]
         val flow = flow {
             emit(Loading())
             delay(10)
-            emit(ViewState.Success(repoViewDataModel))
+            emit(Success(repoViewDataModel))
         }
 
         whenever(getRepoByIdInteractor(anyLong())).doReturn(flow)
 
-        val list = viewModel.getRepoById().toList()
-
-        // Check whether first data is loading
-        assertThat(list.first()).isEqualTo(Loading<ViewState<RepoViewDataModel>>())
-
-        // Check second/last item is Error
-        assertThat(list.last()).isEqualTo(ViewState.success(repoViewDataModel))
+        viewModel.getRepoById().test {
+            assertEquals(expectItem(), Loading<ViewState<List<RepoViewDataModel>>>())
+            assertEquals(expectItem(), Success(repoViewDataModel))
+            expectNoEvents()
+        }
     }
 
     @Test
-    fun `givenFailureById verify errorStateIsReturned`() = runBlockingTest {
+    fun `givenFailureById verify errorStateIsReturned`() = runBlocking {
 
         val errorMessage = "Something went wrong"
 
@@ -121,35 +116,31 @@ internal class GetReposViewModelTest {
 
         whenever(getRepoByIdInteractor(anyLong())).doReturn(flow)
 
-        val list = viewModel.getRepoById().toList()
-
-        // Check whether first data is loading
-        assertThat(list.first()).isEqualTo(Loading<ViewState<RepoViewDataModel>>())
-
-        // Check second/last item is Error
-        assertThat(list.last()).isEqualTo(Error<ViewState<RepoViewDataModel>>(errorMessage))
+        viewModel.getRepoById().test {
+            assertEquals(expectItem(), Loading<ViewState<List<RepoViewDataModel>>>())
+            assertEquals(expectItem(), Error<ViewState<List<RepoViewDataModel>>>(errorMessage))
+            expectNoEvents()
+        }
     }
 
     @InternalCoroutinesApi
     @Test
-    fun `givenUpdateRepoIsInvoked verify successStateIsReturned`() = runBlockingTest {
+    fun `givenUpdateRepoIsInvoked verify successStateIsReturned`() = runBlocking {
         val updateObject = UpdateObject(1, true)
         val repoViewDataModel = makeRepoViewDataModelList()[0]
 
         val flow = flow {
             emit(Loading())
             delay(10)
-            emit(ViewState.Success(repoViewDataModel))
+            emit(Success(repoViewDataModel))
         }
 
         whenever(bookmarkStateInteractor(updateObject)).doReturn(flow)
 
-        val list = viewModel.updateBookmarkState(updateObject).toList()
-
-        // Check whether first data is loading
-        assertThat(list.first()).isEqualTo(Loading<ViewState<RepoViewDataModel>>())
-
-        // Check second/last item is Success
-        assertThat(list.last()).isEqualTo(ViewState.Success(repoViewDataModel))
+        viewModel.updateBookmarkState(updateObject).test {
+            assertEquals(expectItem(), Loading<ViewState<List<RepoViewDataModel>>>())
+            assertEquals(expectItem(), Success(repoViewDataModel))
+            expectNoEvents()
+        }
     }
 }
