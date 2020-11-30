@@ -13,7 +13,9 @@ import com.thomaskioko.githubstargazer.browse.injection.component.inject
 import com.thomaskioko.githubstargazer.browse.ui.adapter.RepoItemClick
 import com.thomaskioko.githubstargazer.browse.ui.adapter.RepoListAdapter
 import com.thomaskioko.githubstargazer.core.ViewState
+import com.thomaskioko.githubstargazer.core.extensions.hideView
 import com.thomaskioko.githubstargazer.core.extensions.injectViewModel
+import com.thomaskioko.githubstargazer.core.extensions.showView
 import com.thomaskioko.githubstargazer.core.util.ConnectivityUtil.isConnected
 import com.thomaskioko.githubstargazer.core.viewmodel.AppViewModelFactory
 import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
@@ -27,7 +29,9 @@ class RepoListFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: AppViewModelFactory
 
-    private lateinit var binding: FragmentRepoListBinding
+
+    private var _binding: FragmentRepoListBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var repoListAdapter: RepoListAdapter
 
@@ -48,9 +52,8 @@ class RepoListFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
-        binding = FragmentRepoListBinding.inflate(inflater, container, false).apply {
+    ): View {
+        _binding = FragmentRepoListBinding.inflate(inflater, container, false).apply {
 
             viewmodel = injectViewModel(viewModelFactory)
 
@@ -65,26 +68,34 @@ class RepoListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewmodel?.let {
-            it.connectivityAvailable = isConnected(requireActivity())
-            it.getRepos()
-                .onEach(::handleResult)
-                .launchIn(lifecycleScope)
+
+        with(binding) {
+            viewmodel?.let {
+                it.connectivityAvailable = isConnected(requireActivity())
+                it.getRepos()
+                    .onEach(::handleResult)
+                    .launchIn(lifecycleScope)
+            }
         }
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 
     private fun handleResult(viewState: ViewState<List<RepoViewDataModel>>) {
         when (viewState) {
             is ViewState.Success -> {
-                binding.loadingBar.visibility = View.GONE
+                binding.loadingBar.hideView()
                 viewState.data.let {
                     repoListAdapter.setData(it as ArrayList)
                 }
             }
-            is ViewState.Loading -> binding.loadingBar.visibility = View.VISIBLE
+            is ViewState.Loading -> binding.loadingBar.showView()
             is ViewState.Error -> {
-                binding.loadingBar.visibility = View.GONE
-                binding.tvInfo.visibility = View.VISIBLE
+                binding.loadingBar.hideView()
+                binding.tvInfo.showView()
                 binding.tvInfo.text = viewState.message
                 Timber.e(viewState.message)
             }
