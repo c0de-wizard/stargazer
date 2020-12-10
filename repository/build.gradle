@@ -37,7 +37,6 @@ android {
 dependencies {
 
     implementation Dependencies.Kotlin.stdlib
-    implementation Dependencies.AndroidX.coreKtx
 
     implementation Dependencies.Retrofit.retrofit
     implementation Dependencies.Retrofit.retrofitCoroutinesConverter
