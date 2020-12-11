@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-
         <variable
             name="viewmodel"
             type="com.thomaskioko.githubstargazer.browse.ui.viewmodel.GetReposViewModel" />
