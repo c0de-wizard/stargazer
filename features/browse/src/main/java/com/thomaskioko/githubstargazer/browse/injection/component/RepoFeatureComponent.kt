@@ -7,11 +7,13 @@ import com.thomaskioko.githubstargazer.core.injection.component.ApplicationDepen
 import com.thomaskioko.githubstargazer.core.injection.component.applicationDependencies
 import com.thomaskioko.githubstargazer.core.injection.scope.ScreenScope
 import com.thomaskioko.githubstargazer.core.viewmodel.getComponent
+import com.thomaskioko.stargazer.navigation.NavigationDependencies
+import com.thomaskioko.stargazer.navigation.navigationDeps
 import dagger.Component
 
 @ScreenScope
 @Component(
-    dependencies = [ApplicationDependencies::class],
+    dependencies = [ApplicationDependencies::class, NavigationDependencies::class],
     modules = [
         ReposViewModelModule::class
     ]
@@ -25,20 +27,23 @@ interface RepoFeatureComponent {
     @Component.Factory
     interface Factory {
 
-        fun create(applicationDependencies: ApplicationDependencies): RepoFeatureComponent
+        fun create(
+            applicationDependencies: ApplicationDependencies,
+            navigationDeps: NavigationDependencies
+        ): RepoFeatureComponent
     }
 }
 
 fun RepoListFragment.inject() {
     getComponent {
         DaggerRepoFeatureComponent.factory()
-            .create(requireContext().applicationDependencies())
+            .create(requireContext().applicationDependencies(), requireActivity().navigationDeps())
     }.inject(this)
 }
 
 fun RepoDetailFragment.inject() {
     getComponent {
         DaggerRepoFeatureComponent.factory()
-            .create(requireContext().applicationDependencies())
+            .create(requireContext().applicationDependencies(), requireActivity().navigationDeps())
     }.inject(this)
 }
