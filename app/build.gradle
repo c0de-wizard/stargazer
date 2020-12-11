@@ -17,6 +17,9 @@ dependencies {
     implementation Dependencies.AndroidX.appCompat
     implementation Dependencies.AndroidX.constraintLayout
 
+    implementation Dependencies.AndroidX.Navigation.fragment
+    implementation Dependencies.AndroidX.Navigation.runtime
+
     implementation Dependencies.material
     implementation Dependencies.timber
 
