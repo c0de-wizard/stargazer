@@ -1,14 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.thomaskioko.githubstargazer.bookmarks">
-
-    <application>
-        <activity android:name=".ui.BookmarkActivity">
-            <intent-filter>
-                <action android:name="com.thomaskioko.githubstargazer.bookmarks.ui.open" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-    </application>
-
-</manifest>
+    package="com.thomaskioko.githubstargazer.bookmarks"/>
