@@ -25,9 +25,7 @@ class Navigator {
 
     fun navigateToScreen(navigationFlow: NavigationScreen) = when (navigationFlow) {
         RepoListScreen -> navController.navigate(MainNavGraphDirections.actionRepoList())
-        BookmarkListScreen -> {
-            //TODO:: add bookmark action
-        }
+        BookmarkListScreen -> navController.navigate(MainNavGraphDirections.actionBookmarkList())
     }
 }
 
