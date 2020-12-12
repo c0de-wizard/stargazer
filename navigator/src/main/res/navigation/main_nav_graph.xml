@@ -8,11 +8,20 @@
 
     <include app:graph="@navigation/browse_nav_graph" />
 
+    <include app:graph="@navigation/bookmark_nav_graph" />
+
     <action
         android:id="@+id/action_repo_list"
         app:destination="@id/browse_nav_graph"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
         app:popUpTo="@id/main_nav_graph" />
+
+    <action
+        android:id="@+id/action_bookmark_list"
+        app:destination="@id/bookmark_nav_graph"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popUpTo="@id/home_nav_graph" />
 
 </navigation>
