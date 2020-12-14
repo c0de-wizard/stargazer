@@ -22,9 +22,6 @@ class MainActivity : AppCompatActivity(), ScreenNavigator {
     @Inject
     lateinit var activityScreenNavigator: ActivityScreenNavigator
 
-    @Inject
-    lateinit var screenNavigator: ScreenNavigator
-
     private lateinit var component: MainActivityComponent
 
     private lateinit var binding: ActivityMainBinding
@@ -54,7 +51,7 @@ class MainActivity : AppCompatActivity(), ScreenNavigator {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_bookmarks -> screenNavigator.goToScreen(BookmarkListScreen)
+            R.id.action_bookmarks -> goToScreen(BookmarkListScreen)
         }
 
         return super.onOptionsItemSelected(item)
