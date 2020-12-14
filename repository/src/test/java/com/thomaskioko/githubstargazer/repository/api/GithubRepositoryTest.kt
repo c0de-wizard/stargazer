@@ -3,54 +3,66 @@ package com.thomaskioko.githubstargazer.repository.api
 import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.whenever
+import com.thomaskioko.githubstargazer.repository.api.service.GitHubService
 import com.thomaskioko.githubstargazer.repository.db.GithubDatabase
 import com.thomaskioko.githubstargazer.repository.db.dao.RepoDao
 import com.thomaskioko.githubstargazer.repository.util.MockData.makeRepoEntityList
-import com.thomaskioko.githubstargazer.repository.util.MockData.makeRepoResponse
-import com.thomaskioko.githubstargazer.repository.util.MockGitHubApi
+import com.thomaskioko.githubstargazer.repository.util.MockData.makeRepoResponseList
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.*
+import kotlin.time.ExperimentalTime
 
 class GithubRepositoryTest {
 
     private val database = mock(GithubDatabase::class.java)
+    private val service = mock(GitHubService::class.java)
     private val repoDao = mock(RepoDao::class.java)
-    private val mockGitHubApi = MockGitHubApi().apply { repos = listOf(makeRepoResponse()) }
 
     private lateinit var repository: GithubRepository
 
     @Before
     fun setUp() {
         whenever(database.repoDao()).doReturn(repoDao)
-        repository = GithubRepository(mockGitHubApi, database)
+        repository = GithubRepository(service, database)
     }
 
+    @ExperimentalCoroutinesApi
+    @ExperimentalTime
     @Test
-    fun `givenDeviceIsConnected andDatabaseIsEmpty verify data isLoadedFrom Remote`() = runBlocking {
-        whenever(repoDao.getRepos()).doReturn(emptyList())
-        whenever(repository.getRepos(true)).doReturn(makeRepoEntityList())
+    fun `givenDeviceIsConnected verify data isLoadedFrom Remote`() =
+        runBlocking {
+            whenever(repoDao.getReposFlow()).doReturn(flowOf(makeRepoEntityList()))
+            whenever(service.getRepositories()) doReturn makeRepoResponseList()
 
-        val repos = repository.getRepos(true)
+            val repos = repository.getRepositoryList(true).toList()
+            val expected = listOf(makeRepoEntityList())
 
-        verify(database.repoDao()).insertRepos(makeRepoEntityList())
+            verify(service).getRepositories()
+            verify(database.repoDao()).getReposFlow()
 
-        assertThat(repos.size).isEqualTo(1)
-        assertThat(repos).isEqualTo(makeRepoEntityList())
-    }
+            makeRepoEntityList().map {
+                verify(database.repoDao()).insertRepo(it)
+            }
+            assertThat(repos).isEqualTo(expected)
+        }
 
     @Test
     fun `givenDeviceIsNotConnected verify data isLoadedFrom Database`() = runBlocking {
 
-        whenever(repoDao.getRepos()).doReturn(makeRepoEntityList())
+        whenever(repoDao.getReposFlow()).doReturn(flowOf(makeRepoEntityList()))
 
-        val repos = repository.getRepos(false)
+        val repos = repository.getRepositoryList(false).toList()
+        val expected = listOf(makeRepoEntityList())
 
-        verify(database.repoDao(), times(2)).getRepos()
+        verify(service, never()).getRepositories()
+        verify(database.repoDao()).getReposFlow()
 
-        assertThat(repos.size).isEqualTo(1)
-        assertThat(repos).isEqualTo(makeRepoEntityList())
+        assertThat(repos).isEqualTo(expected)
     }
 
     @Test
