@@ -62,6 +62,9 @@ dependencies {
     implementation Dependencies.material
     implementation Dependencies.timber
 
+    implementation Dependencies.Google.hilt
+    kapt Dependencies.Google.hiltCompiler
+
     implementation Dependencies.Coroutines.core
     implementation Dependencies.Coroutines.android
 

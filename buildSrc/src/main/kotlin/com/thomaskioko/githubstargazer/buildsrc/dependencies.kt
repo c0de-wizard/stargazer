@@ -51,6 +51,11 @@ object Dependencies {
         val support = "com.google.dagger:dagger-android-support:$version"
     }
 
+    object Google {
+        val hilt = "com.google.dagger:hilt-android:2.28-alpha"
+        val hiltCompiler = "com.google.dagger:hilt-android-compiler:2.28-alpha"
+    }
+
     object Kotlin {
         private const val version = "1.4.10"
         val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
