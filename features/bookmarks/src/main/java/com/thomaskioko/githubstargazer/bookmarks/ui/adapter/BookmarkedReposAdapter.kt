@@ -8,7 +8,7 @@ import com.thomaskioko.githubstargazer.bookmarks.databinding.ItemBookmarkedRepoB
 import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
 import java.util.*
 
-class RepoListAdapter constructor(
+class BookmarkedReposAdapter constructor(
     private val bookmarkRepoItemClick: BookmarkRepoItemClick
 ) : RecyclerView.Adapter<RepoItemViewHolder>() {
 
