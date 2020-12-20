@@ -4,6 +4,7 @@ import com.thomaskioko.githubstargazer.buildsrc.Dependencies
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
@@ -66,6 +67,11 @@ dependencies {
     implementation Dependencies.Dagger.core
     kapt Dependencies.Dagger.compiler
     kapt Dependencies.Dagger.processor
+
+    implementation Dependencies.Google.Hilt.android
+    implementation Dependencies.Google.Hilt.viewmodel
+    kapt Dependencies.Google.Hilt.andoroidCompiler
+    kapt Dependencies.Google.Hilt.compiler
 
     testImplementation Dependencies.Testing.junit
     testImplementation Dependencies.Testing.truth

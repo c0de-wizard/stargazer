@@ -4,6 +4,7 @@ import com.thomaskioko.githubstargazer.buildsrc.Dependencies
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
@@ -43,6 +44,10 @@ android {
     }
 }
 
+kapt {
+    correctErrorTypes true
+}
+
 dependencies {
     implementation project(':core')
     implementation project(':common-ui')
@@ -62,8 +67,10 @@ dependencies {
     implementation Dependencies.material
     implementation Dependencies.timber
 
-    implementation Dependencies.Google.hilt
-    kapt Dependencies.Google.hiltCompiler
+    implementation Dependencies.Google.Hilt.android
+    implementation Dependencies.Google.Hilt.viewmodel
+    kapt Dependencies.Google.Hilt.andoroidCompiler
+    kapt Dependencies.Google.Hilt.compiler
 
     implementation Dependencies.Coroutines.core
     implementation Dependencies.Coroutines.android

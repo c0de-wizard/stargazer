@@ -21,8 +21,10 @@ dependencies {
     implementation Dependencies.AndroidX.Navigation.fragment
     implementation Dependencies.AndroidX.Navigation.runtime
 
-    implementation Dependencies.Google.hilt
-    kapt Dependencies.Google.hiltCompiler
+    implementation Dependencies.Google.Hilt.android
+    implementation Dependencies.Google.Hilt.viewmodel
+    kapt Dependencies.Google.Hilt.andoroidCompiler
+    kapt Dependencies.Google.Hilt.compiler
 
     implementation Dependencies.material
     implementation Dependencies.timber

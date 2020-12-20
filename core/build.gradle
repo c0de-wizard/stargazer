@@ -49,6 +49,9 @@ dependencies {
     kapt Dependencies.Dagger.compiler
     kapt Dependencies.Dagger.processor
 
+    implementation Dependencies.Google.hilt
+    kapt Dependencies.Google.hiltCompiler
+
     testImplementation Dependencies.Testing.junit
     androidTestImplementation Dependencies.Testing.androidJunit
     androidTestImplementation Dependencies.Testing.androidEspressoCore

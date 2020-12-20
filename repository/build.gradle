@@ -4,6 +4,7 @@ import com.thomaskioko.githubstargazer.buildsrc.Dependencies
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion BuildVersions.compileSdkVersion
@@ -50,6 +51,9 @@ dependencies {
     implementation Dependencies.Dagger.core
     kapt Dependencies.Dagger.compiler
     kapt Dependencies.Dagger.processor
+
+    implementation Dependencies.Google.hilt
+    kapt Dependencies.Google.hiltCompiler
 
     implementation Dependencies.Room.roomKtx
     kapt Dependencies.Room.compiler

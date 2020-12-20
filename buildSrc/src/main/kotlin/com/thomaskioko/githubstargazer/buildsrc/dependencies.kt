@@ -54,6 +54,14 @@ object Dependencies {
     object Google {
         val hilt = "com.google.dagger:hilt-android:2.28-alpha"
         val hiltCompiler = "com.google.dagger:hilt-android-compiler:2.28-alpha"
+
+        object Hilt {
+            val android = "com.google.dagger:hilt-android:2.28-alpha"
+            val andoroidCompiler = "com.google.dagger:hilt-android-compiler:2.28-alpha"
+            val compiler = "androidx.hilt:hilt-compiler:1.0.0-alpha01"
+            val viewmodel = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02"
+        }
+
     }
 
     object Kotlin {
