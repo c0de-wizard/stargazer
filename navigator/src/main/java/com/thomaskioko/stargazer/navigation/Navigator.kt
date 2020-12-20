@@ -1,11 +1,10 @@
 package com.thomaskioko.stargazer.navigation
 
-import android.annotation.SuppressLint
-import android.app.Activity
 import androidx.navigation.NavController
 import com.thomaskioko.stargazer.actions.MainNavGraphDirections
 import com.thomaskioko.stargazer.navigation.NavigationScreen.BookmarkListScreen
 import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoListScreen
+import javax.inject.Inject
 
 sealed class NavigationScreen {
     object RepoListScreen : NavigationScreen()
@@ -14,10 +13,6 @@ sealed class NavigationScreen {
 
 interface ScreenNavigator {
     fun goToScreen(navigationScreen: NavigationScreen)
-}
-
-interface NavigationDependencies {
-    fun screenNavigator(): ScreenNavigator
 }
 
 class Navigator {
@@ -29,15 +24,15 @@ class Navigator {
     }
 }
 
-const val NAVIGATION_DEPS_SERVICE = "com.thomaskioko.stargazer.navigation"
+class ScreenNavigatorImpl @Inject constructor(
+    private val navController: NavController
+) : ScreenNavigator {
 
-fun Activity.navigationDeps(): NavigationDependencies {
-    @SuppressLint("WrongConstant")
-    val navigationDeps = getSystemService(NAVIGATION_DEPS_SERVICE) as? NavigationDependencies
-        ?: applicationContext.getSystemService(NAVIGATION_DEPS_SERVICE) as? NavigationDependencies
+    override fun goToScreen(navigationScreen: NavigationScreen) {
+        when (navigationScreen) {
+            RepoListScreen -> navController.navigate(MainNavGraphDirections.actionRepoList())
+            BookmarkListScreen -> navController.navigate(MainNavGraphDirections.actionBookmarkList())
+        }
+    }
 
-    return navigationDeps ?: throw NullPointerException(
-        "Activity must override getSystemService and provide NavigationDeps " +
-                "for service name: $NAVIGATION_DEPS_SERVICE"
-    )
 }
