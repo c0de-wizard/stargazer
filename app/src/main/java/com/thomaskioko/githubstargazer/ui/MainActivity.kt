@@ -7,29 +7,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.thomaskioko.githubstargazer.R
 import com.thomaskioko.githubstargazer.databinding.ActivityMainBinding
-import com.thomaskioko.githubstargazer.injection.MainActivityComponent
-import com.thomaskioko.githubstargazer.injection.injectAndGetComponent
-import com.thomaskioko.githubstargazer.ui.navigation.ActivityScreenNavigator
-import com.thomaskioko.stargazer.navigation.NAVIGATION_DEPS_SERVICE
 import com.thomaskioko.stargazer.navigation.NavigationScreen
 import com.thomaskioko.stargazer.navigation.NavigationScreen.BookmarkListScreen
 import com.thomaskioko.stargazer.navigation.Navigator
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), ScreenNavigator {
-
-    @Inject
-    lateinit var activityScreenNavigator: ActivityScreenNavigator
-
-    private lateinit var component: MainActivityComponent
 
     private lateinit var binding: ActivityMainBinding
 
+    //TODO:: Inject ScreenNavigator
     private val navigator: Navigator = Navigator()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        component = injectAndGetComponent()
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -43,8 +35,7 @@ class MainActivity : AppCompatActivity(), ScreenNavigator {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.main, menu)
+        menuInflater.inflate(R.menu.main, menu)
         return true
     }
 
@@ -55,14 +46,6 @@ class MainActivity : AppCompatActivity(), ScreenNavigator {
         }
 
         return super.onOptionsItemSelected(item)
-    }
-
-
-    override fun getSystemService(name: String): Any? {
-        if (name == NAVIGATION_DEPS_SERVICE) {
-            return component
-        }
-        return super.getSystemService(name)
     }
 
     override fun goToScreen(navigationScreen: NavigationScreen) {

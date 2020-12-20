@@ -39,6 +39,13 @@ class GithubRepositoryTest {
             whenever(repoDao.getReposFlow()).doReturn(flowOf(makeRepoEntityList()))
             whenever(service.getRepositories()) doReturn makeRepoResponseList()
 
+//            repository.getRepositoryList(true).test {
+//                verify(database.repoDao()).insertRepos(makeRepoEntityList())
+//
+//                assertThat(expectItem()).isEqualTo(makeRepoEntityList())
+//                expectComplete()
+//            }
+
             val repos = repository.getRepositoryList(true).toList()
             val expected = listOf(makeRepoEntityList())
 

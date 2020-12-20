@@ -1,16 +1,11 @@
 package com.thomaskioko.githubstargazer
 
 import android.app.Application
-import com.thomaskioko.githubstargazer.core.injection.component.HasApplicationDependencies
-import com.thomaskioko.githubstargazer.injection.DaggerApplicationComponent
+import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
-class GithubApplication : Application(), HasApplicationDependencies {
-
-    private val appComponent by lazy {
-        DaggerApplicationComponent.factory()
-            .create(this)
-    }
+@HiltAndroidApp
+class GithubApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
@@ -22,6 +17,4 @@ class GithubApplication : Application(), HasApplicationDependencies {
             Timber.plant(Timber.DebugTree())
         }
     }
-
-    override fun getApplicationDependencies() = appComponent
 }

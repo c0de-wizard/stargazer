@@ -1,34 +1,31 @@
 package com.thomaskioko.githubstargazer.browse.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.thomaskioko.githubstargazer.browse.databinding.FragmentRepoListBinding
-import com.thomaskioko.githubstargazer.browse.injection.component.inject
 import com.thomaskioko.githubstargazer.browse.ui.adapter.RepoItemClick
 import com.thomaskioko.githubstargazer.browse.ui.adapter.RepoListAdapter
+import com.thomaskioko.githubstargazer.browse.ui.viewmodel.GetReposViewModel
 import com.thomaskioko.githubstargazer.core.ViewState
 import com.thomaskioko.githubstargazer.core.extensions.hideView
-import com.thomaskioko.githubstargazer.core.extensions.injectViewModel
 import com.thomaskioko.githubstargazer.core.extensions.showView
 import com.thomaskioko.githubstargazer.core.util.ConnectivityUtil.isConnected
-import com.thomaskioko.githubstargazer.core.viewmodel.AppViewModelFactory
 import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class RepoListFragment : Fragment() {
 
-    @Inject
-    lateinit var viewModelFactory: AppViewModelFactory
-
+    private val getRepoViewModel: GetReposViewModel by viewModels()
 
     private var _binding: FragmentRepoListBinding? = null
     private val binding get() = _binding!!
@@ -43,11 +40,6 @@ class RepoListFragment : Fragment() {
         }
     }
 
-    override fun onAttach(context: Context) {
-        inject()
-        super.onAttach(context)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -55,7 +47,7 @@ class RepoListFragment : Fragment() {
     ): View {
         _binding = FragmentRepoListBinding.inflate(inflater, container, false).apply {
 
-            viewmodel = injectViewModel(viewModelFactory)
+            viewmodel = getRepoViewModel
 
             repoList.apply {
                 repoListAdapter = RepoListAdapter(onRepoItemClick)
