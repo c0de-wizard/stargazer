@@ -1,10 +1,10 @@
-name: Feature Branch CI
+name: Build
+
 on:
+  pull_request: {}
   push:
     branches:
       - '*'
-      - '!main'
-      - '!develop'
 
 jobs:
   unitTest:
@@ -21,6 +21,9 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
+
+      - name: Build Project
+        run: ./gradlew build
 
       - name: Run Android Linter
         run: ./gradlew lintDebug
