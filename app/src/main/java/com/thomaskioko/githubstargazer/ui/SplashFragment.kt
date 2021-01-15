@@ -11,7 +11,6 @@ import com.thomaskioko.githubstargazer.R
 import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoListScreen
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
 
-
 class SplashFragment : Fragment() {
 
     override fun onCreateView(
@@ -33,5 +32,4 @@ class SplashFragment : Fragment() {
                 1500
             )
     }
-
 }

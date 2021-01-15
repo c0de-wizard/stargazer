@@ -33,6 +33,4 @@ object ViewDataMapper {
                 isBookmarked = entity.isBookmarked
             )
         }
-
-
 }

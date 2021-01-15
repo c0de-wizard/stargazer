@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity(), ScreenNavigator {
 
     private lateinit var binding: ActivityMainBinding
 
-    //TODO:: Inject ScreenNavigator
+    // TODO:: Inject ScreenNavigator
     private val navigator: Navigator = Navigator()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,14 +31,12 @@ class MainActivity : AppCompatActivity(), ScreenNavigator {
         val navController = findNavController(R.id.nav_host_fragment)
 
         navigator.navController = navController
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main, menu)
         return true
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {

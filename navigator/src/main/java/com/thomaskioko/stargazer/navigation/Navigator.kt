@@ -34,5 +34,4 @@ class ScreenNavigatorImpl @Inject constructor(
             BookmarkListScreen -> navController.navigate(MainNavGraphDirections.actionBookmarkList())
         }
     }
-
 }

@@ -61,7 +61,6 @@ object Dependencies {
             val compiler = "androidx.hilt:hilt-compiler:1.0.0-alpha01"
             val viewmodel = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02"
         }
-
     }
 
     object Kotlin {
