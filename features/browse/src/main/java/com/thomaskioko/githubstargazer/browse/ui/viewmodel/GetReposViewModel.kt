@@ -9,12 +9,9 @@ import com.thomaskioko.githubstargazer.browse.domain.interactor.UpdateRepoBookma
 import com.thomaskioko.githubstargazer.browse.domain.model.UpdateObject
 import com.thomaskioko.githubstargazer.core.ViewState
 import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 class GetReposViewModel @ViewModelInject constructor(
     private val interactor: GetRepoListInteractor,
@@ -22,35 +19,30 @@ class GetReposViewModel @ViewModelInject constructor(
     private val bookmarkStateInteractor: UpdateRepoBookmarkStateInteractor
 ) : ViewModel() {
 
-    var connectivityAvailable: Boolean = false
-    var repoId: Long = 0
+    val repoListMutableStateFlow: MutableStateFlow<ViewState<List<RepoViewDataModel>>> =
+        MutableStateFlow(ViewState.loading())
 
-    private val _mutableRepoListState: MutableSharedFlow<ViewState<List<RepoViewDataModel>>> =
-        MutableSharedFlow()
-    private val _mutableRepoState: MutableSharedFlow<ViewState<RepoViewDataModel>> =
-        MutableSharedFlow()
+    val repoMutableStateFlow: MutableStateFlow<ViewState<RepoViewDataModel>> =
+        MutableStateFlow(ViewState.loading())
 
-    fun getRepos(): Flow<ViewState<List<RepoViewDataModel>>> {
-        viewModelScope.launch(Dispatchers.IO) {
-            interactor(connectivityAvailable)
-                .collect { _mutableRepoListState.emit(it) }
-        }
-        return _mutableRepoListState.asSharedFlow()
+    val repoUpdateMutableStateFlow: MutableStateFlow<ViewState<RepoViewDataModel>> =
+        MutableStateFlow(ViewState.loading())
+
+    fun getRepoList(connectivityAvailable: Boolean) {
+        interactor(connectivityAvailable)
+            .onEach { repoListMutableStateFlow.emit(it) }
+            .launchIn(viewModelScope)
     }
 
-    fun getRepoById(): Flow<ViewState<RepoViewDataModel>> {
-        viewModelScope.launch(Dispatchers.IO) {
-            getRepoByIdInteractor(repoId)
-                .collect { _mutableRepoState.emit(it) }
-        }
-        return _mutableRepoState.asSharedFlow()
+    fun getRepoById(repoId: Long) {
+        getRepoByIdInteractor(repoId)
+            .onEach { repoMutableStateFlow.emit(it) }
+            .launchIn(viewModelScope)
     }
 
-    fun updateBookmarkState(updateObject: UpdateObject): Flow<ViewState<RepoViewDataModel>> {
-        viewModelScope.launch(Dispatchers.IO) {
-            bookmarkStateInteractor(updateObject)
-                .collect { _mutableRepoState.emit(it) }
-        }
-        return _mutableRepoState.asSharedFlow()
+    fun updateBookmarkState(updateObject: UpdateObject) {
+        bookmarkStateInteractor(updateObject)
+            .onEach { repoUpdateMutableStateFlow.emit(it) }
+            .launchIn(viewModelScope)
     }
 }
