@@ -14,7 +14,7 @@ class GetRepoListInteractor @Inject constructor(
     private val repository: GithubRepository
 ) : Interactor<Boolean, List<RepoViewDataModel>>() {
 
-    override suspend fun run(params: Boolean): Flow<ViewState<List<RepoViewDataModel>>> =
+    override fun run(params: Boolean): Flow<ViewState<List<RepoViewDataModel>>> =
         repository.getRepositoryList(params)
             .map { ViewState.success(mapEntityListToRepoViewModel(it)) }
             .catch { emit(ViewState.error(it.message.orEmpty())) }
