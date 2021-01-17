@@ -5,19 +5,20 @@ import app.cash.turbine.test
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
+import com.thomaskioko.githubstargazer.browse.domain.ViewMockData.makeRepoViewDataModel
 import com.thomaskioko.githubstargazer.browse.domain.ViewMockData.makeRepoViewDataModelList
 import com.thomaskioko.githubstargazer.browse.domain.interactor.GetRepoByIdInteractor
 import com.thomaskioko.githubstargazer.browse.domain.interactor.GetRepoListInteractor
 import com.thomaskioko.githubstargazer.browse.domain.interactor.UpdateRepoBookmarkStateInteractor
 import com.thomaskioko.githubstargazer.browse.domain.model.UpdateObject
+import com.thomaskioko.githubstargazer.browse.ui.util.CoroutineScopeRule
 import com.thomaskioko.githubstargazer.core.ViewState
 import com.thomaskioko.githubstargazer.core.ViewState.*
 import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -36,6 +37,9 @@ internal class GetReposViewModelTest {
     @get:Rule
     val instantTaskExecutorRule: TestRule = InstantTaskExecutorRule()
 
+    @get:Rule
+    val scopeRule = CoroutineScopeRule()
+
     private val interactor: GetRepoListInteractor = mock()
     private val getRepoByIdInteractor: GetRepoByIdInteractor = mock()
     private val bookmarkStateInteractor: UpdateRepoBookmarkStateInteractor = mock()
@@ -51,18 +55,14 @@ internal class GetReposViewModelTest {
 
     @Test
     fun `givenSuccessfulResponse verify successStateIsReturned`() = runBlocking {
-        val flow = flow {
-            emit(Loading())
-            delay(10)
-            emit(Success(makeRepoViewDataModelList()))
-        }
+        whenever(interactor(anyBoolean())) doReturn flowOf(Success(makeRepoViewDataModelList()))
 
-        whenever(interactor(anyBoolean())) doReturn (flow)
+        viewModel.repoListMutableStateFlow.test {
 
-        viewModel.getRepos().test {
+            viewModel.getRepoList(anyBoolean())
+
             assertEquals(expectItem(), Loading<ViewState<List<RepoViewDataModel>>>())
             assertEquals(expectItem(), Success(makeRepoViewDataModelList()))
-            expectNoEvents()
         }
     }
 
@@ -70,36 +70,29 @@ internal class GetReposViewModelTest {
     fun `givenFailureResponse verify errorStateIsReturned`() = runBlocking {
         val errorMessage = "Something went wrong"
 
-        val flow: Flow<ViewState<List<RepoViewDataModel>>> = flow {
-            emit(Loading())
-            delay(10)
-            emit(Error(errorMessage))
-        }
+        whenever(interactor(anyBoolean())) doReturn flowOf(Error(errorMessage))
 
-        whenever(interactor(anyBoolean())).doReturn(flow)
+        viewModel.repoListMutableStateFlow.test {
 
-        viewModel.getRepos().test {
+            viewModel.getRepoList(anyBoolean())
+
             assertEquals(expectItem(), Loading<ViewState<List<RepoViewDataModel>>>())
             assertEquals(expectItem(), Error<ViewState<RepoViewDataModel>>(errorMessage))
-            expectNoEvents()
         }
     }
 
     @Test
     fun `givenRepoId verify successStateIsReturned`() = runBlocking {
-        val repoViewDataModel = makeRepoViewDataModelList()[0]
-        val flow = flow {
-            emit(Loading())
-            delay(10)
-            emit(Success(repoViewDataModel))
-        }
+        val repoViewDataModel = makeRepoViewDataModel()
 
-        whenever(getRepoByIdInteractor(anyLong())).doReturn(flow)
+        whenever(getRepoByIdInteractor(anyLong())) doReturn flowOf(Success(repoViewDataModel))
 
-        viewModel.getRepoById().test {
+        viewModel.repoMutableStateFlow.test {
+
+            viewModel.getRepoById(1)
+
             assertEquals(expectItem(), Loading<ViewState<List<RepoViewDataModel>>>())
             assertEquals(expectItem(), Success(repoViewDataModel))
-            expectNoEvents()
         }
     }
 
@@ -109,38 +102,33 @@ internal class GetReposViewModelTest {
         val errorMessage = "Something went wrong"
 
         val flow: Flow<ViewState<RepoViewDataModel>> = flow {
-            emit(Loading())
-            delay(10)
             emit(Error(errorMessage))
         }
 
         whenever(getRepoByIdInteractor(anyLong())).doReturn(flow)
 
-        viewModel.getRepoById().test {
+        viewModel.repoMutableStateFlow.test {
+
+            viewModel.getRepoById(1)
+
             assertEquals(expectItem(), Loading<ViewState<List<RepoViewDataModel>>>())
             assertEquals(expectItem(), Error<ViewState<List<RepoViewDataModel>>>(errorMessage))
-            expectNoEvents()
         }
     }
 
-    @InternalCoroutinesApi
     @Test
     fun `givenUpdateRepoIsInvoked verify successStateIsReturned`() = runBlocking {
         val updateObject = UpdateObject(1, true)
-        val repoViewDataModel = makeRepoViewDataModelList()[0]
+        val repoViewDataModel = makeRepoViewDataModel()
 
-        val flow = flow {
-            emit(Loading())
-            delay(10)
-            emit(Success(repoViewDataModel))
-        }
+        whenever(bookmarkStateInteractor(updateObject)) doReturn flowOf(Success(repoViewDataModel))
 
-        whenever(bookmarkStateInteractor(updateObject)).doReturn(flow)
+        viewModel.repoUpdateMutableStateFlow.test {
 
-        viewModel.updateBookmarkState(updateObject).test {
+            viewModel.updateBookmarkState(updateObject)
+
             assertEquals(expectItem(), Loading<ViewState<List<RepoViewDataModel>>>())
             assertEquals(expectItem(), Success(repoViewDataModel))
-            expectNoEvents()
         }
     }
 }
