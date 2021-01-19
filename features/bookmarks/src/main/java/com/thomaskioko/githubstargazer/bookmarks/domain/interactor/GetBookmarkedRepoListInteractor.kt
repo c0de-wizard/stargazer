@@ -14,7 +14,7 @@ class GetBookmarkedRepoListInteractor @Inject constructor(
     private val repository: GithubRepository
 ) : Interactor<Unit, List<RepoViewDataModel>>() {
 
-    override suspend fun run(params: Unit): Flow<ViewState<List<RepoViewDataModel>>> = flow {
+    override fun run(params: Unit): Flow<ViewState<List<RepoViewDataModel>>> = flow {
 
         emit(ViewState.loading())
 
