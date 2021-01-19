@@ -44,8 +44,13 @@ class RepoDetailFragment : Fragment() {
         binding.floatingActionButton.setOnClickListener { handleButtonClick() }
 
         binding.viewmodel?.let {
-            it.repoId = args.repoId
-            it.getRepoById()
+
+            getRepoViewModel.getRepoById(args.repoId)
+            it.repoMutableStateFlow
+                .onEach(::handleViewStateResult)
+                .launchIn(lifecycleScope)
+
+            it.repoUpdateMutableStateFlow
                 .onEach(::handleViewStateResult)
                 .launchIn(lifecycleScope)
         }
@@ -55,8 +60,6 @@ class RepoDetailFragment : Fragment() {
         val isBookmarked = if (viewDataModel.isBookmarked) viewDataModel.isBookmarked else true
         binding.viewmodel?.let {
             it.updateBookmarkState(UpdateObject(args.repoId, isBookmarked))
-                .onEach(::handleViewStateResult)
-                .launchIn(lifecycleScope)
         }
     }
 

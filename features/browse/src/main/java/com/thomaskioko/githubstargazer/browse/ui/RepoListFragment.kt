@@ -18,8 +18,8 @@ import com.thomaskioko.githubstargazer.core.extensions.showView
 import com.thomaskioko.githubstargazer.core.util.ConnectivityUtil.isConnected
 import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -31,6 +31,8 @@ class RepoListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var repoListAdapter: RepoListAdapter
+
+    private var uiStateJob: Job? = null
 
     private val onRepoItemClick = object : RepoItemClick {
         override fun onClick(view: View, repoId: Long) {
@@ -63,12 +65,21 @@ class RepoListFragment : Fragment() {
 
         with(binding) {
             viewmodel?.let {
-                it.connectivityAvailable = isConnected(requireActivity())
-                it.getRepos()
-                    .onEach(::handleResult)
-                    .launchIn(lifecycleScope)
+
+                getRepoViewModel.getRepoList(isConnected(requireActivity()))
+
+                uiStateJob = viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+                    it.repoList
+                        .collect { result -> handleResult(result) }
+                }
             }
         }
+    }
+
+    override fun onStop() {
+        // Stop collecting when the View goes to the background
+        uiStateJob?.cancel()
+        super.onStop()
     }
 
     override fun onDestroyView() {

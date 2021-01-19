@@ -10,6 +10,7 @@ import com.thomaskioko.githubstargazer.browse.domain.model.UpdateObject
 import com.thomaskioko.githubstargazer.core.ViewState
 import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -19,8 +20,9 @@ class GetReposViewModel @ViewModelInject constructor(
     private val bookmarkStateInteractor: UpdateRepoBookmarkStateInteractor
 ) : ViewModel() {
 
-    val repoListMutableStateFlow: MutableStateFlow<ViewState<List<RepoViewDataModel>>> =
+    private val _repoListMutableStateFlow: MutableStateFlow<ViewState<List<RepoViewDataModel>>> =
         MutableStateFlow(ViewState.loading())
+    val repoList: SharedFlow<ViewState<List<RepoViewDataModel>>> get() = _repoListMutableStateFlow
 
     val repoMutableStateFlow: MutableStateFlow<ViewState<RepoViewDataModel>> =
         MutableStateFlow(ViewState.loading())
@@ -30,7 +32,7 @@ class GetReposViewModel @ViewModelInject constructor(
 
     fun getRepoList(connectivityAvailable: Boolean) {
         interactor(connectivityAvailable)
-            .onEach { repoListMutableStateFlow.emit(it) }
+            .onEach { _repoListMutableStateFlow.emit(it) }
             .launchIn(viewModelScope)
     }
 

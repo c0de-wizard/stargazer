@@ -62,7 +62,7 @@ class BookmarkedReposFragment : Fragment() {
             }
         }
 
-        getRepoViewModel.getBookmarkedRepos()
+        getRepoViewModel.bookmarkedList
             .onEach(::handleResult)
             .launchIn(lifecycleScope)
     }

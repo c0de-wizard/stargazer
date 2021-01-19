@@ -1,0 +1,41 @@
+version: 2.1
+
+orbs:
+  android: circleci/android@0.2.1
+
+jobs:
+  build:
+    working_directory: ~/statgazer
+    executor: android/android
+
+    docker:
+      - image: circleci/android:api-28-alpha
+
+    environment:
+      TERM: dumb # Avoid weird output from Gradle.
+      JVM_OPTS: -Xmx3200m
+      #Explicitly limit the JVM heap size to prevent your container from running out of memory
+      _JAVA_OPTIONS: "-Xmx2048m -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
+      JAVA_OPTS: '-Xms512m -Xmx2g'
+      GRADLE_OPTS: '-Xmx3g -Dorg.gradle.daemon=false -Dorg.gradle.jvmargs="-Xmx2g -XX:+HeapDumpOnOutOfMemoryError"'
+
+    steps:
+      - checkout
+      - restore_cache:
+          key: gradle-{{ checksum "build.gradle.kts" }}
+      - run:
+          name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
+          command: sudo chmod +x ./gradlew
+      - run:
+          name: Approve license for build tools
+          command: (echo y; echo y; echo y; echo y; echo y; echo y) | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+      - run:
+          name: Run Lint
+          command: ./gradlew lintDebug
+      - run:
+          name: Run Unit Tests
+          command: ./gradlew test
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: gradle-{{ checksum "build.gradle.kts" }}

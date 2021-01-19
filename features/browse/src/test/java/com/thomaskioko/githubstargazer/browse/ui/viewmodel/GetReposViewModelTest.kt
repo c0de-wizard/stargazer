@@ -16,8 +16,6 @@ import com.thomaskioko.githubstargazer.core.ViewState
 import com.thomaskioko.githubstargazer.core.ViewState.*
 import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -57,7 +55,7 @@ internal class GetReposViewModelTest {
     fun `givenSuccessfulResponse verify successStateIsReturned`() = runBlocking {
         whenever(interactor(anyBoolean())) doReturn flowOf(Success(makeRepoViewDataModelList()))
 
-        viewModel.repoListMutableStateFlow.test {
+        viewModel.repoList.test {
 
             viewModel.getRepoList(anyBoolean())
 
@@ -72,7 +70,7 @@ internal class GetReposViewModelTest {
 
         whenever(interactor(anyBoolean())) doReturn flowOf(Error(errorMessage))
 
-        viewModel.repoListMutableStateFlow.test {
+        viewModel.repoList.test {
 
             viewModel.getRepoList(anyBoolean())
 
@@ -89,7 +87,7 @@ internal class GetReposViewModelTest {
 
         viewModel.repoMutableStateFlow.test {
 
-            viewModel.getRepoById(1)
+            viewModel.getRepoById(anyLong())
 
             assertEquals(expectItem(), Loading<ViewState<List<RepoViewDataModel>>>())
             assertEquals(expectItem(), Success(repoViewDataModel))
@@ -101,15 +99,11 @@ internal class GetReposViewModelTest {
 
         val errorMessage = "Something went wrong"
 
-        val flow: Flow<ViewState<RepoViewDataModel>> = flow {
-            emit(Error(errorMessage))
-        }
-
-        whenever(getRepoByIdInteractor(anyLong())).doReturn(flow)
+        whenever(getRepoByIdInteractor(anyLong())) doReturn flowOf(Error(errorMessage))
 
         viewModel.repoMutableStateFlow.test {
 
-            viewModel.getRepoById(1)
+            viewModel.getRepoById(anyLong())
 
             assertEquals(expectItem(), Loading<ViewState<List<RepoViewDataModel>>>())
             assertEquals(expectItem(), Error<ViewState<List<RepoViewDataModel>>>(errorMessage))
