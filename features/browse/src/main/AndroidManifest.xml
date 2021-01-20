@@ -1,13 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.thomaskioko.githubstargazer.browse">
-
-    <application >
-        <activity android:name=".ui.RepoActivity">
-            <intent-filter>
-                <action android:name="com.thomaskioko.githubstargazer.browse.ui.open" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-    </application>
-</manifest>
+<manifest package="com.thomaskioko.githubstargazer.browse"></manifest>

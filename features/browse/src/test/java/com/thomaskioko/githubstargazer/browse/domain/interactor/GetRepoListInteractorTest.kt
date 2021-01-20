@@ -9,9 +9,11 @@ import com.thomaskioko.githubstargazer.browse.domain.ViewMockData.makeRepoViewDa
 import com.thomaskioko.githubstargazer.core.ViewState
 import com.thomaskioko.githubstargazer.repository.api.GithubRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
+import org.mockito.ArgumentMatchers.anyBoolean
 
 @ExperimentalCoroutinesApi
 internal class GetRepoListInteractorTest {
@@ -21,11 +23,10 @@ internal class GetRepoListInteractorTest {
 
     @Test
     fun `whenever getReposIsInvoked expectedDataIsReturned`() = runBlocking {
-        whenever(repository.getRepos(true)).doReturn(makeRepoEntityList())
+        whenever(repository.getRepositoryList(anyBoolean())).doReturn(flowOf(makeRepoEntityList()))
 
         val result = interactor(true).toList()
         val expected = listOf(
-            ViewState.Loading(),
             ViewState.Success(makeRepoViewDataModelList())
         )
 

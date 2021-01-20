@@ -14,7 +14,7 @@ class GetRepoByIdInteractor @Inject constructor(
     private val repository: GithubRepository
 ) : Interactor<Long, RepoViewDataModel>() {
 
-    override suspend fun run(params: Long): Flow<ViewState<RepoViewDataModel>> = flow {
+    override fun run(params: Long): Flow<ViewState<RepoViewDataModel>> = flow {
 
         emit(ViewState.loading())
 

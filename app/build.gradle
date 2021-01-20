@@ -3,6 +3,7 @@ import com.thomaskioko.githubstargazer.buildsrc.Dependencies
 apply from: "${rootDir}/gradle/android-build-config.gradle"
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 dependencies {
 
@@ -16,6 +17,14 @@ dependencies {
     implementation Dependencies.AndroidX.coreKtx
     implementation Dependencies.AndroidX.appCompat
     implementation Dependencies.AndroidX.constraintLayout
+
+    implementation Dependencies.AndroidX.Navigation.fragment
+    implementation Dependencies.AndroidX.Navigation.runtime
+
+    implementation Dependencies.Google.Hilt.android
+    implementation Dependencies.Google.Hilt.viewmodel
+    kapt Dependencies.Google.Hilt.andoroidCompiler
+    kapt Dependencies.Google.Hilt.compiler
 
     implementation Dependencies.material
     implementation Dependencies.timber
