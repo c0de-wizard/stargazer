@@ -4,6 +4,7 @@ import com.thomaskioko.githubstargazer.buildsrc.Dependencies
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion BuildVersions.compileSdkVersion
@@ -37,7 +38,6 @@ android {
 dependencies {
 
     implementation Dependencies.Kotlin.stdlib
-    implementation Dependencies.AndroidX.coreKtx
 
     implementation Dependencies.Retrofit.retrofit
     implementation Dependencies.Retrofit.retrofitCoroutinesConverter
@@ -52,12 +52,17 @@ dependencies {
     kapt Dependencies.Dagger.compiler
     kapt Dependencies.Dagger.processor
 
+    implementation Dependencies.Google.hilt
+    kapt Dependencies.Google.hiltCompiler
+
     implementation Dependencies.Room.roomKtx
     kapt Dependencies.Room.compiler
 
     testImplementation Dependencies.Testing.junit
     testImplementation Dependencies.Testing.truth
     testImplementation Dependencies.Testing.mockitoKotlin
+    testImplementation Dependencies.Testing.turbine
+    testImplementation Dependencies.Testing.Coroutines.test
     testImplementation Dependencies.Testing.Mockito.core
     androidTestImplementation Dependencies.Testing.androidJunit
     androidTestImplementation Dependencies.Testing.androidEspressoCore

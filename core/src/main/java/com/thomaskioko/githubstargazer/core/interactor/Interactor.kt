@@ -10,9 +10,10 @@ abstract class Interactor<Params, Type>(
     private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
 
-    protected abstract suspend fun run(params: Params): Flow<ViewState<Type>>
+    protected abstract fun run(params: Params): Flow<ViewState<Type>>
 
-    suspend operator fun invoke(params: Params): Flow<ViewState<Type>> = run(params).flowOn(coroutineDispatcher)
+    operator fun invoke(params: Params): Flow<ViewState<Type>> =
+        run(params).flowOn(coroutineDispatcher)
 }
 
-suspend operator fun <Type> Interactor<Unit, Type>.invoke(): Flow<ViewState<Type>> = this(Unit)
+operator fun <Type> Interactor<Unit, Type>.invoke(): Flow<ViewState<Type>> = this(Unit)

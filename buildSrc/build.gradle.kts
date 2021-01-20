@@ -14,9 +14,9 @@ repositories {
 }
 
 object PluginsVersions {
-    const val ANDROID_GRADLE = "4.1.0-rc03"
+    const val ANDROID_GRADLE = "4.1.1"
     const val KOTLIN = "1.4.10"
-    const val NAVIGATION = "2.0.0-rc02"
+    const val NAVIGATION = "2.3.2"
 }
 
 dependencies {
@@ -25,4 +25,5 @@ dependencies {
     implementation("org.owasp:dependency-check-gradle:1.4.5.1")
     implementation("org.jetbrains.kotlin:kotlin-allopen:${PluginsVersions.KOTLIN}")
     implementation("androidx.navigation:navigation-safe-args-gradle-plugin:${PluginsVersions.NAVIGATION}")
+    implementation("com.google.dagger:hilt-android-gradle-plugin:2.28-alpha")
 }

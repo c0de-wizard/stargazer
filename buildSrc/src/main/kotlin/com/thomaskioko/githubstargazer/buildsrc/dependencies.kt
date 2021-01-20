@@ -28,7 +28,7 @@ object Dependencies {
         }
 
         object Navigation {
-            private const val version = "2.3.0"
+            private const val version = "2.3.2"
             val fragment = "androidx.navigation:navigation-fragment-ktx:$version"
             val runtime = "androidx.navigation:navigation-runtime-ktx:$version"
             val ui = "androidx.navigation:navigation-ui-ktx:$version"
@@ -36,7 +36,7 @@ object Dependencies {
     }
 
     object Coroutines {
-        private const val version = "1.4.1"
+        private const val version = "1.4.2"
         val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
         val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
         val reactive = "org.jetbrains.kotlinx:kotlinx-coroutines-reactive:$version"
@@ -49,6 +49,18 @@ object Dependencies {
         val compiler = "com.google.dagger:dagger-compiler:$version"
         val processor = "com.google.dagger:dagger-android-processor:$version"
         val support = "com.google.dagger:dagger-android-support:$version"
+    }
+
+    object Google {
+        val hilt = "com.google.dagger:hilt-android:2.28-alpha"
+        val hiltCompiler = "com.google.dagger:hilt-android-compiler:2.28-alpha"
+
+        object Hilt {
+            val android = "com.google.dagger:hilt-android:2.28-alpha"
+            val andoroidCompiler = "com.google.dagger:hilt-android-compiler:2.28-alpha"
+            val compiler = "androidx.hilt:hilt-compiler:1.0.0-alpha01"
+            val viewmodel = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02"
+        }
     }
 
     object Kotlin {
@@ -88,7 +100,7 @@ object Dependencies {
         val androidEspressoCore = "androidx.test.espresso:espresso-core:3.3.0"
         val truth = "com.google.truth:truth:1.0.1"
         val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
-        val turbine = "app.cash.turbine:turbine:0.2.1"
+        val turbine = "app.cash.turbine:turbine:0.3.0"
 
         object AndroidX {
             val junit = "androidx.test.ext:junit:1.1.2"
@@ -97,7 +109,7 @@ object Dependencies {
         }
 
         object Coroutines {
-            val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.2"
+            val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2"
         }
 
         object Mockito {

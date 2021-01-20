@@ -4,6 +4,8 @@ import com.squareup.moshi.Moshi
 import com.thomaskioko.githubstargazer.repository.api.service.GitHubService
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import okhttp3.Call
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -13,22 +15,20 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
+@InstallIn(ApplicationComponent::class)
 object GitHubApiModule {
 
     @Provides
-    @JvmStatic
     @Singleton
     fun provideOkHttp(configurator: OkHttpConfigurator): Call.Factory =
         OkHttpClient.Builder().apply { configurator.configure(this) }
             .build()
 
     @Provides
-    @JvmStatic
     @Singleton
     fun provideMoshi(): Moshi = Moshi.Builder().build()
 
     @Provides
-    @JvmStatic
     @Singleton
     fun provideRetrofit(
         moshi: Moshi,
@@ -40,9 +40,8 @@ object GitHubApiModule {
         .build()
 
     @Provides
-    @JvmStatic
     @Singleton
-    fun provideGitHubApi(retrofit: Retrofit): GitHubService = retrofit.create()
+    fun provideGitHubService(retrofit: Retrofit): GitHubService = retrofit.create()
 
     @Provides
     fun provideOkHttpConfigurator() = object : OkHttpConfigurator {

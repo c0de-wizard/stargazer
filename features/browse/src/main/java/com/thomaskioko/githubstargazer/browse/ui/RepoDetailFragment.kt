@@ -1,39 +1,32 @@
 package com.thomaskioko.githubstargazer.browse.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.thomaskioko.githubstargazer.browse.databinding.FragmentRepoDetailBinding
 import com.thomaskioko.githubstargazer.browse.domain.model.UpdateObject
-import com.thomaskioko.githubstargazer.browse.injection.component.inject
+import com.thomaskioko.githubstargazer.browse.ui.viewmodel.GetReposViewModel
 import com.thomaskioko.githubstargazer.core.ViewState
-import com.thomaskioko.githubstargazer.core.extensions.injectViewModel
-import com.thomaskioko.githubstargazer.core.viewmodel.AppViewModelFactory
 import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class RepoDetailFragment : Fragment() {
 
-    @Inject
-    lateinit var viewModelFactory: AppViewModelFactory
+    private val getRepoViewModel: GetReposViewModel by viewModels()
 
     private val args: RepoDetailFragmentArgs by navArgs()
 
     private lateinit var binding: FragmentRepoDetailBinding
     private lateinit var viewDataModel: RepoViewDataModel
-
-    override fun onAttach(context: Context) {
-        inject()
-        super.onAttach(context)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,7 +34,7 @@ class RepoDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentRepoDetailBinding.inflate(inflater, container, false).apply {
-            viewmodel = injectViewModel(viewModelFactory)
+            viewmodel = getRepoViewModel
         }
         return binding.root
     }
@@ -51,8 +44,13 @@ class RepoDetailFragment : Fragment() {
         binding.floatingActionButton.setOnClickListener { handleButtonClick() }
 
         binding.viewmodel?.let {
-            it.repoId = args.repoId
-            it.getRepoById()
+
+            getRepoViewModel.getRepoById(args.repoId)
+            it.repoMutableStateFlow
+                .onEach(::handleViewStateResult)
+                .launchIn(lifecycleScope)
+
+            it.repoUpdateMutableStateFlow
                 .onEach(::handleViewStateResult)
                 .launchIn(lifecycleScope)
         }
@@ -62,8 +60,6 @@ class RepoDetailFragment : Fragment() {
         val isBookmarked = if (viewDataModel.isBookmarked) viewDataModel.isBookmarked else true
         binding.viewmodel?.let {
             it.updateBookmarkState(UpdateObject(args.repoId, isBookmarked))
-                .onEach(::handleViewStateResult)
-                .launchIn(lifecycleScope)
         }
     }
 

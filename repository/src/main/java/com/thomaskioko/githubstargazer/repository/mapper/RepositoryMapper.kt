@@ -6,16 +6,19 @@ import com.thomaskioko.githubstargazer.repository.db.model.RepoEntity
 object RepositoryMapper {
 
     fun mapResponseToEntityList(response: List<RepoResponse>): List<RepoEntity> = response.map {
-        RepoEntity(
-            repoId = it.id,
-            name = it.name,
-            description = it.description,
-            userName = it.owner.login,
-            stargazersCount = it.stargazersCount,
-            forksCount = it.forksCount,
-            contributorsUrl = it.contributorsUrl,
-            createdDate = it.createdDate,
-            updatedDate = it.updatedDate
-        )
+        mapResponseToEntityList(it)
     }
+
+    fun mapResponseToEntityList(response: RepoResponse): RepoEntity =
+        RepoEntity(
+            repoId = response.id,
+            name = response.name,
+            description = response.description,
+            userName = response.owner.login,
+            stargazersCount = response.stargazersCount,
+            forksCount = response.forksCount,
+            contributorsUrl = response.contributorsUrl,
+            createdDate = response.createdDate,
+            updatedDate = response.updatedDate
+        )
 }

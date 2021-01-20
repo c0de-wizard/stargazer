@@ -4,6 +4,10 @@ import com.thomaskioko.githubstargazer.buildsrc.Dependencies
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -38,4 +42,17 @@ android {
 dependencies {
 
     implementation Dependencies.Kotlin.stdlib
+    implementation Dependencies.AndroidX.Navigation.ui
+    implementation Dependencies.AndroidX.Navigation.fragment
+    implementation Dependencies.AndroidX.Navigation.runtime
+
+    implementation Dependencies.Google.Hilt.android
+    implementation Dependencies.Google.Hilt.viewmodel
+    kapt Dependencies.Google.Hilt.andoroidCompiler
+    kapt Dependencies.Google.Hilt.compiler
+
+    implementation Dependencies.Dagger.android
+    implementation Dependencies.Dagger.core
+    kapt Dependencies.Dagger.compiler
+    kapt Dependencies.Dagger.processor
 }

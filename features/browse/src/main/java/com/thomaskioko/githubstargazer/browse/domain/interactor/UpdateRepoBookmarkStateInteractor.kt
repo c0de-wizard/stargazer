@@ -15,7 +15,7 @@ class UpdateRepoBookmarkStateInteractor @Inject constructor(
     private val repository: GithubRepository
 ) : Interactor<UpdateObject, RepoViewDataModel>() {
 
-    override suspend fun run(params: UpdateObject): Flow<ViewState<RepoViewDataModel>> = flow {
+    override fun run(params: UpdateObject): Flow<ViewState<RepoViewDataModel>> = flow {
 
         emit(ViewState.loading())
 
