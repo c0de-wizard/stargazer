@@ -3,8 +3,11 @@ package com.thomaskioko.githubstargazer.ui
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.thomaskioko.githubstargazer.R
 import com.thomaskioko.githubstargazer.databinding.ActivityMainBinding
 import com.thomaskioko.stargazer.navigation.NavigationScreen
@@ -31,6 +34,19 @@ class MainActivity : AppCompatActivity(), ScreenNavigator {
         val navController = findNavController(R.id.nav_host_fragment)
 
         navigator.navController = navController
+
+        binding.bottomNavigation.setupWithNavController(navController)
+
+        // Hide bottom nav on screens which don't require it
+        lifecycleScope.launchWhenResumed {
+            navController.addOnDestinationChangedListener { _, destination, _ ->
+                when (destination.id) {
+                    R.id.repoListFragment, R.id.mviRepoListFragment -> binding.bottomNavigation.visibility =
+                        View.VISIBLE
+                    else -> binding.bottomNavigation.visibility = View.GONE
+                }
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

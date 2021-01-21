@@ -2,12 +2,12 @@ package com.thomaskioko.stargazer.navigation
 
 import androidx.navigation.NavController
 import com.thomaskioko.stargazer.actions.MainNavGraphDirections
-import com.thomaskioko.stargazer.navigation.NavigationScreen.BookmarkListScreen
-import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoListScreen
+import com.thomaskioko.stargazer.navigation.NavigationScreen.*
 import javax.inject.Inject
 
 sealed class NavigationScreen {
     object RepoListScreen : NavigationScreen()
+    object MviRepoListScreen : NavigationScreen()
     object BookmarkListScreen : NavigationScreen()
 }
 
@@ -21,6 +21,7 @@ class Navigator {
     fun navigateToScreen(navigationFlow: NavigationScreen) = when (navigationFlow) {
         RepoListScreen -> navController.navigate(MainNavGraphDirections.actionRepoList())
         BookmarkListScreen -> navController.navigate(MainNavGraphDirections.actionBookmarkList())
+        MviRepoListScreen -> navController.navigate(MainNavGraphDirections.actionMviRepoList())
     }
 }
 
@@ -32,6 +33,7 @@ class ScreenNavigatorImpl @Inject constructor(
         when (navigationScreen) {
             RepoListScreen -> navController.navigate(MainNavGraphDirections.actionRepoList())
             BookmarkListScreen -> navController.navigate(MainNavGraphDirections.actionBookmarkList())
+            MviRepoListScreen -> navController.navigate(MainNavGraphDirections.actionMviRepoList())
         }
     }
 }

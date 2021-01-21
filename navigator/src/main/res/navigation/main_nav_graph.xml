@@ -8,11 +8,22 @@
 
     <include app:graph="@navigation/browse_nav_graph" />
 
+    <include app:graph="@navigation/browse_mvi_nav_graph" />
+
     <include app:graph="@navigation/bookmark_nav_graph" />
 
     <action
         android:id="@+id/action_repo_list"
         app:destination="@id/browse_nav_graph"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_enter_anim"
+        app:popExitAnim="@anim/nav_default_exit_anim"
+        app:popUpTo="@id/main_nav_graph" />
+
+    <action
+        android:id="@+id/action_mvi_repo_list"
+        app:destination="@id/browse_mvi_nav_graph"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
         app:popEnterAnim="@anim/nav_default_enter_anim"
