@@ -24,9 +24,8 @@ class GithubRepository @Inject constructor(
             .flowOn(Dispatchers.IO)
             .conflate()
 
-    private suspend fun loadFromNetwork() = service.getRepositories()
-        .map { database.repoDao().insertRepo(mapResponseToEntityList(it)) }
-        .asFlow()
+    private suspend fun loadFromNetwork() = flowOf(service.getRepositories())
+        .map { database.repoDao().insertRepos(mapResponseToEntityList(it)) }
         .flatMapConcat { database.repoDao().getReposFlow() }
         .catch { database.repoDao().getReposFlow().map { emit(it) } }
 
