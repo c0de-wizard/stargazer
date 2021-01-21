@@ -34,29 +34,19 @@ class GithubRepositoryTest {
     @ExperimentalCoroutinesApi
     @ExperimentalTime
     @Test
-    fun `givenDeviceIsConnected verify data isLoadedFrom Remote`() =
-        runBlocking {
-            whenever(repoDao.getReposFlow()).doReturn(flowOf(makeRepoEntityList()))
-            whenever(service.getRepositories()) doReturn makeRepoResponseList()
+    fun `givenDeviceIsConnected verify data isLoadedFrom Remote`() = runBlocking {
+        whenever(repoDao.getReposFlow()) doReturn flowOf(makeRepoEntityList())
+        whenever(service.getRepositories()) doReturn makeRepoResponseList()
 
-//            repository.getRepositoryList(true).test {
-//                verify(database.repoDao()).insertRepos(makeRepoEntityList())
-//
-//                assertThat(expectItem()).isEqualTo(makeRepoEntityList())
-//                expectComplete()
-//            }
+        val repos = repository.getRepositoryList(true).toList()
+        val expected = listOf(makeRepoEntityList())
 
-            val repos = repository.getRepositoryList(true).toList()
-            val expected = listOf(makeRepoEntityList())
+        assertThat(repos).isEqualTo(expected)
 
-            verify(service).getRepositories()
-            verify(database.repoDao()).getReposFlow()
-
-            makeRepoEntityList().map {
-                verify(database.repoDao()).insertRepo(it)
-            }
-            assertThat(repos).isEqualTo(expected)
-        }
+        verify(service).getRepositories()
+        verify(database.repoDao()).getReposFlow()
+        verify(database.repoDao()).insertRepos(makeRepoEntityList())
+    }
 
     @Test
     fun `givenDeviceIsNotConnected verify data isLoadedFrom Database`() = runBlocking {
