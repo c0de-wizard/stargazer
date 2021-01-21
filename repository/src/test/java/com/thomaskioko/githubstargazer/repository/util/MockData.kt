@@ -34,7 +34,6 @@ object MockData {
 
     fun makeRepoEntityList() = listOf(
         RepoEntity(
-            id = 0,
             repoId = 1L,
             name = "Square",
             description = "Some cool description about the app",
