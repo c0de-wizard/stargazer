@@ -1,0 +1,86 @@
+import com.thomaskioko.githubstargazer.buildsrc.BuildVersions
+import com.thomaskioko.githubstargazer.buildsrc.Dependencies
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+
+android {
+    compileSdkVersion BuildVersions.compileSdkVersion
+    buildToolsVersion BuildVersions.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion BuildVersions.minSdkVersion
+        targetSdkVersion BuildVersions.targetSdkVersion
+        versionCode BuildVersions.versionCode
+        versionName BuildVersions.versionName
+
+        vectorDrawables.useSupportLibrary = true
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        viewBinding true
+        dataBinding true
+    }
+
+    compileOptions {
+        sourceCompatibility BuildVersions.javaVersion
+        targetCompatibility BuildVersions.javaVersion
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation Dependencies.Kotlin.stdlib
+    implementation Dependencies.AndroidX.coreKtx
+    implementation Dependencies.AndroidX.appCompat
+    implementation Dependencies.AndroidX.constraintLayout
+    implementation Dependencies.AndroidX.Lifecycle.viewmodel
+
+    implementation Dependencies.AndroidX.Navigation.fragment
+    implementation Dependencies.AndroidX.Navigation.ktx
+    implementation Dependencies.AndroidX.Navigation.runtime
+
+    implementation Dependencies.material
+    implementation Dependencies.timber
+
+    implementation Dependencies.Google.Hilt.android
+    implementation Dependencies.Google.Hilt.viewmodel
+    kapt Dependencies.Google.Hilt.andoroidCompiler
+    kapt Dependencies.Google.Hilt.compiler
+
+    implementation Dependencies.Coroutines.core
+    implementation Dependencies.Coroutines.android
+
+    implementation Dependencies.Dagger.android
+    implementation Dependencies.Dagger.core
+    kapt Dependencies.Dagger.compiler
+    kapt Dependencies.Dagger.processor
+
+    testImplementation Dependencies.Testing.junit
+    testImplementation Dependencies.Testing.truth
+    testImplementation Dependencies.Testing.turbine
+    testImplementation Dependencies.Testing.mockitoKotlin
+    testImplementation Dependencies.Testing.Mockito.core
+    testImplementation Dependencies.Testing.AndroidX.core
+    testImplementation Dependencies.Testing.Coroutines.test
+
+    androidTestImplementation Dependencies.Testing.AndroidX.junit
+    androidTestImplementation Dependencies.Testing.AndroidX.fragment
+    androidTestImplementation Dependencies.Testing.androidEspressoCore
+}
