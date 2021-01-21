@@ -12,6 +12,7 @@ object BuildVersions {
     val javaVersion = JavaVersion.VERSION_1_8
 }
 
+
 object Dependencies {
 
     val material = "com.google.android.material:material:1.2.1"
@@ -31,7 +32,7 @@ object Dependencies {
             private const val version = "2.3.2"
             val fragment = "androidx.navigation:navigation-fragment-ktx:$version"
             val runtime = "androidx.navigation:navigation-runtime-ktx:$version"
-            val ui = "androidx.navigation:navigation-ui-ktx:$version"
+            val ktx = "androidx.navigation:navigation-ui-ktx:$version"
         }
     }
 

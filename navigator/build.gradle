@@ -42,7 +42,7 @@ android {
 dependencies {
 
     implementation Dependencies.Kotlin.stdlib
-    implementation Dependencies.AndroidX.Navigation.ui
+    implementation Dependencies.AndroidX.Navigation.ktx
     implementation Dependencies.AndroidX.Navigation.fragment
     implementation Dependencies.AndroidX.Navigation.runtime
 

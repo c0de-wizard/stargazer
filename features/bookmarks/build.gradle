@@ -54,7 +54,7 @@ dependencies {
     implementation Dependencies.AndroidX.Lifecycle.viewmodel
 
     implementation Dependencies.AndroidX.Navigation.fragment
-    implementation Dependencies.AndroidX.Navigation.ui
+    implementation Dependencies.AndroidX.Navigation.ktx
     implementation Dependencies.AndroidX.Navigation.runtime
 
     implementation Dependencies.material
