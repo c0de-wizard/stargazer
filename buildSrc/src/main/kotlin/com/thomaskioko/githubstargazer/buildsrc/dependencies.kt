@@ -12,7 +12,6 @@ object BuildVersions {
     val javaVersion = JavaVersion.VERSION_1_8
 }
 
-
 object Dependencies {
 
     val material = "com.google.android.material:material:1.2.1"

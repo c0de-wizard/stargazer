@@ -41,8 +41,9 @@ class MainActivity : AppCompatActivity(), ScreenNavigator {
         lifecycleScope.launchWhenResumed {
             navController.addOnDestinationChangedListener { _, destination, _ ->
                 when (destination.id) {
-                    R.id.repoListFragment, R.id.mviRepoListFragment -> binding.bottomNavigation.visibility =
-                        View.VISIBLE
+                    R.id.repoListFragment, R.id.mviRepoListFragment ->
+                        binding.bottomNavigation.visibility =
+                            View.VISIBLE
                     else -> binding.bottomNavigation.visibility = View.GONE
                 }
             }
