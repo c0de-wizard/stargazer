@@ -25,5 +25,5 @@ dependencies {
     implementation("org.owasp:dependency-check-gradle:1.4.5.1")
     implementation("org.jetbrains.kotlin:kotlin-allopen:${PluginsVersions.KOTLIN}")
     implementation("androidx.navigation:navigation-safe-args-gradle-plugin:${PluginsVersions.NAVIGATION}")
-    implementation("com.google.dagger:hilt-android-gradle-plugin:2.28-alpha")
+    implementation("com.google.dagger:hilt-android-gradle-plugin:2.30.1-alpha")
 }
