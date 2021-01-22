@@ -13,6 +13,7 @@ dependencies {
     implementation project(':features:browse')
     implementation project(':features:browse-mvi')
     implementation project(':features:bookmarks')
+    implementation project(':features:repo-details')
 
     implementation Dependencies.Kotlin.stdlib
     implementation Dependencies.AndroidX.coreKtx
