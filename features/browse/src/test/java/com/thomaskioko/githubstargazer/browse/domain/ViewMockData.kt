@@ -22,7 +22,6 @@ object ViewMockData {
 
     fun makeRepoEntityList() = listOf(
         RepoEntity(
-            id = 0,
             repoId = 1L,
             name = "Square",
             description = "Some cool description about the app",
@@ -34,20 +33,6 @@ object ViewMockData {
             updatedDate = "1/11/1900",
             isBookmarked = false
         )
-    )
-
-    fun makeRepoEntity() = RepoEntity(
-        id = 2,
-        repoId = 1L,
-        name = "Square",
-        description = "Some cool description about the app",
-        userName = "ninja",
-        stargazersCount = 1,
-        forksCount = 1,
-        contributorsUrl = "",
-        createdDate = "1/11/1900",
-        updatedDate = "1/11/1900",
-        isBookmarked = false
     )
 
     fun makeRepoViewDataModel() = RepoViewDataModel(
