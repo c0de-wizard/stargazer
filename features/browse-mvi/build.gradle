@@ -45,6 +45,9 @@ android {
 }
 
 dependencies {
+    implementation project(':core')
+    implementation project(':common-ui')
+    implementation project(':navigator')
 
     implementation Dependencies.Kotlin.stdlib
     implementation Dependencies.AndroidX.coreKtx

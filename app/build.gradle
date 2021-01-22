@@ -11,6 +11,7 @@ dependencies {
     implementation project(':repository')
     implementation project(':navigator')
     implementation project(':features:browse')
+    implementation project(':features:browse-mvi')
     implementation project(':features:bookmarks')
 
     implementation Dependencies.Kotlin.stdlib
@@ -19,6 +20,7 @@ dependencies {
     implementation Dependencies.AndroidX.constraintLayout
 
     implementation Dependencies.AndroidX.Navigation.fragment
+    implementation Dependencies.AndroidX.Navigation.ktx
     implementation Dependencies.AndroidX.Navigation.runtime
 
     implementation Dependencies.Google.Hilt.android
