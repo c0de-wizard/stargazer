@@ -5,12 +5,8 @@ import app.cash.turbine.test
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import com.thomaskioko.githubstargazer.browse.domain.ViewMockData.makeRepoViewDataModel
 import com.thomaskioko.githubstargazer.browse.domain.ViewMockData.makeRepoViewDataModelList
-import com.thomaskioko.githubstargazer.browse.domain.interactor.GetRepoByIdInteractor
 import com.thomaskioko.githubstargazer.browse.domain.interactor.GetRepoListInteractor
-import com.thomaskioko.githubstargazer.browse.domain.interactor.UpdateRepoBookmarkStateInteractor
-import com.thomaskioko.githubstargazer.browse.domain.model.UpdateObject
 import com.thomaskioko.githubstargazer.browse.ui.util.CoroutineScopeRule
 import com.thomaskioko.githubstargazer.core.ViewState
 import com.thomaskioko.githubstargazer.core.ViewState.*
@@ -24,7 +20,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 import org.mockito.Mockito.anyBoolean
-import org.mockito.Mockito.anyLong
 import org.mockito.MockitoAnnotations
 import kotlin.time.ExperimentalTime
 
@@ -39,8 +34,6 @@ internal class GetReposViewModelTest {
     val scopeRule = CoroutineScopeRule()
 
     private val interactor: GetRepoListInteractor = mock()
-    private val getRepoByIdInteractor: GetRepoByIdInteractor = mock()
-    private val bookmarkStateInteractor: UpdateRepoBookmarkStateInteractor = mock()
 
     private lateinit var viewModel: GetReposViewModel
 
@@ -48,7 +41,9 @@ internal class GetReposViewModelTest {
     fun before() {
         MockitoAnnotations.initMocks(this)
 
-        viewModel = GetReposViewModel(interactor, getRepoByIdInteractor, bookmarkStateInteractor)
+        viewModel = GetReposViewModel(
+            interactor
+        )
     }
 
     @Test
@@ -76,53 +71,6 @@ internal class GetReposViewModelTest {
 
             assertEquals(expectItem(), Loading<ViewState<List<RepoViewDataModel>>>())
             assertEquals(expectItem(), Error<ViewState<RepoViewDataModel>>(errorMessage))
-        }
-    }
-
-    @Test
-    fun `givenRepoId verify successStateIsReturned`() = runBlocking {
-        val repoViewDataModel = makeRepoViewDataModel()
-
-        whenever(getRepoByIdInteractor(anyLong())) doReturn flowOf(Success(repoViewDataModel))
-
-        viewModel.repoMutableStateFlow.test {
-
-            viewModel.getRepoById(anyLong())
-
-            assertEquals(expectItem(), Loading<ViewState<List<RepoViewDataModel>>>())
-            assertEquals(expectItem(), Success(repoViewDataModel))
-        }
-    }
-
-    @Test
-    fun `givenFailureById verify errorStateIsReturned`() = runBlocking {
-
-        val errorMessage = "Something went wrong"
-
-        whenever(getRepoByIdInteractor(anyLong())) doReturn flowOf(Error(errorMessage))
-
-        viewModel.repoMutableStateFlow.test {
-
-            viewModel.getRepoById(anyLong())
-
-            assertEquals(expectItem(), Loading<ViewState<List<RepoViewDataModel>>>())
-            assertEquals(expectItem(), Error<ViewState<List<RepoViewDataModel>>>(errorMessage))
-        }
-    }
-
-    @Test
-    fun `givenUpdateRepoIsInvoked verify successStateIsReturned`() = runBlocking {
-        val updateObject = UpdateObject(1, true)
-        val repoViewDataModel = makeRepoViewDataModel()
-
-        whenever(bookmarkStateInteractor(updateObject)) doReturn flowOf(Success(repoViewDataModel))
-
-        viewModel.repoUpdateMutableStateFlow.test {
-
-            viewModel.updateBookmarkState(updateObject)
-
-            assertEquals(expectItem(), Loading<ViewState<List<RepoViewDataModel>>>())
-            assertEquals(expectItem(), Success(repoViewDataModel))
         }
     }
 }
