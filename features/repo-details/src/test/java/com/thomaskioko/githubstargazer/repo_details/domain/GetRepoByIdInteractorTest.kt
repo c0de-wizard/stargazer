@@ -1,12 +1,12 @@
-package com.thomaskioko.githubstargazer.browse.domain.interactor
+package com.thomaskioko.githubstargazer.repo_details.domain
 
 import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import com.thomaskioko.githubstargazer.browse.domain.ViewMockData.makeRepoEntity
-import com.thomaskioko.githubstargazer.browse.domain.ViewMockData.makeRepoViewDataModel
 import com.thomaskioko.githubstargazer.core.ViewState
+import com.thomaskioko.githubstargazer.repo_details.util.ViewMockData.makeRepoEntity
+import com.thomaskioko.githubstargazer.repo_details.util.ViewMockData.makeRepoViewDataModel
 import com.thomaskioko.githubstargazer.repository.api.GithubRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
@@ -18,7 +18,8 @@ import org.mockito.ArgumentMatchers.anyLong
 internal class GetRepoByIdInteractorTest {
 
     private val repository: GithubRepository = mock()
-    private val interactor = GetRepoByIdInteractor(repository)
+    private val interactor =
+        GetRepoByIdInteractor(repository)
 
     @Test
     fun `whenever getRepoByIdIsInvoked expectedDataIsReturned`() = runBlocking {

@@ -1,4 +1,4 @@
-package com.thomaskioko.githubstargazer.browse.domain.model
+package com.thomaskioko.githubstargazer.repo_details.domain.model
 
 data class UpdateObject(
     val repoId: Long,

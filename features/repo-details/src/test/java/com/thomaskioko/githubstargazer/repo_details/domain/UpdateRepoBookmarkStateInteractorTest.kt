@@ -1,13 +1,13 @@
-package com.thomaskioko.githubstargazer.browse.domain.interactor
+package com.thomaskioko.githubstargazer.repo_details.domain
 
 import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import com.thomaskioko.githubstargazer.browse.domain.ViewMockData.makeRepoEntityList
-import com.thomaskioko.githubstargazer.browse.domain.ViewMockData.makeRepoViewDataModelList
-import com.thomaskioko.githubstargazer.browse.domain.model.UpdateObject
 import com.thomaskioko.githubstargazer.core.ViewState
+import com.thomaskioko.githubstargazer.repo_details.domain.model.UpdateObject
+import com.thomaskioko.githubstargazer.repo_details.util.ViewMockData.makeRepoEntityList
+import com.thomaskioko.githubstargazer.repo_details.util.ViewMockData.makeRepoViewDataModelList
 import com.thomaskioko.githubstargazer.repository.api.GithubRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
