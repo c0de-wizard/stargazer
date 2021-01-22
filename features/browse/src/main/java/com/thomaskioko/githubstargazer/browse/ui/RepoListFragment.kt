@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import com.thomaskioko.githubstargazer.browse.databinding.FragmentRepoListBinding
 import com.thomaskioko.githubstargazer.browse.ui.adapter.RepoItemClick
 import com.thomaskioko.githubstargazer.browse.ui.adapter.RepoListAdapter
@@ -17,6 +16,8 @@ import com.thomaskioko.githubstargazer.core.extensions.hideView
 import com.thomaskioko.githubstargazer.core.extensions.showView
 import com.thomaskioko.githubstargazer.core.util.ConnectivityUtil.isConnected
 import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
+import com.thomaskioko.stargazer.navigation.NavigationScreen
+import com.thomaskioko.stargazer.navigation.ScreenNavigator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
@@ -36,9 +37,11 @@ class RepoListFragment : Fragment() {
 
     private val onRepoItemClick = object : RepoItemClick {
         override fun onClick(view: View, repoId: Long) {
-            val action =
-                RepoListFragmentDirections.actionRepoListFragmentToRepoDetailFragment(repoId)
-            view.findNavController().navigate(action, null)
+            (requireActivity() as ScreenNavigator).goToScreen(
+                NavigationScreen.RepoDetailScreen(
+                    repoId
+                )
+            )
         }
     }
 
