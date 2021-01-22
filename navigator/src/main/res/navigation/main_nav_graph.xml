@@ -12,6 +12,8 @@
 
     <include app:graph="@navigation/bookmark_nav_graph" />
 
+    <include app:graph="@navigation/repo_details_nav_graph" />
+
     <action
         android:id="@+id/action_repo_list"
         app:destination="@id/browse_nav_graph"
@@ -38,5 +40,18 @@
         app:popEnterAnim="@anim/nav_default_enter_anim"
         app:popExitAnim="@anim/nav_default_exit_anim"
         app:popUpTo="@id/home_nav_graph" />
+
+    <action
+        android:id="@+id/action_repo_details"
+        app:destination="@id/repo_details_nav_graph"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_enter_anim"
+        app:popExitAnim="@anim/nav_default_exit_anim">
+
+        <argument
+            android:name="repo_id"
+            app:argType="long" />
+    </action>
 
 </navigation>
