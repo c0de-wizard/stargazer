@@ -11,17 +11,7 @@
         android:label="RepoListFragment"
         tools:layout="@layout/fragment_repo_list">
         <action
-            android:id="@+id/action_repoListFragment_to_repoDetailFragment"
-            app:destination="@id/repoDetailFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/repoDetailFragment"
-        android:name="com.thomaskioko.githubstargazer.browse.ui.RepoDetailFragment"
-        android:label="RepoDetailFragment"
-        tools:layout="@layout/fragment_repo_detail">
-        <argument
-            android:name="repo_id"
-            app:argType="long" />
+            android:id="@+id/action_repoListFragment_to_repoDetailsFragment"
+            app:destination="@id/repoDetailsFragment" />
     </fragment>
 </navigation>
