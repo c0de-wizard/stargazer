@@ -9,6 +9,7 @@ sealed class NavigationScreen {
     object RepoListScreen : NavigationScreen()
     object MviRepoListScreen : NavigationScreen()
     object BookmarkListScreen : NavigationScreen()
+    data class RepoDetailScreen(val repoId: Long) : NavigationScreen()
 }
 
 interface ScreenNavigator {
@@ -18,10 +19,13 @@ interface ScreenNavigator {
 class Navigator {
     lateinit var navController: NavController
 
-    fun navigateToScreen(navigationFlow: NavigationScreen) = when (navigationFlow) {
+    fun navigateToScreen(navigationScreen: NavigationScreen) = when (navigationScreen) {
         RepoListScreen -> navController.navigate(MainNavGraphDirections.actionRepoList())
         BookmarkListScreen -> navController.navigate(MainNavGraphDirections.actionBookmarkList())
         MviRepoListScreen -> navController.navigate(MainNavGraphDirections.actionMviRepoList())
+        is RepoDetailScreen -> navController.navigate(
+            MainNavGraphDirections.actionRepoDetails(navigationScreen.repoId)
+        )
     }
 }
 
@@ -34,6 +38,11 @@ class ScreenNavigatorImpl @Inject constructor(
             RepoListScreen -> navController.navigate(MainNavGraphDirections.actionRepoList())
             BookmarkListScreen -> navController.navigate(MainNavGraphDirections.actionBookmarkList())
             MviRepoListScreen -> navController.navigate(MainNavGraphDirections.actionMviRepoList())
+            is RepoDetailScreen -> navController.navigate(
+                MainNavGraphDirections.actionRepoDetails(
+                    navigationScreen.repoId
+                )
+            )
         }
     }
 }
