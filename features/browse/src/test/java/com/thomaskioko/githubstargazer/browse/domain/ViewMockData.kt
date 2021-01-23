@@ -3,7 +3,7 @@ package com.thomaskioko.githubstargazer.browse.domain
 import com.thomaskioko.githubstargazer.repository.db.model.RepoEntity
 import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
 
-object ViewMockData {
+internal object ViewMockData {
 
     fun makeRepoViewDataModelList() = listOf(
         RepoViewDataModel(
