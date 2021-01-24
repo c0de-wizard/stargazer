@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/mviRepoListFragment"
-        android:name="com.thomaskioko.githubstargazer.browse_mvi.MviRepoListFragment"
+        android:name="com.thomaskioko.githubstargazer.browse_mvi.ui.MviRepoListFragment"
         android:label="MviRepoListFragment"
         tools:layout="@layout/fragment_mvi_repo_list" />
 
