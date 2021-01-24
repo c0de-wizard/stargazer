@@ -1,10 +1,11 @@
-package com.thomaskioko.githubstargazer.browse_mvi
+package com.thomaskioko.githubstargazer.browse_mvi.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.thomaskioko.githubstargazer.browse_mvi.R
 
 class MviRepoListFragment : Fragment() {
 
