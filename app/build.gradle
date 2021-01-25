@@ -31,6 +31,7 @@ dependencies {
 
     implementation Dependencies.material
     implementation Dependencies.timber
+    implementation Dependencies.leakCanary
 
     implementation Dependencies.Dagger.core
     implementation Dependencies.Dagger.support
