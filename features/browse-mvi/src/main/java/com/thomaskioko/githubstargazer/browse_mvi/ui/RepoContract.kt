@@ -1,12 +1,18 @@
 package com.thomaskioko.githubstargazer.browse_mvi.ui
 
+import com.thomaskioko.githubstargazer.core.viewmodel.ViewAction
 import com.thomaskioko.githubstargazer.core.viewmodel.ViewIntent
 import com.thomaskioko.githubstargazer.core.viewmodel.ViewState
 import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
 
 sealed class ReposIntent : ViewIntent {
-    data class LoadRepositories(val isConnected: Boolean) : ReposIntent()
-    data class RepositorySelected(val repoId: Long) : ReposIntent()
+    data class DisplayData(val isConnected: Boolean) : ReposIntent()
+    data class RepoItemClicked(val repoId: Long) : ReposIntent()
+}
+
+sealed class ReposAction : ViewAction {
+    data class LoadRepositories(val isConnected: Boolean) : ReposAction()
+    data class NavigateToRepoDetail(val repoId: Long) : ReposAction()
 }
 
 sealed class ReposViewState : ViewState {
