@@ -8,7 +8,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel<INTENT : ViewIntent, STATE : ViewState> :
+abstract class BaseViewModel<INTENT : ViewIntent, ACTION : ViewAction, STATE : ViewState> :
     ViewModel(), IModel<STATE, INTENT> {
 
     protected val mState = MutableLiveData<STATE>()
@@ -22,8 +22,9 @@ abstract class BaseViewModel<INTENT : ViewIntent, STATE : ViewState> :
     }
 
     final override fun dispatchIntent(intent: INTENT) {
-        handleIntent(intent)
+        handleAction(intentToAction(intent))
     }
 
-    abstract fun handleIntent(intent: INTENT)
+    abstract fun intentToAction(intent: INTENT): ACTION
+    abstract fun handleAction(action: ACTION)
 }
