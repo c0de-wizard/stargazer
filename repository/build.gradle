@@ -52,8 +52,8 @@ dependencies {
     kapt Dependencies.Dagger.compiler
     kapt Dependencies.Dagger.processor
 
-    implementation Dependencies.Google.hilt
-    kapt Dependencies.Google.hiltCompiler
+    implementation Dependencies.Google.Hilt.core
+    kapt Dependencies.Google.Hilt.compiler
 
     implementation Dependencies.Room.roomKtx
     kapt Dependencies.Room.compiler

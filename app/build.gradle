@@ -24,9 +24,8 @@ dependencies {
     implementation Dependencies.AndroidX.Navigation.ktx
     implementation Dependencies.AndroidX.Navigation.runtime
 
-    implementation Dependencies.Google.Hilt.android
+    implementation Dependencies.Google.Hilt.core
     implementation Dependencies.Google.Hilt.viewmodel
-    kapt Dependencies.Google.Hilt.andoroidCompiler
     kapt Dependencies.Google.Hilt.compiler
 
     implementation Dependencies.material
