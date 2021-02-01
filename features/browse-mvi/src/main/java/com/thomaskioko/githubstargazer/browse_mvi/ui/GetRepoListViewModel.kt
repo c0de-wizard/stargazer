@@ -3,18 +3,26 @@ package com.thomaskioko.githubstargazer.browse_mvi.ui
 import androidx.lifecycle.viewModelScope
 import com.thomaskioko.githubstargazer.browse_mvi.interactor.GetReposInteractor
 import com.thomaskioko.githubstargazer.core.ViewState
+import com.thomaskioko.githubstargazer.core.viewmodel.AssistedViewModelFactory
 import com.thomaskioko.githubstargazer.core.viewmodel.BaseViewModel
 import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.thomaskioko.stargazer.navigation.NavigationScreen
+import com.thomaskioko.stargazer.navigation.ScreenNavigator
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import timber.log.Timber
-import javax.inject.Inject
 
-@HiltViewModel
-class GetRepoListViewModel @Inject constructor(
-    private val interactor: GetReposInteractor
+class GetRepoListViewModel @AssistedInject constructor(
+    private val interactor: GetReposInteractor,
+    @Assisted private val screenNavigator: ScreenNavigator
 ) : BaseViewModel<ReposIntent, ReposAction, ReposViewState>() {
+
+    @AssistedFactory
+    interface Factory : AssistedViewModelFactory<ScreenNavigator> {
+        override fun create(data: ScreenNavigator): GetRepoListViewModel
+    }
 
     init {
         mState.postValue(ReposViewState.Loading)
@@ -35,8 +43,7 @@ class GetRepoListViewModel @Inject constructor(
                     .launchIn(viewModelScope)
             }
             is ReposAction.NavigateToRepoDetail -> {
-                // TODO :: Navigate to repo details view
-                Timber.d("Repo with ID: ${action.repoId} selected")
+                screenNavigator.goToScreen(NavigationScreen.RepoDetailScreen(action.repoId))
             }
         }
     }

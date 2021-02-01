@@ -66,15 +66,9 @@ dependencies {
     implementation Dependencies.Google.Hilt.core
     implementation Dependencies.Google.Hilt.viewmodel
     kapt Dependencies.Google.Hilt.compiler
-    kapt Dependencies.Google.Hilt.compiler
 
     implementation Dependencies.Coroutines.core
     implementation Dependencies.Coroutines.android
-
-    implementation Dependencies.Dagger.android
-    implementation Dependencies.Dagger.core
-    kapt Dependencies.Dagger.compiler
-    kapt Dependencies.Dagger.processor
 
     testImplementation Dependencies.Testing.junit
     testImplementation Dependencies.Testing.truth

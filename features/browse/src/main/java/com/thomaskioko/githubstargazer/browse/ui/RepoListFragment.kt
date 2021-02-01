@@ -22,9 +22,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class RepoListFragment : Fragment() {
+
+    @Inject
+    lateinit var screenNavigator: ScreenNavigator
 
     private val getRepoViewModel: GetReposViewModel by viewModels()
 
@@ -37,11 +41,7 @@ class RepoListFragment : Fragment() {
 
     private val onRepoItemClick = object : RepoItemClick {
         override fun onClick(view: View, repoId: Long) {
-            (requireActivity() as ScreenNavigator).goToScreen(
-                NavigationScreen.RepoDetailScreen(
-                    repoId
-                )
-            )
+            screenNavigator.goToScreen(NavigationScreen.RepoDetailScreen(repoId))
         }
     }
 

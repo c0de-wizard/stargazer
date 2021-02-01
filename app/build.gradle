@@ -32,11 +32,6 @@ dependencies {
     implementation Dependencies.timber
     implementation Dependencies.leakCanary
 
-    implementation Dependencies.Dagger.core
-    implementation Dependencies.Dagger.support
-    kapt Dependencies.Dagger.compiler
-    kapt Dependencies.Dagger.processor
-
     implementation Dependencies.Retrofit.Moshi.core
     implementation Dependencies.Retrofit.Moshi.converter
     kapt Dependencies.Retrofit.Moshi.kapt

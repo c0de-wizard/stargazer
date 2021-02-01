@@ -16,13 +16,19 @@ import com.thomaskioko.githubstargazer.core.ViewState
 import com.thomaskioko.githubstargazer.core.extensions.hideView
 import com.thomaskioko.githubstargazer.core.extensions.showView
 import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
+import com.thomaskioko.stargazer.navigation.NavigationScreen
+import com.thomaskioko.stargazer.navigation.ScreenNavigator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class BookmarkedReposFragment : Fragment() {
+
+    @Inject
+    lateinit var screenNavigator: ScreenNavigator
 
     private val getRepoViewModel: GetBookmarkedReposViewModel by viewModels()
 
@@ -32,7 +38,7 @@ class BookmarkedReposFragment : Fragment() {
 
     private val onRepoItemClick = object : BookmarkRepoItemClick {
         override fun onClick(view: View, repoId: Long) {
-            // TODO:: update bookmark item to false
+            screenNavigator.goToScreen(NavigationScreen.RepoDetailScreen(repoId))
         }
     }
 
@@ -62,6 +68,7 @@ class BookmarkedReposFragment : Fragment() {
             }
         }
 
+        getRepoViewModel.getBookmarkedRepos()
         getRepoViewModel.bookmarkedList
             .onEach(::handleResult)
             .launchIn(lifecycleScope)

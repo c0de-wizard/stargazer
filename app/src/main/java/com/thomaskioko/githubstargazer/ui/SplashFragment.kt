@@ -10,8 +10,14 @@ import androidx.fragment.app.Fragment
 import com.thomaskioko.githubstargazer.R
 import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoListScreen
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class SplashFragment : Fragment() {
+
+    @Inject
+    lateinit var screenNavigator: ScreenNavigator
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,7 +33,7 @@ class SplashFragment : Fragment() {
         Handler(Looper.getMainLooper())
             .postDelayed(
                 {
-                    (requireActivity() as ScreenNavigator).goToScreen(RepoListScreen)
+                    screenNavigator.goToScreen(RepoListScreen)
                 },
                 1500
             )

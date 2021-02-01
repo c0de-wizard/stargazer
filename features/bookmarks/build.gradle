@@ -45,6 +45,7 @@ android {
 dependencies {
     implementation project(':core')
     implementation project(':common-ui')
+    implementation project(':navigator')
     implementation project(':repository')
 
     implementation Dependencies.Kotlin.stdlib
@@ -63,14 +64,8 @@ dependencies {
     implementation Dependencies.Coroutines.core
     implementation Dependencies.Coroutines.android
 
-    implementation Dependencies.Dagger.android
-    implementation Dependencies.Dagger.core
-    kapt Dependencies.Dagger.compiler
-    kapt Dependencies.Dagger.processor
-
     implementation Dependencies.Google.Hilt.core
     implementation Dependencies.Google.Hilt.viewmodel
-    kapt Dependencies.Google.Hilt.compiler
     kapt Dependencies.Google.Hilt.compiler
 
     testImplementation Dependencies.Testing.junit

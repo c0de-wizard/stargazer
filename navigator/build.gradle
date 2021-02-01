@@ -49,9 +49,4 @@ dependencies {
     implementation Dependencies.Google.Hilt.core
     implementation Dependencies.Google.Hilt.viewmodel
     kapt Dependencies.Google.Hilt.compiler
-
-    implementation Dependencies.Dagger.android
-    implementation Dependencies.Dagger.core
-    kapt Dependencies.Dagger.compiler
-    kapt Dependencies.Dagger.processor
 }

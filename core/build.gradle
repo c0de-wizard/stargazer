@@ -45,10 +45,6 @@ dependencies {
     implementation Dependencies.Coroutines.core
     implementation Dependencies.Coroutines.reactive
 
-    implementation Dependencies.Dagger.core
-    kapt Dependencies.Dagger.compiler
-    kapt Dependencies.Dagger.processor
-
     implementation Dependencies.Google.Hilt.core
     kapt Dependencies.Google.Hilt.compiler
 

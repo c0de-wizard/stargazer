@@ -43,22 +43,13 @@ object Dependencies {
         val reactive = "org.jetbrains.kotlinx:kotlinx-coroutines-reactive:$version"
     }
 
-    object Dagger {
-        private const val version = "2.28"
-        val android = "com.google.dagger:dagger-android:$version"
-        val core = "com.google.dagger:dagger:$version"
-        val compiler = "com.google.dagger:dagger-compiler:$version"
-        val processor = "com.google.dagger:dagger-android-processor:$version"
-        val support = "com.google.dagger:dagger-android-support:$version"
-    }
-
     object Google {
         val version = "2.31.2-alpha"
 
         object Hilt {
             val core = "com.google.dagger:hilt-android:$version"
             val compiler = "com.google.dagger:hilt-compiler:$version"
-            val viewmodel = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02"
+            val viewmodel = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
         }
     }
 
