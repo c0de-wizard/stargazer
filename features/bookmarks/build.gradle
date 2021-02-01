@@ -45,7 +45,7 @@ android {
 dependencies {
     implementation project(':core')
     implementation project(':common-ui')
-    implementation project(':navigator')
+    implementation project(':navigation')
     implementation project(':repository')
 
     implementation Dependencies.Kotlin.stdlib

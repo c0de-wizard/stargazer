@@ -17,19 +17,19 @@ interface ScreenNavigator {
     fun goToScreen(navigationScreen: NavigationScreen)
 }
 
-class ScreenNavigatorImpl @Inject constructor(
-    private val navController: Provider<NavController>
+class ScreenNavigationImpl @Inject constructor(
+    private val navControllerProvider: Provider<NavController>
 ) : ScreenNavigator {
 
     override fun goToScreen(navigationScreen: NavigationScreen) {
         when (navigationScreen) {
-            RepoListScreen -> navController.get()
+            RepoListScreen -> navControllerProvider.get()
                 .navigate(MainNavGraphDirections.actionRepoList())
-            BookmarkListScreen -> navController.get()
+            BookmarkListScreen -> navControllerProvider.get()
                 .navigate(MainNavGraphDirections.actionBookmarkList())
-            MviRepoListScreen -> navController.get()
+            MviRepoListScreen -> navControllerProvider.get()
                 .navigate(MainNavGraphDirections.actionMviRepoList())
-            is RepoDetailScreen -> navController.get()
+            is RepoDetailScreen -> navControllerProvider.get()
                 .navigate(MainNavGraphDirections.actionRepoDetails(navigationScreen.repoId))
         }
     }

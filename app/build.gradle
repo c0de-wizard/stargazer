@@ -9,7 +9,7 @@ dependencies {
 
     implementation project(':core')
     implementation project(':repository')
-    implementation project(':navigator')
+    implementation project(':navigation')
     implementation project(':features:browse')
     implementation project(':features:browse-mvi')
     implementation project(':features:bookmarks')
