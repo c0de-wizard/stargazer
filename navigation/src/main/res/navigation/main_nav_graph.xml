@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/home_nav_graph">
+
+    <include app:graph="@navigation/home_nav_graph" />
+
+    <include app:graph="@navigation/browse_nav_graph" />
+
+    <include app:graph="@navigation/browse_mvi_nav_graph" />
+
+    <include app:graph="@navigation/bookmark_nav_graph" />
+
+    <include app:graph="@navigation/repo_details_nav_graph" />
+
+    <action
+        android:id="@+id/action_repo_list"
+        app:destination="@id/browse_nav_graph"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_enter_anim"
+        app:popExitAnim="@anim/nav_default_exit_anim"
+        app:popUpTo="@id/main_nav_graph" />
+
+    <action
+        android:id="@+id/action_mvi_repo_list"
+        app:destination="@id/browse_mvi_nav_graph"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_enter_anim"
+        app:popExitAnim="@anim/nav_default_exit_anim"
+        app:popUpTo="@id/main_nav_graph" />
+
+    <action
+        android:id="@+id/action_bookmark_list"
+        app:destination="@id/bookmark_nav_graph"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_enter_anim"
+        app:popExitAnim="@anim/nav_default_exit_anim"
+        app:popUpTo="@id/home_nav_graph" />
+
+    <action
+        android:id="@+id/action_repo_details"
+        app:destination="@id/repo_details_nav_graph"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_enter_anim"
+        app:popExitAnim="@anim/nav_default_exit_anim">
+
+        <argument
+            android:name="repo_id"
+            app:argType="long" />
+    </action>
+
+</navigation>

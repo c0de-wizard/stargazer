@@ -34,29 +34,21 @@ class GithubRepositoryTest {
     @ExperimentalCoroutinesApi
     @ExperimentalTime
     @Test
-    fun `givenDeviceIsConnected verify data isLoadedFrom Remote`() =
-        runBlocking {
-            whenever(repoDao.getReposFlow()).doReturn(flowOf(makeRepoEntityList()))
-            whenever(service.getRepositories()) doReturn makeRepoResponseList()
+    fun `givenDeviceIsConnected verify data isLoadedFrom Remote`() = runBlocking {
+        whenever(repoDao.getReposFlow()) doReturn flowOf(emptyList())
+        whenever(service.getRepositories()) doReturn makeRepoResponseList()
 
-//            repository.getRepositoryList(true).test {
-//                verify(database.repoDao()).insertRepos(makeRepoEntityList())
-//
-//                assertThat(expectItem()).isEqualTo(makeRepoEntityList())
-//                expectComplete()
-//            }
+        //TODO:: Replace with Turbine Test
+        val repos = repository.getRepositoryList(true).toList()
+        val expected = listOf(makeRepoEntityList())
 
-            val repos = repository.getRepositoryList(true).toList()
-            val expected = listOf(makeRepoEntityList())
+        verify(service).getRepositories()
+        verify(database.repoDao()).insertRepos(makeRepoEntityList())
+        verify(database.repoDao(), times(2)).getReposFlow()
 
-            verify(service).getRepositories()
-            verify(database.repoDao()).getReposFlow()
+        assertThat(repos.size).isEqualTo(expected.size)
 
-            makeRepoEntityList().map {
-                verify(database.repoDao()).insertRepo(it)
-            }
-            assertThat(repos).isEqualTo(expected)
-        }
+    }
 
     @Test
     fun `givenDeviceIsNotConnected verify data isLoadedFrom Database`() = runBlocking {
@@ -67,7 +59,7 @@ class GithubRepositoryTest {
         val expected = listOf(makeRepoEntityList())
 
         verify(service, never()).getRepositories()
-        verify(database.repoDao()).getReposFlow()
+        verify(database.repoDao(), times(2)).getReposFlow()
 
         assertThat(repos).isEqualTo(expected)
     }

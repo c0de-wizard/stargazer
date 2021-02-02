@@ -16,6 +16,7 @@ object Dependencies {
 
     val material = "com.google.android.material:material:1.2.1"
     val timber = "com.jakewharton.timber:timber:4.5.1"
+    val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.6"
 
     object AndroidX {
         val appCompat = "androidx.appcompat:appcompat:1.1.0"
@@ -24,6 +25,8 @@ object Dependencies {
 
         object Lifecycle {
             private const val version = "2.2.0"
+            val common = "androidx.lifecycle:lifecycle-common-java8:$version"
+            val runtime = "androidx.lifecycle:lifecycle-runtime-ktx:$version"
             val viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
         }
 
@@ -31,7 +34,7 @@ object Dependencies {
             private const val version = "2.3.2"
             val fragment = "androidx.navigation:navigation-fragment-ktx:$version"
             val runtime = "androidx.navigation:navigation-runtime-ktx:$version"
-            val ui = "androidx.navigation:navigation-ui-ktx:$version"
+            val ktx = "androidx.navigation:navigation-ui-ktx:$version"
         }
     }
 
@@ -42,24 +45,13 @@ object Dependencies {
         val reactive = "org.jetbrains.kotlinx:kotlinx-coroutines-reactive:$version"
     }
 
-    object Dagger {
-        private const val version = "2.28"
-        val android = "com.google.dagger:dagger-android:$version"
-        val core = "com.google.dagger:dagger:$version"
-        val compiler = "com.google.dagger:dagger-compiler:$version"
-        val processor = "com.google.dagger:dagger-android-processor:$version"
-        val support = "com.google.dagger:dagger-android-support:$version"
-    }
-
     object Google {
-        val hilt = "com.google.dagger:hilt-android:2.28-alpha"
-        val hiltCompiler = "com.google.dagger:hilt-android-compiler:2.28-alpha"
+        val version = "2.31.2-alpha"
 
         object Hilt {
-            val android = "com.google.dagger:hilt-android:2.28-alpha"
-            val andoroidCompiler = "com.google.dagger:hilt-android-compiler:2.28-alpha"
-            val compiler = "androidx.hilt:hilt-compiler:1.0.0-alpha01"
-            val viewmodel = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02"
+            val core = "com.google.dagger:hilt-android:$version"
+            val compiler = "com.google.dagger:hilt-compiler:$version"
+            val viewmodel = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
         }
     }
 
