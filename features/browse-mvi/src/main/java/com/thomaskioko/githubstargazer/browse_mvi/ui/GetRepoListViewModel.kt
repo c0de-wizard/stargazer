@@ -3,7 +3,7 @@ package com.thomaskioko.githubstargazer.browse_mvi.ui
 import androidx.lifecycle.viewModelScope
 import com.thomaskioko.githubstargazer.browse_mvi.interactor.GetReposInteractor
 import com.thomaskioko.githubstargazer.core.ViewState
-import com.thomaskioko.githubstargazer.core.viewmodel.AssistedViewModelFactory
+import com.thomaskioko.githubstargazer.core.factory.AssistedViewModelFactory
 import com.thomaskioko.githubstargazer.core.viewmodel.BaseViewModel
 import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
 import com.thomaskioko.stargazer.navigation.NavigationScreen
@@ -17,15 +17,13 @@ import kotlinx.coroutines.flow.onEach
 class GetRepoListViewModel @AssistedInject constructor(
     private val interactor: GetReposInteractor,
     @Assisted private val screenNavigator: ScreenNavigator
-) : BaseViewModel<ReposIntent, ReposAction, ReposViewState>() {
+) : BaseViewModel<ReposIntent, ReposAction, ReposViewState>(
+    initialViewState = ReposViewState.Loading
+) {
 
     @AssistedFactory
     interface Factory : AssistedViewModelFactory<ScreenNavigator> {
         override fun create(data: ScreenNavigator): GetRepoListViewModel
-    }
-
-    init {
-        mState.postValue(ReposViewState.Loading)
     }
 
     override fun intentToAction(intent: ReposIntent): ReposAction {
@@ -39,12 +37,11 @@ class GetRepoListViewModel @AssistedInject constructor(
         when (action) {
             is ReposAction.LoadRepositories -> {
                 interactor(action.isConnected)
-                    .onEach { mState.postValue(it.reduce()) }
+                    .onEach { channelState.offer(it.reduce()) }
                     .launchIn(viewModelScope)
             }
-            is ReposAction.NavigateToRepoDetail -> {
+            is ReposAction.NavigateToRepoDetail ->
                 screenNavigator.goToScreen(NavigationScreen.RepoDetailScreen(action.repoId))
-            }
         }
     }
 }
