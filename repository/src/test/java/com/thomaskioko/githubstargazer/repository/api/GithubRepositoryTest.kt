@@ -35,17 +35,19 @@ class GithubRepositoryTest {
     @ExperimentalTime
     @Test
     fun `givenDeviceIsConnected verify data isLoadedFrom Remote`() = runBlocking {
-        whenever(repoDao.getReposFlow()) doReturn flowOf(makeRepoEntityList())
+        whenever(repoDao.getReposFlow()) doReturn flowOf(emptyList())
         whenever(service.getRepositories()) doReturn makeRepoResponseList()
 
+        //TODO:: Replace with Turbine Test
         val repos = repository.getRepositoryList(true).toList()
         val expected = listOf(makeRepoEntityList())
 
-        assertThat(repos).isEqualTo(expected)
-
         verify(service).getRepositories()
-        verify(database.repoDao()).getReposFlow()
         verify(database.repoDao()).insertRepos(makeRepoEntityList())
+        verify(database.repoDao(), times(2)).getReposFlow()
+
+        assertThat(repos.size).isEqualTo(expected.size)
+
     }
 
     @Test
@@ -57,7 +59,7 @@ class GithubRepositoryTest {
         val expected = listOf(makeRepoEntityList())
 
         verify(service, never()).getRepositories()
-        verify(database.repoDao()).getReposFlow()
+        verify(database.repoDao(), times(2)).getReposFlow()
 
         assertThat(repos).isEqualTo(expected)
     }
