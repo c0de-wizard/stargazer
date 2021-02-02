@@ -1,8 +1,8 @@
 package com.thomaskioko.githubstargazer.browse_mvi.ui
 
-import com.thomaskioko.githubstargazer.core.viewmodel.ViewAction
-import com.thomaskioko.githubstargazer.core.viewmodel.ViewIntent
-import com.thomaskioko.githubstargazer.core.viewmodel.ViewState
+import com.thomaskioko.githubstargazer.core.presentation.ViewAction
+import com.thomaskioko.githubstargazer.core.presentation.ViewIntent
+import com.thomaskioko.githubstargazer.core.presentation.ViewState
 import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
 
 sealed class ReposIntent : ViewIntent {
