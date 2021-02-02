@@ -37,6 +37,9 @@ This layer contains core classes shared between modules. It includes:
 ### Repository (Data Layer)
 This layer is responsible for fetching data. It contains cache and remote implementation.
 
+For this case, I choose to have it as a separate module since the api is not changing that much but
+for a bigger application, I would ideally move this to the respective module. It's easier to manage changes that way.
+
 ### Features
 This layer is where we create different feature modules. Browse Repository & Bookmark Repository. Structure breakdown:
 
@@ -74,7 +77,10 @@ This module enables us to navigate between the app, as the name suggests. It con
 - [x] Load and display repositories.
 - [x] Bookmark repo.
 - [x] Cleanup: Create common module: Contains shared UI classes.
-- [ ] Refactor BaseViewModel class implementation: Replace LiveData with flow.
+- [x] Refactor BaseViewModel class implementation: Replace LiveData with flow.
 - [ ] Create some from of 'StateMachine' to handle states lifeCycle
 - [ ] Add instrumentation tests.
-- [ ] Cleanup Kotlin DSL Implementation
+- [ ] Add/update missing test cases.
+- [ ] Cleanup Kotlin DSL Implementation.
+- [ ] Add Pagination (Maybe 😁).
+- [ ] Materialize app.
