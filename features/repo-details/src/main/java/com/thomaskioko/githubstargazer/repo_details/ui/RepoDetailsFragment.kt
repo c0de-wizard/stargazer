@@ -33,13 +33,12 @@ class RepoDetailsFragment : Fragment() {
     ): View? {
         binding = FragmentRepoDetailsBinding.inflate(inflater, container, false).apply {
             viewmodel = getRepoViewModel
-        }
+        }.apply { floatingActionButton.setOnClickListener { handleButtonClick() } }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.floatingActionButton.setOnClickListener { handleButtonClick() }
 
         binding.viewmodel?.let {
 

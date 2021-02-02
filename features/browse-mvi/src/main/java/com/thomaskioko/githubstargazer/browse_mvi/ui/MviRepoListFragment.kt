@@ -9,8 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.thomaskioko.githubstargazer.browse_mvi.databinding.FragmentMviRepoListBinding
 import com.thomaskioko.githubstargazer.core.extensions.showView
+import com.thomaskioko.githubstargazer.core.factory.create
 import com.thomaskioko.githubstargazer.core.util.ConnectivityUtil
-import com.thomaskioko.githubstargazer.core.viewmodel.create
+import com.thomaskioko.githubstargazer.core.viewmodel.observe
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -25,10 +26,7 @@ class MviRepoListFragment : Fragment() {
     lateinit var screenNavigator: ScreenNavigator
 
     private val getRepoViewModel: GetRepoListViewModel by viewModels {
-        create(
-            factory,
-            screenNavigator
-        )
+        create(factory, screenNavigator)
     }
     private var _binding: FragmentMviRepoListBinding? = null
     private val binding get() = _binding!!
