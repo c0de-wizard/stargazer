@@ -73,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:drawableStart="@drawable/ic_star_black_24dp"
+            android:drawableStart="@{repo.bookmarked ? @drawable/ic_star_24dp : @drawable/ic_star_black_24dp}"
             android:fontFamily="sans-serif-condensed"
             android:gravity="center"
             app:count="@{repo.stargazersCount}"
