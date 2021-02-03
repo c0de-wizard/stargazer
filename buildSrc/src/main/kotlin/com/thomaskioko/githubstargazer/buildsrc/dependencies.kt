@@ -14,7 +14,6 @@ object BuildVersions {
 
 object Dependencies {
 
-    val material = "com.google.android.material:material:1.2.1"
     val timber = "com.jakewharton.timber:timber:4.5.1"
     val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.6"
 
@@ -46,6 +45,9 @@ object Dependencies {
     }
 
     object Google {
+
+        val material = "com.google.android.material:material:1.3.0-rc01"
+
         val version = "2.31.2-alpha"
 
         object Hilt {
