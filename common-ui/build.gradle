@@ -47,7 +47,6 @@ dependencies {
     implementation project(':repository')
 
     implementation Dependencies.Kotlin.stdlib
-    implementation Dependencies.AndroidX.coreKtx
-    implementation Dependencies.AndroidX.appCompat
-    implementation Dependencies.AndroidX.constraintLayout
+
+    implementation Dependencies.Google.material
 }
