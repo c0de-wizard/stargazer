@@ -3,9 +3,9 @@ package com.thomaskioko.githubstargazer.bookmarks.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thomaskioko.githubstargazer.bookmarks.domain.interactor.GetBookmarkedRepoListInteractor
+import com.thomaskioko.githubstargazer.bookmarks.model.RepoViewDataModel
 import com.thomaskioko.githubstargazer.core.ViewState
 import com.thomaskioko.githubstargazer.core.interactor.invoke
-import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject

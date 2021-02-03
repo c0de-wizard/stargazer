@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.thomaskioko.githubstargazer.bookmarks.databinding.ItemBookmarkedRepoBinding
-import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
+import com.thomaskioko.githubstargazer.bookmarks.model.RepoViewDataModel
 import java.util.*
 
 class BookmarkedReposAdapter constructor(

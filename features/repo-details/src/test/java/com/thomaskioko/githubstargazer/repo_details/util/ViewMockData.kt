@@ -1,9 +1,9 @@
 package com.thomaskioko.githubstargazer.repo_details.util
 
+import com.thomaskioko.githubstargazer.repo_details.model.RepoViewDataModel
 import com.thomaskioko.githubstargazer.repository.db.model.RepoEntity
-import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
 
-object ViewMockData {
+internal object ViewMockData {
 
     fun makeRepoViewDataModelList() = listOf(
         RepoViewDataModel(

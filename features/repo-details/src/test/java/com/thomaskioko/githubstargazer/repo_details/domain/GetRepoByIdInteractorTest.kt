@@ -18,8 +18,7 @@ import org.mockito.ArgumentMatchers.anyLong
 internal class GetRepoByIdInteractorTest {
 
     private val repository: GithubRepository = mock()
-    private val interactor =
-        GetRepoByIdInteractor(repository)
+    private val interactor = GetRepoByIdInteractor(repository)
 
     @Test
     fun `whenever getRepoByIdIsInvoked expectedDataIsReturned`() = runBlocking {

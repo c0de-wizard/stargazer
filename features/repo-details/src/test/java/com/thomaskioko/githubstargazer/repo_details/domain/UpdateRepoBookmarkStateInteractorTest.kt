@@ -5,6 +5,8 @@ import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.thomaskioko.githubstargazer.core.ViewState
+import com.thomaskioko.githubstargazer.core.ViewState.Loading
+import com.thomaskioko.githubstargazer.core.ViewState.Success
 import com.thomaskioko.githubstargazer.repo_details.domain.model.UpdateObject
 import com.thomaskioko.githubstargazer.repo_details.util.ViewMockData.makeRepoEntityList
 import com.thomaskioko.githubstargazer.repo_details.util.ViewMockData.makeRepoViewDataModelList
@@ -30,8 +32,8 @@ internal class UpdateRepoBookmarkStateInteractorTest {
 
         val result = interactor(updateObject).toList()
         val expected = listOf(
-            ViewState.Loading(),
-            ViewState.Success(makeRepoViewDataModelList()[0])
+            Loading(),
+            Success(makeRepoViewDataModelList()[0])
         )
 
         assertThat(result).isEqualTo(expected)

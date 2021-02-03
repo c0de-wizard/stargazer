@@ -18,7 +18,5 @@ interface MainActivityModule {
         @Provides
         fun providesNavController(activity: Activity): NavController =
             activity.findNavController(R.id.nav_host_fragment)
-
     }
-
 }

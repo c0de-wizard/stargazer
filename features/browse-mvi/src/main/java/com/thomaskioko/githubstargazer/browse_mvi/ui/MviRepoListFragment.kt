@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MviRepoListFragment : Fragment() {
+internal class MviRepoListFragment : Fragment() {
 
     @Inject
     lateinit var factory: GetRepoListViewModel.Factory

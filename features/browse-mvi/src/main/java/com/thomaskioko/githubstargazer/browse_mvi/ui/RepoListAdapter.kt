@@ -5,10 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.thomaskioko.githubstargazer.browse_mvi.databinding.ItemRepositoryBinding
-import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
+import com.thomaskioko.githubstargazer.browse_mvi.model.RepoViewDataModel
 import java.util.*
 
-class RepoListAdapter constructor(
+internal class RepoListAdapter constructor(
     private val repoItemClick: RepoItemClick
 ) : RecyclerView.Adapter<RepoItemViewHolder>() {
 
@@ -38,7 +38,7 @@ class RepoListAdapter constructor(
     }
 }
 
-class RepoItemViewHolder(
+internal class RepoItemViewHolder(
     private val itemRepositoryBinding: ItemRepositoryBinding
 ) : RecyclerView.ViewHolder(itemRepositoryBinding.root) {
 

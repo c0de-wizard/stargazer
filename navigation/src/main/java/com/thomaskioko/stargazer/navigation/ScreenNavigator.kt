@@ -2,7 +2,10 @@ package com.thomaskioko.stargazer.navigation
 
 import androidx.navigation.NavController
 import com.thomaskioko.stargazer.actions.MainNavGraphDirections
-import com.thomaskioko.stargazer.navigation.NavigationScreen.*
+import com.thomaskioko.stargazer.navigation.NavigationScreen.BookmarkListScreen
+import com.thomaskioko.stargazer.navigation.NavigationScreen.MviRepoListScreen
+import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailScreen
+import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoListScreen
 import javax.inject.Inject
 import javax.inject.Provider
 

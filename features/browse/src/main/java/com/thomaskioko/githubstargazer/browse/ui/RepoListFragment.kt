@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.thomaskioko.githubstargazer.browse.databinding.FragmentRepoListBinding
+import com.thomaskioko.githubstargazer.browse.model.RepoViewDataModel
 import com.thomaskioko.githubstargazer.browse.ui.adapter.RepoItemClick
 import com.thomaskioko.githubstargazer.browse.ui.adapter.RepoListAdapter
 import com.thomaskioko.githubstargazer.browse.ui.viewmodel.GetReposViewModel
@@ -15,7 +16,6 @@ import com.thomaskioko.githubstargazer.core.ViewState
 import com.thomaskioko.githubstargazer.core.extensions.hideView
 import com.thomaskioko.githubstargazer.core.extensions.showView
 import com.thomaskioko.githubstargazer.core.util.ConnectivityUtil.isConnected
-import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
 import com.thomaskioko.stargazer.navigation.NavigationScreen
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
 import dagger.hilt.android.AndroidEntryPoint

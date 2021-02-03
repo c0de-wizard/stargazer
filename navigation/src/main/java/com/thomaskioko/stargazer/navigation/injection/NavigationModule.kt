@@ -13,5 +13,4 @@ interface NavigationModule {
 
     @get:Binds
     val ScreenNavigationImpl.screenNavigatorImpl: ScreenNavigator
-
 }

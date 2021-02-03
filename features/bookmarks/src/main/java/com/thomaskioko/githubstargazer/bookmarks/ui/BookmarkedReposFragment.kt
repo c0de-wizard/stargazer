@@ -9,13 +9,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.thomaskioko.githubstargazer.bookmarks.R
 import com.thomaskioko.githubstargazer.bookmarks.databinding.FragmentBookmarkedReposBinding
+import com.thomaskioko.githubstargazer.bookmarks.model.RepoViewDataModel
 import com.thomaskioko.githubstargazer.bookmarks.ui.adapter.BookmarkRepoItemClick
 import com.thomaskioko.githubstargazer.bookmarks.ui.adapter.BookmarkedReposAdapter
 import com.thomaskioko.githubstargazer.bookmarks.ui.viewmodel.GetBookmarkedReposViewModel
 import com.thomaskioko.githubstargazer.core.ViewState
 import com.thomaskioko.githubstargazer.core.extensions.hideView
 import com.thomaskioko.githubstargazer.core.extensions.showView
-import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
 import com.thomaskioko.stargazer.navigation.NavigationScreen
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
 import dagger.hilt.android.AndroidEntryPoint

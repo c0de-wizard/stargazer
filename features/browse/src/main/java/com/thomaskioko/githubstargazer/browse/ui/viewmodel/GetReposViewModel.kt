@@ -3,8 +3,8 @@ package com.thomaskioko.githubstargazer.browse.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thomaskioko.githubstargazer.browse.domain.interactor.GetRepoListInteractor
+import com.thomaskioko.githubstargazer.browse.model.RepoViewDataModel
 import com.thomaskioko.githubstargazer.core.ViewState
-import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class GetReposViewModel @Inject constructor(
+internal class GetReposViewModel @Inject constructor(
     private val interactor: GetRepoListInteractor
 ) : ViewModel() {
 

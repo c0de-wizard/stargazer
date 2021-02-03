@@ -14,7 +14,12 @@ import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito.*
+import org.mockito.ArgumentMatchers.anyInt
+import org.mockito.ArgumentMatchers.anyLong
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.never
+import org.mockito.Mockito.times
+import org.mockito.Mockito.verify
 import kotlin.time.ExperimentalTime
 
 class GithubRepositoryTest {
@@ -38,7 +43,7 @@ class GithubRepositoryTest {
         whenever(repoDao.getReposFlow()) doReturn flowOf(emptyList())
         whenever(service.getRepositories()) doReturn makeRepoResponseList()
 
-        //TODO:: Replace with Turbine Test
+        // TODO:: Replace with Turbine Test
         val repos = repository.getRepositoryList(true).toList()
         val expected = listOf(makeRepoEntityList())
 
@@ -47,7 +52,6 @@ class GithubRepositoryTest {
         verify(database.repoDao(), times(2)).getReposFlow()
 
         assertThat(repos.size).isEqualTo(expected.size)
-
     }
 
     @Test

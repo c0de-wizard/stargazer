@@ -10,8 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.thomaskioko.githubstargazer.core.ViewState
 import com.thomaskioko.githubstargazer.repo_details.databinding.FragmentRepoDetailsBinding
+import com.thomaskioko.githubstargazer.repo_details.model.RepoViewDataModel
 import com.thomaskioko.githubstargazer.repo_details.ui.viewmodel.RepoDetailsViewModel
-import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

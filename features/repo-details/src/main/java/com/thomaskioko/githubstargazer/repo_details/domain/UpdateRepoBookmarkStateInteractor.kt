@@ -3,15 +3,15 @@ package com.thomaskioko.githubstargazer.repo_details.domain
 import com.thomaskioko.githubstargazer.core.ViewState
 import com.thomaskioko.githubstargazer.core.interactor.Interactor
 import com.thomaskioko.githubstargazer.repo_details.domain.model.UpdateObject
+import com.thomaskioko.githubstargazer.repo_details.model.RepoViewDataModel
+import com.thomaskioko.githubstargazer.repo_details.model.ViewDataMapper.mapEntityToRepoViewModel
 import com.thomaskioko.githubstargazer.repository.api.GithubRepository
-import com.thomaskioko.stargazer.common_ui.mapper.ViewDataMapper.mapEntityToRepoViewModel
-import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class UpdateRepoBookmarkStateInteractor @Inject constructor(
+internal class UpdateRepoBookmarkStateInteractor @Inject constructor(
     private val repository: GithubRepository
 ) : Interactor<UpdateObject, RepoViewDataModel>() {
 
