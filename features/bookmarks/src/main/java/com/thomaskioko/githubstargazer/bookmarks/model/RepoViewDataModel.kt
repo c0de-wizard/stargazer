@@ -1,4 +1,4 @@
-package com.thomaskioko.stargazer.common_ui.model
+package com.thomaskioko.githubstargazer.bookmarks.model
 
 data class RepoViewDataModel(
     val repoId: Long,
