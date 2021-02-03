@@ -64,7 +64,7 @@ dependencies {
     implementation Dependencies.AndroidX.Navigation.ktx
     implementation Dependencies.AndroidX.Navigation.runtime
 
-    implementation Dependencies.material
+    implementation Dependencies.Google.material
     implementation Dependencies.timber
 
     implementation Dependencies.Google.Hilt.core

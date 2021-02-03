@@ -28,7 +28,7 @@ dependencies {
     implementation Dependencies.Google.Hilt.viewmodel
     kapt Dependencies.Google.Hilt.compiler
 
-    implementation Dependencies.material
+    implementation Dependencies.Google.material
     implementation Dependencies.timber
     implementation Dependencies.leakCanary
 
