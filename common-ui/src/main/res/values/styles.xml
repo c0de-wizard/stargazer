@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.Owl.BottomNavigationView" parent="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface">
+        <item name="labelVisibilityMode">selected</item>
+        <item name="itemIconTint">@color/bottom_nav_item</item>
+        <item name="itemTextColor">@color/bottom_nav_item</item>
+        <item name="itemTextAppearanceActive">@style/TextAppearance.Owl.BottomNavigation</item>
+    </style>
+</resources>
