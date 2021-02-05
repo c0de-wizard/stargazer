@@ -1,13 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
+    <style name="Theme.GithubStargazer.DayNight" parent="Theme.GithubStargazer"/>
+
     <style name="Theme.GithubStargazer" parent="@style/Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#212121</item>
+        <item name="colorPrimary">#1e2327</item>
         <item name="colorPrimaryVariant">#000000</item>
         <item name="colorOnPrimary">#FFFFFF</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#2962FF</item>
-        <item name="colorSecondaryVariant">#0039CB</item>
+        <item name="colorSecondary">#2188ff</item>
+        <item name="colorSecondaryVariant">#005cc5</item>
         <item name="colorOnSecondary">#FFFFFF</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
@@ -16,7 +18,27 @@
         <item name="colorOnError">#FFFFFF</item>
         <item name="colorSurface">#FFFFFF</item>
         <item name="colorOnSurface">#212121</item>
-        <item name="android:colorBackground">@color/background</item>
         <item name="colorOnBackground">#212121</item>
+        <item name="android:colorBackground">@color/background</item>
+
+        <!--Typography-->
+        <item name="textAppearanceHeadline2">@style/TextAppearance.GithubStargazer.Headline2</item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.GithubStargazer.Headline3</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.GithubStargazer.Headline4</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.GithubStargazer.Headline5</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.GithubStargazer.Headline6</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.GithubStargazer.Subtitle1</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.GithubStargazer.Subtitle2</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.GithubStargazer.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.GithubStargazer.Body2</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.GithubStargazer.Caption</item>
+        <item name="textAppearanceOverline">@style/TextAppearance.GithubStargazer.Overline</item>
+
+        <item name="emphasisHighAlpha">0.87</item>
+        <item name="emphasisMediumAlpha">0.60</item>
+        <item name="emphasisDisabledAlpha">0.38</item>
+
+        <!--Default styles-->
+        <item name="bottomNavigationStyle">@style/Widget.Owl.BottomNavigationView</item>
     </style>
 </resources>
