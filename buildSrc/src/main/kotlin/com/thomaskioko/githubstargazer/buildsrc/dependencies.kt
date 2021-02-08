@@ -3,7 +3,7 @@ package com.thomaskioko.githubstargazer.buildsrc
 import org.gradle.api.JavaVersion
 
 object BuildVersions {
-    val minSdkVersion = 17
+    val minSdkVersion = 21
     val targetSdkVersion = 30
     val compileSdkVersion = 30
     val buildToolsVersion = "30.0.2"
