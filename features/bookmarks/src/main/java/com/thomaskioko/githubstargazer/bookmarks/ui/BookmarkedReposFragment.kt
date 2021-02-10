@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.thomaskioko.githubstargazer.bookmarks.R
 import com.thomaskioko.githubstargazer.bookmarks.databinding.FragmentBookmarkedReposBinding
 import com.thomaskioko.githubstargazer.bookmarks.model.RepoViewDataModel
@@ -16,7 +17,7 @@ import com.thomaskioko.githubstargazer.bookmarks.ui.viewmodel.GetBookmarkedRepos
 import com.thomaskioko.githubstargazer.core.ViewState
 import com.thomaskioko.githubstargazer.core.extensions.hideView
 import com.thomaskioko.githubstargazer.core.extensions.showView
-import com.thomaskioko.stargazer.navigation.NavigationScreen
+import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailScreen
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -38,7 +39,12 @@ class BookmarkedReposFragment : Fragment() {
 
     private val onRepoItemClick = object : BookmarkRepoItemClick {
         override fun onClick(view: View, repoId: Long) {
-            screenNavigator.goToScreen(NavigationScreen.RepoDetailScreen(repoId))
+            val detailTransitionName = getString(R.string.repo_card_detail_transition_name)
+
+            //TODO:: Pass Extras to Navigation
+            val extras = FragmentNavigatorExtras(view to detailTransitionName)
+
+            screenNavigator.goToScreen(RepoDetailScreen(repoId, detailTransitionName))
         }
     }
 

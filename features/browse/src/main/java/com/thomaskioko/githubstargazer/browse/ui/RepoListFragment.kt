@@ -4,9 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import com.google.android.material.transition.MaterialElevationScale
+import com.thomaskioko.githubstargazer.browse.R
 import com.thomaskioko.githubstargazer.browse.databinding.FragmentRepoListBinding
 import com.thomaskioko.githubstargazer.browse.model.RepoViewDataModel
 import com.thomaskioko.githubstargazer.browse.ui.adapter.RepoItemClick
@@ -16,7 +20,7 @@ import com.thomaskioko.githubstargazer.core.ViewState
 import com.thomaskioko.githubstargazer.core.extensions.hideView
 import com.thomaskioko.githubstargazer.core.extensions.showView
 import com.thomaskioko.githubstargazer.core.util.ConnectivityUtil.isConnected
-import com.thomaskioko.stargazer.navigation.NavigationScreen
+import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailScreen
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -41,7 +45,23 @@ class RepoListFragment : Fragment() {
 
     private val onRepoItemClick = object : RepoItemClick {
         override fun onClick(view: View, repoId: Long) {
-            screenNavigator.goToScreen(NavigationScreen.RepoDetailScreen(repoId))
+            val transitionName = getString(R.string.repo_card_detail_transition_name)
+
+            //TODO:: Pass Extras to Navigation
+            val extras = FragmentNavigatorExtras(view to transitionName)
+
+            screenNavigator.goToScreen(RepoDetailScreen(repoId, transitionName))
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        exitTransition = MaterialElevationScale(false).apply {
+            duration = resources.getInteger(R.integer.motion_duration_large).toLong()
+        }
+        reenterTransition = MaterialElevationScale(true).apply {
+            duration = resources.getInteger(R.integer.motion_duration_large).toLong()
         }
     }
 
@@ -65,6 +85,9 @@ class RepoListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
 
         with(binding) {
             viewmodel?.let {

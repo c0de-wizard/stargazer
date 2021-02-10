@@ -4,10 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import com.google.android.material.transition.MaterialElevationScale
+import com.thomaskioko.githubstargazer.browse_mvi.R
 import com.thomaskioko.githubstargazer.browse_mvi.databinding.FragmentMviRepoListBinding
+import com.thomaskioko.githubstargazer.browse_mvi.ui.ReposIntent.RepoItemClicked
 import com.thomaskioko.githubstargazer.core.extensions.showView
 import com.thomaskioko.githubstargazer.core.factory.create
 import com.thomaskioko.githubstargazer.core.util.ConnectivityUtil
@@ -35,7 +40,23 @@ internal class MviRepoListFragment : Fragment() {
 
     private val onRepoItemClick = object : RepoItemClick {
         override fun onClick(view: View, repoId: Long) {
-            getRepoViewModel.dispatchIntent(ReposIntent.RepoItemClicked(repoId))
+            val transitionName = getString(R.string.repo_card_detail_transition_name)
+
+            //TODO:: Pass Extras to Navigation
+            val extras = FragmentNavigatorExtras(view to transitionName)
+
+            getRepoViewModel.dispatchIntent(RepoItemClicked(repoId, transitionName))
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        exitTransition = MaterialElevationScale(false).apply {
+            duration = resources.getInteger(R.integer.motion_duration_large).toLong()
+        }
+        reenterTransition = MaterialElevationScale(true).apply {
+            duration = resources.getInteger(R.integer.motion_duration_large).toLong()
         }
     }
 
@@ -58,6 +79,9 @@ internal class MviRepoListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
 
         val isConnected = ConnectivityUtil.isConnected(requireActivity())
         getRepoViewModel.dispatchIntent(ReposIntent.DisplayData(isConnected))
