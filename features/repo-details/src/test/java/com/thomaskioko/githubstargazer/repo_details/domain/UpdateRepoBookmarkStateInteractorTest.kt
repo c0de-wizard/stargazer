@@ -4,7 +4,6 @@ import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import com.thomaskioko.githubstargazer.core.ViewState
 import com.thomaskioko.githubstargazer.core.ViewState.Loading
 import com.thomaskioko.githubstargazer.core.ViewState.Success
 import com.thomaskioko.githubstargazer.repo_details.domain.model.UpdateObject

@@ -10,7 +10,9 @@ import com.thomaskioko.githubstargazer.bookmarks.domain.interactor.GetBookmarked
 import com.thomaskioko.githubstargazer.bookmarks.model.RepoViewDataModel
 import com.thomaskioko.githubstargazer.bookmarks.ui.util.CoroutineScopeRule
 import com.thomaskioko.githubstargazer.core.ViewState
-import com.thomaskioko.githubstargazer.core.ViewState.*
+import com.thomaskioko.githubstargazer.core.ViewState.Loading
+import com.thomaskioko.githubstargazer.core.ViewState.Success
+import com.thomaskioko.githubstargazer.core.ViewState.Error
 import com.thomaskioko.githubstargazer.core.interactor.invoke
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
