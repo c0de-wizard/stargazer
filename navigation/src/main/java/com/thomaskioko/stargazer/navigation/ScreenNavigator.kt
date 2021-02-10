@@ -13,7 +13,7 @@ sealed class NavigationScreen {
     object RepoListScreen : NavigationScreen()
     object MviRepoListScreen : NavigationScreen()
     object BookmarkListScreen : NavigationScreen()
-    data class RepoDetailScreen(val repoId: Long) : NavigationScreen()
+    data class RepoDetailScreen(val repoId: Long, val extras: String) : NavigationScreen()
 }
 
 interface ScreenNavigator {
@@ -33,7 +33,12 @@ class ScreenNavigationImpl @Inject constructor(
             MviRepoListScreen -> navControllerProvider.get()
                 .navigate(MainNavGraphDirections.actionMviRepoList())
             is RepoDetailScreen -> navControllerProvider.get()
-                .navigate(MainNavGraphDirections.actionRepoDetails(navigationScreen.repoId))
+                .navigate(
+                    MainNavGraphDirections.actionRepoDetails(
+                        navigationScreen.repoId,
+                        navigationScreen.extras
+                    )
+                )
         }
     }
 }

@@ -36,6 +36,10 @@
         <argument
             android:name="repo_id"
             app:argType="long" />
+
+        <argument
+            android:name="repo_extras"
+            app:argType="string" />
     </action>
 
 </navigation>
