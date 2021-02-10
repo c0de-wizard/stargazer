@@ -16,70 +16,88 @@
             type="com.thomaskioko.githubstargazer.browse_mvi.model.RepoViewDataModel" />
     </data>
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
+        android:id="@+id/repo_frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:onClick="@{(v) -> clickHandler.onClick(v, repo.repoId)}">
+        android:layout_marginHorizontal="@dimen/grid_0_5"
+        android:layout_marginVertical="@dimen/grid_0_25"
+        android:background="?attr/colorSecondary">
 
-        <TextView
-            android:id="@+id/repo_name"
-            android:layout_width="0dp"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/repo_item_cardview"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:text="@{repo.name}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintEnd_toStartOf="@+id/stars_count"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Square" />
+            android:clickable="true"
+            android:elevation="@dimen/plane_00"
+            android:focusable="true"
+            android:transitionName="@{@string/repo_card_transition_name(repo.repoId)}"
+            app:cardPreventCornerOverlap="false">
 
-        <TextView
-            android:id="@+id/repo_description"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
-            android:fontFamily="sans-serif-condensed"
-            android:maxLines="2"
-            android:text="@{repo.description}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/fork_count"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/repo_name"
-            tools:text="Why are pizza boxes square?" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:onClick="@{(v) -> clickHandler.onClick(v, repo.repoId)}">
 
-        <TextView
-            android:id="@+id/fork_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:drawableStart="@drawable/ic_fork_black_24dp"
-            android:fontFamily="sans-serif-condensed"
-            android:gravity="center"
-            app:count="@{repo.forksCount}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/repo_name"
-            tools:ignore="UseCompatTextViewDrawableXml"
-            tools:text="50" />
+                <TextView
+                    android:id="@+id/repo_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@{repo.name}"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    app:layout_constraintEnd_toStartOf="@+id/stars_count"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Square" />
 
-        <TextView
-            android:id="@+id/stars_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:drawableStart="@{repo.bookmarked ? @drawable/ic_star_24dp : @drawable/ic_star_black_24dp}"
-            android:fontFamily="sans-serif-condensed"
-            android:gravity="center"
-            app:count="@{repo.stargazersCount}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/repo_description"
-            tools:ignore="UseCompatTextViewDrawableXml"
-            tools:text="150" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/repo_description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:maxLines="2"
+                    android:text="@{repo.description}"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/fork_count"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/repo_name"
+                    tools:text="Why are pizza boxes square?" />
+
+                <TextView
+                    android:id="@+id/fork_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:drawableStart="@drawable/ic_fork_black_24dp"
+                    android:gravity="center"
+                    android:textAppearance="?attr/textAppearanceCaption"
+                    app:count="@{repo.forksCount}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/repo_name"
+                    tools:ignore="UseCompatTextViewDrawableXml"
+                    tools:text="50" />
+
+                <TextView
+                    android:id="@+id/stars_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:drawableStart="@{repo.bookmarked ? @drawable/ic_star_24dp : @drawable/ic_star_black_24dp}"
+                    android:gravity="center"
+                    android:textAppearance="?attr/textAppearanceCaption"
+                    app:count="@{repo.stargazersCount}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/repo_description"
+                    tools:ignore="UseCompatTextViewDrawableXml"
+                    tools:text="150" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
 </layout>
