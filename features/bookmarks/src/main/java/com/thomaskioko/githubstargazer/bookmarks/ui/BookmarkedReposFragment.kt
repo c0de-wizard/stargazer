@@ -39,12 +39,10 @@ class BookmarkedReposFragment : Fragment() {
 
     private val onRepoItemClick = object : BookmarkRepoItemClick {
         override fun onClick(view: View, repoId: Long) {
-            val detailTransitionName = getString(R.string.repo_card_detail_transition_name)
+            val transitionName = getString(R.string.repo_card_detail_transition_name)
+            val extras = FragmentNavigatorExtras(view to transitionName)
 
-            //TODO:: Pass Extras to Navigation
-            val extras = FragmentNavigatorExtras(view to detailTransitionName)
-
-            screenNavigator.goToScreen(RepoDetailScreen(repoId, detailTransitionName))
+            screenNavigator.goToScreen(RepoDetailScreen(repoId, extras))
         }
     }
 

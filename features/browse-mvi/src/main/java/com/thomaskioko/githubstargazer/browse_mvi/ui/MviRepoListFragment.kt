@@ -41,11 +41,9 @@ internal class MviRepoListFragment : Fragment() {
     private val onRepoItemClick = object : RepoItemClick {
         override fun onClick(view: View, repoId: Long) {
             val transitionName = getString(R.string.repo_card_detail_transition_name)
-
-            //TODO:: Pass Extras to Navigation
             val extras = FragmentNavigatorExtras(view to transitionName)
 
-            getRepoViewModel.dispatchIntent(RepoItemClicked(repoId, transitionName))
+            getRepoViewModel.dispatchIntent(RepoItemClicked(repoId, extras))
         }
     }
 

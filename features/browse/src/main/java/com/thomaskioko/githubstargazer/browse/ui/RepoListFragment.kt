@@ -46,11 +46,9 @@ class RepoListFragment : Fragment() {
     private val onRepoItemClick = object : RepoItemClick {
         override fun onClick(view: View, repoId: Long) {
             val transitionName = getString(R.string.repo_card_detail_transition_name)
-
-            //TODO:: Pass Extras to Navigation
             val extras = FragmentNavigatorExtras(view to transitionName)
 
-            screenNavigator.goToScreen(RepoDetailScreen(repoId, transitionName))
+            screenNavigator.goToScreen(RepoDetailScreen(repoId, extras))
         }
     }
 
@@ -118,7 +116,7 @@ class RepoListFragment : Fragment() {
             is ViewState.Success -> {
                 binding.loadingBar.hideView()
                 viewState.data.let {
-                    repoListAdapter.setData(it as ArrayList)
+                    repoListAdapter.itemsList = it
                 }
             }
             is ViewState.Loading -> binding.loadingBar.showView()
