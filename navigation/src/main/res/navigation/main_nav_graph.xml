@@ -15,31 +15,12 @@
     <include app:graph="@navigation/repo_details_nav_graph" />
 
     <action
-        android:id="@+id/action_repo_list"
-        app:destination="@id/browse_nav_graph"
-        app:popUpTo="@id/main_nav_graph" />
-
-    <action
-        android:id="@+id/action_mvi_repo_list"
-        app:destination="@id/browse_mvi_nav_graph"
-        app:popUpTo="@id/main_nav_graph" />
-
-    <action
-        android:id="@+id/action_bookmark_list"
-        app:destination="@id/bookmark_nav_graph"
-        app:popUpTo="@id/home_nav_graph" />
-
-    <action
         android:id="@+id/action_repo_details"
         app:destination="@id/repo_details_nav_graph">
 
         <argument
             android:name="repo_id"
             app:argType="long" />
-
-        <argument
-            android:name="repo_extras"
-            app:argType="string" />
     </action>
 
 </navigation>
