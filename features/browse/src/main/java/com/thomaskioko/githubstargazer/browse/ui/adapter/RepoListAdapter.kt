@@ -6,13 +6,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.thomaskioko.githubstargazer.browse.databinding.ItemRepoBinding
 import com.thomaskioko.githubstargazer.browse.model.RepoViewDataModel
-import java.util.*
+import kotlin.properties.Delegates
 
 internal class RepoListAdapter constructor(
     private val repoItemClick: RepoItemClick
 ) : RecyclerView.Adapter<RepoItemViewHolder>() {
 
-    private var itemsList: MutableList<RepoViewDataModel> = ArrayList()
+    var itemsList: List<RepoViewDataModel> by Delegates.observable(emptyList()) { _, new, old ->
+        if (new != old) notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoItemViewHolder {
         return RepoItemViewHolder(
@@ -31,12 +33,6 @@ internal class RepoListAdapter constructor(
     override fun getItemCount(): Int = itemsList.size
 
     private fun getItem(position: Int): RepoViewDataModel? = itemsList[position]
-
-    fun setData(repoViewModelDataList: ArrayList<RepoViewDataModel>) {
-        itemsList.clear()
-        itemsList = repoViewModelDataList
-        notifyDataSetChanged()
-    }
 }
 
 internal class RepoItemViewHolder(
