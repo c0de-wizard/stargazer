@@ -3,7 +3,6 @@ package com.thomaskioko.stargazer.navigation
 import androidx.navigation.NavController
 import androidx.navigation.Navigator
 import com.thomaskioko.stargazer.actions.MainNavGraphDirections
-import com.thomaskioko.stargazer.actions.R
 import com.thomaskioko.stargazer.navigation.NavigationScreen.BookmarkListScreen
 import com.thomaskioko.stargazer.navigation.NavigationScreen.MviRepoListScreen
 import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailScreen
