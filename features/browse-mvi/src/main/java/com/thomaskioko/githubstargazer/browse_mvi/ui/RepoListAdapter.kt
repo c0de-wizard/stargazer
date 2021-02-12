@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.thomaskioko.githubstargazer.browse_mvi.databinding.ItemRepositoryBinding
 import com.thomaskioko.githubstargazer.browse_mvi.model.RepoViewDataModel
+import com.thomaskioko.githubstargazers.ui.setAllCornerSizes
 import java.util.*
 
 internal class RepoListAdapter constructor(
@@ -46,6 +47,7 @@ internal class RepoItemViewHolder(
         itemRepositoryBinding.run {
             this.repo = repoViewDataModel
             clickHandler = itemClick
+            repoItemCardview.setAllCornerSizes(0F)
             executePendingBindings()
         }
     }

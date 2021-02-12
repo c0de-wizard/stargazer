@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.thomaskioko.githubstargazer.bookmarks.databinding.ItemBookmarkedRepoBinding
 import com.thomaskioko.githubstargazer.bookmarks.model.RepoViewDataModel
+import com.thomaskioko.githubstargazers.ui.setAllCornerSizes
 import java.util.*
 
 class BookmarkedReposAdapter constructor(
@@ -47,6 +48,7 @@ class RepoItemViewHolder(
         itemRepoBinding.run {
             this.repo = repoViewDataModel
             clickHandler = itemClickBookmark
+            repoItemFavorite.setAllCornerSizes(0F)
             executePendingBindings()
         }
     }

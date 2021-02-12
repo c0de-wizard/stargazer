@@ -1,25 +1,27 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.GithubStargazer.DayNight" parent="Theme.GithubStargazer"/>
 
     <style name="Theme.GithubStargazer" parent="@style/Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">#1e2327</item>
-        <item name="colorPrimaryVariant">#000000</item>
-        <item name="colorOnPrimary">#FFFFFF</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">#2188ff</item>
-        <item name="colorSecondaryVariant">#005cc5</item>
-        <item name="colorOnSecondary">#FFFFFF</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
-        <item name="colorError">#F44336</item>
-        <item name="colorOnError">#FFFFFF</item>
-        <item name="colorSurface">#FFFFFF</item>
-        <item name="colorOnSurface">#212121</item>
-        <item name="colorOnBackground">#212121</item>
-        <item name="android:colorBackground">@color/background</item>
+
+        <item name="colorPrimary">#344955</item>
+        <item name="colorPrimaryVariant">#232f34</item>
+        <item name="colorSecondary">#f9aa33</item>
+        <item name="colorSecondaryVariant">#f9be64</item>
+        <item name="colorAccent">#f18e33</item>
+
+        <item name="android:colorBackground">#eef0f2</item>
+        <item name="colorSurface">#ffffff</item>
+        <item name="colorPrimarySurfaceVariant">?attr/colorPrimaryVariant</item>
+        <item name="colorError">#ff4c5d</item>
+
+        <item name="colorOnPrimary">#ffffff</item>
+        <item name="colorOnSecondary">#99000000</item>
+        <item name="colorOnBackground">#000000</item>
+        <item name="colorOnSurface">#000000</item>
+        <item name="colorOnError">#000000</item>
+
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:navigationBarColor">?attr/colorPrimaryVariant</item>
+
 
         <!--Typography-->
         <item name="textAppearanceHeadline2">@style/TextAppearance.GithubStargazer.Headline2</item>
@@ -39,6 +41,6 @@
         <item name="emphasisDisabledAlpha">0.38</item>
 
         <!--Default styles-->
-        <item name="bottomNavigationStyle">@style/Widget.Owl.BottomNavigationView</item>
+        <item name="bottomNavigationStyle">@style/Widget.GithubStargazer.BottomNavigationView</item>
     </style>
 </resources>

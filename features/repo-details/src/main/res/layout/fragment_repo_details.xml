@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="repo"
             type="com.thomaskioko.githubstargazer.repo_details.model.RepoViewDataModel" />
+
         <variable
             name="viewmodel"
             type="com.thomaskioko.githubstargazer.repo_details.ui.viewmodel.RepoDetailsViewModel" />
@@ -21,103 +23,107 @@
         android:fillViewport="true"
         app:paddingTopSystemWindowInsets="@{true}">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/repo_card_view"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/detail_constraint_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:transitionName="@string/repo_card_detail_transition_name">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/detail_constraint_layout"
+            <ImageView
+                android:id="@+id/background_image"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="240dp"
+                android:background="?attr/colorPrimary"
+                android:contentDescription="@string/content_description_repo_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/background_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="240dp"
-                    android:background="?attr/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:contentDescription="@string/content_description_repo_image"/>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="@string/content_description_fab_favorite_repo"
+                android:src="@{repo.isBookmarked ? @drawable/ic_favorite : @drawable/ic_add_bookmark}"
+                app:backgroundTint="?attr/colorSecondary"
+                app:borderWidth="0dp"
+                app:elevation="6dp"
+                app:fabSize="normal"
+                app:layout_constraintBottom_toBottomOf="@+id/background_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/background_image" />
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/floatingActionButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:src="@{repo.isBookmarked ? @drawable/ic_bookmarked_24 : @drawable/ic_add_bookmark_24}"
-                    app:backgroundTint="?attr/colorAccent"
-                    app:borderWidth="0dp"
-                    app:elevation="6dp"
-                    app:fabSize="normal"
-                    app:layout_constraintBottom_toBottomOf="@+id/background_image"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/background_image"
-                    android:contentDescription="@string/content_description_fab_favorite_repo"/>
+            <TextView
+                android:id="@+id/repo_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:maxLines="1"
+                android:text="@{repo.name}"
+                android:textAppearance="?attr/textAppearanceHeadline5"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+                app:layout_constraintStart_toStartOf="@+id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@+id/background_image"
+                tools:text="Square" />
 
-                <TextView
-                    android:id="@+id/repo_name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="16dp"
-                    android:maxLines="1"
-                    android:text="@{repo.name}"
-                    android:textAppearance="?attr/textAppearanceHeadline5"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/background_image"
-                    tools:text="Square" />
+            <TextView
+                android:id="@+id/repo_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{repo.description}"
+                android:textAppearance="?attr/textAppearanceBody2"
+                app:layout_constraintStart_toStartOf="@+id/repo_name"
+                app:layout_constraintTop_toBottomOf="@+id/repo_name"
+                tools:text="Why are pizza boxes square?" />
 
-                <TextView
-                    android:id="@+id/repo_description"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="@{repo.description}"
-                    android:textAppearance="?attr/textAppearanceBody1"
-                    app:layout_constraintStart_toStartOf="@+id/repo_name"
-                    app:layout_constraintTop_toBottomOf="@+id/repo_name"
-                    tools:text="Why are pizza boxes square?" />
+            <TextView
+                android:id="@+id/tv_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:layout_margin="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:visibility="gone"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="?attr/colorError"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+                app:layout_constraintStart_toStartOf="@+id/guideline_left"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/error_loading"
+                tools:visibility="visible" />
 
-                <TextView
-                    android:id="@+id/tv_info"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center"
-                    android:layout_margin="16dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:fontFamily="sans-serif-condensed"
-                    android:gravity="center"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="@string/error_loading"
-                    tools:visibility="visible" />
+            <ProgressBar
+                android:id="@+id/loading_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_info"
+                tools:visibility="visible" />
 
-                <ProgressBar
-                    android:id="@+id/loading_bar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:visibility="gone"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_info"
-                    tools:visibility="visible" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="16dp" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="16dp" />
 
-        </com.google.android.material.card.MaterialCardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
 
