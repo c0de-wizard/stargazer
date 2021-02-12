@@ -3,7 +3,13 @@ package com.thomaskioko.githubstargazers.ui
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
+
+@BindingAdapter("count")
+fun TextView.setCount(count: Int) {
+    text = "$count"
+}
 
 @BindingAdapter(
     "paddingLeftSystemWindowInsets",
