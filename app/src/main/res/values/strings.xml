@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">GithubStargazer</string>
+    <string name="menu_item_favorite">Favorite</string>
+    <string name="menu_item_mvi">Mvi</string>
+    <string name="menu_item_mvvm">Mvvm</string>
+    <string name="menu_item_theme">Switch Theme</string>
 </resources>

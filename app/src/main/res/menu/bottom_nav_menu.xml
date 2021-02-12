@@ -4,11 +4,17 @@
     <item
         android:id="@id/browse_nav_graph"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_view_list_24"
-        android:title="Mvvm" />
+        android:icon="@drawable/ic_list"
+        android:title="@string/menu_item_mvvm" />
     <item
         android:id="@id/browse_mvi_nav_graph"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_view_list_24"
-        android:title="Mvi" />
+        android:icon="@drawable/ic_outline_list"
+        android:title="@string/menu_item_mvi" />
+
+    <item
+        android:id="@id/bookmark_nav_graph"
+        android:enabled="true"
+        android:icon="@drawable/ic_bookmarks"
+        android:title="@string/menu_item_favorite" />
 </menu>
