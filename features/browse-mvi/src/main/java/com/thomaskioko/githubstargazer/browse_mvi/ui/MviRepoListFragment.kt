@@ -13,7 +13,7 @@ import com.google.android.material.transition.MaterialElevationScale
 import com.thomaskioko.githubstargazer.browse_mvi.R
 import com.thomaskioko.githubstargazer.browse_mvi.databinding.FragmentMviRepoListBinding
 import com.thomaskioko.githubstargazer.browse_mvi.ui.ReposIntent.RepoItemClicked
-import com.thomaskioko.githubstargazer.core.extensions.showView
+import com.thomaskioko.githubstargazers.ui.showView
 import com.thomaskioko.githubstargazer.core.factory.create
 import com.thomaskioko.githubstargazer.core.util.ConnectivityUtil
 import com.thomaskioko.githubstargazer.core.viewmodel.observe
