@@ -32,11 +32,11 @@ class ScreenNavigationImpl @Inject constructor(
     override fun goToScreen(navigationScreen: NavigationScreen) {
         when (navigationScreen) {
             RepoListScreen -> navControllerProvider.get()
-                .navigate(R.id.browse_nav_graph)
+                .navigate(MainNavGraphDirections.actionRepoList())
             BookmarkListScreen -> navControllerProvider.get()
-                .navigate(R.id.bookmark_nav_graph)
+                .navigate(MainNavGraphDirections.actionBookmarkList())
             MviRepoListScreen -> navControllerProvider.get()
-                .navigate(R.id.browse_mvi_nav_graph)
+                .navigate(MainNavGraphDirections.actionMviRepoList())
             is RepoDetailScreen -> navControllerProvider.get()
                 .navigate(
                     MainNavGraphDirections.actionRepoDetails(navigationScreen.repoId),
