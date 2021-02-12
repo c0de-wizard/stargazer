@@ -46,7 +46,7 @@ object Dependencies {
 
     object Google {
 
-        val material = "com.google.android.material:material:1.3.0-rc01"
+        val material = "com.google.android.material:material:1.3.0"
 
         val version = "2.31.2-alpha"
 
