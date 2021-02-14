@@ -16,7 +16,7 @@ import com.thomaskioko.githubstargazer.repo_details.databinding.FragmentRepoDeta
 import com.thomaskioko.githubstargazer.repo_details.domain.model.UpdateObject
 import com.thomaskioko.githubstargazer.repo_details.model.RepoViewDataModel
 import com.thomaskioko.githubstargazer.repo_details.ui.viewmodel.RepoDetailsViewModel
-import com.thomaskioko.githubstargazers.ui.themeColor
+import com.thomaskioko.githubstargazers.ui.extensions.themeColor
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

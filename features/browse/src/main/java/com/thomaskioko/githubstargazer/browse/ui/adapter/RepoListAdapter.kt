@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.thomaskioko.githubstargazer.browse.databinding.ItemRepoBinding
 import com.thomaskioko.githubstargazer.browse.model.RepoViewDataModel
-import com.thomaskioko.githubstargazers.ui.setAllCornerSizes
+import com.thomaskioko.githubstargazers.ui.extensions.setAllCornerSizes
 import kotlin.properties.Delegates
 
 internal class RepoListAdapter constructor(

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.thomaskioko.githubstargazer.browse_mvi.databinding.ItemRepositoryBinding
 import com.thomaskioko.githubstargazer.browse_mvi.model.RepoViewDataModel
-import com.thomaskioko.githubstargazers.ui.setAllCornerSizes
+import com.thomaskioko.githubstargazers.ui.extensions.setAllCornerSizes
 import java.util.*
 
 internal class RepoListAdapter constructor(

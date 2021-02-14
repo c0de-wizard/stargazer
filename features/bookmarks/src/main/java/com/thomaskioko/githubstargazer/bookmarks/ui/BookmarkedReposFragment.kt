@@ -15,8 +15,8 @@ import com.thomaskioko.githubstargazer.bookmarks.ui.adapter.BookmarkRepoItemClic
 import com.thomaskioko.githubstargazer.bookmarks.ui.adapter.BookmarkedReposAdapter
 import com.thomaskioko.githubstargazer.bookmarks.ui.viewmodel.GetBookmarkedReposViewModel
 import com.thomaskioko.githubstargazer.core.ViewState
-import com.thomaskioko.githubstargazers.ui.hideView
-import com.thomaskioko.githubstargazers.ui.showView
+import com.thomaskioko.githubstargazers.ui.extensions.hideView
+import com.thomaskioko.githubstargazers.ui.extensions.showView
 import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailScreen
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
 import dagger.hilt.android.AndroidEntryPoint
