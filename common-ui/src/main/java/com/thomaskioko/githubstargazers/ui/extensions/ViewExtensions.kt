@@ -1,4 +1,4 @@
-package com.thomaskioko.githubstargazers.ui
+package com.thomaskioko.githubstargazers.ui.extensions
 
 import android.view.View
 import com.google.android.material.card.MaterialCardView

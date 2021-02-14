@@ -1,4 +1,4 @@
-package com.thomaskioko.githubstargazers.ui
+package com.thomaskioko.githubstargazers.ui.extensions
 
 import android.annotation.SuppressLint
 import android.content.Context
