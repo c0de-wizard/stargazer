@@ -19,6 +19,7 @@ dependencies {
     implementation Dependencies.AndroidX.coreKtx
     implementation Dependencies.AndroidX.appCompat
     implementation Dependencies.AndroidX.constraintLayout
+    implementation Dependencies.AndroidX.dataStore
 
     implementation Dependencies.AndroidX.Navigation.fragment
     implementation Dependencies.AndroidX.Navigation.ktx

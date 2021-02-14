@@ -21,6 +21,7 @@ object Dependencies {
         val appCompat = "androidx.appcompat:appcompat:1.1.0"
         val coreKtx = "androidx.core:core-ktx:1.3.2"
         val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.4"
+        val dataStore = "androidx.datastore:datastore-preferences:1.0.0-alpha06"
 
         object Lifecycle {
             private const val version = "2.2.0"
