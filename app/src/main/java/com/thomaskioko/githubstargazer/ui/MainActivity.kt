@@ -1,6 +1,5 @@
 package com.thomaskioko.githubstargazer.ui
 
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
@@ -13,12 +12,19 @@ import androidx.navigation.NavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.thomaskioko.githubstargazer.R
+import com.thomaskioko.githubstargazer.domain.SettingsManager
 import com.thomaskioko.githubstargazer.databinding.ActivityMainBinding
-import com.thomaskioko.stargazer.navigation.ScreenNavigator
+import com.thomaskioko.githubstargazer.domain.UiTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Provider
 
+@InternalCoroutinesApi
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
@@ -26,15 +32,17 @@ class MainActivity : AppCompatActivity() {
     lateinit var navControllerProvider: Provider<NavController>
 
     @Inject
-    lateinit var screenNavigator: ScreenNavigator
+    lateinit var settingsManager: SettingsManager
 
     private lateinit var binding: ActivityMainBinding
+    private var isDarkMode = false
 
     private val navController: NavController
         get() = navControllerProvider.get()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -56,26 +64,49 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    private fun setTheme() {
+        GlobalScope.launch(context = Dispatchers.Main) {
+            settingsManager.getUiModeFlow()
+                .collect {
+                    isDarkMode = when (it) {
+                        UiTheme.LIGHT -> {
+                            setDefaultNightMode(MODE_NIGHT_NO)
+                            false
+                        }
+                        UiTheme.DARK -> {
+                            setDefaultNightMode(MODE_NIGHT_YES)
+                            true
+                        }
+                    }
+                }
+        }
+    }
+
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main, menu)
 
         val menuItem = menu.findItem(R.id.menu_item_theme)
         val switch = (menuItem.actionView as SwitchMaterial)
 
-        switch.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked ) {
-                setDefaultNightMode(MODE_NIGHT_YES)
-            } else {
-                setDefaultNightMode(MODE_NIGHT_NO)
-            }
+        switch.isChecked = isDarkMode
 
+        switch.setOnCheckedChangeListener { _, isChecked ->
+            isDarkMode = if (isChecked) {
+                updateTheme(UiTheme.DARK)
+                true
+            } else {
+                updateTheme(UiTheme.LIGHT)
+                false
+            }
         }
         return true
     }
 
-    private fun isDarkModeOn(): Boolean {
-        val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-        return currentNightMode == Configuration.UI_MODE_NIGHT_YES
+    private fun updateTheme(themeTheme: UiTheme) {
+        GlobalScope.launch(context = Dispatchers.Main) {
+            settingsManager.setUiMode(themeTheme)
+        }
     }
 
 
