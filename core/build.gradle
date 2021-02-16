@@ -40,17 +40,15 @@ dependencies {
     implementation Dependencies.Kotlin.stdlib
 
     implementation Dependencies.AndroidX.appCompat
+    implementation Dependencies.AndroidX.Lifecycle.common
+    implementation Dependencies.AndroidX.Lifecycle.runtime
     implementation Dependencies.AndroidX.Lifecycle.viewmodel
 
     implementation Dependencies.Coroutines.core
     implementation Dependencies.Coroutines.reactive
 
-    implementation Dependencies.Dagger.core
-    kapt Dependencies.Dagger.compiler
-    kapt Dependencies.Dagger.processor
-
-    implementation Dependencies.Google.hilt
-    kapt Dependencies.Google.hiltCompiler
+    implementation Dependencies.Google.Hilt.core
+    kapt Dependencies.Google.Hilt.compiler
 
     testImplementation Dependencies.Testing.junit
     androidTestImplementation Dependencies.Testing.androidJunit

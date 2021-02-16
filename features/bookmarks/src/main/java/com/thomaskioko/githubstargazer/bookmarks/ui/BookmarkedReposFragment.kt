@@ -7,22 +7,29 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.thomaskioko.githubstargazer.bookmarks.R
 import com.thomaskioko.githubstargazer.bookmarks.databinding.FragmentBookmarkedReposBinding
+import com.thomaskioko.githubstargazer.bookmarks.model.RepoViewDataModel
 import com.thomaskioko.githubstargazer.bookmarks.ui.adapter.BookmarkRepoItemClick
 import com.thomaskioko.githubstargazer.bookmarks.ui.adapter.BookmarkedReposAdapter
 import com.thomaskioko.githubstargazer.bookmarks.ui.viewmodel.GetBookmarkedReposViewModel
 import com.thomaskioko.githubstargazer.core.ViewState
-import com.thomaskioko.githubstargazer.core.extensions.hideView
-import com.thomaskioko.githubstargazer.core.extensions.showView
-import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
+import com.thomaskioko.githubstargazers.ui.extensions.hideView
+import com.thomaskioko.githubstargazers.ui.extensions.showView
+import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailScreen
+import com.thomaskioko.stargazer.navigation.ScreenNavigator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class BookmarkedReposFragment : Fragment() {
+
+    @Inject
+    lateinit var screenNavigator: ScreenNavigator
 
     private val getRepoViewModel: GetBookmarkedReposViewModel by viewModels()
 
@@ -32,7 +39,10 @@ class BookmarkedReposFragment : Fragment() {
 
     private val onRepoItemClick = object : BookmarkRepoItemClick {
         override fun onClick(view: View, repoId: Long) {
-            // TODO:: update bookmark item to false
+            val transitionName = getString(R.string.repo_card_detail_transition_name)
+            val extras = FragmentNavigatorExtras(view to transitionName)
+
+            screenNavigator.goToScreen(RepoDetailScreen(repoId, extras))
         }
     }
 
@@ -62,6 +72,7 @@ class BookmarkedReposFragment : Fragment() {
             }
         }
 
+        getRepoViewModel.getBookmarkedRepos()
         getRepoViewModel.bookmarkedList
             .onEach(::handleResult)
             .launchIn(lifecycleScope)

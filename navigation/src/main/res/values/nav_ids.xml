@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="home_nav_graph" type="id" />
+    <item name="browse_nav_graph" type="id" />
+    <item name="browse_mvi_nav_graph" type="id" />
+    <item name="bookmark_nav_graph" type="id" />
+    <item name="repo_details_nav_graph" type="id" />
+</resources>

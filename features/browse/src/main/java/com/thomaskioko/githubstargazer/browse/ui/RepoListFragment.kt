@@ -4,26 +4,35 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import com.google.android.material.transition.MaterialElevationScale
+import com.thomaskioko.githubstargazer.browse.R
 import com.thomaskioko.githubstargazer.browse.databinding.FragmentRepoListBinding
+import com.thomaskioko.githubstargazer.browse.model.RepoViewDataModel
 import com.thomaskioko.githubstargazer.browse.ui.adapter.RepoItemClick
 import com.thomaskioko.githubstargazer.browse.ui.adapter.RepoListAdapter
 import com.thomaskioko.githubstargazer.browse.ui.viewmodel.GetReposViewModel
 import com.thomaskioko.githubstargazer.core.ViewState
-import com.thomaskioko.githubstargazer.core.extensions.hideView
-import com.thomaskioko.githubstargazer.core.extensions.showView
+import com.thomaskioko.githubstargazers.ui.extensions.hideView
+import com.thomaskioko.githubstargazers.ui.extensions.showView
 import com.thomaskioko.githubstargazer.core.util.ConnectivityUtil.isConnected
-import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
+import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailScreen
+import com.thomaskioko.stargazer.navigation.ScreenNavigator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class RepoListFragment : Fragment() {
+
+    @Inject
+    lateinit var screenNavigator: ScreenNavigator
 
     private val getRepoViewModel: GetReposViewModel by viewModels()
 
@@ -36,9 +45,21 @@ class RepoListFragment : Fragment() {
 
     private val onRepoItemClick = object : RepoItemClick {
         override fun onClick(view: View, repoId: Long) {
-            val action =
-                RepoListFragmentDirections.actionRepoListFragmentToRepoDetailFragment(repoId)
-            view.findNavController().navigate(action, null)
+            val transitionName = getString(R.string.repo_card_detail_transition_name)
+            val extras = FragmentNavigatorExtras(view to transitionName)
+
+            screenNavigator.goToScreen(RepoDetailScreen(repoId, extras))
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        exitTransition = MaterialElevationScale(false).apply {
+            duration = resources.getInteger(R.integer.motion_duration_large).toLong()
+        }
+        reenterTransition = MaterialElevationScale(true).apply {
+            duration = resources.getInteger(R.integer.motion_duration_large).toLong()
         }
     }
 
@@ -62,6 +83,9 @@ class RepoListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
 
         with(binding) {
             viewmodel?.let {
@@ -92,7 +116,7 @@ class RepoListFragment : Fragment() {
             is ViewState.Success -> {
                 binding.loadingBar.hideView()
                 viewState.data.let {
-                    repoListAdapter.setData(it as ArrayList)
+                    repoListAdapter.itemsList = it
                 }
             }
             is ViewState.Loading -> binding.loadingBar.showView()

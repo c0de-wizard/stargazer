@@ -7,11 +7,13 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.thomaskioko.githubstargazer.bookmarks.ViewMockData.makeRepoViewDataModelList
 import com.thomaskioko.githubstargazer.bookmarks.domain.interactor.GetBookmarkedRepoListInteractor
+import com.thomaskioko.githubstargazer.bookmarks.model.RepoViewDataModel
 import com.thomaskioko.githubstargazer.bookmarks.ui.util.CoroutineScopeRule
 import com.thomaskioko.githubstargazer.core.ViewState
-import com.thomaskioko.githubstargazer.core.ViewState.*
+import com.thomaskioko.githubstargazer.core.ViewState.Loading
+import com.thomaskioko.githubstargazer.core.ViewState.Success
+import com.thomaskioko.githubstargazer.core.ViewState.Error
 import com.thomaskioko.githubstargazer.core.interactor.invoke
-import com.thomaskioko.stargazer.common_ui.model.RepoViewDataModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking

@@ -7,7 +7,13 @@ import com.thomaskioko.githubstargazer.repository.mapper.RepositoryMapper.mapRes
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.conflate
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -19,16 +25,18 @@ class GithubRepository @Inject constructor(
 ) {
 
     fun getRepositoryList(isConnected: Boolean): Flow<List<RepoEntity>> =
-        flowOf(isConnected)
-            .flatMapConcat { if (it) loadFromNetwork() else database.repoDao().getReposFlow() }
+        database.repoDao().getReposFlow()
+            .map { it.firstOrNull() }
+            .flatMapConcat { if (it == null && isConnected) loadFromNetwork() else loadCacheRepos() }
             .flowOn(Dispatchers.IO)
             .conflate()
 
-    private suspend fun loadFromNetwork() = service.getRepositories()
-        .map { database.repoDao().insertRepo(mapResponseToEntityList(it)) }
-        .asFlow()
-        .flatMapConcat { database.repoDao().getReposFlow() }
-        .catch { database.repoDao().getReposFlow().map { emit(it) } }
+    private suspend fun loadFromNetwork() = flowOf(service.getRepositories())
+        .map { database.repoDao().insertRepos(mapResponseToEntityList(it)) }
+        .flatMapConcat { loadCacheRepos() }
+        .catch { loadCacheRepos().map { emit(it) } }
+
+    private fun loadCacheRepos() = database.repoDao().getReposFlow()
 
     suspend fun getRepoById(repoId: Long) = database.repoDao().getRepoById(repoId)
 

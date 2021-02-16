@@ -51,7 +51,7 @@ kapt {
 dependencies {
     implementation project(':core')
     implementation project(':common-ui')
-    implementation project(':navigator')
+    implementation project(':navigation')
     implementation project(':repository')
 
     implementation Dependencies.Kotlin.stdlib
@@ -61,24 +61,18 @@ dependencies {
     implementation Dependencies.AndroidX.Lifecycle.viewmodel
 
     implementation Dependencies.AndroidX.Navigation.fragment
-    implementation Dependencies.AndroidX.Navigation.ui
+    implementation Dependencies.AndroidX.Navigation.ktx
     implementation Dependencies.AndroidX.Navigation.runtime
 
-    implementation Dependencies.material
+    implementation Dependencies.Google.material
     implementation Dependencies.timber
 
-    implementation Dependencies.Google.Hilt.android
+    implementation Dependencies.Google.Hilt.core
     implementation Dependencies.Google.Hilt.viewmodel
-    kapt Dependencies.Google.Hilt.andoroidCompiler
     kapt Dependencies.Google.Hilt.compiler
 
     implementation Dependencies.Coroutines.core
     implementation Dependencies.Coroutines.android
-
-    implementation Dependencies.Dagger.android
-    implementation Dependencies.Dagger.core
-    kapt Dependencies.Dagger.compiler
-    kapt Dependencies.Dagger.processor
 
     testImplementation Dependencies.Testing.junit
     testImplementation Dependencies.Testing.truth

@@ -8,7 +8,8 @@ import com.thomaskioko.githubstargazer.repository.MockEntityData.makeRepoEntity
 import com.thomaskioko.githubstargazer.repository.db.GithubDatabase
 import kotlinx.coroutines.runBlocking
 import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

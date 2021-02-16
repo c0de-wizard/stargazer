@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="error_loading">Could not fetch repos!!</string>
+    <string name="repo_card_transition_name">repo_card_%1$d</string>
+    <string name="repo_card_detail_transition_name">repo_card_detail</string>
+
+    <!-- Content Description -->
+    <string name="content_description_fab_favorite_repo">Add or remove repo to bookmark</string>
+    <string name="content_description_repo_image">Repository Image</string>
+
+</resources>

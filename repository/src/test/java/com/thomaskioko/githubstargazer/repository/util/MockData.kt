@@ -4,7 +4,7 @@ import com.thomaskioko.githubstargazer.repository.api.model.RepoResponse
 import com.thomaskioko.githubstargazer.repository.api.model.UserResponse
 import com.thomaskioko.githubstargazer.repository.db.model.RepoEntity
 
-object MockData {
+internal object MockData {
 
     fun makeRepoResponse() = RepoResponse(
         id = 1L,
@@ -34,7 +34,6 @@ object MockData {
 
     fun makeRepoEntityList() = listOf(
         RepoEntity(
-            id = 0,
             repoId = 1L,
             name = "Square",
             description = "Some cool description about the app",

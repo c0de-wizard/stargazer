@@ -9,30 +9,29 @@ dependencies {
 
     implementation project(':core')
     implementation project(':repository')
-    implementation project(':navigator')
+    implementation project(':navigation')
     implementation project(':features:browse')
+    implementation project(':features:browse-mvi')
     implementation project(':features:bookmarks')
+    implementation project(':features:repo-details')
 
     implementation Dependencies.Kotlin.stdlib
     implementation Dependencies.AndroidX.coreKtx
     implementation Dependencies.AndroidX.appCompat
     implementation Dependencies.AndroidX.constraintLayout
+    implementation Dependencies.AndroidX.dataStore
 
     implementation Dependencies.AndroidX.Navigation.fragment
+    implementation Dependencies.AndroidX.Navigation.ktx
     implementation Dependencies.AndroidX.Navigation.runtime
 
-    implementation Dependencies.Google.Hilt.android
+    implementation Dependencies.Google.Hilt.core
     implementation Dependencies.Google.Hilt.viewmodel
-    kapt Dependencies.Google.Hilt.andoroidCompiler
     kapt Dependencies.Google.Hilt.compiler
 
-    implementation Dependencies.material
+    implementation Dependencies.Google.material
     implementation Dependencies.timber
-
-    implementation Dependencies.Dagger.core
-    implementation Dependencies.Dagger.support
-    kapt Dependencies.Dagger.compiler
-    kapt Dependencies.Dagger.processor
+    implementation Dependencies.leakCanary
 
     implementation Dependencies.Retrofit.Moshi.core
     implementation Dependencies.Retrofit.Moshi.converter

@@ -12,7 +12,7 @@ object RepositoryMapper {
     fun mapResponseToEntityList(response: RepoResponse): RepoEntity =
         RepoEntity(
             repoId = response.id,
-            name = response.name,
+            name = response.name.capitalize(),
             description = response.description,
             userName = response.owner.login,
             stargazersCount = response.stargazersCount,
