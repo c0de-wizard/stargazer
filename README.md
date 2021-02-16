@@ -2,6 +2,24 @@ Github Stargazer
 --------------------
 Stargazer is a simple android project that consumes Github's Api & loads a list of repositories from Square's organization.
 
+### Screenshots
+
+
+ <table>
+  <td>
+    <p align="center">
+  <img src="https://github.com/c0de-wizard/github-stargazer/blob/main/art/LightTheme.png?raw=true" alt="Light Theme" width="250"/>
+</p>
+</td>
+<td>
+    <p align="center">
+      <img src="https://github.com/c0de-wizard/github-stargazer/blob/main/art/DarkTheme.png?raw=true" alt="Dark Theme" width="250"/>
+    </p>
+  </td>
+
+</tr>
+</table>
+
 ## Requirements
 
 * JDK 1.8
@@ -57,7 +75,9 @@ This module enables us to navigate between the app, as the name suggests. It con
     - [Room Persistence]() - construct a database using the abstract layer.
     - LiveData - notify domain layer data to views.
     - Lifecycle - dispose of observing data when lifecycle state changes.
+    - [DataStore](https://developer.android.com/topic/libraries/architecture/datastore) - Replacement for shared preference.
 *   [Material-Components](https://github.com/material-components/material-components-android) - Material design components.
+*   [Dark/Light Theme](https://developer.android.com/guide/topics/ui/look-and-feel/darktheme) - Support dark/light themes
 *   [Coroutines](https://github.com/Kotlin/kotlinx.coroutines) + [Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/) for asynchronous.
 *   [Retrofit2 & OkHttp3](https://github.com/square/retrofit) - construct the REST APIs and paging network data.
 *   [Moshi](https://github.com/square/moshi) - Moshi is a modern JSON library for Android and Java
@@ -78,9 +98,11 @@ This module enables us to navigate between the app, as the name suggests. It con
 - [x] Bookmark repo.
 - [x] Cleanup: Create common module: Contains shared UI classes.
 - [x] Refactor BaseViewModel class implementation: Replace LiveData with flow.
+- [x] Materialize app.
 - [ ] Create some from of 'StateMachine' to handle states lifeCycle
 - [ ] Add instrumentation tests.
 - [ ] Add/update missing test cases.
 - [ ] Cleanup Kotlin DSL Implementation.
 - [ ] Add Pagination (Maybe 😁).
-- [ ] Materialize app.
+- [ ] Refactor Navigation and add fragments to Navigation Graph programmatically.
+- [ ] Implement search functionality.
