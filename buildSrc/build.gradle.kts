@@ -1,21 +1,25 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
-    `java-gradle-plugin`
     `kotlin-dsl`
     `kotlin-dsl-precompiled-script-plugins`
 }
 
 repositories {
     google()
-    jcenter()
     mavenCentral()
-    maven("https://oss.sonatype.org/content/repositories/snapshots")
-    maven("https://maven.fabric.io/public")
-    maven("https://plugins.gradle.org/m2/")
+    maven("https://dl.bintray.com/kotlin/kotlin-eap")
+    maven("https://oss.sonatype.org/content/repositories/snapshots/")
+}
+
+val compileKotlin: KotlinCompile by tasks
+compileKotlin.kotlinOptions {
+    languageVersion = PluginsVersions.KOTLIN
 }
 
 object PluginsVersions {
-    const val ANDROID_GRADLE = "4.1.2"
-    const val KOTLIN = "1.4.10"
+    const val ANDROID_GRADLE = "7.0.0-alpha07"
+    const val KOTLIN = "1.4.30"
     const val NAVIGATION = "2.3.2"
 }
 
