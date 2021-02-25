@@ -1,6 +1,3 @@
-import com.thomaskioko.githubstargazer.buildsrc.BuildVersions
-import com.thomaskioko.githubstargazer.buildsrc.Dependencies
-
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
