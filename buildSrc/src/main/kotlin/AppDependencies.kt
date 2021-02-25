@@ -1,6 +1,6 @@
-package com.thomaskioko.githubstargazer.buildsrc
-
 import org.gradle.api.JavaVersion
+
+const val kotlinVersion = "1.4.30"
 
 object BuildVersions {
     val minSdkVersion = 21
