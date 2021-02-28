@@ -6,7 +6,7 @@ object BuildVersions {
     val minSdkVersion = 21
     val targetSdkVersion = 30
     val compileSdkVersion = 30
-    val buildToolsVersion = "30.0.2"
+    val buildToolsVersion = "30.0.3"
     val versionCode = 1
     val versionName = "0.1"
     val javaVersion = JavaVersion.VERSION_1_8
