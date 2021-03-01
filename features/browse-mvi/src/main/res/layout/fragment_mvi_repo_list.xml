@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.thomaskioko.githubstargazer.browse_mvi.ui.GetRepoListViewModel" />
+            type="com.thomaskioko.stargazer.browse_mvi.ui.GetRepoListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

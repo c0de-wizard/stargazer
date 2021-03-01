@@ -7,11 +7,11 @@
 
         <variable
             name="repo"
-            type="com.thomaskioko.githubstargazer.repo_details.model.RepoViewDataModel" />
+            type="com.thomaskioko.stargazer.repo_details.model.RepoViewDataModel" />
 
         <variable
             name="viewmodel"
-            type="com.thomaskioko.githubstargazer.repo_details.ui.viewmodel.RepoDetailsViewModel" />
+            type="com.thomaskioko.stargazer.repo_details.ui.viewmodel.RepoDetailsViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView

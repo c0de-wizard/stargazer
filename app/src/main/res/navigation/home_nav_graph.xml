@@ -7,6 +7,6 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.thomaskioko.githubstargazer.ui.SplashFragment"
+        android:name="com.thomaskioko.stargazer.ui.SplashFragment"
         tools:layout="@layout/fragment_splash" />
 </navigation>

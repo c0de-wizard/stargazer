@@ -7,14 +7,14 @@
 
         <variable
             name="viewmodel"
-            type="com.thomaskioko.githubstargazer.bookmarks.ui.viewmodel.GetBookmarkedReposViewModel" />
+            type="com.thomaskioko.stargazer.bookmarks.ui.viewmodel.GetBookmarkedReposViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.thomaskioko.githubstargazer.bookmarks.ui.BookmarkedReposFragment">
+        tools:context="com.thomaskioko.githubstargazer.bookmarks.com.thomaskioko.stargazer.bookmarks.ui.BookmarkedReposFragment">
 
 
         <TextView

@@ -9,11 +9,11 @@
 
         <variable
             name="clickHandler"
-            type="com.thomaskioko.githubstargazer.browse_mvi.ui.RepoItemClick" />
+            type="com.thomaskioko.stargazer.browse_mvi.ui.RepoItemClick" />
 
         <variable
             name="repo"
-            type="com.thomaskioko.githubstargazer.browse_mvi.model.RepoViewDataModel" />
+            type="com.thomaskioko.stargazer.browse_mvi.model.RepoViewDataModel" />
     </data>
 
     <FrameLayout

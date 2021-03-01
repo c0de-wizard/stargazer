@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/repoListFragment"
-        android:name="com.thomaskioko.githubstargazer.browse.ui.RepoListFragment"
+        android:name="com.thomaskioko.stargazer.browse.ui.RepoListFragment"
         android:label="RepoListFragment"
         tools:layout="@layout/fragment_repo_list">
     </fragment>

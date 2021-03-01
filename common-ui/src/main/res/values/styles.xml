@@ -5,6 +5,6 @@
         <item name="labelVisibilityMode">selected</item>
         <item name="itemIconTint">@color/bottom_nav_item</item>
         <item name="itemTextColor">@color/bottom_nav_item</item>
-        <item name="itemTextAppearanceActive">@style/TextAppearance.GithubStargazer.BottomNavigation</item>
+        <item name="itemTextAppearanceActive">@style/TextAppearance.Stargazer.BottomNavigation</item>
     </style>
 </resources>

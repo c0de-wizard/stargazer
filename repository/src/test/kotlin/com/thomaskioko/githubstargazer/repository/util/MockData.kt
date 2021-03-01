@@ -1,8 +1,8 @@
 package com.thomaskioko.githubstargazer.repository.util
 
-import com.thomaskioko.githubstargazer.repository.api.model.RepoResponse
-import com.thomaskioko.githubstargazer.repository.api.model.UserResponse
-import com.thomaskioko.githubstargazer.repository.db.model.RepoEntity
+import com.thomaskioko.stargazer.repository.api.model.RepoResponse
+import com.thomaskioko.stargazer.repository.api.model.UserResponse
+import com.thomaskioko.stargazer.repository.db.model.RepoEntity
 
 internal object MockData {
 

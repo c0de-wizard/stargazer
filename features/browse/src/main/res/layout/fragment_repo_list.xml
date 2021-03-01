@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.thomaskioko.githubstargazer.browse.ui.viewmodel.GetReposViewModel" />
+            type="com.thomaskioko.stargazer.browse.ui.viewmodel.GetReposViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?android:colorBackground"
-        tools:context="com.thomaskioko.githubstargazer.browse.ui.RepoListFragment">
+        tools:context="com.thomaskioko.githubstargazer.browse.com.thomaskioko.stargazer.browse.ui.RepoListFragment">
 
 
         <TextView

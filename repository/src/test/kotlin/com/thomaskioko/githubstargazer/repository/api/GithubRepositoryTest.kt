@@ -3,11 +3,12 @@ package com.thomaskioko.githubstargazer.repository.api
 import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.whenever
-import com.thomaskioko.githubstargazer.repository.api.service.GitHubService
-import com.thomaskioko.githubstargazer.repository.db.GithubDatabase
-import com.thomaskioko.githubstargazer.repository.db.dao.RepoDao
+import com.thomaskioko.stargazer.repository.api.service.GitHubService
+import com.thomaskioko.stargazer.repository.db.GithubDatabase
+import com.thomaskioko.stargazer.repository.db.dao.RepoDao
 import com.thomaskioko.githubstargazer.repository.util.MockData.makeRepoEntityList
 import com.thomaskioko.githubstargazer.repository.util.MockData.makeRepoResponseList
+import com.thomaskioko.stargazer.repository.api.GithubRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList

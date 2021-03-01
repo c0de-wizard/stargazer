@@ -1,7 +1,7 @@
 package com.thomaskioko.githubstargazer.bookmarks
 
-import com.thomaskioko.githubstargazer.bookmarks.model.RepoViewDataModel
-import com.thomaskioko.githubstargazer.repository.db.model.RepoEntity
+import com.thomaskioko.stargazer.bookmarks.model.RepoViewDataModel
+import com.thomaskioko.stargazer.repository.db.model.RepoEntity
 
 object ViewMockData {
 

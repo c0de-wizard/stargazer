@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.GithubStargazer" parent="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Stargazer" parent="@style/Theme.MaterialComponents.DayNight.NoActionBar">
 
         <item name="colorPrimary">#344955</item>
         <item name="colorPrimaryVariant">#232f34</item>
@@ -24,17 +24,17 @@
 
 
         <!--Typography-->
-        <item name="textAppearanceHeadline2">@style/TextAppearance.GithubStargazer.Headline2</item>
-        <item name="textAppearanceHeadline3">@style/TextAppearance.GithubStargazer.Headline3</item>
-        <item name="textAppearanceHeadline4">@style/TextAppearance.GithubStargazer.Headline4</item>
-        <item name="textAppearanceHeadline5">@style/TextAppearance.GithubStargazer.Headline5</item>
-        <item name="textAppearanceHeadline6">@style/TextAppearance.GithubStargazer.Headline6</item>
-        <item name="textAppearanceSubtitle1">@style/TextAppearance.GithubStargazer.Subtitle1</item>
-        <item name="textAppearanceSubtitle2">@style/TextAppearance.GithubStargazer.Subtitle2</item>
-        <item name="textAppearanceBody1">@style/TextAppearance.GithubStargazer.Body1</item>
-        <item name="textAppearanceBody2">@style/TextAppearance.GithubStargazer.Body2</item>
-        <item name="textAppearanceCaption">@style/TextAppearance.GithubStargazer.Caption</item>
-        <item name="textAppearanceOverline">@style/TextAppearance.GithubStargazer.Overline</item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.Stargazer.Headline2</item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.Stargazer.Headline3</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.Stargazer.Headline4</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.Stargazer.Headline5</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.Stargazer.Headline6</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.Stargazer.Subtitle1</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.Stargazer.Subtitle2</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.Stargazer.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.Stargazer.Body2</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.Stargazer.Caption</item>
+        <item name="textAppearanceOverline">@style/TextAppearance.Stargazer.Overline</item>
 
         <item name="emphasisHighAlpha">0.87</item>
         <item name="emphasisMediumAlpha">0.60</item>
