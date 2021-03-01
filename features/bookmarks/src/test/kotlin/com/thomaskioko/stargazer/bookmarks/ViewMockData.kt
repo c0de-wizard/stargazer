@@ -1,4 +1,4 @@
-package com.thomaskioko.githubstargazer.bookmarks
+package com.thomaskioko.stargazer.bookmarks
 
 import com.thomaskioko.stargazer.bookmarks.model.RepoViewDataModel
 import com.thomaskioko.stargazer.repository.db.model.RepoEntity
