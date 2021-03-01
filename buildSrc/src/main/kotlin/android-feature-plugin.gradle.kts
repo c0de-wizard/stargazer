@@ -9,6 +9,7 @@ plugins {
     id("kotlin-parcelize")
     kotlin("kapt")
     id("androidx.navigation.safeargs.kotlin")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -67,12 +68,15 @@ dependencies {
     implementation(Dependencies.AndroidX.Navigation.ktx)
     implementation(Dependencies.AndroidX.Navigation.runtime)
 
-
     implementation(Dependencies.Google.material)
     implementation(Dependencies.timber)
 
     implementation(Dependencies.Coroutines.core)
     implementation(Dependencies.Coroutines.android)
+
+    implementation(Dependencies.Google.Hilt.core)
+    implementation(Dependencies.Google.Hilt.viewmodel)
+    kapt(Dependencies.Google.Hilt.compiler)
 
     testImplementation(Dependencies.Testing.junit)
     testImplementation(Dependencies.Testing.truth)
