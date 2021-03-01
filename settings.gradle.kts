@@ -1,12 +1,15 @@
+rootProject.name = "Stargazer"
 
-rootProject.buildFileName = "build.gradle.kts"
-
-include(":app")
-include(":core")
-include(":common-ui")
-include(":navigation")
-include(":repository")
-include(":features:bookmarks")
-include(":features:browse")
-include(":features:browse-mvi")
-include(":features:repo-details")
+include(
+    ":app",
+    ":core",
+    ":common-ui",
+    ":common-testing",
+    ":navigation",
+    ":repository",
+    ":features:bookmarks",
+    ":features:browse",
+    ":features:browse-mvi",
+    ":features:repo-details"
+)
+include(":common-testing")
