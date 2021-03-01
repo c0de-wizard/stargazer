@@ -49,9 +49,8 @@ object Dependencies {
 
         val material = "com.google.android.material:material:1.3.0"
 
-        val version = "2.31.2-alpha"
-
         object Hilt {
+            val version = "2.31.2-alpha"
             val core = "com.google.dagger:hilt-android:$version"
             val compiler = "com.google.dagger:hilt-compiler:$version"
             val viewmodel = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
@@ -92,19 +91,33 @@ object Dependencies {
     object Testing {
         val junit = "junit:junit:4.12"
         val androidJunit = "androidx.test.ext:junit:1.1.2"
-        val androidEspressoCore = "androidx.test.espresso:espresso-core:3.3.0"
         val truth = "com.google.truth:truth:1.0.1"
         val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
         val turbine = "app.cash.turbine:turbine:0.3.0"
+        val robolectric: String = "org.robolectric:robolectric:4.5.1"
+        val archCoreTest: String = "android.arch.core:core-testing:1.1.1"
+
 
         object AndroidX {
             val junit = "androidx.test.ext:junit:1.1.2"
             val core = "androidx.arch.core:core-testing:2.1.0"
-            val fragment = "androidx.fragment:fragment-testing:1.2.4"
+            val fragment = "androidx.fragment:fragment-testing:1.2.5"
+            val rules: String = "androidx.test:rules:1.3.0-rc03"
+            val runner: String = "androidx.test:runner:$1.3.0-rc03"
         }
 
         object Coroutines {
             val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2"
+        }
+
+        object Espresso {
+             val version: String = "3.3.0-rc03"
+             val core: String = "androidx.test.espresso:espresso-core:$version"
+             val contrib: String = "androidx.test.espresso:espresso-contrib:$version"
+        }
+
+        object Hilt {
+            val androidTesting = "com.google.dagger:hilt-android-testing:${Google.Hilt.version}"
         }
 
         object Mockito {
