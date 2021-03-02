@@ -22,6 +22,9 @@ object PluginsVersions {
     const val kotlin = "1.4.30"
     const val navigaiton = "2.3.2"
     const val daggerHiltAndroid: String = "2.31.2-alpha"
+    const val spotless = "5.10.2"
+    const val ktlint = "0.34.2"
+    const val detekt = "1.0.1"
 }
 
 dependencies {
@@ -31,4 +34,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-allopen:${PluginsVersions.kotlin}")
     implementation("androidx.navigation:navigation-safe-args-gradle-plugin:${PluginsVersions.navigaiton}")
     implementation("com.google.dagger:hilt-android-gradle-plugin:${PluginsVersions.daggerHiltAndroid}")
+    implementation("com.pinterest:ktlint:${PluginsVersions.ktlint}")
+    implementation("com.diffplug.spotless:spotless-plugin-gradle:${PluginsVersions.spotless}")
+    implementation("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${PluginsVersions.detekt}")
 }

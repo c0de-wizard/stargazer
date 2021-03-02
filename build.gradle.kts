@@ -6,6 +6,11 @@ buildscript {
 
 allprojects {
     repositories.applyDefault()
+
+    plugins.apply("plugins.ktlint")
+    plugins.apply("plugins.detekt")
+    plugins.apply("plugins.spotless")
+
     configurations.all {
         resolutionStrategy.eachDependency {
             if (requested.group == "org.jetbrains.kotlin") {

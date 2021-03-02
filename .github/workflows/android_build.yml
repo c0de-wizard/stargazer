@@ -18,10 +18,11 @@ jobs:
         with:
           java-version: 11
 
-      - name: Build App
-        run: ./gradlew build
+      - name: Run Lint
+        run: ./gradlew lintDebug
+
+      - name: Run Spotless
+        run: /gradlew spotlessCheck
 
       - name: Run Unit Tests
         run: ./gradlew testDebugUnitTest
-
-
