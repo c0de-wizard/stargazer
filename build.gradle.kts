@@ -29,6 +29,7 @@ subprojects {
             apiVersion = "1.5"
             freeCompilerArgs += "-Xuse-experimental=" +
                 "kotlin.Experimental," +
+                "kotlin.time.ExperimentalTime," +
                 "kotlinx.coroutines.ExperimentalCoroutinesApi," +
                 "kotlinx.coroutines.InternalCoroutinesApi," +
                 "kotlinx.coroutines.ObsoleteCoroutinesApi," +
