@@ -7,13 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.thomaskioko.githubstargazer.browse_mvi.databinding.ItemRepositoryBinding
 import com.thomaskioko.stargazer.browse_mvi.model.RepoViewDataModel
 import com.thomaskioko.stargazers.ui.extensions.setAllCornerSizes
-import java.util.*
+import kotlin.properties.Delegates
 
 internal class RepoListAdapter constructor(
     private val repoItemClick: RepoItemClick
 ) : RecyclerView.Adapter<RepoItemViewHolder>() {
 
-    private var itemsList: List<RepoViewDataModel> = ArrayList()
+    var itemsList: List<RepoViewDataModel> by Delegates.observable(emptyList()) { _, new, old ->
+        if (new != old) notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoItemViewHolder {
         return RepoItemViewHolder(
@@ -32,11 +34,6 @@ internal class RepoListAdapter constructor(
     override fun getItemCount(): Int = itemsList.size
 
     private fun getItem(position: Int): RepoViewDataModel? = itemsList[position]
-
-    fun setData(list: List<RepoViewDataModel>) {
-        itemsList = list
-        notifyDataSetChanged()
-    }
 }
 
 internal class RepoItemViewHolder(

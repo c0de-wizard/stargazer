@@ -1,5 +1,5 @@
 plugins {
-   `android-library-plugin`
+    `android-library-plugin`
 }
 
 dependencies {
@@ -17,5 +17,4 @@ dependencies {
 
     implementation(Dependencies.Room.roomKtx)
     kapt(Dependencies.Room.compiler)
-
 }

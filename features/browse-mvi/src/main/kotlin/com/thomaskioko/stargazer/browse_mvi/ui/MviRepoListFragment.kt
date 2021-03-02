@@ -13,11 +13,11 @@ import com.google.android.material.transition.MaterialElevationScale
 import com.thomaskioko.githubstargazer.browse_mvi.R
 import com.thomaskioko.githubstargazer.browse_mvi.databinding.FragmentMviRepoListBinding
 import com.thomaskioko.stargazer.browse_mvi.ui.ReposIntent.RepoItemClicked
-import com.thomaskioko.stargazers.ui.extensions.showView
 import com.thomaskioko.stargazer.core.factory.create
 import com.thomaskioko.stargazer.core.util.ConnectivityUtil
 import com.thomaskioko.stargazer.core.viewmodel.observe
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
+import com.thomaskioko.stargazers.ui.extensions.showView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -93,7 +93,10 @@ internal class MviRepoListFragment : Fragment() {
 
         when (state) {
             ReposViewState.Loading -> binding.loadingBar.isVisible = state is ReposViewState.Loading
-            is ReposViewState.ResultRepoList -> repoListAdapter.setData(state.list)
+            is ReposViewState.ResultRepoList -> repoListAdapter.apply {
+                itemsList = state.list
+                notifyDataSetChanged()
+            }
             is ReposViewState.Error -> {
                 binding.tvInfo.showView()
                 binding.tvInfo.text = state.message

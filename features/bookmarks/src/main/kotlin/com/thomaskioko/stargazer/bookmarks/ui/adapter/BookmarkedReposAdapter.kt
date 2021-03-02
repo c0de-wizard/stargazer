@@ -1,5 +1,6 @@
 package com.thomaskioko.stargazer.bookmarks.ui.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,13 +8,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.thomaskioko.githubstargazer.bookmarks.databinding.ItemBookmarkedRepoBinding
 import com.thomaskioko.stargazer.bookmarks.model.RepoViewDataModel
 import com.thomaskioko.stargazers.ui.extensions.setAllCornerSizes
-import java.util.*
+import kotlin.properties.Delegates
 
 class BookmarkedReposAdapter constructor(
     private val bookmarkRepoItemClick: BookmarkRepoItemClick
 ) : RecyclerView.Adapter<RepoItemViewHolder>() {
 
-    private var itemsList: MutableList<RepoViewDataModel> = ArrayList()
+    var itemsList: List<RepoViewDataModel> by Delegates.observable(emptyList()) { _, new, old ->
+        if (new != old) notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoItemViewHolder {
         return RepoItemViewHolder(
@@ -33,11 +36,6 @@ class BookmarkedReposAdapter constructor(
 
     private fun getItem(position: Int): RepoViewDataModel? = itemsList[position]
 
-    fun setData(repoViewModelDataList: ArrayList<RepoViewDataModel>) {
-        itemsList.clear()
-        itemsList = repoViewModelDataList
-        notifyDataSetChanged()
-    }
 }
 
 class RepoItemViewHolder(

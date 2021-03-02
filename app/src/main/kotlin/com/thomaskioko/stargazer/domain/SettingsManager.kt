@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.map
 import java.io.IOException
 import javax.inject.Inject
 
-
 class SettingsManager @Inject constructor(context: Context) {
 
     private val dataStore = context.createDataStore(name = PREFS_NAME)
@@ -26,7 +25,6 @@ class SettingsManager @Inject constructor(context: Context) {
                 false -> UiTheme.LIGHT
             }
         }
-
 
     suspend fun setUiMode(uiTheme: UiTheme) {
         dataStore.edit { preferences ->
@@ -46,4 +44,3 @@ class SettingsManager @Inject constructor(context: Context) {
 enum class UiTheme {
     LIGHT, DARK
 }
-

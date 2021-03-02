@@ -8,7 +8,6 @@ import com.thomaskioko.stargazer.browse_mvi.interactor.ViewMockData.makeRepoEnti
 import com.thomaskioko.stargazer.browse_mvi.interactor.ViewMockData.makeRepoViewDataModelList
 import com.thomaskioko.stargazer.core.ViewState
 import com.thomaskioko.stargazer.repository.api.GithubRepository
-import com.thomaskioko.stargazer.browse_mvi.interactor.GetReposInteractor
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking

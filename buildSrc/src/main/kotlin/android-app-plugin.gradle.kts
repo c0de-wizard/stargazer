@@ -57,6 +57,8 @@ android {
 
 dependencies {
 
+    testImplementation(project(":common-testing"))
+    androidTestImplementation(project(":common-testing"))
 
     implementation(Dependencies.Kotlin.stdlib)
     implementation(Dependencies.AndroidX.coreKtx)

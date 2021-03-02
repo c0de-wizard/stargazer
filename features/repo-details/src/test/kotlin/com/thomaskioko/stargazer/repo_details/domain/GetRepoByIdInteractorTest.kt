@@ -8,7 +8,6 @@ import com.thomaskioko.stargazer.core.ViewState
 import com.thomaskioko.stargazer.repo_details.util.ViewMockData.makeRepoEntity
 import com.thomaskioko.stargazer.repo_details.util.ViewMockData.makeRepoViewDataModel
 import com.thomaskioko.stargazer.repository.api.GithubRepository
-import com.thomaskioko.stargazer.repo_details.domain.GetRepoByIdInteractor
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking

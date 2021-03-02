@@ -97,7 +97,6 @@ object Dependencies {
         val robolectric: String = "org.robolectric:robolectric:4.5.1"
         val archCoreTest: String = "android.arch.core:core-testing:1.1.1"
 
-
         object AndroidX {
             val junit = "androidx.test.ext:junit:1.1.2"
             val core = "androidx.arch.core:core-testing:2.1.0"
@@ -111,9 +110,9 @@ object Dependencies {
         }
 
         object Espresso {
-             val version: String = "3.3.0-rc03"
-             val core: String = "androidx.test.espresso:espresso-core:$version"
-             val contrib: String = "androidx.test.espresso:espresso-contrib:$version"
+            val version: String = "3.3.0-rc03"
+            val core: String = "androidx.test.espresso:espresso-core:$version"
+            val contrib: String = "androidx.test.espresso:espresso-contrib:$version"
         }
 
         object Hilt {

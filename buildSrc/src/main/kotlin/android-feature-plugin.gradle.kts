@@ -56,6 +56,9 @@ dependencies {
     implementation(project(":common-ui"))
     implementation(project(":navigation"))
 
+    testImplementation(project(":common-testing"))
+    androidTestImplementation(project(":common-testing"))
+
     implementation(Dependencies.Kotlin.stdlib)
 
     implementation(Dependencies.AndroidX.appCompat)
@@ -78,16 +81,12 @@ dependencies {
     implementation(Dependencies.Google.Hilt.viewmodel)
     kapt(Dependencies.Google.Hilt.compiler)
 
-    testImplementation(Dependencies.Testing.junit)
-    testImplementation(Dependencies.Testing.truth)
     testImplementation(Dependencies.Testing.turbine)
     testImplementation(Dependencies.Testing.mockitoKotlin)
     testImplementation(Dependencies.Testing.Mockito.core)
     testImplementation(Dependencies.Testing.AndroidX.core)
-    testImplementation(Dependencies.Testing.Coroutines.test)
 
     androidTestImplementation(Dependencies.Testing.AndroidX.junit)
     androidTestImplementation(Dependencies.Testing.AndroidX.fragment)
     androidTestImplementation(Dependencies.Testing.Espresso.core)
-
 }

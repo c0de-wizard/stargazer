@@ -5,7 +5,7 @@ plugins {
 dependencies {
 
     implementation(project(":repository"))
-    
+
     implementation(Dependencies.AndroidX.appCompat)
     implementation(Dependencies.AndroidX.Lifecycle.common)
     implementation(Dependencies.AndroidX.Lifecycle.runtime)
@@ -13,5 +13,4 @@ dependencies {
 
     implementation(Dependencies.Coroutines.core)
     implementation(Dependencies.Coroutines.reactive)
-
 }

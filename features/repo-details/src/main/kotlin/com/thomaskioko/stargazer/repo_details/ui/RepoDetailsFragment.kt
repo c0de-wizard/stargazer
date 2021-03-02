@@ -10,9 +10,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.transition.MaterialContainerTransform
-import com.thomaskioko.stargazer.core.ViewState
 import com.thomaskioko.githubstargazer.repo_details.R
 import com.thomaskioko.githubstargazer.repo_details.databinding.FragmentRepoDetailsBinding
+import com.thomaskioko.stargazer.core.ViewState
 import com.thomaskioko.stargazer.repo_details.domain.model.UpdateObject
 import com.thomaskioko.stargazer.repo_details.model.RepoViewDataModel
 import com.thomaskioko.stargazer.repo_details.ui.viewmodel.RepoDetailsViewModel

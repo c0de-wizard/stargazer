@@ -17,11 +17,11 @@ import com.thomaskioko.stargazer.browse.ui.adapter.RepoItemClick
 import com.thomaskioko.stargazer.browse.ui.adapter.RepoListAdapter
 import com.thomaskioko.stargazer.browse.ui.viewmodel.GetReposViewModel
 import com.thomaskioko.stargazer.core.ViewState
-import com.thomaskioko.stargazers.ui.extensions.hideView
-import com.thomaskioko.stargazers.ui.extensions.showView
 import com.thomaskioko.stargazer.core.util.ConnectivityUtil.isConnected
 import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailScreen
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
+import com.thomaskioko.stargazers.ui.extensions.hideView
+import com.thomaskioko.stargazers.ui.extensions.showView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect

@@ -95,7 +95,7 @@ internal class RepoDaoTest {
         assertEquals(repo.isBookmarked, false)
 
         // Update repo bookMarkState
-        database.repoDao().setBookmarkStatus(true, 12314)
+        database.repoDao().setBookmarkStatus(1, 12314)
 
         val bookMarkList = database.repoDao().getBookmarkedRepos()
         assertEquals(bookMarkList.size, 1)

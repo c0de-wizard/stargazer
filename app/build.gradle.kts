@@ -11,5 +11,4 @@ dependencies {
     implementation(project(":features:browse-mvi"))
     implementation(project(":features:bookmarks"))
     implementation(project(":features:repo-details"))
-
 }

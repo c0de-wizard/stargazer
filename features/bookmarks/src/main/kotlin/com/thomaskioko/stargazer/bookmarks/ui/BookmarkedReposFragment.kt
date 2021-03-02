@@ -15,10 +15,10 @@ import com.thomaskioko.stargazer.bookmarks.ui.adapter.BookmarkRepoItemClick
 import com.thomaskioko.stargazer.bookmarks.ui.adapter.BookmarkedReposAdapter
 import com.thomaskioko.stargazer.bookmarks.ui.viewmodel.GetBookmarkedReposViewModel
 import com.thomaskioko.stargazer.core.ViewState
-import com.thomaskioko.stargazers.ui.extensions.hideView
-import com.thomaskioko.stargazers.ui.extensions.showView
 import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailScreen
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
+import com.thomaskioko.stargazers.ui.extensions.hideView
+import com.thomaskioko.stargazers.ui.extensions.showView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -93,7 +93,10 @@ class BookmarkedReposFragment : Fragment() {
                         tvInfo.showView()
                         tvInfo.text = getString(R.string.empty_list)
                     } else {
-                        repoListAdapter.setData(viewState.data as ArrayList)
+                        repoListAdapter.apply {
+                            itemsList = viewState.data
+                            notifyDataSetChanged()
+                        }
                     }
                 }
             }

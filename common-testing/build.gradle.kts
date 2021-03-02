@@ -1,5 +1,5 @@
 plugins {
-   `kotlin-library`
+    `kotlin-library`
 }
 
 dependencies {

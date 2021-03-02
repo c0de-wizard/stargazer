@@ -12,8 +12,8 @@ import androidx.navigation.NavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.thomaskioko.stargazer.R
-import com.thomaskioko.stargazer.domain.SettingsManager
 import com.thomaskioko.stargazer.databinding.ActivityMainBinding
+import com.thomaskioko.stargazer.domain.SettingsManager
 import com.thomaskioko.stargazer.domain.UiTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -63,7 +63,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     private fun setTheme() {
         GlobalScope.launch(context = Dispatchers.Main) {
             settingsManager.getUiModeFlow()
@@ -81,7 +80,6 @@ class MainActivity : AppCompatActivity() {
                 }
         }
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main, menu)
@@ -108,7 +106,6 @@ class MainActivity : AppCompatActivity() {
             settingsManager.setUiMode(themeTheme)
         }
     }
-
 
     override fun onBackPressed() {
         if (!onSupportNavigateUp()) {

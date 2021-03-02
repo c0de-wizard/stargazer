@@ -8,7 +8,6 @@ import com.thomaskioko.stargazer.browse.domain.ViewMockData.makeRepoEntityList
 import com.thomaskioko.stargazer.browse.domain.ViewMockData.makeRepoViewDataModelList
 import com.thomaskioko.stargazer.core.ViewState
 import com.thomaskioko.stargazer.repository.api.GithubRepository
-import com.thomaskioko.stargazer.browse.domain.interactor.GetRepoListInteractor
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList

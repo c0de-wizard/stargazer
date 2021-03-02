@@ -5,5 +5,4 @@ plugins {
 dependencies {
 
     implementation(project(":repository"))
-
 }
