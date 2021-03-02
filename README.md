@@ -92,8 +92,8 @@ This module enables us to navigate between the app, as the name suggests. It con
 - [x] Create base architecture.
 - [x] Create base architecture.
 - [x] Implement repository logic:
-	- [x] Retrofit.
-	- [x] Room.
+    - [x] Retrofit.
+    - [x] Room.
 - [x] Load and display repositories.
 - [x] Bookmark repo.
 - [x] Cleanup: Create common module: Contains shared UI classes.

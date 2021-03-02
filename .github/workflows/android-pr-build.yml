@@ -1,4 +1,4 @@
-name: Android Build
+name: Android Pull Request CI
 
 on:
   pull_request:
@@ -21,8 +21,11 @@ jobs:
       - name: Run Lint
         run: ./gradlew lintDebug
 
-      - name: Run Spotless
-        run: /gradlew spotlessCheck
+      - name: Run Spotless Apply
+        run: ./gradlew :spotlessApply
+
+      - name: Run Spotless Check
+        run: ./gradlew spotlessCheck
 
       - name: Run Unit Tests
         run: ./gradlew testDebugUnitTest
