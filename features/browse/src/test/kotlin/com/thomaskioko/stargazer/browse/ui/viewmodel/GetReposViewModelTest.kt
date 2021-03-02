@@ -5,15 +5,14 @@ import app.cash.turbine.test
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
+import com.thomaskioko.stargazer.testing.CoroutineScopeRule
 import com.thomaskioko.stargazer.browse.domain.ViewMockData.makeRepoViewDataModelList
 import com.thomaskioko.stargazer.browse.domain.interactor.GetRepoListInteractor
 import com.thomaskioko.stargazer.browse.model.RepoViewDataModel
-import com.thomaskioko.stargazer.browse.ui.util.CoroutineScopeRule
 import com.thomaskioko.stargazer.core.ViewState
 import com.thomaskioko.stargazer.core.ViewState.Loading
 import com.thomaskioko.stargazer.core.ViewState.Success
 import com.thomaskioko.stargazer.core.ViewState.Error
-import com.thomaskioko.stargazer.browse.ui.viewmodel.GetReposViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking

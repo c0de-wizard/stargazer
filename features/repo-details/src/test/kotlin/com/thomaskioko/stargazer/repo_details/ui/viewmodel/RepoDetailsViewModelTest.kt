@@ -11,11 +11,10 @@ import com.thomaskioko.stargazer.core.ViewState.Loading
 import com.thomaskioko.stargazer.core.ViewState.Success
 import com.thomaskioko.stargazer.repo_details.domain.GetRepoByIdInteractor
 import com.thomaskioko.stargazer.repo_details.domain.UpdateRepoBookmarkStateInteractor
-import com.thomaskioko.stargazer.repo_details.model.RepoViewDataModel
-import com.thomaskioko.stargazer.repo_details.util.CoroutineScopeRule
-import com.thomaskioko.stargazer.repo_details.util.ViewMockData.makeRepoViewDataModel
 import com.thomaskioko.stargazer.repo_details.domain.model.UpdateObject
-import com.thomaskioko.stargazer.repo_details.ui.viewmodel.RepoDetailsViewModel
+import com.thomaskioko.stargazer.repo_details.model.RepoViewDataModel
+import com.thomaskioko.stargazer.repo_details.util.ViewMockData.makeRepoViewDataModel
+import com.thomaskioko.stargazer.testing.CoroutineScopeRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking

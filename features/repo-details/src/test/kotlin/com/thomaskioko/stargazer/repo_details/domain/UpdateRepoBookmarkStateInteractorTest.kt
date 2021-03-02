@@ -7,18 +7,15 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.thomaskioko.stargazer.core.ViewState.Loading
 import com.thomaskioko.stargazer.core.ViewState.Success
 import com.thomaskioko.stargazer.repo_details.domain.model.UpdateObject
-import com.thomaskioko.stargazer.repo_details.util.ViewMockData.makeRepoEntityList
+import com.thomaskioko.stargazer.repo_details.util.ViewMockData.makeRepoEntity
 import com.thomaskioko.stargazer.repo_details.util.ViewMockData.makeRepoViewDataModelList
 import com.thomaskioko.stargazer.repository.api.GithubRepository
-import com.thomaskioko.stargazer.repo_details.domain.UpdateRepoBookmarkStateInteractor
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyBoolean
 import org.mockito.ArgumentMatchers.anyLong
 
-@ExperimentalCoroutinesApi
 internal class UpdateRepoBookmarkStateInteractorTest {
 
     private val repository: GithubRepository = mock()
@@ -26,7 +23,7 @@ internal class UpdateRepoBookmarkStateInteractorTest {
 
     @Test
     fun `whenever updateRepoIsInvoked expectedDataIsReturned`() = runBlocking {
-        whenever(repository.getRepoById(anyLong())).doReturn(makeRepoEntityList()[0])
+        whenever(repository.getRepoById(anyLong())).doReturn(makeRepoEntity())
 
         val updateObject = UpdateObject(anyLong(), anyBoolean())
 

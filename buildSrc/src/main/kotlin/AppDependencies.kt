@@ -121,7 +121,8 @@ object Dependencies {
         }
 
         object Mockito {
-            val core = "org.mockito:mockito-core:2.25.1"
+            val android = "org.mockito:mockito-android:3.8.0"
+            val core = "org.mockito:mockito-core:3.8.0"
         }
     }
 }
