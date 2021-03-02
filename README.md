@@ -68,6 +68,19 @@ This layer is where we create different feature modules. Browse Repository & Boo
 ### Navigator
 This module enables us to navigate between the app, as the name suggests. It contains the main navigation graph file and subgraphs each located in every feature module. The beauty of this is that feature modules don't need to depend on other feature modules
 
+
+## Code style
+
+To maintain the style and quality of the code, are used the bellow static analysis tools. All of them use properly configuration and you find them in the project root directory `.{toolName}`.
+
+| Tools  | Config file | Check command | Fix command |
+|--------|------------:|---------------|-------------|
+| [detekt](https://github.com/arturbosch/detekt) | [/.detekt](https://github.com/VMadalin/kotlin-sample-app/tree/master/.detekt) | `./gradlew detekt` | - |
+| [ktlint](https://github.com/pinterest/ktlint) | - | `./gradlew ktlint` | `./gradlew ktlintFormat` |
+| [spotless](https://github.com/diffplug/spotless) | [/.spotless](https://github.com/VMadalin/kotlin-sample-app/tree/master/.spotless) | `./gradlew spotlessCheck` | `./gradlew spotlessApply`
+| [lint](https://developer.android.com/studio/write/lint) | [/.lint](https://github.com/VMadalin/kotlin-sample-app/tree/master/.lint) | `./gradlew lint` | - |
+
+
 ## Libraries Used
 *   [Navigation Component](https://developer.android.com/guide/navigation/navigation-getting-started)
 *   [JetPack](https://developer.android.com/jetpack)
@@ -99,10 +112,10 @@ This module enables us to navigate between the app, as the name suggests. It con
 - [x] Cleanup: Create common module: Contains shared UI classes.
 - [x] Refactor BaseViewModel class implementation: Replace LiveData with flow.
 - [x] Materialize app.
+- [x] Cleanup Kotlin DSL Implementation.
 - [ ] Create some from of 'StateMachine' to handle states lifeCycle
 - [ ] Add instrumentation tests.
 - [ ] Add/update missing test cases.
-- [ ] Cleanup Kotlin DSL Implementation.
 - [ ] Add Pagination (Maybe 😁).
 - [ ] Refactor Navigation and add fragments to Navigation Graph programmatically.
 - [ ] Implement search functionality.
