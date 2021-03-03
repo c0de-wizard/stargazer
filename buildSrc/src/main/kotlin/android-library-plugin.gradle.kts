@@ -61,7 +61,6 @@ dependencies {
     testImplementation(Dependencies.Testing.mockitoKotlin)
     testImplementation(Dependencies.Testing.turbine)
     testImplementation(Dependencies.Testing.Coroutines.test)
-    testImplementation(Dependencies.Testing.Mockito.core)
 
     androidTestImplementation(Dependencies.Testing.androidJunit)
     androidTestImplementation(Dependencies.Testing.Espresso.core)
