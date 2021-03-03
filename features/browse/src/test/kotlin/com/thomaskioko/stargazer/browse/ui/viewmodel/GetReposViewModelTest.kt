@@ -13,7 +13,6 @@ import com.thomaskioko.stargazer.core.ViewState.Error
 import com.thomaskioko.stargazer.core.ViewState.Loading
 import com.thomaskioko.stargazer.core.ViewState.Success
 import com.thomaskioko.stargazer.testing.CoroutineScopeRule
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -22,11 +21,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 import org.mockito.Mockito.anyBoolean
-import org.mockito.MockitoAnnotations
-import kotlin.time.ExperimentalTime
 
-@ExperimentalTime
-@ExperimentalCoroutinesApi
 internal class GetReposViewModelTest {
 
     @get:Rule
@@ -41,8 +36,6 @@ internal class GetReposViewModelTest {
 
     @Before
     fun before() {
-        MockitoAnnotations.initMocks(this)
-
         viewModel = GetReposViewModel(
             interactor
         )
@@ -54,7 +47,7 @@ internal class GetReposViewModelTest {
 
         viewModel.repoList.test {
 
-            viewModel.getRepoList(anyBoolean())
+            viewModel.getRepoList(true)
 
             assertEquals(expectItem(), Loading<ViewState<List<RepoViewDataModel>>>())
             assertEquals(expectItem(), Success(makeRepoViewDataModelList()))
@@ -69,7 +62,7 @@ internal class GetReposViewModelTest {
 
         viewModel.repoList.test {
 
-            viewModel.getRepoList(anyBoolean())
+            viewModel.getRepoList(false)
 
             assertEquals(expectItem(), Loading<ViewState<List<RepoViewDataModel>>>())
             assertEquals(expectItem(), Error<ViewState<RepoViewDataModel>>(errorMessage))

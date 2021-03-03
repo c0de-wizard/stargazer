@@ -14,7 +14,6 @@ import com.thomaskioko.stargazer.core.ViewState.Loading
 import com.thomaskioko.stargazer.core.ViewState.Success
 import com.thomaskioko.stargazer.core.interactor.invoke
 import com.thomaskioko.stargazer.testing.CoroutineScopeRule
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -23,10 +22,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 import org.mockito.MockitoAnnotations
-import kotlin.time.ExperimentalTime
 
-@ExperimentalTime
-@ExperimentalCoroutinesApi
 internal class GetBookmarkedReposViewModelTest {
 
     @get:Rule
@@ -40,8 +36,6 @@ internal class GetBookmarkedReposViewModelTest {
 
     @Before
     fun before() {
-        MockitoAnnotations.initMocks(this)
-
         viewModel = GetBookmarkedReposViewModel(interactor)
     }
 

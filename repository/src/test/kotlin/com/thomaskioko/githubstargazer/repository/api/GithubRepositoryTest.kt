@@ -21,7 +21,6 @@ import org.mockito.Mockito.mock
 import org.mockito.Mockito.never
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
-import kotlin.time.ExperimentalTime
 
 class GithubRepositoryTest {
 
@@ -37,8 +36,6 @@ class GithubRepositoryTest {
         repository = GithubRepository(service, database)
     }
 
-    @ExperimentalCoroutinesApi
-    @ExperimentalTime
     @Test
     fun `givenDeviceIsConnected verify data isLoadedFrom Remote`() = runBlocking {
         whenever(repoDao.getReposFlow()) doReturn flowOf(emptyList())

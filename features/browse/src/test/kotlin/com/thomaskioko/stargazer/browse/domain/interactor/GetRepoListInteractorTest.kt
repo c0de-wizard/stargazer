@@ -8,14 +8,12 @@ import com.thomaskioko.stargazer.browse.domain.ViewMockData.makeRepoEntityList
 import com.thomaskioko.stargazer.browse.domain.ViewMockData.makeRepoViewDataModelList
 import com.thomaskioko.stargazer.core.ViewState
 import com.thomaskioko.stargazer.repository.api.GithubRepository
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyBoolean
 
-@ExperimentalCoroutinesApi
 internal class GetRepoListInteractorTest {
 
     private val repository: GithubRepository = mock()

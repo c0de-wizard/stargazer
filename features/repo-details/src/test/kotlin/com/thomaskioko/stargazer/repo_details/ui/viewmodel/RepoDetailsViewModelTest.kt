@@ -20,12 +20,11 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import org.junit.rules.TestRule
 import org.mockito.Mockito.anyLong
 import org.mockito.MockitoAnnotations
-import kotlin.time.ExperimentalTime
 
-@ExperimentalTime
 internal class RepoDetailsViewModelTest {
 
     @get:Rule
@@ -49,7 +48,7 @@ internal class RepoDetailsViewModelTest {
         )
     }
 
-    // @Test TODO: fix failing test on CI
+    @Test
     fun `givenRepoId verify successStateIsReturned`() = runBlocking {
         val repoViewDataModel = makeRepoViewDataModel()
 
@@ -57,14 +56,14 @@ internal class RepoDetailsViewModelTest {
 
         viewModel.repoMutableStateFlow.test {
 
-            viewModel.getRepoById(anyLong())
+            viewModel.getRepoById(1)
 
             assertEquals(expectItem(), Loading<ViewState<List<RepoViewDataModel>>>())
             assertEquals(expectItem(), Success(repoViewDataModel))
         }
     }
 
-    // @Test TODO: fix failing test on CI
+    @Test
     fun `givenFailureById verify errorStateIsReturned`() = runBlocking {
 
         val errorMessage = "Something went wrong"
@@ -73,14 +72,14 @@ internal class RepoDetailsViewModelTest {
 
         viewModel.repoMutableStateFlow.test {
 
-            viewModel.getRepoById(anyLong())
+            viewModel.getRepoById(1)
 
             assertEquals(expectItem(), Loading<ViewState<List<RepoViewDataModel>>>())
             assertEquals(expectItem(), Error<ViewState<List<RepoViewDataModel>>>(errorMessage))
         }
     }
 
-    // @Test TODO: fix failing test on CI
+    @Test
     fun `givenUpdateRepoIsInvoked verify successStateIsReturned`() = runBlocking {
         val updateObject =
             UpdateObject(1, true)

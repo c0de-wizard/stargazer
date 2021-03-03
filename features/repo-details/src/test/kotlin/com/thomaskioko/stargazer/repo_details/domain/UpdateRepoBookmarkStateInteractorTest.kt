@@ -4,12 +4,12 @@ import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import com.thomaskioko.stargazer.core.ViewState.Loading
 import com.thomaskioko.stargazer.core.ViewState.Success
 import com.thomaskioko.stargazer.repo_details.domain.model.UpdateObject
 import com.thomaskioko.stargazer.repo_details.util.ViewMockData.makeRepoEntity
-import com.thomaskioko.stargazer.repo_details.util.ViewMockData.makeRepoViewDataModelList
+import com.thomaskioko.stargazer.repo_details.util.ViewMockData.makeRepoViewDataModel
 import com.thomaskioko.stargazer.repository.api.GithubRepository
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
@@ -21,16 +21,14 @@ internal class UpdateRepoBookmarkStateInteractorTest {
     private val repository: GithubRepository = mock()
     private val interactor = UpdateRepoBookmarkStateInteractor(repository)
 
-    // @Test TODO: fix failing test on CI
+    @Test
     fun `whenever updateRepoIsInvoked expectedDataIsReturned`() = runBlocking {
-        whenever(repository.getRepoById(anyLong())).doReturn(makeRepoEntity())
+        whenever(repository.getRepoByIdFlow(1)) doReturn(flowOf(makeRepoEntity()))
 
-        val updateObject = UpdateObject(anyLong(), anyBoolean())
 
-        val result = interactor(updateObject).toList()
+        val result = interactor(UpdateObject(1, false)).toList()
         val expected = listOf(
-            Loading(),
-            Success(makeRepoViewDataModelList()[0])
+            Success(makeRepoViewDataModel())
         )
 
         assertThat(result).isEqualTo(expected)
