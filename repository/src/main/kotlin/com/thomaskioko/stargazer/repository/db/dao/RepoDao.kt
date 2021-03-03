@@ -33,4 +33,7 @@ interface RepoDao {
 
     @Query("SELECT * FROM repo ORDER BY stargazersCount DESC")
     fun getReposFlow(): Flow<List<RepoEntity>>
+
+    @Query("SELECT * FROM repo where repoId = :repoId")
+    fun getRepoByIdFlow(repoId: Long): Flow<RepoEntity>
 }

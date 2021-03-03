@@ -40,6 +40,8 @@ class GithubRepository @Inject constructor(
 
     suspend fun getRepoById(repoId: Long) = database.repoDao().getRepoById(repoId)
 
+    fun getRepoByIdFlow(repoId: Long): Flow<RepoEntity> = database.repoDao().getRepoByIdFlow(repoId)
+
     suspend fun getBookmarkedRepos() = database.repoDao().getBookmarkedRepos()
 
     suspend fun updateRepoBookMarkStatus(isBookMarked: Int, repoId: Long) =
