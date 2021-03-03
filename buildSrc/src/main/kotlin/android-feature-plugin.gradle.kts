@@ -81,6 +81,7 @@ dependencies {
     implementation(Dependencies.Google.Hilt.viewmodel)
     kapt(Dependencies.Google.Hilt.compiler)
 
+    testImplementation(Dependencies.Testing.junit)
     testImplementation(Dependencies.Testing.turbine)
     testImplementation(Dependencies.Testing.mockitoKotlin)
     testImplementation(Dependencies.Testing.Mockito.core)
