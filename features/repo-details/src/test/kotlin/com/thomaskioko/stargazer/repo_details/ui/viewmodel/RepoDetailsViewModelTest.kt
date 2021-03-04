@@ -19,7 +19,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 import org.mockito.Mockito.mock
-import org.mockito.MockitoAnnotations
 
 internal class RepoDetailsViewModelTest {
 
@@ -36,8 +35,6 @@ internal class RepoDetailsViewModelTest {
 
     @Before
     fun before() {
-        MockitoAnnotations.initMocks(this)
-
         viewModel = RepoDetailsViewModel(
             getRepoByIdInteractor,
             bookmarkStateInteractor
