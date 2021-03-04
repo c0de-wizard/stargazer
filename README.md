@@ -73,12 +73,12 @@ This module enables us to navigate between the app, as the name suggests. It con
 
 To maintain the style and quality of the code, are used the bellow static analysis tools. All of them use properly configuration and you find them in the project root directory `.{toolName}`.
 
-| Tools  | Config file | Check command | Fix command |
+| Tools | Check command | Fix command |
 |--------|------------:|---------------|-------------|
-| [detekt](https://github.com/arturbosch/detekt) | [/.detekt](https://github.com/VMadalin/kotlin-sample-app/tree/master/.detekt) | `./gradlew detekt` | - |
-| [ktlint](https://github.com/pinterest/ktlint) | - | `./gradlew ktlint` | `./gradlew ktlintFormat` |
-| [spotless](https://github.com/diffplug/spotless) | [/.spotless](https://github.com/VMadalin/kotlin-sample-app/tree/master/.spotless) | `./gradlew spotlessCheck` | `./gradlew spotlessApply`
-| [lint](https://developer.android.com/studio/write/lint) | [/.lint](https://github.com/VMadalin/kotlin-sample-app/tree/master/.lint) | `./gradlew lint` | - |
+| [detekt](https://github.com/arturbosch/detekt) | `./gradlew detekt` | - |
+| [ktlint](https://github.com/pinterest/ktlint) | `./gradlew ktlint` | `./gradlew ktlintFormat` |
+| [spotless](https://github.com/diffplug/spotless) | `./gradlew spotlessCheck` | `./gradlew spotlessApply`
+| [lint](https://developer.android.com/studio/write/lint) | `./gradlew lint` | - |
 
 
 ## Libraries Used
@@ -113,10 +113,12 @@ To maintain the style and quality of the code, are used the bellow static analys
 - [x] Refactor BaseViewModel class implementation: Replace LiveData with flow.
 - [x] Materialize app.
 - [x] Cleanup Kotlin DSL Implementation.
-- [ ] Fix flaky tests.
 - [ ] Create some from of 'StateMachine' to handle states lifeCycle
-- [ ] Add instrumentation tests.
-- [ ] Add/update missing test cases.
 - [ ] Add Pagination (Maybe 😁).
 - [ ] Refactor Navigation and add fragments to Navigation Graph programmatically.
 - [ ] Implement search functionality.
+
+### Test Tasks
+- [ ] Add/update missing test cases.
+- [ ] Fix flaky tests.
+- [ ] Add instrumentation tests.
