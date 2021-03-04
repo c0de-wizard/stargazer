@@ -2,7 +2,7 @@ package com.thomaskioko.stargazer.bookmarks.domain.interactor
 
 import com.thomaskioko.stargazer.bookmarks.model.RepoViewDataModel
 import com.thomaskioko.stargazer.bookmarks.model.mapper.ViewDataMapper.mapEntityToRepoViewModel
-import com.thomaskioko.stargazer.core.ViewState
+import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.core.interactor.Interactor
 import com.thomaskioko.stargazer.repository.api.GithubRepository
 import kotlinx.coroutines.flow.Flow
@@ -14,15 +14,15 @@ class GetBookmarkedRepoListInteractor @Inject constructor(
     private val repository: GithubRepository
 ) : Interactor<Unit, List<RepoViewDataModel>>() {
 
-    override fun run(params: Unit): Flow<ViewState<List<RepoViewDataModel>>> = flow {
+    override fun run(params: Unit): Flow<ViewStateResult<List<RepoViewDataModel>>> = flow {
 
-        emit(ViewState.loading())
+        emit(ViewStateResult.loading())
 
         val result = repository.getBookmarkedRepos()
             .map { mapEntityToRepoViewModel(it) }
 
-        emit(ViewState.success(result))
+        emit(ViewStateResult.success(result))
     }.catch {
-        emit(ViewState.error(it.message.orEmpty()))
+        emit(ViewStateResult.error(it.message.orEmpty()))
     }
 }

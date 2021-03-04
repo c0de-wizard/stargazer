@@ -4,7 +4,7 @@ import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import com.thomaskioko.stargazer.core.ViewState.Success
+import com.thomaskioko.stargazer.core.ViewStateResult.Success
 import com.thomaskioko.stargazer.repo_details.domain.model.UpdateObject
 import com.thomaskioko.stargazer.repo_details.util.ViewMockData.makeRepoEntity
 import com.thomaskioko.stargazer.repo_details.util.ViewMockData.makeRepoViewDataModel
@@ -13,8 +13,6 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
-import org.mockito.ArgumentMatchers.anyBoolean
-import org.mockito.ArgumentMatchers.anyLong
 
 internal class UpdateRepoBookmarkStateInteractorTest {
 

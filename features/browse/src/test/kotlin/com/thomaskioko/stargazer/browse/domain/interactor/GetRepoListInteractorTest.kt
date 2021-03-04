@@ -6,7 +6,7 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.thomaskioko.stargazer.browse.domain.ViewMockData.makeRepoEntityList
 import com.thomaskioko.stargazer.browse.domain.ViewMockData.makeRepoViewDataModelList
-import com.thomaskioko.stargazer.core.ViewState
+import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.repository.api.GithubRepository
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
@@ -25,7 +25,7 @@ internal class GetRepoListInteractorTest {
 
         val result = interactor(true).toList()
         val expected = listOf(
-            ViewState.Success(makeRepoViewDataModelList())
+            ViewStateResult.Success(makeRepoViewDataModelList())
         )
 
         assertThat(result).isEqualTo(expected)

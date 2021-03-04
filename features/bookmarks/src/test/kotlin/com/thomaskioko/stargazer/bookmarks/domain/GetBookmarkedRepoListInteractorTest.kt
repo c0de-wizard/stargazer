@@ -7,7 +7,7 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.thomaskioko.stargazer.bookmarks.ViewMockData.makeRepoEntityList
 import com.thomaskioko.stargazer.bookmarks.ViewMockData.makeRepoViewDataModelList
 import com.thomaskioko.stargazer.bookmarks.domain.interactor.GetBookmarkedRepoListInteractor
-import com.thomaskioko.stargazer.core.ViewState
+import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.core.interactor.invoke
 import com.thomaskioko.stargazer.repository.api.GithubRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -27,8 +27,8 @@ internal class GetBookmarkedRepoListInteractorTest {
 
         val result = interactor().toList()
         val expected = listOf(
-            ViewState.Loading(),
-            ViewState.Success(makeRepoViewDataModelList())
+            ViewStateResult.Loading(),
+            ViewStateResult.Success(makeRepoViewDataModelList())
         )
 
         assertThat(expected).isEqualTo(result)

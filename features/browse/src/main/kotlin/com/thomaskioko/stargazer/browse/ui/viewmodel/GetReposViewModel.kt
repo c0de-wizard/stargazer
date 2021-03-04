@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thomaskioko.stargazer.browse.domain.interactor.GetRepoListInteractor
 import com.thomaskioko.stargazer.browse.model.RepoViewDataModel
-import com.thomaskioko.stargazer.core.ViewState
+import com.thomaskioko.stargazer.core.ViewStateResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -17,13 +17,13 @@ internal class GetReposViewModel @Inject constructor(
     private val interactor: GetRepoListInteractor
 ) : ViewModel() {
 
-    private val _repoListMutableStateFlow: MutableStateFlow<ViewState<List<RepoViewDataModel>>> =
-        MutableStateFlow(ViewState.loading())
-    val repoList: SharedFlow<ViewState<List<RepoViewDataModel>>> get() = _repoListMutableStateFlow
+    private val _repoListMutableStateResultFlow: MutableStateFlow<ViewStateResult<List<RepoViewDataModel>>> =
+        MutableStateFlow(ViewStateResult.loading())
+    val repoList: SharedFlow<ViewStateResult<List<RepoViewDataModel>>> get() = _repoListMutableStateResultFlow
 
     fun getRepoList(connectivityAvailable: Boolean) {
         interactor(connectivityAvailable)
-            .onEach { _repoListMutableStateFlow.emit(it) }
+            .onEach { _repoListMutableStateResultFlow.emit(it) }
             .launchIn(viewModelScope)
     }
 }

@@ -8,10 +8,10 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.thomaskioko.stargazer.bookmarks.ViewMockData.makeRepoViewDataModelList
 import com.thomaskioko.stargazer.bookmarks.domain.interactor.GetBookmarkedRepoListInteractor
 import com.thomaskioko.stargazer.bookmarks.model.RepoViewDataModel
-import com.thomaskioko.stargazer.core.ViewState
-import com.thomaskioko.stargazer.core.ViewState.Error
-import com.thomaskioko.stargazer.core.ViewState.Loading
-import com.thomaskioko.stargazer.core.ViewState.Success
+import com.thomaskioko.stargazer.core.ViewStateResult
+import com.thomaskioko.stargazer.core.ViewStateResult.Error
+import com.thomaskioko.stargazer.core.ViewStateResult.Loading
+import com.thomaskioko.stargazer.core.ViewStateResult.Success
 import com.thomaskioko.stargazer.core.interactor.invoke
 import com.thomaskioko.stargazer.testing.CoroutineScopeRule
 import kotlinx.coroutines.flow.flowOf
@@ -21,7 +21,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
-import org.mockito.MockitoAnnotations
 
 internal class GetBookmarkedReposViewModelTest {
 
@@ -47,7 +46,7 @@ internal class GetBookmarkedReposViewModelTest {
 
             viewModel.getBookmarkedRepos()
 
-            assertEquals(expectItem(), Loading<ViewState<List<RepoViewDataModel>>>())
+            assertEquals(expectItem(), Loading<ViewStateResult<List<RepoViewDataModel>>>())
             assertEquals(expectItem(), Success(makeRepoViewDataModelList()))
         }
     }
@@ -62,8 +61,8 @@ internal class GetBookmarkedReposViewModelTest {
 
             viewModel.getBookmarkedRepos()
 
-            assertEquals(expectItem(), Loading<ViewState<List<RepoViewDataModel>>>())
-            assertEquals(expectItem(), Error<ViewState<RepoViewDataModel>>(errorMessage))
+            assertEquals(expectItem(), Loading<ViewStateResult<List<RepoViewDataModel>>>())
+            assertEquals(expectItem(), Error<ViewStateResult<RepoViewDataModel>>(errorMessage))
         }
     }
 }

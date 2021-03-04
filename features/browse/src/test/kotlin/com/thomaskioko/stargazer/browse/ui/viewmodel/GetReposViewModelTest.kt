@@ -8,10 +8,10 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.thomaskioko.stargazer.browse.domain.ViewMockData.makeRepoViewDataModelList
 import com.thomaskioko.stargazer.browse.domain.interactor.GetRepoListInteractor
 import com.thomaskioko.stargazer.browse.model.RepoViewDataModel
-import com.thomaskioko.stargazer.core.ViewState
-import com.thomaskioko.stargazer.core.ViewState.Error
-import com.thomaskioko.stargazer.core.ViewState.Loading
-import com.thomaskioko.stargazer.core.ViewState.Success
+import com.thomaskioko.stargazer.core.ViewStateResult
+import com.thomaskioko.stargazer.core.ViewStateResult.Error
+import com.thomaskioko.stargazer.core.ViewStateResult.Loading
+import com.thomaskioko.stargazer.core.ViewStateResult.Success
 import com.thomaskioko.stargazer.testing.CoroutineScopeRule
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
@@ -49,7 +49,7 @@ internal class GetReposViewModelTest {
 
             viewModel.getRepoList(true)
 
-            assertEquals(expectItem(), Loading<ViewState<List<RepoViewDataModel>>>())
+            assertEquals(expectItem(), Loading<ViewStateResult<List<RepoViewDataModel>>>())
             assertEquals(expectItem(), Success(makeRepoViewDataModelList()))
         }
     }
@@ -64,8 +64,8 @@ internal class GetReposViewModelTest {
 
             viewModel.getRepoList(false)
 
-            assertEquals(expectItem(), Loading<ViewState<List<RepoViewDataModel>>>())
-            assertEquals(expectItem(), Error<ViewState<RepoViewDataModel>>(errorMessage))
+            assertEquals(expectItem(), Loading<ViewStateResult<List<RepoViewDataModel>>>())
+            assertEquals(expectItem(), Error<ViewStateResult<RepoViewDataModel>>(errorMessage))
         }
     }
 }

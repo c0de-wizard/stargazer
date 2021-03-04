@@ -5,10 +5,10 @@ import app.cash.turbine.test
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import com.thomaskioko.stargazer.core.ViewState
-import com.thomaskioko.stargazer.core.ViewState.Error
-import com.thomaskioko.stargazer.core.ViewState.Loading
-import com.thomaskioko.stargazer.core.ViewState.Success
+import com.thomaskioko.stargazer.core.ViewStateResult
+import com.thomaskioko.stargazer.core.ViewStateResult.Error
+import com.thomaskioko.stargazer.core.ViewStateResult.Loading
+import com.thomaskioko.stargazer.core.ViewStateResult.Success
 import com.thomaskioko.stargazer.repo_details.domain.GetRepoByIdInteractor
 import com.thomaskioko.stargazer.repo_details.domain.UpdateRepoBookmarkStateInteractor
 import com.thomaskioko.stargazer.repo_details.domain.model.UpdateObject
@@ -54,11 +54,11 @@ internal class RepoDetailsViewModelTest {
 
         whenever(getRepoByIdInteractor(anyLong())) doReturn flowOf(Success(repoViewDataModel))
 
-        viewModel.repoMutableStateFlow.test {
+        viewModel.repoMutableStateResultFlow.test {
 
             viewModel.getRepoById(1)
 
-            assertEquals(expectItem(), Loading<ViewState<List<RepoViewDataModel>>>())
+            assertEquals(expectItem(), Loading<ViewStateResult<List<RepoViewDataModel>>>())
             assertEquals(expectItem(), Success(repoViewDataModel))
         }
     }
@@ -70,12 +70,12 @@ internal class RepoDetailsViewModelTest {
 
         whenever(getRepoByIdInteractor(anyLong())) doReturn flowOf(Error(errorMessage))
 
-        viewModel.repoMutableStateFlow.test {
+        viewModel.repoMutableStateResultFlow.test {
 
             viewModel.getRepoById(1)
 
-            assertEquals(expectItem(), Loading<ViewState<List<RepoViewDataModel>>>())
-            assertEquals(expectItem(), Error<ViewState<List<RepoViewDataModel>>>(errorMessage))
+            assertEquals(expectItem(), Loading<ViewStateResult<List<RepoViewDataModel>>>())
+            assertEquals(expectItem(), Error<ViewStateResult<List<RepoViewDataModel>>>(errorMessage))
         }
     }
 
@@ -87,11 +87,11 @@ internal class RepoDetailsViewModelTest {
 
         whenever(bookmarkStateInteractor(updateObject)) doReturn flowOf(Success(repoViewDataModel))
 
-        viewModel.repoUpdateMutableStateFlow.test {
+        viewModel.repoUpdateMutableStateResultFlow.test {
 
             viewModel.updateBookmarkState(updateObject)
 
-            assertEquals(expectItem(), Loading<ViewState<List<RepoViewDataModel>>>())
+            assertEquals(expectItem(), Loading<ViewStateResult<List<RepoViewDataModel>>>())
             assertEquals(expectItem(), Success(repoViewDataModel))
         }
     }

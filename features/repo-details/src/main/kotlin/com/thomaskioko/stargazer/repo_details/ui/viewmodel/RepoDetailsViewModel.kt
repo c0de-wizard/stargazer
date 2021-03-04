@@ -2,7 +2,7 @@ package com.thomaskioko.stargazer.repo_details.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.thomaskioko.stargazer.core.ViewState
+import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.repo_details.domain.GetRepoByIdInteractor
 import com.thomaskioko.stargazer.repo_details.domain.UpdateRepoBookmarkStateInteractor
 import com.thomaskioko.stargazer.repo_details.domain.model.UpdateObject
@@ -19,21 +19,21 @@ internal class RepoDetailsViewModel @Inject constructor(
     private val bookmarkStateInteractor: UpdateRepoBookmarkStateInteractor
 ) : ViewModel() {
 
-    val repoMutableStateFlow: MutableStateFlow<ViewState<RepoViewDataModel>> =
-        MutableStateFlow(ViewState.loading())
+    val repoMutableStateResultFlow: MutableStateFlow<ViewStateResult<RepoViewDataModel>> =
+        MutableStateFlow(ViewStateResult.loading())
 
-    val repoUpdateMutableStateFlow: MutableStateFlow<ViewState<RepoViewDataModel>> =
-        MutableStateFlow(ViewState.loading())
+    val repoUpdateMutableStateResultFlow: MutableStateFlow<ViewStateResult<RepoViewDataModel>> =
+        MutableStateFlow(ViewStateResult.loading())
 
     fun getRepoById(repoId: Long) {
         getRepoByIdInteractor(repoId)
-            .onEach { repoMutableStateFlow.emit(it) }
+            .onEach { repoMutableStateResultFlow.emit(it) }
             .launchIn(viewModelScope)
     }
 
     fun updateBookmarkState(updateObject: UpdateObject) {
         bookmarkStateInteractor(updateObject)
-            .onEach { repoUpdateMutableStateFlow.emit(it) }
+            .onEach { repoUpdateMutableStateResultFlow.emit(it) }
             .launchIn(viewModelScope)
     }
 }

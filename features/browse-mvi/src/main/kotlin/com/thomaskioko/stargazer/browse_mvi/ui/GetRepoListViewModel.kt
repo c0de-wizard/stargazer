@@ -5,7 +5,7 @@ import com.thomaskioko.stargazer.browse_mvi.interactor.GetReposInteractor
 import com.thomaskioko.stargazer.browse_mvi.model.RepoViewDataModel
 import com.thomaskioko.stargazer.browse_mvi.ui.ReposAction.LoadRepositories
 import com.thomaskioko.stargazer.browse_mvi.ui.ReposAction.NavigateToRepoDetail
-import com.thomaskioko.stargazer.core.ViewState
+import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.core.factory.AssistedViewModelFactory
 import com.thomaskioko.stargazer.core.viewmodel.BaseViewModel
 import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailScreen
@@ -48,10 +48,10 @@ internal class GetRepoListViewModel @AssistedInject constructor(
     }
 }
 
-internal fun ViewState<List<RepoViewDataModel>>.reduce(): ReposViewState {
+internal fun ViewStateResult<List<RepoViewDataModel>>.reduce(): ReposViewState {
     return when (this) {
-        is ViewState.Loading -> ReposViewState.Loading
-        is ViewState.Success -> ReposViewState.ResultRepoList(data)
-        is ViewState.Error -> ReposViewState.Error(message)
+        is ViewStateResult.Loading -> ReposViewState.Loading
+        is ViewStateResult.Success -> ReposViewState.ResultRepoList(data)
+        is ViewStateResult.Error -> ReposViewState.Error(message)
     }
 }

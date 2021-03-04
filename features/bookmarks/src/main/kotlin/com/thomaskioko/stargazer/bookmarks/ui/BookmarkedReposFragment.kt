@@ -14,7 +14,7 @@ import com.thomaskioko.stargazer.bookmarks.model.RepoViewDataModel
 import com.thomaskioko.stargazer.bookmarks.ui.adapter.BookmarkRepoItemClick
 import com.thomaskioko.stargazer.bookmarks.ui.adapter.BookmarkedReposAdapter
 import com.thomaskioko.stargazer.bookmarks.ui.viewmodel.GetBookmarkedReposViewModel
-import com.thomaskioko.stargazer.core.ViewState
+import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailScreen
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
 import com.thomaskioko.stargazers.ui.extensions.hideView
@@ -83,31 +83,31 @@ class BookmarkedReposFragment : Fragment() {
         super.onDestroyView()
     }
 
-    private fun handleResult(viewState: ViewState<List<RepoViewDataModel>>) {
-        when (viewState) {
-            is ViewState.Success -> {
+    private fun handleResult(viewStateResult: ViewStateResult<List<RepoViewDataModel>>) {
+        when (viewStateResult) {
+            is ViewStateResult.Success -> {
                 with(binding) {
                     loadingBar.hideView()
 
-                    if (viewState.data.isEmpty()) {
+                    if (viewStateResult.data.isEmpty()) {
                         tvInfo.showView()
                         tvInfo.text = getString(R.string.empty_list)
                     } else {
                         repoListAdapter.apply {
-                            itemsList = viewState.data
+                            itemsList = viewStateResult.data
                             notifyDataSetChanged()
                         }
                     }
                 }
             }
-            is ViewState.Loading -> binding.loadingBar.visibility = View.VISIBLE
-            is ViewState.Error -> {
-                Timber.e(viewState.message)
+            is ViewStateResult.Loading -> binding.loadingBar.visibility = View.VISIBLE
+            is ViewStateResult.Error -> {
+                Timber.e(viewStateResult.message)
 
                 with(binding) {
                     loadingBar.hideView()
                     tvInfo.showView()
-                    tvInfo.text = viewState.message
+                    tvInfo.text = viewStateResult.message
                 }
             }
         }

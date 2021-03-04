@@ -16,7 +16,7 @@ import com.thomaskioko.stargazer.browse.model.RepoViewDataModel
 import com.thomaskioko.stargazer.browse.ui.adapter.RepoItemClick
 import com.thomaskioko.stargazer.browse.ui.adapter.RepoListAdapter
 import com.thomaskioko.stargazer.browse.ui.viewmodel.GetReposViewModel
-import com.thomaskioko.stargazer.core.ViewState
+import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.core.util.ConnectivityUtil.isConnected
 import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailScreen
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
@@ -111,20 +111,20 @@ class RepoListFragment : Fragment() {
         super.onDestroyView()
     }
 
-    private fun handleResult(viewState: ViewState<List<RepoViewDataModel>>) {
-        when (viewState) {
-            is ViewState.Success -> {
+    private fun handleResult(viewStateResult: ViewStateResult<List<RepoViewDataModel>>) {
+        when (viewStateResult) {
+            is ViewStateResult.Success -> {
                 binding.loadingBar.hideView()
-                viewState.data.let {
+                viewStateResult.data.let {
                     repoListAdapter.itemsList = it
                 }
             }
-            is ViewState.Loading -> binding.loadingBar.showView()
-            is ViewState.Error -> {
+            is ViewStateResult.Loading -> binding.loadingBar.showView()
+            is ViewStateResult.Error -> {
                 binding.loadingBar.hideView()
                 binding.tvInfo.showView()
-                binding.tvInfo.text = viewState.message
-                Timber.e(viewState.message)
+                binding.tvInfo.text = viewStateResult.message
+                Timber.e(viewStateResult.message)
             }
         }
     }

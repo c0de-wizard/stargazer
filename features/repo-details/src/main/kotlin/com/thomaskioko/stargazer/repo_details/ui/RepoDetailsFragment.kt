@@ -12,7 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.transition.MaterialContainerTransform
 import com.thomaskioko.githubstargazer.repo_details.R
 import com.thomaskioko.githubstargazer.repo_details.databinding.FragmentRepoDetailsBinding
-import com.thomaskioko.stargazer.core.ViewState
+import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.repo_details.domain.model.UpdateObject
 import com.thomaskioko.stargazer.repo_details.model.RepoViewDataModel
 import com.thomaskioko.stargazer.repo_details.ui.viewmodel.RepoDetailsViewModel
@@ -61,11 +61,11 @@ class RepoDetailsFragment : Fragment() {
 
             getRepoViewModel.getRepoById(args.repoId)
 
-            it.repoMutableStateFlow
+            it.repoMutableStateResultFlow
                 .onEach(::handleViewStateResult)
                 .launchIn(lifecycleScope)
 
-            it.repoUpdateMutableStateFlow
+            it.repoUpdateMutableStateResultFlow
                 .onEach(::handleViewStateResult)
                 .launchIn(lifecycleScope)
         }
@@ -80,19 +80,19 @@ class RepoDetailsFragment : Fragment() {
         }
     }
 
-    private fun handleViewStateResult(viewState: ViewState<RepoViewDataModel>) {
-        when (viewState) {
-            is ViewState.Loading -> binding.loadingBar.visibility = View.VISIBLE
-            is ViewState.Success -> {
+    private fun handleViewStateResult(viewStateResult: ViewStateResult<RepoViewDataModel>) {
+        when (viewStateResult) {
+            is ViewStateResult.Loading -> binding.loadingBar.visibility = View.VISIBLE
+            is ViewStateResult.Success -> {
                 binding.loadingBar.visibility = View.GONE
-                binding.repo = viewState.data
-                viewDataModel = viewState.data
+                binding.repo = viewStateResult.data
+                viewDataModel = viewStateResult.data
             }
-            is ViewState.Error -> {
+            is ViewStateResult.Error -> {
                 binding.loadingBar.visibility = View.GONE
                 binding.tvInfo.visibility = View.VISIBLE
-                binding.tvInfo.text = viewState.message
-                Timber.e(viewState.message)
+                binding.tvInfo.text = viewStateResult.message
+                Timber.e(viewStateResult.message)
             }
         }
     }
