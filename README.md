@@ -74,7 +74,7 @@ This module enables us to navigate between the app, as the name suggests. It con
 To maintain the style and quality of the code, are used the bellow static analysis tools. All of them use properly configuration and you find them in the project root directory `.{toolName}`.
 
 | Tools | Check command | Fix command |
-|--------|------------:|---------------|-------------|
+|-------|---------------|-------------|
 | [detekt](https://github.com/arturbosch/detekt) | `./gradlew detekt` | - |
 | [ktlint](https://github.com/pinterest/ktlint) | `./gradlew ktlint` | `./gradlew ktlintFormat` |
 | [spotless](https://github.com/diffplug/spotless) | `./gradlew spotlessCheck` | `./gradlew spotlessApply`
