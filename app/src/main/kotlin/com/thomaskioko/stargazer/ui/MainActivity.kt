@@ -12,11 +12,11 @@ import androidx.navigation.NavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.thomaskioko.stargazer.R
+import com.thomaskioko.stargazer.core.executor.CoroutineExecutionThread
 import com.thomaskioko.stargazer.databinding.ActivityMainBinding
 import com.thomaskioko.stargazer.domain.SettingsManager
 import com.thomaskioko.stargazer.domain.UiTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
@@ -33,6 +33,9 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var settingsManager: SettingsManager
+
+    @Inject
+    lateinit var executionThread: CoroutineExecutionThread
 
     private lateinit var binding: ActivityMainBinding
     private var isDarkMode = false
@@ -64,7 +67,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setTheme() {
-        GlobalScope.launch(context = Dispatchers.Main) {
+        GlobalScope.launch(context = executionThread.main) {
             settingsManager.getUiModeFlow()
                 .collect {
                     isDarkMode = when (it) {
@@ -102,7 +105,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateTheme(themeTheme: UiTheme) {
-        GlobalScope.launch(context = Dispatchers.Main) {
+        GlobalScope.launch(context = executionThread.main) {
             settingsManager.setUiMode(themeTheme)
         }
     }

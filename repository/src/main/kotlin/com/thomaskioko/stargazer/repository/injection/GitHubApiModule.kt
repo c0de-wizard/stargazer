@@ -1,7 +1,10 @@
 package com.thomaskioko.stargazer.repository.injection
 
 import com.squareup.moshi.Moshi
+import com.thomaskioko.stargazer.core.executor.CoroutineExecutionThread
+import com.thomaskioko.stargazer.repository.api.GithubRepository
 import com.thomaskioko.stargazer.repository.api.service.GitHubService
+import com.thomaskioko.stargazer.repository.db.GithubDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -49,6 +52,13 @@ object GitHubApiModule {
             clientBuilder.callTimeout(30, TimeUnit.SECONDS)
         }
     }
+
+    @Provides
+    fun provideGithubRepository(
+        service: GitHubService,
+        database: GithubDatabase,
+        coroutineExecutionThread: CoroutineExecutionThread
+    ) = GithubRepository(service, database, coroutineExecutionThread)
 }
 
 interface OkHttpConfigurator {

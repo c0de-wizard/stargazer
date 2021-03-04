@@ -1,10 +1,10 @@
 package com.thomaskioko.stargazer.repository.api
 
+import com.thomaskioko.stargazer.core.executor.CoroutineExecutionThread
 import com.thomaskioko.stargazer.repository.api.service.GitHubService
 import com.thomaskioko.stargazer.repository.db.GithubDatabase
 import com.thomaskioko.stargazer.repository.db.model.RepoEntity
 import com.thomaskioko.stargazer.repository.mapper.RepositoryMapper.mapResponseToEntityList
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
@@ -21,14 +21,15 @@ import javax.inject.Singleton
 @Singleton
 class GithubRepository @Inject constructor(
     private val service: GitHubService,
-    private val database: GithubDatabase
+    private val database: GithubDatabase,
+    private val coroutineExecutionThread: CoroutineExecutionThread
 ) {
 
     fun getRepositoryList(isConnected: Boolean): Flow<List<RepoEntity>> =
         database.repoDao().getReposFlow()
             .map { it.firstOrNull() }
             .flatMapConcat { if (it == null && isConnected) loadFromNetwork() else loadCacheRepos() }
-            .flowOn(Dispatchers.IO)
+            .flowOn(coroutineExecutionThread.io)
             .conflate()
 
     private suspend fun loadFromNetwork() = flowOf(service.getRepositories())
