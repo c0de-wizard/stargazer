@@ -1,7 +1,6 @@
 package com.thomaskioko.githubstargazer.repository.api
 
 import com.google.common.truth.Truth.assertThat
-import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.whenever
 import com.thomaskioko.githubstargazer.repository.TestCoroutineExecutionThread
 import com.thomaskioko.githubstargazer.repository.util.MockData.makeRepoEntityList
@@ -28,14 +27,14 @@ class GithubRepositoryTest {
 
     @Before
     fun setUp() {
-        whenever(database.repoDao()).doReturn(repoDao)
+        whenever(database.repoDao()).thenReturn(repoDao)
         repository = GithubRepository(service, database, executionThread)
     }
 
     @Test
     fun `givenDeviceIsConnected verify data isLoadedFrom Remote`() = runBlocking {
-        whenever(repoDao.getReposFlow()) doReturn flowOf(emptyList())
-        whenever(service.getRepositories()) doReturn makeRepoResponseList()
+        whenever(repoDao.getReposFlow()).thenReturn(flowOf(emptyList()))
+        whenever(service.getRepositories()).thenReturn(makeRepoResponseList())
 
         // TODO:: Replace with Turbine Test
         val repos = repository.getRepositoryList(true).toList()
@@ -51,7 +50,7 @@ class GithubRepositoryTest {
     @Test
     fun `givenDeviceIsNotConnected verify data isLoadedFrom Database`() = runBlocking {
 
-        whenever(repoDao.getReposFlow()).doReturn(flowOf(makeRepoEntityList()))
+        whenever(repoDao.getReposFlow()).thenReturn(flowOf(makeRepoEntityList()))
 
         val repos = repository.getRepositoryList(false).toList()
         val expected = listOf(makeRepoEntityList())
@@ -66,7 +65,7 @@ class GithubRepositoryTest {
     fun `givenRepoId verify data isLoadedFrom Database`() = runBlocking {
         val expected = makeRepoEntityList()[0]
 
-        whenever(repoDao.getRepoById(expected.repoId)).doReturn(expected)
+        whenever(repoDao.getRepoById(expected.repoId)).thenReturn(expected)
 
         val repoEntity = repository.getRepoById(expected.repoId)
 
@@ -78,7 +77,7 @@ class GithubRepositoryTest {
     @Test
     fun `wheneverGetBookmarkedRepos verify data isLoadedFrom Database`() = runBlocking {
 
-        whenever(repoDao.getBookmarkedRepos()).doReturn(makeRepoEntityList())
+        whenever(repoDao.getBookmarkedRepos()).thenReturn(makeRepoEntityList())
 
         val repoEntity = repository.getBookmarkedRepos()
 
@@ -91,8 +90,8 @@ class GithubRepositoryTest {
     fun `wheneverUpdateRepo verify data isLoadedFrom Database`() = runBlocking {
         val entity = makeRepoEntityList()[0]
 
-        whenever(repoDao.setBookmarkStatus(1, 1)).doReturn(Unit)
-        whenever(repoDao.getRepoById(1)).doReturn(entity)
+        whenever(repoDao.setBookmarkStatus(1, 1)).thenReturn(Unit)
+        whenever(repoDao.getRepoById(1)).thenReturn(entity)
 
         repoDao.insertRepo(entity)
 

@@ -2,7 +2,6 @@ package com.thomaskioko.stargazer.bookmarks.ui.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import app.cash.turbine.test
-import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.thomaskioko.stargazer.bookmarks.ViewMockData.makeRepoViewDataModelList
@@ -40,7 +39,7 @@ internal class GetBookmarkedReposViewModelTest {
 
     @Test
     fun `givenSuccessfulResponse verify successStateIsReturned`() = runBlocking {
-        whenever(interactor()) doReturn flowOf(Success(makeRepoViewDataModelList()))
+        whenever(interactor()).thenReturn(flowOf(Success(makeRepoViewDataModelList())))
 
         viewModel.bookmarkedList.test {
 
@@ -55,7 +54,7 @@ internal class GetBookmarkedReposViewModelTest {
     fun `givenFailureResponse verify errorStateIsReturned`() = runBlocking {
         val errorMessage = "Something went wrong"
 
-        whenever(interactor()) doReturn flowOf(Error(errorMessage))
+        whenever(interactor()).thenReturn(flowOf(Error(errorMessage)))
 
         viewModel.bookmarkedList.test {
 

@@ -1,7 +1,6 @@
 package com.thomaskioko.stargazer.repo_details.domain
 
 import com.google.common.truth.Truth.assertThat
-import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.thomaskioko.stargazer.core.ViewStateResult
@@ -22,7 +21,7 @@ internal class GetRepoByIdInteractorTest {
 
     @Test
     fun `whenever getRepoByIdIsInvoked expectedDataIsReturned`() = runBlocking {
-        whenever(repository.getRepoById(anyLong())).doReturn(makeRepoEntity())
+        whenever(repository.getRepoById(anyLong())).thenReturn(makeRepoEntity())
 
         val result = interactor(anyLong()).toList()
         val expected = listOf(

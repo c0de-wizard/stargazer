@@ -1,7 +1,6 @@
 package com.thomaskioko.stargazer.browse_mvi.interactor
 
 import com.google.common.truth.Truth.assertThat
-import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.thomaskioko.stargazer.browse_mvi.interactor.ViewMockData.makeRepoEntityList
@@ -12,7 +11,6 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
-import org.mockito.ArgumentMatchers.anyBoolean
 
 internal class GetReposInteractorTest {
 
@@ -21,7 +19,8 @@ internal class GetReposInteractorTest {
 
     @Test
     fun `whenever getReposIsInvoked expectedDataIsReturned`() = runBlocking {
-        whenever(repository.getRepositoryList(anyBoolean())) doReturn flowOf(makeRepoEntityList())
+        whenever(repository.getRepositoryList(true))
+            .thenReturn(flowOf(makeRepoEntityList()))
 
         val result = interactor(true).toList()
         val expected = listOf(
