@@ -1,6 +1,8 @@
 package com.thomaskioko.githubstargazer.repository.api
 
 import com.google.common.truth.Truth.assertThat
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.thomaskioko.githubstargazer.repository.TestCoroutineExecutionThread
 import com.thomaskioko.githubstargazer.repository.util.MockData.makeRepoEntityList
@@ -18,22 +20,22 @@ import org.mockito.Mockito.*
 
 class GithubRepositoryTest {
 
-    private val database = mock(GithubDatabase::class.java)
-    private val service = mock(GitHubService::class.java)
-    private val repoDao = mock(RepoDao::class.java)
+    private val repoDao:RepoDao = mock {
+        on { getReposFlow() } doReturn flowOf(emptyList())
+    }
+
+    private val database : GithubDatabase = mock {
+        on { repoDao() } doReturn repoDao
+    }
+    private val service : GitHubService = mock(GitHubService::class.java)
+
     private val executionThread = mock(TestCoroutineExecutionThread::class.java)
 
-    private lateinit var repository: GithubRepository
+    private  var repository = GithubRepository(service, database, executionThread)
 
-    @Before
-    fun setUp() {
-        whenever(database.repoDao()).thenReturn(repoDao)
-        repository = GithubRepository(service, database, executionThread)
-    }
 
     @Test
     fun `givenDeviceIsConnected verify data isLoadedFrom Remote`() = runBlocking {
-        whenever(repoDao.getReposFlow()).thenReturn(flowOf(emptyList()))
         whenever(service.getRepositories()).thenReturn(makeRepoResponseList())
 
         // TODO:: Replace with Turbine Test

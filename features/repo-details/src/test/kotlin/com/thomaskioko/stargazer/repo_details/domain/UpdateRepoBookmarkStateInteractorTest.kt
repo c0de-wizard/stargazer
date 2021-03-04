@@ -1,7 +1,8 @@
 package com.thomaskioko.stargazer.repo_details.domain
 
 import com.google.common.truth.Truth.assertThat
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.mock
 import com.thomaskioko.stargazer.core.ViewStateResult.Success
 import com.thomaskioko.stargazer.repo_details.domain.model.UpdateObject
 import com.thomaskioko.stargazer.repo_details.util.ViewMockData.makeRepoEntity
@@ -11,17 +12,17 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
-import org.mockito.Mockito.mock
+import org.mockito.ArgumentMatchers.anyLong
 
 internal class UpdateRepoBookmarkStateInteractorTest {
 
-    private val repository: GithubRepository = mock(GithubRepository::class.java)
+    private val repository: GithubRepository = mock {
+        on { getRepoByIdFlow(anyLong()) } doReturn flowOf(makeRepoEntity())
+    }
     private val interactor = UpdateRepoBookmarkStateInteractor(repository)
 
     @Test
     fun `whenever updateRepoIsInvoked expectedDataIsReturned`() = runBlocking {
-        whenever(repository.getRepoByIdFlow(1)).thenReturn((flowOf(makeRepoEntity())))
-
 
         val result = interactor(UpdateObject(1, false)).toList()
         val expected = listOf(

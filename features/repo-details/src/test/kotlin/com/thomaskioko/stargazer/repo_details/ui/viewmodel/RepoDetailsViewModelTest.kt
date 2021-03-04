@@ -2,6 +2,8 @@ package com.thomaskioko.stargazer.repo_details.ui.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import app.cash.turbine.test
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.core.ViewStateResult.*
@@ -14,11 +16,10 @@ import com.thomaskioko.stargazer.testing.CoroutineScopeRule
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
-import org.mockito.Mockito.mock
+import org.mockito.ArgumentMatchers.anyLong
 
 internal class RepoDetailsViewModelTest {
 
@@ -28,24 +29,22 @@ internal class RepoDetailsViewModelTest {
     @get:Rule
     val scopeRule = CoroutineScopeRule()
 
-    private val getRepoByIdInteractor = mock(GetRepoByIdInteractor::class.java)
-    private val bookmarkStateInteractor = mock(UpdateRepoBookmarkStateInteractor::class.java)
-
-    private lateinit var viewModel: RepoDetailsViewModel
-
-    @Before
-    fun before() {
-        viewModel = RepoDetailsViewModel(
-            getRepoByIdInteractor,
-            bookmarkStateInteractor
-        )
+    private val getRepoByIdInteractor: GetRepoByIdInteractor = mock {
+        on { invoke(anyLong()) } doReturn flowOf(Success(makeRepoViewDataModel()))
     }
+    private val bookmarkStateInteractor: UpdateRepoBookmarkStateInteractor = mock {
+        val updateObject = UpdateObject(1, true)
+        on { invoke(updateObject) } doReturn flowOf(Success(makeRepoViewDataModel()))
+    }
+
+    private var viewModel: RepoDetailsViewModel = RepoDetailsViewModel(
+        getRepoByIdInteractor,
+        bookmarkStateInteractor
+    )
 
     @Test
     fun `givenRepoId verify successStateIsReturned`() = runBlocking {
         val repoViewDataModel = makeRepoViewDataModel()
-
-        whenever(getRepoByIdInteractor(1)).thenReturn(flowOf(Success(repoViewDataModel)))
 
         viewModel.repoMutableStateResultFlow.test {
 
@@ -68,7 +67,10 @@ internal class RepoDetailsViewModelTest {
             viewModel.getRepoById(1)
 
             assertEquals(expectItem(), Loading<ViewStateResult<List<RepoViewDataModel>>>())
-            assertEquals(expectItem(), Error<ViewStateResult<List<RepoViewDataModel>>>(errorMessage))
+            assertEquals(
+                expectItem(),
+                Error<ViewStateResult<List<RepoViewDataModel>>>(errorMessage)
+            )
         }
     }
 
