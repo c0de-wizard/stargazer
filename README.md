@@ -113,6 +113,7 @@ To maintain the style and quality of the code, are used the bellow static analys
 - [x] Refactor BaseViewModel class implementation: Replace LiveData with flow.
 - [x] Materialize app.
 - [x] Cleanup Kotlin DSL Implementation.
+- [ ] Fix flaky tests.
 - [ ] Create some from of 'StateMachine' to handle states lifeCycle
 - [ ] Add instrumentation tests.
 - [ ] Add/update missing test cases.
