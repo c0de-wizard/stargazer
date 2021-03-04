@@ -1,28 +1,40 @@
-import com.thomaskioko.githubstargazer.buildsrc.extensions.applyDefault
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-// all projects = root project + sub projects
+buildscript {
+    repositories.applyDefault()
+}
+
 allprojects {
     repositories.applyDefault()
 
-    afterEvaluate {
-        tasks.withType<JavaCompile>().configureEach { options.compilerArgs.addAll(arrayOf("-Xmaxerrs", "500")) }
+    plugins.apply("plugins.ktlint")
+    plugins.apply("plugins.detekt")
+    plugins.apply("plugins.spotless")
+
+    configurations.all {
+        resolutionStrategy.eachDependency {
+            if (requested.group == "org.jetbrains.kotlin") {
+                useVersion(kotlinVersion)
+            }
+        }
     }
 }
 
 subprojects {
-    tasks.withType<Test> {
-        maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).takeIf { it > 0 } ?: 1
+    tasks.withType<KotlinCompile>().configureEach {
+        with(kotlinOptions) {
+            jvmTarget = JavaVersion.VERSION_1_8.toString()
+            useIR = true
+            languageVersion = "1.5"
+            apiVersion = "1.5"
+            freeCompilerArgs += "-Xuse-experimental=" +
+                "kotlin.Experimental," +
+                "kotlin.time.ExperimentalTime," +
+                "kotlinx.coroutines.ExperimentalCoroutinesApi," +
+                "kotlinx.coroutines.InternalCoroutinesApi," +
+                "kotlinx.coroutines.ObsoleteCoroutinesApi," +
+                "kotlinx.coroutines.FlowPreview"
+            freeCompilerArgs += "-Xopt-in=kotlin.ExperimentalStdlibApi"
+        }
     }
-}
-// JVM target applied to all Kotlin tasks across all sub-projects
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
-}
-
-tasks.withType<KotlinCompile>().configureEach {
-    kotlinOptions.freeCompilerArgs += listOf(
-        "-Xopt-in=kotlin.time.ExperimentalTime",
-        "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
-    )
 }

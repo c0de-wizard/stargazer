@@ -1,0 +1,51 @@
+name: Android Pull Request & Master CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Run Lint
+        run: ./gradlew lintDebug
+
+      - name: Run Spotless Apply
+        run: ./gradlew :spotlessApply
+
+      - name: Run Spotless Check
+        run: ./gradlew spotlessCheck
+
+      - name: Run Unit Tests
+        run: ./gradlew testDebugUnitTest
+
+  apk:
+    name: Generate APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version:  11
+
+      - name: Build debug APK
+        run: bash ./gradlew assembleDebug --stacktrace
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: app
+          path: app/build/outputs/apk/debug/app-debug.apk
