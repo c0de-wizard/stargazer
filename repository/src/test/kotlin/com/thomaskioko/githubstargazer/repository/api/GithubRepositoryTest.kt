@@ -15,8 +15,6 @@ import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
-import org.mockito.ArgumentMatchers.anyInt
-import org.mockito.ArgumentMatchers.anyLong
 import org.mockito.Mockito.*
 
 class GithubRepositoryTest {
@@ -93,8 +91,8 @@ class GithubRepositoryTest {
     fun `wheneverUpdateRepo verify data isLoadedFrom Database`() = runBlocking {
         val entity = makeRepoEntityList()[0]
 
-        whenever(repoDao.setBookmarkStatus(anyInt(), anyLong())).doReturn(Unit)
-        whenever(repoDao.getRepoById(anyLong())).doReturn(entity)
+        whenever(repoDao.setBookmarkStatus(1, 1)).doReturn(Unit)
+        whenever(repoDao.getRepoById(1)).doReturn(entity)
 
         repoDao.insertRepo(entity)
 
