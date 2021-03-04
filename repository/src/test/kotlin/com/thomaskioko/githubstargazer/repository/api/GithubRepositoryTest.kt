@@ -3,13 +3,13 @@ package com.thomaskioko.githubstargazer.repository.api
 import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.whenever
+import com.thomaskioko.githubstargazer.repository.TestCoroutineExecutionThread
 import com.thomaskioko.githubstargazer.repository.util.MockData.makeRepoEntityList
 import com.thomaskioko.githubstargazer.repository.util.MockData.makeRepoResponseList
 import com.thomaskioko.stargazer.repository.api.GithubRepository
 import com.thomaskioko.stargazer.repository.api.service.GitHubService
 import com.thomaskioko.stargazer.repository.db.GithubDatabase
 import com.thomaskioko.stargazer.repository.db.dao.RepoDao
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
@@ -17,23 +17,21 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.ArgumentMatchers.anyLong
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.never
-import org.mockito.Mockito.times
-import org.mockito.Mockito.verify
+import org.mockito.Mockito.*
 
 class GithubRepositoryTest {
 
     private val database = mock(GithubDatabase::class.java)
     private val service = mock(GitHubService::class.java)
     private val repoDao = mock(RepoDao::class.java)
+    private val executionThread = mock(TestCoroutineExecutionThread::class.java)
 
     private lateinit var repository: GithubRepository
 
     @Before
     fun setUp() {
         whenever(database.repoDao()).doReturn(repoDao)
-        repository = GithubRepository(service, database)
+        repository = GithubRepository(service, database, executionThread)
     }
 
     @Test

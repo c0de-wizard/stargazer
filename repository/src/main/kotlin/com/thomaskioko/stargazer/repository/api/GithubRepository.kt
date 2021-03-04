@@ -29,7 +29,6 @@ class GithubRepository @Inject constructor(
         database.repoDao().getReposFlow()
             .map { it.firstOrNull() }
             .flatMapConcat { if (it == null && isConnected) loadFromNetwork() else loadCacheRepos() }
-            .flowOn(coroutineExecutionThread.io)
             .conflate()
 
     private suspend fun loadFromNetwork() = flowOf(service.getRepositories())
