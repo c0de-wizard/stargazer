@@ -4,8 +4,6 @@ plugins {
 
 dependencies {
 
-    implementation(project(":repository"))
-
     implementation(Dependencies.AndroidX.appCompat)
     implementation(Dependencies.AndroidX.Lifecycle.common)
     implementation(Dependencies.AndroidX.Lifecycle.runtime)

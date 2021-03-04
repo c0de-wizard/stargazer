@@ -4,6 +4,8 @@ plugins {
 
 dependencies {
 
+    implementation(project(":core"))
+
     implementation(Dependencies.Kotlin.stdlib)
 
     implementation(Dependencies.Retrofit.retrofit)
