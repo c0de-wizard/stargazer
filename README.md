@@ -1,5 +1,7 @@
 Github Stargazer
 --------------------
+[![codecov](https://codecov.io/gh/c0de-wizard/stargazer/branch/main/graph/badge.svg)](https://codecov.io/gh/c0de-wizard/stargazer)
+
 Stargazer is a simple android project that consumes Github's Api & loads a list of repositories from Square's organization.
 
 ### Screenshots
@@ -119,6 +121,7 @@ To maintain the style and quality of the code, are used the bellow static analys
 - [ ] Implement search functionality.
 
 ### Test Tasks
+- [ ] Switch to Junit5
 - [ ] Add/update missing test cases.
 - [ ] Fix flaky tests.
 - [ ] Add instrumentation tests.
