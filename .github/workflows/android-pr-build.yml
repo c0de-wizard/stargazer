@@ -32,6 +32,12 @@ jobs:
       - name: Generate Jacoco Test Report
         run: ./gradlew jacocoTestReport
 
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1.2.1
+        with:
+          fail_ci_if_error: true
+          verbose: true
+
   apk:
     name: Generate APK
     runs-on: ubuntu-latest
