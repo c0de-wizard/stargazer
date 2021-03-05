@@ -39,7 +39,7 @@ object Dependencies {
     }
 
     object Coroutines {
-        private const val version = "1.4.2"
+        const val version = "1.4.3"
         val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
         val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
         val reactive = "org.jetbrains.kotlinx:kotlinx-coroutines-reactive:$version"
@@ -101,7 +101,7 @@ object Dependencies {
         }
 
         object Coroutines {
-            val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2"
+            val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Dependencies.Coroutines.version}"
         }
 
         object Espresso {
