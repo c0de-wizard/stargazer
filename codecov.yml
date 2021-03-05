@@ -42,9 +42,6 @@ parsers:
 
 # adding Flags to your `layout` configuration to show up in the PR comment
 comment:
-  layout: "reach, diff, flags, files"
+  layout: "reach, diff, flags, tree"
   behavior: default
   require_changes: false
-  require_base: yes
-  require_head: yes
-  branches: null
