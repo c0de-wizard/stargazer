@@ -33,7 +33,11 @@ jobs:
         run: ./gradlew jacocoTestReport
 
       - name: Upload coverage to Codecov
-        run: bash <(curl -s https://codecov.io/bash)
+        uses: codecov/codecov-action@v1.2.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
+          verbose: true
 
   apk:
     name: Generate APK
