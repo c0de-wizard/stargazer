@@ -16,14 +16,15 @@ coverage:
         branches:
           - main
         if_ci_failed: error #success, failure, error, ignore
-        informational: false
-        only_pulls: false
+        informational: true
+        only_pulls: true
 
       features:
         target: 20%
         flags:
           - features
-
+    patch: no
+    changes: no
 
   flags:
     features:
