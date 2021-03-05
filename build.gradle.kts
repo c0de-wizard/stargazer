@@ -4,6 +4,10 @@ buildscript {
     repositories.applyDefault()
 }
 
+plugins {
+    id("com.vanniktech.android.junit.jacoco") version "0.16.0"
+}
+
 allprojects {
     repositories.applyDefault()
 
