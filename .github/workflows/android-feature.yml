@@ -28,3 +28,6 @@ jobs:
 
       - name: Run Unit Tests
         run: ./gradlew testDebugUnitTest
+
+      - name: Generate Jacoco Test Report
+        run: ./gradlew jacocoTestReport
