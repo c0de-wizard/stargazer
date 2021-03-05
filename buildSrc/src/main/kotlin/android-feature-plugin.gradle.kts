@@ -59,8 +59,6 @@ dependencies {
     testImplementation(project(":common-testing"))
     androidTestImplementation(project(":common-testing"))
 
-    implementation(Dependencies.Kotlin.stdlib)
-
     implementation(Dependencies.AndroidX.appCompat)
     implementation(Dependencies.AndroidX.coreKtx)
     implementation(Dependencies.AndroidX.constraintLayout)

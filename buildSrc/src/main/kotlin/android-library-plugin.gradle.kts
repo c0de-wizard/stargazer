@@ -50,8 +50,6 @@ android {
 
 dependencies {
 
-    implementation(Dependencies.Kotlin.stdlib)
-
     implementation(Dependencies.Google.Hilt.core)
     implementation(Dependencies.Google.Hilt.viewmodel)
     kapt(Dependencies.Google.Hilt.compiler)

@@ -57,11 +57,6 @@ object Dependencies {
         }
     }
 
-    object Kotlin {
-        const val version = "1.4.30"
-        val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
-    }
-
     object OkHttp {
         private const val version = "3.10.0"
         val okhttp = "com.squareup.okhttp3:okhttp:$version"
