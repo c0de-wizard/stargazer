@@ -6,7 +6,9 @@ import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.thomaskioko.stargazer.core.ViewStateResult
-import com.thomaskioko.stargazer.core.ViewStateResult.*
+import com.thomaskioko.stargazer.core.ViewStateResult.Error
+import com.thomaskioko.stargazer.core.ViewStateResult.Loading
+import com.thomaskioko.stargazer.core.ViewStateResult.Success
 import com.thomaskioko.stargazer.details.domain.GetRepoByIdInteractor
 import com.thomaskioko.stargazer.details.domain.UpdateRepoBookmarkStateInteractor
 import com.thomaskioko.stargazer.details.domain.model.UpdateObject

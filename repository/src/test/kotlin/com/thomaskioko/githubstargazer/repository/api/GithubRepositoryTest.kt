@@ -14,25 +14,26 @@ import com.thomaskioko.stargazer.repository.db.dao.RepoDao
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
-import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito.*
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.never
+import org.mockito.Mockito.times
+import org.mockito.Mockito.verify
 
 class GithubRepositoryTest {
 
-    private val repoDao:RepoDao = mock {
+    private val repoDao: RepoDao = mock {
         on { getReposFlow() } doReturn flowOf(emptyList())
     }
 
-    private val database : GithubDatabase = mock {
+    private val database: GithubDatabase = mock {
         on { repoDao() } doReturn repoDao
     }
-    private val service : GitHubService = mock(GitHubService::class.java)
+    private val service: GitHubService = mock(GitHubService::class.java)
 
     private val executionThread = mock(TestCoroutineExecutionThread::class.java)
 
-    private  var repository = GithubRepository(service, database, executionThread)
-
+    private var repository = GithubRepository(service, database, executionThread)
 
     @Test
     fun `givenDeviceIsConnected verify data isLoadedFrom Remote`() = runBlocking {

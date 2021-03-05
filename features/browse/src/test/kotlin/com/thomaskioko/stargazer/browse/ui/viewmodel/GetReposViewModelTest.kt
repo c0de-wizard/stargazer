@@ -8,7 +8,9 @@ import com.thomaskioko.stargazer.browse.domain.ViewMockData.makeRepoViewDataMode
 import com.thomaskioko.stargazer.browse.domain.interactor.GetRepoListInteractor
 import com.thomaskioko.stargazer.browse.model.RepoViewDataModel
 import com.thomaskioko.stargazer.core.ViewStateResult
-import com.thomaskioko.stargazer.core.ViewStateResult.*
+import com.thomaskioko.stargazer.core.ViewStateResult.Error
+import com.thomaskioko.stargazer.core.ViewStateResult.Loading
+import com.thomaskioko.stargazer.core.ViewStateResult.Success
 import com.thomaskioko.stargazer.testing.CoroutineScopeRule
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking

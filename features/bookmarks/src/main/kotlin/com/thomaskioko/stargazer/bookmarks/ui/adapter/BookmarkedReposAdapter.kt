@@ -34,7 +34,6 @@ class BookmarkedReposAdapter constructor(
     override fun getItemCount(): Int = itemsList.size
 
     private fun getItem(position: Int): RepoViewDataModel? = itemsList[position]
-
 }
 
 class RepoItemViewHolder(
