@@ -8,6 +8,8 @@ plugins {
     id("kotlin-parcelize")
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
+    id("jacoco")
+    id("plugins.jacoco-report")
 }
 
 android {
@@ -28,6 +30,8 @@ android {
         named("debug") {
             isMinifyEnabled = false
             versionNameSuffix = "-DEBUG"
+
+            isTestCoverageEnabled = true
         }
     }
 
@@ -45,6 +49,21 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+
+
+    lintOptions {
+        lintConfig = rootProject.file(".lint/config.xml")
+        isCheckAllWarnings = true
+        isWarningsAsErrors = true
+        isAbortOnError = true
+    }
+
+    packagingOptions {
+        exclude ("**/attach_hotspot_windows.dll")
+        exclude ("META-INF/licenses/**")
+        exclude ("META-INF/AL2.0")
+        exclude ("META-INF/LGPL2.1")
     }
 }
 
