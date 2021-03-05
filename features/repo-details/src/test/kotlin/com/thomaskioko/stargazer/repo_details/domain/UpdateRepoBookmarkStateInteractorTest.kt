@@ -4,7 +4,8 @@ import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.thomaskioko.stargazer.core.ViewStateResult.Success
-import com.thomaskioko.stargazer.repo_details.domain.model.UpdateObject
+import com.thomaskioko.stargazer.details.domain.UpdateRepoBookmarkStateInteractor
+import com.thomaskioko.stargazer.details.domain.model.UpdateObject
 import com.thomaskioko.stargazer.repo_details.util.ViewMockData.makeRepoEntity
 import com.thomaskioko.stargazer.repo_details.util.ViewMockData.makeRepoViewDataModel
 import com.thomaskioko.stargazer.repository.api.GithubRepository

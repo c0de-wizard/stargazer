@@ -7,10 +7,11 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.core.ViewStateResult.*
-import com.thomaskioko.stargazer.repo_details.domain.GetRepoByIdInteractor
-import com.thomaskioko.stargazer.repo_details.domain.UpdateRepoBookmarkStateInteractor
-import com.thomaskioko.stargazer.repo_details.domain.model.UpdateObject
-import com.thomaskioko.stargazer.repo_details.model.RepoViewDataModel
+import com.thomaskioko.stargazer.details.domain.GetRepoByIdInteractor
+import com.thomaskioko.stargazer.details.domain.UpdateRepoBookmarkStateInteractor
+import com.thomaskioko.stargazer.details.domain.model.UpdateObject
+import com.thomaskioko.stargazer.details.model.RepoViewDataModel
+import com.thomaskioko.stargazer.details.ui.viewmodel.RepoDetailsViewModel
 import com.thomaskioko.stargazer.repo_details.util.ViewMockData.makeRepoViewDataModel
 import com.thomaskioko.stargazer.testing.CoroutineScopeRule
 import kotlinx.coroutines.flow.flowOf

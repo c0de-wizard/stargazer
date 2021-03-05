@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/repoDetailsFragment"
-        android:name="com.thomaskioko.stargazer.repo_details.ui.RepoDetailsFragment"
+        android:name="com.thomaskioko.stargazer.details.ui.RepoDetailsFragment"
         android:label="repoDetailsFragment"
         tools:layout="@layout/fragment_repo_details">
         <argument

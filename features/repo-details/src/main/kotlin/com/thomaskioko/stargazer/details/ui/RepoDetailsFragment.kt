@@ -1,4 +1,4 @@
-package com.thomaskioko.stargazer.repo_details.ui
+package com.thomaskioko.stargazer.details.ui
 
 import android.graphics.Color
 import android.os.Bundle
@@ -10,12 +10,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.transition.MaterialContainerTransform
-import com.thomaskioko.githubstargazer.repo_details.R
-import com.thomaskioko.githubstargazer.repo_details.databinding.FragmentRepoDetailsBinding
 import com.thomaskioko.stargazer.core.ViewStateResult
-import com.thomaskioko.stargazer.repo_details.domain.model.UpdateObject
-import com.thomaskioko.stargazer.repo_details.model.RepoViewDataModel
-import com.thomaskioko.stargazer.repo_details.ui.viewmodel.RepoDetailsViewModel
+import com.thomaskioko.stargazer.details.R
+import com.thomaskioko.stargazer.details.databinding.FragmentRepoDetailsBinding
+import com.thomaskioko.stargazer.details.domain.model.UpdateObject
+import com.thomaskioko.stargazer.details.model.RepoViewDataModel
+import com.thomaskioko.stargazer.details.ui.viewmodel.RepoDetailsViewModel
 import com.thomaskioko.stargazers.ui.extensions.themeColor
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
