@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
-import com.thomaskioko.githubstargazer.bookmarks.R
-import com.thomaskioko.githubstargazer.bookmarks.databinding.FragmentBookmarkedReposBinding
+import com.thomaskioko.stargazer.bookmarks.R
+import com.thomaskioko.stargazer.bookmarks.databinding.FragmentBookmarkedReposBinding
 import com.thomaskioko.stargazer.bookmarks.model.RepoViewDataModel
 import com.thomaskioko.stargazer.bookmarks.ui.adapter.BookmarkRepoItemClick
 import com.thomaskioko.stargazer.bookmarks.ui.adapter.BookmarkedReposAdapter

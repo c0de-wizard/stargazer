@@ -1,4 +1,4 @@
-package com.thomaskioko.stargazer.repo_details.model
+package com.thomaskioko.stargazer.details.model
 
 internal data class RepoViewDataModel(
     val repoId: Long,

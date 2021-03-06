@@ -1,11 +1,10 @@
 package com.thomaskioko.stargazer.bookmarks.ui.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.thomaskioko.githubstargazer.bookmarks.databinding.ItemBookmarkedRepoBinding
+import com.thomaskioko.stargazer.bookmarks.databinding.ItemBookmarkedRepoBinding
 import com.thomaskioko.stargazer.bookmarks.model.RepoViewDataModel
 import com.thomaskioko.stargazers.ui.extensions.setAllCornerSizes
 import kotlin.properties.Delegates
@@ -35,7 +34,6 @@ class BookmarkedReposAdapter constructor(
     override fun getItemCount(): Int = itemsList.size
 
     private fun getItem(position: Int): RepoViewDataModel? = itemsList[position]
-
 }
 
 class RepoItemViewHolder(

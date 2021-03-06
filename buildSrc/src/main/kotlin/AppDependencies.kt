@@ -39,7 +39,7 @@ object Dependencies {
     }
 
     object Coroutines {
-        private const val version = "1.4.2"
+        const val version = "1.4.2"
         val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
         val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
         val reactive = "org.jetbrains.kotlinx:kotlinx-coroutines-reactive:$version"
@@ -55,11 +55,6 @@ object Dependencies {
             val compiler = "com.google.dagger:hilt-compiler:$version"
             val viewmodel = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
         }
-    }
-
-    object Kotlin {
-        const val version = "1.4.30"
-        val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
     }
 
     object OkHttp {
@@ -93,7 +88,7 @@ object Dependencies {
         val androidJunit = "androidx.test.ext:junit:1.1.2"
         val truth = "com.google.truth:truth:1.0.1"
         val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
-        val turbine = "app.cash.turbine:turbine:0.3.0"
+        val turbine = "app.cash.turbine:turbine:0.4.0"
         val robolectric: String = "org.robolectric:robolectric:4.5.1"
         val archCoreTest: String = "android.arch.core:core-testing:1.1.1"
 
@@ -106,7 +101,7 @@ object Dependencies {
         }
 
         object Coroutines {
-            val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2"
+            val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Dependencies.Coroutines.version}"
         }
 
         object Espresso {

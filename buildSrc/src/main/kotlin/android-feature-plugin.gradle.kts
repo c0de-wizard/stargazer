@@ -10,6 +10,8 @@ plugins {
     kotlin("kapt")
     id("androidx.navigation.safeargs.kotlin")
     id("dagger.hilt.android.plugin")
+    id("jacoco")
+    id("plugins.jacoco-report")
 }
 
 android {
@@ -30,6 +32,8 @@ android {
         named("debug") {
             isMinifyEnabled = false
             versionNameSuffix = "-DEBUG"
+
+            isTestCoverageEnabled = true
         }
     }
 
@@ -48,6 +52,20 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    lintOptions {
+        lintConfig = rootProject.file(".lint/config.xml")
+        isCheckAllWarnings = true
+        isWarningsAsErrors = true
+        isAbortOnError = false
+    }
+
+    packagingOptions {
+        exclude("**/attach_hotspot_windows.dll")
+        exclude("META-INF/licenses/**")
+        exclude("META-INF/AL2.0")
+        exclude("META-INF/LGPL2.1")
+    }
 }
 
 dependencies {
@@ -58,8 +76,6 @@ dependencies {
 
     testImplementation(project(":common-testing"))
     androidTestImplementation(project(":common-testing"))
-
-    implementation(Dependencies.Kotlin.stdlib)
 
     implementation(Dependencies.AndroidX.appCompat)
     implementation(Dependencies.AndroidX.coreKtx)

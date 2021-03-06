@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.thomaskioko.githubstargazer.browse_mvi.databinding.ItemRepositoryBinding
+import com.thomaskioko.stargazer.browse_mvi.databinding.ItemRepositoryBinding
 import com.thomaskioko.stargazer.browse_mvi.model.RepoViewDataModel
 import com.thomaskioko.stargazers.ui.extensions.setAllCornerSizes
 import kotlin.properties.Delegates

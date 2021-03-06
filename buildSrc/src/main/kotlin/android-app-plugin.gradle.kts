@@ -53,6 +53,13 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    lintOptions {
+        lintConfig = rootProject.file(".lint/config.xml")
+        isCheckAllWarnings = true
+        isWarningsAsErrors = true
+        isAbortOnError = false
+    }
 }
 
 dependencies {
@@ -60,7 +67,6 @@ dependencies {
     testImplementation(project(":common-testing"))
     androidTestImplementation(project(":common-testing"))
 
-    implementation(Dependencies.Kotlin.stdlib)
     implementation(Dependencies.AndroidX.coreKtx)
     implementation(Dependencies.AndroidX.appCompat)
     implementation(Dependencies.AndroidX.constraintLayout)

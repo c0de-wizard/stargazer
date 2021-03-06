@@ -1,4 +1,4 @@
-package com.thomaskioko.stargazer.repo_details.model
+package com.thomaskioko.stargazer.details.model
 
 import com.thomaskioko.stargazer.repository.db.model.RepoEntity
 

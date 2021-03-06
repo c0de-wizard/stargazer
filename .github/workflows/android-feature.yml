@@ -3,22 +3,22 @@ name: Android Feature Branch CI
 on:
   push:
     branches:
-      - '*'
-      - '!main'
-      - '!release*'
+      - 'feature/*'
 
 jobs:
-  build:
+  setup:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
-
       - name: Set Up JDK
         uses: actions/setup-java@v1
         with:
           java-version: 11
 
+  build:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
       - name: Run Lint
         run: ./gradlew lintDebug
 
@@ -30,3 +30,24 @@ jobs:
 
       - name: Run Unit Tests
         run: ./gradlew testDebugUnitTest
+
+  upload_report:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Generate Jacoco Test Report
+        run: ./gradlew jacocoTestReport
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1.2.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: |
+            /home/runner/work/stargazer/stargazer/features/bookmarks/build/reports/jacoco/jacocoTestReport/html/index.html,
+            /home/runner/work/stargazer/stargazer/features/browse/build/reports/jacoco/jacocoTestReport/html/index.html,
+            /home/runner/work/stargazer/stargazer/features/repo-details/build/reports/jacoco/jacocoTestReport/html/index.html,
+            /home/runner/work/stargazer/stargazer/repository/build/reports/jacoco/jacocoTestReport/html/index.html
+          fail_ci_if_error: true
+          verbose: false

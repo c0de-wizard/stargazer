@@ -6,8 +6,6 @@ dependencies {
 
     implementation(project(":core"))
 
-    implementation(Dependencies.Kotlin.stdlib)
-
     implementation(Dependencies.Retrofit.retrofit)
     implementation(Dependencies.Retrofit.retrofitCoroutinesConverter)
     implementation(Dependencies.OkHttp.okhttp)

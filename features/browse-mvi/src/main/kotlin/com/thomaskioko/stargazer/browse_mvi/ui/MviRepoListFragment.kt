@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.google.android.material.transition.MaterialElevationScale
-import com.thomaskioko.githubstargazer.browse_mvi.R
-import com.thomaskioko.githubstargazer.browse_mvi.databinding.FragmentMviRepoListBinding
+import com.thomaskioko.stargazer.browse_mvi.R
+import com.thomaskioko.stargazer.browse_mvi.databinding.FragmentMviRepoListBinding
 import com.thomaskioko.stargazer.browse_mvi.ui.ReposIntent.RepoItemClicked
 import com.thomaskioko.stargazer.core.factory.create
 import com.thomaskioko.stargazer.core.util.ConnectivityUtil
