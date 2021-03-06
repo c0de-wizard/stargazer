@@ -38,15 +38,13 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Generate Jacoco Test Report
-        run: ./gradlew jacocoTestReport
+        run: ./gradlew jacocoTestReport -q
 
-      - name: Upload coverage to Codecov
-        run: |
-          bash <(curl -s https://codecov.io/bash) -f /home/runner/work/stargazer/stargazer/features/bookmarks/build/reports/jacoco/jacocoTestReport/html/index.html
-          bash <(curl -s https://codecov.io/bash) -f /home/runner/work/stargazer/stargazer/features/browse/build/reports/jacoco/jacocoTestReport/html/index.html
-          bash <(curl -s https://codecov.io/bash) -f /home/runner/work/stargazer/stargazer/features/repo-details/build/reports/jacoco/jacocoTestReport/html/index.html
-          bash <(curl -s https://codecov.io/bash) -f /home/runner/work/stargazer/stargazer/repository/build/reports/jacoco/jacocoTestReport/html/index.html
+      - name: Make Jacoco Script Executatble
+        run: chmod +x .scripts/upload-jacoco-reports.sh
 
+       - name: Execute Jacoco Upload Script
+         run: .scripts/upload-jacoco-reports.sh
   apk:
     needs: upload_report
     name: Generate APK
