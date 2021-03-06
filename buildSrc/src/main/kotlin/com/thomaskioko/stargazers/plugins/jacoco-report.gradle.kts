@@ -44,8 +44,7 @@ private val executionDataTree = fileTree(project.buildDir) {
 
 fun JacocoReportsContainer.reports() {
     xml.isEnabled = true
-    html.isEnabled = true
-    html.destination = file("$buildDir/reports/jacoco/jacocoTestReport/html")
+    html.isEnabled = false
 }
 
 fun JacocoCoverageVerification.setDirectories() {
