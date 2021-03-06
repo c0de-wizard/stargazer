@@ -43,7 +43,7 @@ private val executionDataTree = fileTree(project.buildDir) {
 }
 
 fun JacocoReportsContainer.reports() {
-    xml.isEnabled = false
+    xml.isEnabled = true
     html.isEnabled = true
     html.destination = file("$buildDir/reports/jacoco/jacocoTestReport/html")
 }
