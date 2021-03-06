@@ -1,7 +1,7 @@
-name: Android Pull Request CI
+name: Android Master CI
 
 on:
-  pull_request:
+  push:
     branches:
       - main
 
@@ -46,3 +46,20 @@ jobs:
           bash <(curl -s https://codecov.io/bash) -f /home/runner/work/stargazer/stargazer/features/browse/build/reports/jacoco/jacocoTestReport/html/index.html
           bash <(curl -s https://codecov.io/bash) -f /home/runner/work/stargazer/stargazer/features/repo-details/build/reports/jacoco/jacocoTestReport/html/index.html
           bash <(curl -s https://codecov.io/bash) -f /home/runner/work/stargazer/stargazer/repository/build/reports/jacoco/jacocoTestReport/html/index.html
+
+  apk:
+    needs: upload_report
+    name: Generate APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build debug APK
+        run: bash ./gradlew assembleDebug --stacktrace
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-debug
+          path: app/build/outputs/apk/debug/app-debug.apk
