@@ -5,7 +5,21 @@ codecov:
 coverage:
   precision: 2
   round: down
-  range: "70...100"
+  range: "30...75"
+
+  status:
+    project:
+      default:
+        target: 75% #Minimum coverage ratio that the commit must meet to be considered a success.
+        threshold: 0% #Allow the coverage to drop by X%, and posting a success status.
+        # advanced settings
+        branches:
+          - main
+        if_ci_failed: error #success, failure, error, ignore
+        informational: true
+        only_pulls: true
+    patch: no
+    changes: no
 
 parsers:
   gcov:
@@ -18,4 +32,4 @@ parsers:
 comment:
   layout: "reach,diff,flags,tree"
   behavior: default
-  require_changes: no
+  require_changes: false
