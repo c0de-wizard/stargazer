@@ -40,15 +40,19 @@ jobs:
       - name: Generate Jacoco Test Report
         run: ./gradlew jacocoTestReport
 
-      - name: Upload Report
+      - name: Upload Reports
         uses: actions/upload-artifact@v2
         with:
-          name: Bookmark Report
-          path: stargazer/stargazer/features/bookmarks/build/reports/jacoco/jacocoTestReport/html
+          name: Jacoco Test Reports
+          path: |
+            stargazer/features/bookmarks/build/reports/jacoco/jacocoTestReport/html
+            stargazer/features/browse/build/reports/jacoco/jacocoTestReport/html
+            stargazer/features/repo-details/build/reports/jacoco/jacocoTestReport/html
+            stargazer/repository/build/reports/jacoco/jacocoTestReport/html
 
       - name: Upload Test Report
         run: |
-          bash <(curl -s https://codecov.io/bash) -f "stargazer/stargazer/features/bookmarks/build/reports/jacoco/jacocoTestReport/html/index.html"
-          bash <(curl -s https://codecov.io/bash) -f /home/runner/work/stargazer/stargazer/features/browse/build/reports/jacoco/jacocoTestReport/html/index.html
-          bash <(curl -s https://codecov.io/bash) -f /home/runner/work/stargazer/stargazer/features/repo-details/build/reports/jacoco/jacocoTestReport/html/index.html
-          bash <(curl -s https://codecov.io/bash) -f /home/runner/work/stargazer/stargazer/repository/build/reports/jacoco/jacocoTestReport/html/index.html
+          bash <(curl -s https://codecov.io/bash) -f "stargazer/features/bookmarks/build/reports/jacoco/jacocoTestReport/html/index.html"
+          bash <(curl -s https://codecov.io/bash) -f "stargazer/stargazer/features/browse/build/reports/jacoco/jacocoTestReport/html/index.html"
+          bash <(curl -s https://codecov.io/bash) -f "stargazer/stargazer/features/repo-details/build/reports/jacoco/jacocoTestReport/html/index.html"
+          bash <(curl -s https://codecov.io/bash) -f "stargazer/stargazer/repository/build/reports/jacoco/jacocoTestReport/html/index.html"
