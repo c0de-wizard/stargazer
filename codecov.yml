@@ -18,19 +18,8 @@ coverage:
         if_ci_failed: error #success, failure, error, ignore
         informational: true
         only_pulls: true
-
-      features:
-        target: 20%
-        flags:
-          - features
     patch: no
     changes: no
-
-  flags:
-    features:
-      paths:
-        - stargazer/feature/*
-      carryforward: true
 
 parsers:
   gcov:
