@@ -43,8 +43,8 @@ jobs:
       - name: Make Jacoco Script Executatble
         run: chmod +x .scripts/upload-jacoco-reports.sh
 
-       - name: Execute Jacoco Upload Script
-         run: .scripts/upload-jacoco-reports.sh
+      - name: Execute Jacoco Upload Script
+        run: .scripts/upload-jacoco-reports.sh
   apk:
     needs: upload_report
     name: Generate APK
