@@ -45,14 +45,14 @@ jobs:
         with:
           name: Jacoco Test Reports
           path: |
-            stargazer/features/bookmarks/build/reports/jacoco/jacocoTestReport/html
-            stargazer/features/browse/build/reports/jacoco/jacocoTestReport/html
-            stargazer/features/repo-details/build/reports/jacoco/jacocoTestReport/html
-            stargazer/repository/build/reports/jacoco/jacocoTestReport/html
+            /home/runner/work/stargazer/stargazer/features/bookmarks/build/reports/jacoco/jacocoTestReport/html
+            /home/runner/work/stargazer/stargazer/features/browse/build/reports/jacoco/jacocoTestReport/html
+            /home/runner/work/stargazer/stargazer/features/repo-details/build/reports/jacoco/jacocoTestReport/html
+            /home/runner/work/stargazer/stargazer/repository/build/reports/jacoco/jacocoTestReport/html
 
       - name: Upload Test Report
         run: |
-          bash <(curl -s https://codecov.io/bash) -f "stargazer/features/bookmarks/build/reports/jacoco/jacocoTestReport/html/index.html"
-          bash <(curl -s https://codecov.io/bash) -f "stargazer/stargazer/features/browse/build/reports/jacoco/jacocoTestReport/html/index.html"
-          bash <(curl -s https://codecov.io/bash) -f "stargazer/stargazer/features/repo-details/build/reports/jacoco/jacocoTestReport/html/index.html"
-          bash <(curl -s https://codecov.io/bash) -f "stargazer/stargazer/repository/build/reports/jacoco/jacocoTestReport/html/index.html"
+          bash <(curl -s https://codecov.io/bash) -f "/home/runner/work/stargazer/stargazer/features/bookmarks/build/reports/jacoco/jacocoTestReport/html/index.html"
+          bash <(curl -s https://codecov.io/bash) -f "/home/runner/work/stargazer/stargazer/stargazer/features/browse/build/reports/jacoco/jacocoTestReport/html/index.html"
+          bash <(curl -s https://codecov.io/bash) -f "/home/runner/work/stargazer/stargazer/stargazer/features/repo-details/build/reports/jacoco/jacocoTestReport/html/index.html"
+          bash <(curl -s https://codecov.io/bash) -f "/home/runner/work/stargazer/stargazer/stargazer/repository/build/reports/jacoco/jacocoTestReport/html/index.html"
