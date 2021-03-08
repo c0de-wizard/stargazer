@@ -12,6 +12,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("jacoco")
     id("plugins.jacoco-report")
+    id("de.mannodermaus.android-junit5")
 }
 
 android {
@@ -30,7 +31,7 @@ android {
 
     buildTypes {
         named("debug") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             versionNameSuffix = "-DEBUG"
 
             isTestCoverageEnabled = true
@@ -53,7 +54,7 @@ android {
         jvmTarget = "1.8"
     }
 
-    lintOptions {
+    lint {
         lintConfig = rootProject.file(".lint/config.xml")
         isCheckAllWarnings = true
         isWarningsAsErrors = true
@@ -65,7 +66,12 @@ android {
         exclude("META-INF/licenses/**")
         exclude("META-INF/AL2.0")
         exclude("META-INF/LGPL2.1")
+        exclude("DebugProbesKt.bin")
     }
+}
+
+tasks.withType<Test>().configureEach {
+    useJUnitPlatform()
 }
 
 dependencies {
@@ -90,7 +96,6 @@ dependencies {
     implementation(Dependencies.Google.material)
     implementation(Dependencies.timber)
 
-    implementation(Dependencies.Coroutines.core)
     implementation(Dependencies.Coroutines.android)
 
     implementation(Dependencies.Google.Hilt.core)
@@ -98,6 +103,17 @@ dependencies {
     kapt(Dependencies.Google.Hilt.compiler)
 
     testImplementation(Dependencies.Testing.junit)
+    //TODO:: Remove truth & vintage dependency after migrating to junit5
+    testImplementation(Dependencies.Testing.truth)
+    testRuntimeOnly(Dependencies.Testing.Junit.vintage)
+
+    testImplementation(Dependencies.Testing.assertJ)
+
+    testImplementation(Dependencies.Testing.Junit.api)
+    testImplementation(Dependencies.Testing.Junit.params)
+    testRuntimeOnly(Dependencies.Testing.Junit.engine)
+
+
     testImplementation(Dependencies.Testing.turbine)
     testImplementation(Dependencies.Testing.mockitoKotlin)
     testImplementation(Dependencies.Testing.Mockito.core)

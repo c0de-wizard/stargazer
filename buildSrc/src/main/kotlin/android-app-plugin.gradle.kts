@@ -9,6 +9,7 @@ plugins {
     kotlin("kapt")
     id("androidx.navigation.safeargs.kotlin")
     id("dagger.hilt.android.plugin")
+    id("de.mannodermaus.android-junit5")
 }
 
 android {
@@ -54,7 +55,7 @@ android {
         jvmTarget = "1.8"
     }
 
-    lintOptions {
+    lint {
         lintConfig = rootProject.file(".lint/config.xml")
         isCheckAllWarnings = true
         isWarningsAsErrors = true
@@ -93,6 +94,5 @@ dependencies {
     implementation(Dependencies.Room.roomKtx)
 
     testImplementation(Dependencies.Testing.junit)
-    androidTestImplementation(Dependencies.Testing.androidJunit)
     androidTestImplementation(Dependencies.Testing.Espresso.core)
 }

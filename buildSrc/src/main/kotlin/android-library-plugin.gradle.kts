@@ -1,6 +1,7 @@
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getting
 import org.gradle.kotlin.dsl.kotlin
+import org.gradle.kotlin.dsl.project
 
 plugins {
     id("com.android.library")
@@ -10,6 +11,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("jacoco")
     id("plugins.jacoco-report")
+    id("de.mannodermaus.android-junit5")
 }
 
 android {
@@ -28,7 +30,7 @@ android {
 
     buildTypes {
         named("debug") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             versionNameSuffix = "-DEBUG"
 
             isTestCoverageEnabled = true
@@ -51,7 +53,7 @@ android {
         jvmTarget = "1.8"
     }
 
-    lintOptions {
+    lint {
         lintConfig = rootProject.file(".lint/config.xml")
         isCheckAllWarnings = true
         isWarningsAsErrors = true
@@ -63,21 +65,41 @@ android {
         exclude("META-INF/licenses/**")
         exclude("META-INF/AL2.0")
         exclude("META-INF/LGPL2.1")
+        exclude("DebugProbesKt.bin")
     }
 }
 
 dependencies {
+
+    testImplementation(project(":common-testing"))
+    androidTestImplementation(project(":common-testing"))
 
     implementation(Dependencies.Google.Hilt.core)
     implementation(Dependencies.Google.Hilt.viewmodel)
     kapt(Dependencies.Google.Hilt.compiler)
 
     testImplementation(Dependencies.Testing.junit)
+    //TODO:: Remove truth & vintage dependency after migrating to junit5
     testImplementation(Dependencies.Testing.truth)
+    testRuntimeOnly(Dependencies.Testing.Junit.vintage)
+
+    testImplementation(Dependencies.Testing.assertJ)
+
+    testImplementation(Dependencies.Testing.Junit.api)
+    testImplementation(Dependencies.Testing.Junit.params)
+    testRuntimeOnly(Dependencies.Testing.Junit.engine)
+
     testImplementation(Dependencies.Testing.mockitoKotlin)
     testImplementation(Dependencies.Testing.turbine)
     testImplementation(Dependencies.Testing.Coroutines.test)
+    testImplementation(Dependencies.Testing.AndroidX.core)
+    testImplementation(Dependencies.Testing.robolectric)
 
-    androidTestImplementation(Dependencies.Testing.androidJunit)
+    // AndroidJUnitRunner and JUnit Rules
+    testImplementation(Dependencies.Testing.AndroidX.junit)
+    testImplementation(Dependencies.Testing.AndroidX.rules)
+    testImplementation(Dependencies.Testing.AndroidX.runner)
+
+    androidTestImplementation(Dependencies.Testing.AndroidX.junit)
     androidTestImplementation(Dependencies.Testing.Espresso.core)
 }
