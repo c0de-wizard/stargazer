@@ -1,14 +1,15 @@
-package com.thomaskioko.githubstargazer.repository.mapper
+package com.thomaskioko.githubstargazer.mapper
 
-import com.google.common.truth.Truth.assertThat
-import com.thomaskioko.githubstargazer.repository.util.MockData.makeRepoResponseList
-import com.thomaskioko.stargazer.repository.mapper.RepositoryMapper.mapResponseToEntityList
-import org.junit.Test
+import org.assertj.core.api.Assertions.assertThat
+import com.thomaskioko.githubstargazer.mock.MockData.makeRepoResponseList
+import com.thomaskioko.stargazer.mapper.RepositoryMapper.mapResponseToEntityList
+import org.junit.jupiter.api.Test
+
 
 internal class RepositoryMapperTest {
 
     @Test
-    fun `givenResponseList dataIsMappedTo EntityList`() {
+    fun givenResponseList_thenDataIsMappedToEntityList() {
 
         val reposResponse = makeRepoResponseList()
         val entityList = mapResponseToEntityList(reposResponse)

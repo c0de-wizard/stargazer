@@ -1,4 +1,4 @@
-package com.thomaskioko.stargazer.repository.db.model
+package com.thomaskioko.stargazer.db.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -17,5 +17,6 @@ data class RepoEntity(
     val contributorsUrl: String,
     val createdDate: String,
     val updatedDate: String,
-    val isBookmarked: Boolean = false
+    val isBookmarked: Boolean = false,
+    val isTrending: Boolean = false
 )

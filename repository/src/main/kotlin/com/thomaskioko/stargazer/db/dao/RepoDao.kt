@@ -1,11 +1,10 @@
-package com.thomaskioko.stargazer.repository.db.dao
+package com.thomaskioko.stargazer.db.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.thomaskioko.stargazer.repository.db.model.RepoEntity
-import kotlinx.coroutines.flow.Flow
+import com.thomaskioko.stargazer.db.model.RepoEntity
 
 @Dao
 interface RepoDao {
@@ -17,7 +16,7 @@ interface RepoDao {
     suspend fun insertRepos(list: List<RepoEntity>)
 
     @Query("SELECT * FROM repo ORDER BY stargazersCount DESC")
-    suspend fun getRepos(): List<RepoEntity>
+    suspend fun getRepositories(): List<RepoEntity>
 
     @Query("SELECT * FROM repo where repoId = :repoId")
     suspend fun getRepoById(repoId: Long): RepoEntity
@@ -30,10 +29,4 @@ interface RepoDao {
 
     @Query("DELETE FROM repo")
     suspend fun clearRepos()
-
-    @Query("SELECT * FROM repo ORDER BY stargazersCount DESC")
-    fun getReposFlow(): Flow<List<RepoEntity>>
-
-    @Query("SELECT * FROM repo where repoId = :repoId")
-    fun getRepoByIdFlow(repoId: Long): Flow<RepoEntity>
 }

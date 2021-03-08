@@ -1,8 +1,8 @@
-package com.thomaskioko.stargazer.repository.injection
+package com.thomaskioko.stargazer.injection
 
 import android.content.Context
 import androidx.room.Room
-import com.thomaskioko.stargazer.repository.db.GithubDatabase
+import com.thomaskioko.stargazer.db.GithubDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

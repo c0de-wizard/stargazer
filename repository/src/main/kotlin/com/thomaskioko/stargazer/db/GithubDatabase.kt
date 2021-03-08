@@ -1,9 +1,9 @@
-package com.thomaskioko.stargazer.repository.db
+package com.thomaskioko.stargazer.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.thomaskioko.stargazer.repository.db.dao.RepoDao
-import com.thomaskioko.stargazer.repository.db.model.RepoEntity
+import com.thomaskioko.stargazer.db.dao.RepoDao
+import com.thomaskioko.stargazer.db.model.RepoEntity
 
 @Database(
     entities = [

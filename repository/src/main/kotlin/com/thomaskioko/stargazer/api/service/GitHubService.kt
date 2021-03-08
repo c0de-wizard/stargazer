@@ -1,6 +1,6 @@
-package com.thomaskioko.stargazer.repository.api.service
+package com.thomaskioko.stargazer.api.service
 
-import com.thomaskioko.stargazer.repository.api.model.RepoResponse
+import com.thomaskioko.stargazer.api.model.RepoResponse
 import retrofit2.http.GET
 
 interface GitHubService {

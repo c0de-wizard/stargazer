@@ -1,7 +1,7 @@
-package com.thomaskioko.stargazer.repository.mapper
+package com.thomaskioko.stargazer.mapper
 
-import com.thomaskioko.stargazer.repository.api.model.RepoResponse
-import com.thomaskioko.stargazer.repository.db.model.RepoEntity
+import com.thomaskioko.stargazer.api.model.RepoResponse
+import com.thomaskioko.stargazer.db.model.RepoEntity
 
 object RepositoryMapper {
 

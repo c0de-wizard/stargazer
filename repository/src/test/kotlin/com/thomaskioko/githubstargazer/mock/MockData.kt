@@ -1,8 +1,8 @@
-package com.thomaskioko.githubstargazer.repository.util
+package com.thomaskioko.githubstargazer.mock
 
-import com.thomaskioko.stargazer.repository.api.model.RepoResponse
-import com.thomaskioko.stargazer.repository.api.model.UserResponse
-import com.thomaskioko.stargazer.repository.db.model.RepoEntity
+import com.thomaskioko.stargazer.api.model.RepoResponse
+import com.thomaskioko.stargazer.api.model.UserResponse
+import com.thomaskioko.stargazer.db.model.RepoEntity
 
 internal object MockData {
 
@@ -44,5 +44,17 @@ internal object MockData {
             createdDate = "1/11/1900",
             updatedDate = "1/11/1900"
         )
+    )
+
+    fun makeRepoEntity(repoId: Long) = RepoEntity(
+        repoId = repoId,
+        name = "Square",
+        description = "Some cool description about the app",
+        userName = "ninja",
+        stargazersCount = 1,
+        forksCount = 1,
+        contributorsUrl = "",
+        createdDate = "1/11/1900",
+        updatedDate = "1/11/1900"
     )
 }
