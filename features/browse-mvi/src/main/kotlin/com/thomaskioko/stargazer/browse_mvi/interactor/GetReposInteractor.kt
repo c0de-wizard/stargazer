@@ -4,7 +4,7 @@ import com.thomaskioko.stargazer.browse_mvi.model.RepoViewDataModel
 import com.thomaskioko.stargazer.browse_mvi.model.ViewDataMapper.mapEntityListToRepoViewModel
 import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.core.interactor.Interactor
-import com.thomaskioko.stargazer.repository.api.GithubRepository
+import com.thomaskioko.stargazer.repository.GithubRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map

@@ -12,7 +12,6 @@ import com.thomaskioko.stargazer.core.ViewStateResult.Error
 import com.thomaskioko.stargazer.core.ViewStateResult.Loading
 import com.thomaskioko.stargazer.core.ViewStateResult.Success
 import com.thomaskioko.stargazer.core.interactor.invoke
-import com.thomaskioko.stargazer.testing.CoroutineScopeRule
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -25,9 +24,6 @@ internal class GetBookmarkedReposViewModelTest {
 
     @get:Rule
     val instantTaskExecutorRule: TestRule = InstantTaskExecutorRule()
-
-    @get:Rule
-    val scopeRule = CoroutineScopeRule()
 
     private val interactor: GetBookmarkedRepoListInteractor = mock()
     private lateinit var viewModel: GetBookmarkedReposViewModel

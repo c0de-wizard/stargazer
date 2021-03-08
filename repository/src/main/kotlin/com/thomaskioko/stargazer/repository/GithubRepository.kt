@@ -1,10 +1,10 @@
 package com.thomaskioko.stargazer.repository
 
 import com.thomaskioko.stargazer.core.injection.annotations.IoDispatcher
-import com.thomaskioko.stargazer.repository.api.service.GitHubService
-import com.thomaskioko.stargazer.repository.db.GithubDatabase
-import com.thomaskioko.stargazer.repository.db.model.RepoEntity
-import com.thomaskioko.stargazer.repository.mapper.RepositoryMapper.mapResponseToEntityList
+import com.thomaskioko.stargazer.api.service.GitHubService
+import com.thomaskioko.stargazer.db.GithubDatabase
+import com.thomaskioko.stargazer.db.model.RepoEntity
+import com.thomaskioko.stargazer.mapper.RepositoryMapper.mapResponseToEntityList
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

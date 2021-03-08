@@ -1,7 +1,7 @@
 package com.thomaskioko.stargazer.bookmarks.model.mapper
 
 import com.thomaskioko.stargazer.bookmarks.model.RepoViewDataModel
-import com.thomaskioko.stargazer.repository.db.model.RepoEntity
+import com.thomaskioko.stargazer.db.model.RepoEntity
 
 object ViewDataMapper {
 

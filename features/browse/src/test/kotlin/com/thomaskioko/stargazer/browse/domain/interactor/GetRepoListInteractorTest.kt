@@ -5,7 +5,7 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.thomaskioko.stargazer.browse.domain.ViewMockData.makeRepoEntityList
 import com.thomaskioko.stargazer.browse.domain.ViewMockData.makeRepoViewDataModelList
 import com.thomaskioko.stargazer.core.ViewStateResult
-import com.thomaskioko.stargazer.repository.api.GithubRepository
+import com.thomaskioko.stargazer.repository.GithubRepository
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking

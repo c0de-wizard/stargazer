@@ -1,7 +1,7 @@
 package com.thomaskioko.stargazer.browse.domain
 
 import com.thomaskioko.stargazer.browse.model.RepoViewDataModel
-import com.thomaskioko.stargazer.repository.db.model.RepoEntity
+import com.thomaskioko.stargazer.db.model.RepoEntity
 
 internal object ViewMockData {
 

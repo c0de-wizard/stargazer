@@ -1,6 +1,6 @@
 package com.thomaskioko.stargazer.details.model
 
-import com.thomaskioko.stargazer.repository.db.model.RepoEntity
+import com.thomaskioko.stargazer.db.model.RepoEntity
 
 internal object ViewDataMapper {
 

@@ -13,6 +13,8 @@ import com.thomaskioko.stargazer.navigation.ScreenNavigator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+const val SPLASH_DELAY_DURATION: Long = 1500
+
 @AndroidEntryPoint
 class SplashFragment : Fragment() {
 
@@ -35,7 +37,7 @@ class SplashFragment : Fragment() {
                 {
                     screenNavigator.goToScreen(RepoListScreen)
                 },
-                1500
+                SPLASH_DELAY_DURATION
             )
     }
 }
