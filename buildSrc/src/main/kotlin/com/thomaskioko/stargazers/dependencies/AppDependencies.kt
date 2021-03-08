@@ -38,8 +38,8 @@ object Dependencies {
     }
 
     object OkHttp {
-        const val okhttp = "com.squareup.okhttp3:okhttp:${DependencyVersions.hiltViewModel}"
-        const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${DependencyVersions.hiltViewModel}"
+        const val okhttp = "com.squareup.okhttp3:okhttp:${DependencyVersions.okhttp}"
+        const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${DependencyVersions.okhttp}"
     }
 
     object Retrofit {
