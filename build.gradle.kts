@@ -1,3 +1,4 @@
+import com.thomaskioko.stargazers.dependencies.Dependencies
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
@@ -5,7 +6,7 @@ buildscript {
 }
 
 plugins {
-    id("com.vanniktech.android.junit.jacoco") version "0.16.0"
+    id("com.vanniktech.android.junit.jacoco") version DependencyVersions.jacoco
 }
 
 allprojects {
@@ -14,11 +15,16 @@ allprojects {
     plugins.apply("plugins.ktlint")
     plugins.apply("plugins.detekt")
     plugins.apply("plugins.spotless")
+    plugins.apply("plugins.dependency-updates")
 
     configurations.all {
+        resolutionStrategy.force("org.jetbrains.kotlinx:kotlinx-coroutines-core:${DependencyVersions.coroutines}")
+        resolutionStrategy.force("org.jetbrains.kotlinx:kotlinx-coroutines-android:${DependencyVersions.coroutines}")
+        resolutionStrategy.force("org.jetbrains.kotlinx:kotlinx-coroutines-test:${DependencyVersions.coroutines}")
+
         resolutionStrategy.eachDependency {
             if (requested.group == "org.jetbrains.kotlin") {
-                useVersion(kotlinVersion)
+                useVersion(PluginsVersions.kotlin)
             }
         }
     }
@@ -32,12 +38,12 @@ subprojects {
             languageVersion = "1.5"
             apiVersion = "1.5"
             freeCompilerArgs += "-Xuse-experimental=" +
-                "kotlin.Experimental," +
-                "kotlin.time.ExperimentalTime," +
-                "kotlinx.coroutines.ExperimentalCoroutinesApi," +
-                "kotlinx.coroutines.InternalCoroutinesApi," +
-                "kotlinx.coroutines.ObsoleteCoroutinesApi," +
-                "kotlinx.coroutines.FlowPreview"
+                    "kotlin.Experimental," +
+                    "kotlin.time.ExperimentalTime," +
+                    "kotlinx.coroutines.ExperimentalCoroutinesApi," +
+                    "kotlinx.coroutines.InternalCoroutinesApi," +
+                    "kotlinx.coroutines.ObsoleteCoroutinesApi," +
+                    "kotlinx.coroutines.FlowPreview"
             freeCompilerArgs += "-Xopt-in=kotlin.ExperimentalStdlibApi"
         }
     }
