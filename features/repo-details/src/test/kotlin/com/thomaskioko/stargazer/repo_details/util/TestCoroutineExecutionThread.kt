@@ -1,4 +1,4 @@
-package com.thomaskioko.githubstargazer.repository
+package com.thomaskioko.stargazer.repo_details.util
 
 import com.thomaskioko.stargazer.core.executor.CoroutineExecutionThread
 import kotlinx.coroutines.CoroutineDispatcher
