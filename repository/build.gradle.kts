@@ -1,3 +1,5 @@
+import com.thomaskioko.stargazers.dependencies.Dependencies
+
 plugins {
     `android-library-plugin`
 }
@@ -7,12 +9,12 @@ dependencies {
     implementation(project(":core"))
 
     implementation(Dependencies.Retrofit.retrofit)
-    implementation(Dependencies.Retrofit.retrofitCoroutinesConverter)
+    implementation(Dependencies.Retrofit.coroutinesConverter)
     implementation(Dependencies.OkHttp.okhttp)
     implementation(Dependencies.OkHttp.loggingInterceptor)
 
     implementation(Dependencies.Retrofit.Moshi.core)
-    implementation(Dependencies.Retrofit.Moshi.converter)
+    implementation(Dependencies.Retrofit.moshiConverter)
     kapt(Dependencies.Retrofit.Moshi.kapt)
 
     implementation(Dependencies.Room.roomKtx)

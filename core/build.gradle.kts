@@ -1,3 +1,5 @@
+import com.thomaskioko.stargazers.dependencies.Dependencies
+
 plugins {
     `android-library-plugin`
 }
@@ -9,6 +11,5 @@ dependencies {
     implementation(Dependencies.AndroidX.Lifecycle.runtime)
     implementation(Dependencies.AndroidX.Lifecycle.viewmodel)
 
-    implementation(Dependencies.Coroutines.core)
-    implementation(Dependencies.Coroutines.reactive)
+    implementation(Dependencies.Coroutines.android)
 }
