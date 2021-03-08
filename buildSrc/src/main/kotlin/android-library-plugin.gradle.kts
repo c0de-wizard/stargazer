@@ -1,3 +1,4 @@
+import com.thomaskioko.stargazers.dependencies.Dependencies
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getting
 import org.gradle.kotlin.dsl.kotlin

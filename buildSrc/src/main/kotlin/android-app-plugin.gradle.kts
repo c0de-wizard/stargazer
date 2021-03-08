@@ -1,3 +1,4 @@
+import com.thomaskioko.stargazers.dependencies.Dependencies
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getting
 import org.gradle.kotlin.dsl.kotlin
@@ -86,7 +87,7 @@ dependencies {
     implementation(Dependencies.leakCanary)
 
     implementation(Dependencies.Retrofit.Moshi.core)
-    implementation(Dependencies.Retrofit.Moshi.converter)
+    implementation(Dependencies.Retrofit.moshiConverter)
     kapt(Dependencies.Retrofit.Moshi.kapt)
 
     implementation(Dependencies.OkHttp.loggingInterceptor)
