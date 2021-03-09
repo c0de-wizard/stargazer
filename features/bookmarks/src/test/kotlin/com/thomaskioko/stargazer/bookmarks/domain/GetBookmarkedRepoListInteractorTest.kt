@@ -1,35 +1,33 @@
 package com.thomaskioko.stargazer.bookmarks.domain
 
-import com.google.common.truth.Truth.assertThat
-import com.nhaarman.mockitokotlin2.whenever
+import app.cash.turbine.test
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.mock
 import com.thomaskioko.stargazer.bookmarks.ViewMockData.makeRepoEntityList
 import com.thomaskioko.stargazer.bookmarks.ViewMockData.makeRepoViewDataModelList
 import com.thomaskioko.stargazer.bookmarks.domain.interactor.GetBookmarkedRepoListInteractor
 import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.core.interactor.invoke
-import com.thomaskioko.stargazer.repository.api.GithubRepository
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.toList
+import com.thomaskioko.stargazer.repository.GithubRepository
 import kotlinx.coroutines.runBlocking
-import org.junit.Test
-import org.mockito.Mockito
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
-@ExperimentalCoroutinesApi
 internal class GetBookmarkedRepoListInteractorTest {
 
-    private val repository: GithubRepository = Mockito.mock(GithubRepository::class.java)
-    private val interactor = GetBookmarkedRepoListInteractor(repository)
+    private val testDispatcher = TestCoroutineDispatcher()
+    private val repository: GithubRepository = mock {
+        onBlocking { getBookmarkedRepos() } doReturn makeRepoEntityList()
+    }
+
+    private val interactor = GetBookmarkedRepoListInteractor(repository, testDispatcher)
 
     @Test
     fun `whenever getBookmarkedRepos expectedDataIsReturned`() = runBlocking {
-        whenever(repository.getBookmarkedRepos()).thenReturn(makeRepoEntityList())
-
-        val result = interactor().toList()
-        val expected = listOf(
-            ViewStateResult.Loading(),
-            ViewStateResult.Success(makeRepoViewDataModelList())
-        )
-
-        assertThat(expected).isEqualTo(result)
+        interactor().test {
+            assertEquals(expectItem(), ViewStateResult.Success(makeRepoViewDataModelList()))
+            expectComplete()
+        }
     }
 }

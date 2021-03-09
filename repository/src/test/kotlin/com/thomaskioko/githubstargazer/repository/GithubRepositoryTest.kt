@@ -5,13 +5,13 @@ import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import com.thomaskioko.githubstargazer.repository.util.MockData.makeRepoEntity
-import com.thomaskioko.githubstargazer.repository.util.MockData.makeRepoEntityList
-import com.thomaskioko.githubstargazer.repository.util.MockData.makeRepoResponseList
+import com.thomaskioko.githubstargazer.mock.MockData.makeRepoEntity
+import com.thomaskioko.githubstargazer.mock.MockData.makeRepoEntityList
+import com.thomaskioko.githubstargazer.mock.MockData.makeRepoResponseList
+import com.thomaskioko.stargazer.api.service.GitHubService
+import com.thomaskioko.stargazer.db.GithubDatabase
+import com.thomaskioko.stargazer.db.dao.RepoDao
 import com.thomaskioko.stargazer.repository.GithubRepository
-import com.thomaskioko.stargazer.repository.api.service.GitHubService
-import com.thomaskioko.stargazer.repository.db.GithubDatabase
-import com.thomaskioko.stargazer.repository.db.dao.RepoDao
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -34,7 +34,6 @@ class GithubRepositoryTest {
     private val testDispatcher = TestCoroutineDispatcher()
 
     private var repository = GithubRepository(service, database, testDispatcher)
-
 
     @Test
     fun `givenDeviceIsConnected andCacheHasNoData verify data isLoadedFrom Remote`() {
@@ -97,6 +96,5 @@ class GithubRepositoryTest {
         repository.updateRepoBookMarkStatus(1, 3)
 
         verify(database.repoDao()).setBookmarkStatus(1, 3)
-
     }
 }
