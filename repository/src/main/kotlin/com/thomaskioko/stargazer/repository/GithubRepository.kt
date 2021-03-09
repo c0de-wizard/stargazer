@@ -1,7 +1,7 @@
 package com.thomaskioko.stargazer.repository
 
-import com.thomaskioko.stargazer.core.injection.annotations.IoDispatcher
 import com.thomaskioko.stargazer.api.service.GitHubService
+import com.thomaskioko.stargazer.core.injection.annotations.IoDispatcher
 import com.thomaskioko.stargazer.db.GithubDatabase
 import com.thomaskioko.stargazer.db.model.RepoEntity
 import com.thomaskioko.stargazer.mapper.RepositoryMapper.mapResponseToEntityList
@@ -24,7 +24,6 @@ class GithubRepository @Inject constructor(
         }
     }
         .flowOn(ioDispatcher)
-
 
     private suspend fun loadFromNetwork(): List<RepoEntity> {
         val apiResult = service.getRepositories()
