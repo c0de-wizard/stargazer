@@ -26,7 +26,7 @@ object DependencyVersions {
     const val appCompat = "1.3.0-beta01"
     const val assertJ = "3.19.0"
     const val constraintLayout = "2.1.0-alpha2"
-    const val coroutines = "1.4.0" //TODO::Bump up the version once Turbine is upgraded
+    const val coroutines = "1.4.2" // TODO::Bump up the version once Turbine is upgraded
     const val coreKtx = "1.5.0-beta02"
     const val dataStore = "1.0.0-alpha07"
     const val espresso: String = "3.4.0-alpha04"
