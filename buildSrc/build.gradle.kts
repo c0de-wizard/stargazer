@@ -19,9 +19,9 @@ compileKotlin.kotlinOptions {
     languageVersion = PluginsVersions.kotlin
 }
 
-//TODO:: Move version to versionNumbers file
+// TODO:: Move version to versionNumbers file
 object PluginsVersions {
-    const val androidGradle = "7.0.0-alpha08"
+    const val androidGradle = "7.0.0-alpha09"
     const val kotlin = "1.4.30"
     const val navigaiton = "2.3.2"
     const val daggerHiltAndroid: String = "2.33-beta"
