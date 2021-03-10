@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 import com.thomaskioko.stargazers.dependencies.Dependencies
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getting
@@ -62,11 +64,11 @@ android {
     }
 
     packagingOptions {
-        exclude("**/attach_hotspot_windows.dll")
-        exclude("META-INF/licenses/**")
-        exclude("META-INF/AL2.0")
-        exclude("META-INF/LGPL2.1")
-        exclude("DebugProbesKt.bin")
+        resources.excludes.add("**/attach_hotspot_windows.dll")
+        resources.excludes.add("META-INF/licenses/**")
+        resources.excludes.add("META-INF/AL2.0")
+        resources.excludes.add("META-INF/LGPL2.1")
+        resources.excludes.add("DebugProbesKt.bin")
     }
 }
 
@@ -80,7 +82,7 @@ dependencies {
     kapt(Dependencies.Google.Hilt.compiler)
 
     testImplementation(Dependencies.Testing.junit)
-    //TODO:: Remove truth & vintage dependency after migrating to junit5
+    // TODO:: Remove truth & vintage dependency after migrating to junit5
     testImplementation(Dependencies.Testing.truth)
     testRuntimeOnly(Dependencies.Testing.Junit.vintage)
 
