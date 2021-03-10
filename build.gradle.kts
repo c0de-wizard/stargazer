@@ -1,4 +1,3 @@
-import com.thomaskioko.stargazers.dependencies.Dependencies
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
@@ -38,12 +37,12 @@ subprojects {
             languageVersion = "1.5"
             apiVersion = "1.5"
             freeCompilerArgs += "-Xuse-experimental=" +
-                    "kotlin.Experimental," +
-                    "kotlin.time.ExperimentalTime," +
-                    "kotlinx.coroutines.ExperimentalCoroutinesApi," +
-                    "kotlinx.coroutines.InternalCoroutinesApi," +
-                    "kotlinx.coroutines.ObsoleteCoroutinesApi," +
-                    "kotlinx.coroutines.FlowPreview"
+                "kotlin.Experimental," +
+                "kotlin.time.ExperimentalTime," +
+                "kotlinx.coroutines.ExperimentalCoroutinesApi," +
+                "kotlinx.coroutines.InternalCoroutinesApi," +
+                "kotlinx.coroutines.ObsoleteCoroutinesApi," +
+                "kotlinx.coroutines.FlowPreview"
             freeCompilerArgs += "-Xopt-in=kotlin.ExperimentalStdlibApi"
         }
     }
