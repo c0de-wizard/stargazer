@@ -1,7 +1,6 @@
 package com.thomaskioko.stargazer.bookmarks.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.thomaskioko.stargazer.bookmarks.domain.interactor.GetBookmarkedRepoListInteractor
 import com.thomaskioko.stargazer.bookmarks.model.RepoViewDataModel
 import com.thomaskioko.stargazer.core.ViewStateResult
@@ -9,11 +8,12 @@ import com.thomaskioko.stargazer.core.injection.annotations.DefaultDispatcher
 import com.thomaskioko.stargazer.core.interactor.invoke
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,11 +26,17 @@ class GetBookmarkedReposViewModel @Inject constructor(
         MutableStateFlow(ViewStateResult.loading())
     val bookmarkedList: SharedFlow<ViewStateResult<List<RepoViewDataModel>>> get() = _mutableRepoListStateResult
 
+    private val viewModelJob = SupervisorJob()
+    private val ioScope = CoroutineScope(ioDispatcher + viewModelJob)
+
     fun getBookmarkedRepos() {
-        viewModelScope.launch(ioDispatcher) {
-            interactor()
-                .onStart { _mutableRepoListStateResult.value = ViewStateResult.loading() }
-                .onEach { _mutableRepoListStateResult.value = it }
-        }
+        interactor()
+            .onEach { _mutableRepoListStateResult.emit(it) }
+            .launchIn(ioScope)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
     }
 }

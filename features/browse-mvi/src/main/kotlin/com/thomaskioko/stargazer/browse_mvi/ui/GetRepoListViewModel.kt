@@ -1,6 +1,5 @@
 package com.thomaskioko.stargazer.browse_mvi.ui
 
-import androidx.lifecycle.viewModelScope
 import com.thomaskioko.stargazer.browse_mvi.interactor.GetReposInteractor
 import com.thomaskioko.stargazer.browse_mvi.model.RepoViewDataModel
 import com.thomaskioko.stargazer.browse_mvi.ui.ReposAction.LoadRepositories
@@ -15,8 +14,10 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 
 internal class GetRepoListViewModel @AssistedInject constructor(
     private val interactor: GetReposInteractor,
@@ -25,6 +26,9 @@ internal class GetRepoListViewModel @AssistedInject constructor(
 ) : BaseViewModel<ReposIntent, ReposAction, ReposViewState>(
     initialViewState = ReposViewState.Loading
 ) {
+
+    private val viewModelJob = SupervisorJob()
+    private val ioScope = CoroutineScope(ioDispatcher + viewModelJob)
 
     @AssistedFactory
     interface Factory : AssistedViewModelFactory<ScreenNavigator> {
@@ -41,14 +45,18 @@ internal class GetRepoListViewModel @AssistedInject constructor(
     override fun handleAction(action: ReposAction) {
         when (action) {
             is LoadRepositories -> {
-                viewModelScope.launch(ioDispatcher) {
                     interactor(action.isConnected)
                         .onEach { channelState.offer(it.reduce()) }
-                }
+                        .launchIn(ioScope)
             }
             is NavigateToRepoDetail ->
                 screenNavigator.goToScreen(RepoDetailScreen(action.repoId, action.extras))
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
     }
 }
 
