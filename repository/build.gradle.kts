@@ -7,6 +7,7 @@ plugins {
 dependencies {
 
     implementation(project(":core"))
+    testImplementation(project(":common-testing"))
 
     implementation(Dependencies.Retrofit.retrofit)
     implementation(Dependencies.Retrofit.coroutinesConverter)

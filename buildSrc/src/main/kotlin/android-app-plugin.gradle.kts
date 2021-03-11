@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 import com.thomaskioko.stargazers.dependencies.Dependencies
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getting
@@ -93,7 +95,4 @@ dependencies {
     implementation(Dependencies.OkHttp.loggingInterceptor)
 
     implementation(Dependencies.Room.roomKtx)
-
-    testImplementation(Dependencies.Testing.junit)
-    androidTestImplementation(Dependencies.Testing.Espresso.core)
 }

@@ -80,29 +80,4 @@ dependencies {
     implementation(Dependencies.Google.Hilt.core)
     implementation(Dependencies.Google.Hilt.viewmodel)
     kapt(Dependencies.Google.Hilt.compiler)
-
-    testImplementation(Dependencies.Testing.junit)
-    // TODO:: Remove truth & vintage dependency after migrating to junit5
-    testImplementation(Dependencies.Testing.truth)
-    testRuntimeOnly(Dependencies.Testing.Junit.vintage)
-
-    testImplementation(Dependencies.Testing.assertJ)
-
-    testImplementation(Dependencies.Testing.Junit.api)
-    testImplementation(Dependencies.Testing.Junit.params)
-    testRuntimeOnly(Dependencies.Testing.Junit.engine)
-
-    testImplementation(Dependencies.Testing.mockitoKotlin)
-    testImplementation(Dependencies.Testing.turbine)
-    testImplementation(Dependencies.Testing.Coroutines.test)
-    testImplementation(Dependencies.Testing.AndroidX.core)
-    testImplementation(Dependencies.Testing.robolectric)
-
-    // AndroidJUnitRunner and JUnit Rules
-    testImplementation(Dependencies.Testing.AndroidX.junit)
-    testImplementation(Dependencies.Testing.AndroidX.rules)
-    testImplementation(Dependencies.Testing.AndroidX.runner)
-
-    androidTestImplementation(Dependencies.Testing.AndroidX.junit)
-    androidTestImplementation(Dependencies.Testing.Espresso.core)
 }
