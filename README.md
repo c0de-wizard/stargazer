@@ -122,8 +122,8 @@ To maintain the style and quality of the code, are used the bellow static analys
 - [ ] Implement search functionality.
 
 ### Test Tasks
-- [ ] Switch to Junit5
-- [ ] Move test dependencies to common-testing
-- [ ] Add/update missing test cases.
-- [ ] Fix flaky tests.
+- [x] Switch to Junit5
+- [x] Move test dependencies to common-testing
+- [x] Add/update missing test cases.
+- [x] Fix flaky tests.
 - [ ] Add instrumentation tests.
