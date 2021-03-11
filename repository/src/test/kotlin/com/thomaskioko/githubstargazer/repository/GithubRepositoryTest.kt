@@ -14,7 +14,6 @@ import com.thomaskioko.stargazer.api.service.GitHubService
 import com.thomaskioko.stargazer.db.GithubDatabase
 import com.thomaskioko.stargazer.db.dao.RepoDao
 import com.thomaskioko.stargazer.repository.GithubRepository
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -24,7 +23,12 @@ import org.mockito.Mockito.verify
 
 class GithubRepositoryTest {
 
-    private val repoDao: RepoDao = mock()
+    private val repoDao: RepoDao = mock {
+        onBlocking { getRepositories() } doReturn makeRepoEntityList()
+        onBlocking { getTrendingRepositories() } doReturn makeTrendingRepoEntityList()
+        onBlocking { getBookmarkedRepos() } doReturn makeRepoEntityList()
+        onBlocking { getRepoById(1234) } doReturn makeRepoEntity(1234, false)
+    }
 
     private val database: GithubDatabase = mock {
         on { repoDao() } doReturn repoDao
@@ -41,7 +45,6 @@ class GithubRepositoryTest {
     @Test
     fun `givenDeviceIsConnected andCacheHasNoData verify data isLoadedFrom Remote`() {
         runBlocking {
-            whenever(repoDao.getRepositories()).thenReturn(makeRepoEntityList())
 
             repository.getRepositoryList(true).test {
                 assertEquals(expectItem(), makeRepoEntityList())
@@ -55,10 +58,8 @@ class GithubRepositoryTest {
     }
 
     @Test
-    fun `givenDeviceIsConnected andCacheHasNoData getTrendingRepositories isLoadedFromRemote`() {
+    fun givenDeviceIsConnected_andCacheHasNoData_getTrendingRepositories_isLoadedFromRemote() {
         runBlocking {
-            whenever(repoDao.getTrendingRepositories())
-                .thenReturn(makeTrendingRepoEntityList())
 
             repository.getTrendingTrendingRepositories(true).test {
                 assertEquals(expectItem(), makeTrendingRepoEntityList())
@@ -72,24 +73,38 @@ class GithubRepositoryTest {
     }
 
     @Test
-    fun `givenDeviceIsNotConnected verify data isLoadedFrom Database`() = runBlocking {
+    fun givenDeviceIsNotConnected_verifyTrendingDataIsLoadedFromDatabase() {
+        runBlocking {
 
-        whenever(repoDao.getRepositories()).thenReturn(makeRepoEntityList())
+            repository.getTrendingTrendingRepositories(false).test {
+                assertEquals(expectItem(), makeTrendingRepoEntityList())
+                expectComplete()
+            }
 
-        val repos = repository.getRepositoryList(false).toList()
-        val expected = listOf(makeRepoEntityList())
+            verify(service, never()).getTrendingRepositories()
+            verify(database.repoDao()).getTrendingRepositories()
+        }
+    }
 
-        verify(service, never()).getRepositories()
-        verify(database.repoDao()).getRepositories()
+    @Test
+    fun givenDeviceIsNotConnected_verify_dataIsLoadedFromDatabase() {
+        runBlocking {
 
-        assertThat(repos).isEqualTo(expected)
+            whenever(repoDao.getRepositories()).thenReturn(makeRepoEntityList())
+
+            repository.getRepositoryList(false).test {
+                assertEquals(expectItem(), makeRepoEntityList())
+                expectComplete()
+            }
+
+            verify(service, never()).getRepositories()
+            verify(database.repoDao()).getRepositories()
+        }
     }
 
     @Test
     fun `givenRepoId verify data isLoadedFrom Database`() = runBlocking {
         val expected = makeRepoEntity(1234, false)
-
-        whenever(repoDao.getRepoById(expected.repoId)).thenReturn(expected)
 
         val repoEntity = repository.getRepoById(expected.repoId)
 
@@ -100,8 +115,6 @@ class GithubRepositoryTest {
 
     @Test
     fun givenGetBookmarkedRepos_isInvoked_verify_EntityListIsReturned() = runBlocking {
-
-        whenever(repoDao.getBookmarkedRepos()).thenReturn(makeRepoEntityList())
 
         val repoEntity = repository.getBookmarkedRepos()
 

@@ -11,8 +11,8 @@ import com.thomaskioko.stargazer.repo_details.util.ViewMockData.makeRepoViewData
 import com.thomaskioko.stargazer.repository.GithubRepository
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
-import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.anyLong
 
 internal class UpdateRepoBookmarkStateInteractorTest {
