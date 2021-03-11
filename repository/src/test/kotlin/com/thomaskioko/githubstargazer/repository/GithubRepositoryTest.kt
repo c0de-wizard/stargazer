@@ -8,6 +8,8 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.thomaskioko.githubstargazer.mock.MockData.makeRepoEntity
 import com.thomaskioko.githubstargazer.mock.MockData.makeRepoEntityList
 import com.thomaskioko.githubstargazer.mock.MockData.makeRepoResponseList
+import com.thomaskioko.githubstargazer.mock.MockData.makeTrendingRepoEntityList
+import com.thomaskioko.githubstargazer.mock.MockData.makeTrendingRepoResponseList
 import com.thomaskioko.stargazer.api.service.GitHubService
 import com.thomaskioko.stargazer.db.GithubDatabase
 import com.thomaskioko.stargazer.db.dao.RepoDao
@@ -29,6 +31,7 @@ class GithubRepositoryTest {
     }
     private val service: GitHubService = mock {
         onBlocking { getRepositories() } doReturn makeRepoResponseList()
+        onBlocking { getTrendingRepositories() } doReturn makeTrendingRepoResponseList()
     }
 
     private val testDispatcher = TestCoroutineDispatcher()
@@ -52,6 +55,23 @@ class GithubRepositoryTest {
     }
 
     @Test
+    fun `givenDeviceIsConnected andCacheHasNoData getTrendingRepositories isLoadedFromRemote`() {
+        runBlocking {
+            whenever(repoDao.getTrendingRepositories())
+                .thenReturn(makeTrendingRepoEntityList())
+
+            repository.getTrendingTrendingRepositories(true).test {
+                assertEquals(expectItem(), makeTrendingRepoEntityList())
+                expectComplete()
+            }
+
+            verify(service).getTrendingRepositories()
+            verify(database.repoDao()).insertRepos(makeTrendingRepoEntityList())
+            verify(database.repoDao()).getTrendingRepositories()
+        }
+    }
+
+    @Test
     fun `givenDeviceIsNotConnected verify data isLoadedFrom Database`() = runBlocking {
 
         whenever(repoDao.getRepositories()).thenReturn(makeRepoEntityList())
@@ -67,7 +87,7 @@ class GithubRepositoryTest {
 
     @Test
     fun `givenRepoId verify data isLoadedFrom Database`() = runBlocking {
-        val expected = makeRepoEntity(1234)
+        val expected = makeRepoEntity(1234, false)
 
         whenever(repoDao.getRepoById(expected.repoId)).thenReturn(expected)
 

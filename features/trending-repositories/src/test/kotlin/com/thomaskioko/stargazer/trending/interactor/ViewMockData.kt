@@ -1,7 +1,7 @@
 package com.thomaskioko.stargazer.trending.interactor
 
-import com.thomaskioko.stargazer.trending.model.RepoViewDataModel
 import com.thomaskioko.stargazer.db.model.RepoEntity
+import com.thomaskioko.stargazer.trending.model.RepoViewDataModel
 
 internal object ViewMockData {
 

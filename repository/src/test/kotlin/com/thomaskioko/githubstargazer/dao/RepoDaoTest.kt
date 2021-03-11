@@ -48,8 +48,8 @@ class RepoDaoTest {
     fun givenRepos_verifyDataIsSaved_onInsertRepos() = runBlocking {
 
         val list = listOf(
-            makeRepoEntity(12314),
-            makeRepoEntity(12)
+            makeRepoEntity(12314, false),
+            makeRepoEntity(12, false)
         )
 
         database.repoDao().insertRepos(list)
@@ -62,8 +62,10 @@ class RepoDaoTest {
     fun givenRepos_verifyDataIsReturned_onGetRepos() = runBlocking {
 
         val list = listOf(
-            makeRepoEntity(12314),
-            makeRepoEntity(12)
+            makeRepoEntity(12314, false),
+            makeRepoEntity(12, true),
+            makeRepoEntity(14, false),
+            makeRepoEntity(17, true)
         )
 
         database.repoDao().insertRepos(list)
@@ -72,11 +74,26 @@ class RepoDaoTest {
     }
 
     @Test
+    fun givenRepos_verifyDataIsReturned_onTrendingRepositories() = runBlocking {
+
+        val list = listOf(
+            makeRepoEntity(12314, false),
+            makeRepoEntity(12, true),
+            makeRepoEntity(14, false),
+            makeRepoEntity(19, true)
+        )
+
+        database.repoDao().insertRepos(list)
+        val query = database.repoDao().getTrendingRepositories()
+        assertEquals(query.size, 2)
+    }
+
+    @Test
     fun givenRepos_verifyDataIsDeleted_onClearRepos() = runBlocking {
 
         val list = listOf(
-            makeRepoEntity(12314),
-            makeRepoEntity(12)
+            makeRepoEntity(12314, false),
+            makeRepoEntity(12, false)
         )
 
         database.repoDao().insertRepos(list)
@@ -92,8 +109,8 @@ class RepoDaoTest {
     fun givenIsUpdated_verifyLatestDataIsReturned_onGetBookmarkedRepos() = runBlocking {
 
         val list = listOf(
-            makeRepoEntity(12314),
-            makeRepoEntity(12)
+            makeRepoEntity(12314, false),
+            makeRepoEntity(12, false)
         )
 
         database.repoDao().insertRepos(list)
