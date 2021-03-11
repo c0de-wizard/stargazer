@@ -1,6 +1,10 @@
+@file:Suppress("UnstableApiUsage")
+
+import com.thomaskioko.stargazers.dependencies.Dependencies
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getting
 import org.gradle.kotlin.dsl.kotlin
+import org.gradle.kotlin.dsl.project
 
 plugins {
     id("com.android.library")
@@ -10,6 +14,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("jacoco")
     id("plugins.jacoco-report")
+    id("de.mannodermaus.android-junit5")
 }
 
 android {
@@ -28,7 +33,7 @@ android {
 
     buildTypes {
         named("debug") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             versionNameSuffix = "-DEBUG"
 
             isTestCoverageEnabled = true
@@ -51,7 +56,7 @@ android {
         jvmTarget = "1.8"
     }
 
-    lintOptions {
+    lint {
         lintConfig = rootProject.file(".lint/config.xml")
         isCheckAllWarnings = true
         isWarningsAsErrors = true
@@ -59,25 +64,20 @@ android {
     }
 
     packagingOptions {
-        exclude("**/attach_hotspot_windows.dll")
-        exclude("META-INF/licenses/**")
-        exclude("META-INF/AL2.0")
-        exclude("META-INF/LGPL2.1")
+        resources.excludes.add("**/attach_hotspot_windows.dll")
+        resources.excludes.add("META-INF/licenses/**")
+        resources.excludes.add("META-INF/AL2.0")
+        resources.excludes.add("META-INF/LGPL2.1")
+        resources.excludes.add("DebugProbesKt.bin")
     }
 }
 
 dependencies {
 
+    testImplementation(project(":common-testing"))
+    androidTestImplementation(project(":common-testing"))
+
     implementation(Dependencies.Google.Hilt.core)
     implementation(Dependencies.Google.Hilt.viewmodel)
     kapt(Dependencies.Google.Hilt.compiler)
-
-    testImplementation(Dependencies.Testing.junit)
-    testImplementation(Dependencies.Testing.truth)
-    testImplementation(Dependencies.Testing.mockitoKotlin)
-    testImplementation(Dependencies.Testing.turbine)
-    testImplementation(Dependencies.Testing.Coroutines.test)
-
-    androidTestImplementation(Dependencies.Testing.androidJunit)
-    androidTestImplementation(Dependencies.Testing.Espresso.core)
 }

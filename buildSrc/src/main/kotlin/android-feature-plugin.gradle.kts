@@ -1,3 +1,6 @@
+@file:Suppress("UnstableApiUsage")
+
+import com.thomaskioko.stargazers.dependencies.Dependencies
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getting
 import org.gradle.kotlin.dsl.kotlin
@@ -12,6 +15,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("jacoco")
     id("plugins.jacoco-report")
+    id("de.mannodermaus.android-junit5")
 }
 
 android {
@@ -30,7 +34,7 @@ android {
 
     buildTypes {
         named("debug") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             versionNameSuffix = "-DEBUG"
 
             isTestCoverageEnabled = true
@@ -53,7 +57,7 @@ android {
         jvmTarget = "1.8"
     }
 
-    lintOptions {
+    lint {
         lintConfig = rootProject.file(".lint/config.xml")
         isCheckAllWarnings = true
         isWarningsAsErrors = true
@@ -61,11 +65,16 @@ android {
     }
 
     packagingOptions {
-        exclude("**/attach_hotspot_windows.dll")
-        exclude("META-INF/licenses/**")
-        exclude("META-INF/AL2.0")
-        exclude("META-INF/LGPL2.1")
+        resources.excludes.add("**/attach_hotspot_windows.dll")
+        resources.excludes.add("META-INF/licenses/**")
+        resources.excludes.add("META-INF/AL2.0")
+        resources.excludes.add("META-INF/LGPL2.1")
+        resources.excludes.add("DebugProbesKt.bin")
     }
+}
+
+tasks.withType<Test>().configureEach {
+    useJUnitPlatform()
 }
 
 dependencies {
@@ -90,20 +99,12 @@ dependencies {
     implementation(Dependencies.Google.material)
     implementation(Dependencies.timber)
 
-    implementation(Dependencies.Coroutines.core)
     implementation(Dependencies.Coroutines.android)
 
     implementation(Dependencies.Google.Hilt.core)
     implementation(Dependencies.Google.Hilt.viewmodel)
     kapt(Dependencies.Google.Hilt.compiler)
 
-    testImplementation(Dependencies.Testing.junit)
-    testImplementation(Dependencies.Testing.turbine)
-    testImplementation(Dependencies.Testing.mockitoKotlin)
-    testImplementation(Dependencies.Testing.Mockito.core)
-    testImplementation(Dependencies.Testing.AndroidX.core)
-
     androidTestImplementation(Dependencies.Testing.AndroidX.junit)
     androidTestImplementation(Dependencies.Testing.AndroidX.fragment)
-    androidTestImplementation(Dependencies.Testing.Espresso.core)
 }

@@ -8,7 +8,7 @@ dependencies {
     implementation(project(":repository"))
     implementation(project(":navigation"))
     implementation(project(":features:browse"))
-    implementation(project(":features:browse-mvi"))
+    implementation(project(":features:trending-repositories"))
     implementation(project(":features:bookmarks"))
     implementation(project(":features:repo-details"))
 }

@@ -1,3 +1,5 @@
+import com.thomaskioko.stargazers.dependencies.Dependencies
+
 plugins {
     `android-library-plugin`
     id("androidx.navigation.safeargs.kotlin")

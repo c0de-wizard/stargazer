@@ -8,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.thomaskioko.stargazer.R
-import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoListScreen
+import com.thomaskioko.stargazer.navigation.NavigationScreen.TrendingRepositoriesScreen
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
+const val SPLASH_DELAY_DURATION: Long = 1500
 
 @AndroidEntryPoint
 class SplashFragment : Fragment() {
@@ -33,9 +35,9 @@ class SplashFragment : Fragment() {
         Handler(Looper.getMainLooper())
             .postDelayed(
                 {
-                    screenNavigator.goToScreen(RepoListScreen)
+                    screenNavigator.goToScreen(TrendingRepositoriesScreen)
                 },
-                1500
+                SPLASH_DELAY_DURATION
             )
     }
 }

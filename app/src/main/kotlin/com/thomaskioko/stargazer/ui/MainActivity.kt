@@ -12,19 +12,18 @@ import androidx.navigation.NavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.thomaskioko.stargazer.R
-import com.thomaskioko.stargazer.core.executor.CoroutineExecutionThread
+import com.thomaskioko.stargazer.core.injection.annotations.MainDispatcher
 import com.thomaskioko.stargazer.databinding.ActivityMainBinding
 import com.thomaskioko.stargazer.domain.SettingsManager
 import com.thomaskioko.stargazer.domain.UiTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Provider
 
-@InternalCoroutinesApi
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
@@ -35,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var settingsManager: SettingsManager
 
     @Inject
-    lateinit var executionThread: CoroutineExecutionThread
+    @MainDispatcher lateinit var mainDispatcher: CoroutineDispatcher
 
     private lateinit var binding: ActivityMainBinding
     private var isDarkMode = false
@@ -57,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launchWhenResumed {
             navController.addOnDestinationChangedListener { _, destination, _ ->
                 when (destination.id) {
-                    R.id.repoListFragment, R.id.mviRepoListFragment, R.id.bookmarkListFragment ->
+                    R.id.repoListFragment, R.id.trendingListFragment, R.id.bookmarkListFragment ->
                         binding.bottomNavigation.visibility =
                             View.VISIBLE
                     else -> binding.bottomNavigation.visibility = View.GONE
@@ -67,7 +66,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setTheme() {
-        GlobalScope.launch(context = executionThread.main) {
+        GlobalScope.launch(context = mainDispatcher) {
             settingsManager.getUiModeFlow()
                 .collect {
                     isDarkMode = when (it) {
@@ -105,7 +104,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateTheme(themeTheme: UiTheme) {
-        GlobalScope.launch(context = executionThread.main) {
+        GlobalScope.launch(context = mainDispatcher) {
             settingsManager.setUiMode(themeTheme)
         }
     }
@@ -116,7 +115,5 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp()
-    }
+    override fun onSupportNavigateUp(): Boolean = navController.navigateUp()
 }

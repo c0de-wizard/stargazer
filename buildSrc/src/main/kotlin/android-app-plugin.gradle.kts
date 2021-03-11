@@ -1,3 +1,6 @@
+@file:Suppress("UnstableApiUsage")
+
+import com.thomaskioko.stargazers.dependencies.Dependencies
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getting
 import org.gradle.kotlin.dsl.kotlin
@@ -9,6 +12,7 @@ plugins {
     kotlin("kapt")
     id("androidx.navigation.safeargs.kotlin")
     id("dagger.hilt.android.plugin")
+    id("de.mannodermaus.android-junit5")
 }
 
 android {
@@ -54,7 +58,7 @@ android {
         jvmTarget = "1.8"
     }
 
-    lintOptions {
+    lint {
         lintConfig = rootProject.file(".lint/config.xml")
         isCheckAllWarnings = true
         isWarningsAsErrors = true
@@ -85,14 +89,10 @@ dependencies {
     implementation(Dependencies.leakCanary)
 
     implementation(Dependencies.Retrofit.Moshi.core)
-    implementation(Dependencies.Retrofit.Moshi.converter)
+    implementation(Dependencies.Retrofit.moshiConverter)
     kapt(Dependencies.Retrofit.Moshi.kapt)
 
     implementation(Dependencies.OkHttp.loggingInterceptor)
 
     implementation(Dependencies.Room.roomKtx)
-
-    testImplementation(Dependencies.Testing.junit)
-    androidTestImplementation(Dependencies.Testing.androidJunit)
-    androidTestImplementation(Dependencies.Testing.Espresso.core)
 }

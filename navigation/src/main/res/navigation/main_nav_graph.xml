@@ -8,7 +8,7 @@
 
     <include app:graph="@navigation/browse_nav_graph" />
 
-    <include app:graph="@navigation/browse_mvi_nav_graph" />
+    <include app:graph="@navigation/trending_nav_graph" />
 
     <include app:graph="@navigation/bookmark_nav_graph" />
 
@@ -16,12 +16,11 @@
 
     <action
         android:id="@+id/action_repo_list"
-        app:destination="@id/browse_nav_graph"
-        app:popUpTo="@id/main_nav_graph" />
+        app:destination="@id/browse_nav_graph" />
 
     <action
-        android:id="@+id/action_mvi_repo_list"
-        app:destination="@id/browse_mvi_nav_graph" />
+        android:id="@+id/action_trending_repos"
+        app:destination="@id/trending_nav_graph" />
 
     <action
         android:id="@+id/action_bookmark_list"

@@ -15,11 +15,12 @@ import com.thomaskioko.stargazer.details.domain.model.UpdateObject
 import com.thomaskioko.stargazer.details.model.RepoViewDataModel
 import com.thomaskioko.stargazer.details.ui.viewmodel.RepoDetailsViewModel
 import com.thomaskioko.stargazer.repo_details.util.ViewMockData.makeRepoViewDataModel
-import com.thomaskioko.stargazer.testing.CoroutineScopeRule
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.TestCoroutineDispatcher
 import org.junit.Assert.assertEquals
 import org.junit.Rule
+import org.junit.jupiter.api.Test
 import org.junit.rules.TestRule
 import org.mockito.ArgumentMatchers.anyLong
 
@@ -27,9 +28,6 @@ internal class RepoDetailsViewModelTest {
 
     @get:Rule
     val instantTaskExecutorRule: TestRule = InstantTaskExecutorRule()
-
-    @get:Rule
-    val scopeRule = CoroutineScopeRule()
 
     private val getRepoByIdInteractor: GetRepoByIdInteractor = mock {
         on { invoke(anyLong()) } doReturn flowOf(Success(makeRepoViewDataModel()))
@@ -39,12 +37,14 @@ internal class RepoDetailsViewModelTest {
         on { invoke(updateObject) } doReturn flowOf(Success(makeRepoViewDataModel()))
     }
 
+    private val testCoroutineDispatcher = TestCoroutineDispatcher()
     private var viewModel: RepoDetailsViewModel = RepoDetailsViewModel(
         getRepoByIdInteractor,
-        bookmarkStateInteractor
+        bookmarkStateInteractor,
+        testCoroutineDispatcher
     )
 
-    // @Test TODO Fix Flaky tests
+    @Test
     fun `givenRepoId verify successStateIsReturned`() = runBlocking {
         val repoViewDataModel = makeRepoViewDataModel()
 
@@ -57,7 +57,7 @@ internal class RepoDetailsViewModelTest {
         }
     }
 
-    // @Test TODO Fix Flaky tests
+    @Test
     fun `givenFailureById verify errorStateIsReturned`() = runBlocking {
 
         val errorMessage = "Something went wrong"
@@ -76,14 +76,10 @@ internal class RepoDetailsViewModelTest {
         }
     }
 
-    // @Test TODO Fix Flaky tests
+    @Test
     fun `givenUpdateRepoIsInvoked verify successStateIsReturned`() = runBlocking {
-        val updateObject =
-            UpdateObject(1, true)
+        val updateObject = UpdateObject(1, true)
         val repoViewDataModel = makeRepoViewDataModel()
-
-        whenever(bookmarkStateInteractor(updateObject))
-            .thenReturn(flowOf(Success(repoViewDataModel)))
 
         viewModel.repoUpdateMutableStateResultFlow.test {
 

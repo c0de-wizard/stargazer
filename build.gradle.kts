@@ -5,7 +5,7 @@ buildscript {
 }
 
 plugins {
-    id("com.vanniktech.android.junit.jacoco") version "0.16.0"
+    id("com.vanniktech.android.junit.jacoco") version DependencyVersions.jacoco
 }
 
 allprojects {
@@ -14,11 +14,16 @@ allprojects {
     plugins.apply("plugins.ktlint")
     plugins.apply("plugins.detekt")
     plugins.apply("plugins.spotless")
+    plugins.apply("plugins.dependency-updates")
 
     configurations.all {
+        resolutionStrategy.force("org.jetbrains.kotlinx:kotlinx-coroutines-core:${DependencyVersions.coroutines}")
+        resolutionStrategy.force("org.jetbrains.kotlinx:kotlinx-coroutines-android:${DependencyVersions.coroutines}")
+        resolutionStrategy.force("org.jetbrains.kotlinx:kotlinx-coroutines-test:${DependencyVersions.coroutines}")
+
         resolutionStrategy.eachDependency {
             if (requested.group == "org.jetbrains.kotlin") {
-                useVersion(kotlinVersion)
+                useVersion(PluginsVersions.kotlin)
             }
         }
     }
