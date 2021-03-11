@@ -1,10 +1,9 @@
 package com.thomaskioko.githubstargazer.mapper
 
-import org.assertj.core.api.Assertions.assertThat
 import com.thomaskioko.githubstargazer.mock.MockData.makeRepoResponseList
 import com.thomaskioko.stargazer.mapper.RepositoryMapper.mapResponseToEntityList
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-
 
 internal class RepositoryMapperTest {
 

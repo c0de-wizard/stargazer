@@ -11,13 +11,12 @@ import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.core.ViewStateResult.Error
 import com.thomaskioko.stargazer.core.ViewStateResult.Loading
 import com.thomaskioko.stargazer.core.ViewStateResult.Success
-import com.thomaskioko.stargazer.testing.CoroutineScopeRule
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.TestCoroutineDispatcher
 import org.junit.Assert.assertEquals
-import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.junit.rules.TestRule
 import org.mockito.Mockito.anyBoolean
 
@@ -26,19 +25,10 @@ internal class GetReposViewModelTest {
     @get:Rule
     val instantTaskExecutorRule: TestRule = InstantTaskExecutorRule()
 
-    @get:Rule
-    val scopeRule = CoroutineScopeRule()
-
     private val interactor: GetRepoListInteractor = mock()
+    private val testCoroutineDispatcher = TestCoroutineDispatcher()
 
-    private lateinit var viewModel: GetReposViewModel
-
-    @Before
-    fun before() {
-        viewModel = GetReposViewModel(
-            interactor
-        )
-    }
+    private val viewModel = GetReposViewModel(interactor, testCoroutineDispatcher)
 
     @Test
     fun `givenSuccessfulResponse verify successStateIsReturned`() = runBlocking {

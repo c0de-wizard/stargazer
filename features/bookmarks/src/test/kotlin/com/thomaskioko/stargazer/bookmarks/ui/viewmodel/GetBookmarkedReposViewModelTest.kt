@@ -14,10 +14,10 @@ import com.thomaskioko.stargazer.core.ViewStateResult.Success
 import com.thomaskioko.stargazer.core.interactor.invoke
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.assertEquals
-import org.junit.Before
+import kotlinx.coroutines.test.TestCoroutineDispatcher
 import org.junit.Rule
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 import org.junit.rules.TestRule
 
 internal class GetBookmarkedReposViewModelTest {
@@ -26,12 +26,8 @@ internal class GetBookmarkedReposViewModelTest {
     val instantTaskExecutorRule: TestRule = InstantTaskExecutorRule()
 
     private val interactor: GetBookmarkedRepoListInteractor = mock()
-    private lateinit var viewModel: GetBookmarkedReposViewModel
-
-    @Before
-    fun before() {
-        viewModel = GetBookmarkedReposViewModel(interactor)
-    }
+    private val testCoroutineDispatcher = TestCoroutineDispatcher()
+    private val viewModel = GetBookmarkedReposViewModel(interactor, testCoroutineDispatcher)
 
     @Test
     fun `givenSuccessfulResponse verify successStateIsReturned`() = runBlocking {
