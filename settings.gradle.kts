@@ -9,7 +9,7 @@ include(
     ":repository",
     ":features:bookmarks",
     ":features:browse",
-    ":features:browse-mvi",
+    ":features:trending-repositories",
     ":features:repo-details"
 )
 include(":common-testing")

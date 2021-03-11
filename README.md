@@ -43,7 +43,7 @@ the option to use the gradle wrapper
 
 ## Architecture
 
-The architecture of the project follows the principles of Clean Architecture. This project demonstrates two Architecture implementations: **MVVM** & **MVI**. Most of the feature modules implement MVVM for now. **browse-mvi** on the other hand, implements the MVI pattern.
+The architecture of the project follows the principles of Clean Architecture. This project demonstrates two Architecture implementations: **MVVM** & **MVI**. Most of the feature modules implement MVVM for now. **trending-repositories** on the other hand, implements the MVI pattern.
 
 Here's how the sample project implements it:
 
@@ -101,6 +101,7 @@ To maintain the style and quality of the code, are used the bellow static analys
 *   [Turbine](https://github.com/cashapp/turbine) - Testing coroutines
 *   [Dagger Hilt](https://dagger.dev/hilt) - dependency injection.
 *   [Kotlin Gradle DSL](https://guides.gradle.org/migrating-build-logic-from-groovy-to-kotlin)
+*   [Jacoco](https://github.com/vanniktech/gradle-android-junit-jacoco-plugin) Test coverage
 
 ### TODO
 
@@ -122,6 +123,7 @@ To maintain the style and quality of the code, are used the bellow static analys
 
 ### Test Tasks
 - [ ] Switch to Junit5
+- [ ] Move test dependencies to common-testing
 - [ ] Add/update missing test cases.
 - [ ] Fix flaky tests.
 - [ ] Add instrumentation tests.

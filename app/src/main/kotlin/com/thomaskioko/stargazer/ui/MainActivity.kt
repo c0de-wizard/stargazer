@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launchWhenResumed {
             navController.addOnDestinationChangedListener { _, destination, _ ->
                 when (destination.id) {
-                    R.id.repoListFragment, R.id.mviRepoListFragment, R.id.bookmarkListFragment ->
+                    R.id.repoListFragment, R.id.trendingListFragment, R.id.bookmarkListFragment ->
                         binding.bottomNavigation.visibility =
                             View.VISIBLE
                     else -> binding.bottomNavigation.visibility = View.GONE
