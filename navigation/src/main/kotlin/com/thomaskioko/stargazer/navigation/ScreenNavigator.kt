@@ -4,9 +4,9 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigator
 import com.thomaskioko.stargazer.actions.MainNavGraphDirections
 import com.thomaskioko.stargazer.navigation.NavigationScreen.BookmarkListScreen
-import com.thomaskioko.stargazer.navigation.NavigationScreen.TrendingRepositoriesScreen
 import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailScreen
 import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoListScreen
+import com.thomaskioko.stargazer.navigation.NavigationScreen.TrendingRepositoriesScreen
 import javax.inject.Inject
 import javax.inject.Provider
 

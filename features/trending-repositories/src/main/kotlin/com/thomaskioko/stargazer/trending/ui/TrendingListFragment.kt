@@ -14,10 +14,10 @@ import com.thomaskioko.stargazer.core.factory.create
 import com.thomaskioko.stargazer.core.util.ConnectivityUtil
 import com.thomaskioko.stargazer.core.viewmodel.observe
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
-import com.thomaskioko.stargazers.ui.extensions.showView
 import com.thomaskioko.stargazer.trending.R
 import com.thomaskioko.stargazer.trending.databinding.FragmentTrendingRepositoriesBinding
 import com.thomaskioko.stargazer.trending.ui.ReposIntent.RepoItemClicked
+import com.thomaskioko.stargazers.ui.extensions.showView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -84,19 +84,16 @@ internal class TrendingListFragment : Fragment() {
         val isConnected = ConnectivityUtil.isConnected(requireActivity())
         getRepoViewModel.dispatchIntent(ReposIntent.DisplayData(isConnected))
 
-        getRepoViewModel.state.observe(viewLifecycleOwner) { render(it) }
+        getRepoViewModel.actionState.observe(viewLifecycleOwner) { render(it) }
     }
 
     private fun render(state: ReposViewState) {
 
-        binding.loadingBar.isVisible = state is ReposViewState.Loading
+        binding.loadingBar.isVisible =
+            state is ReposViewState.Loading || state is ReposViewState.Error
 
         when (state) {
-            ReposViewState.Loading -> binding.loadingBar.isVisible = state is ReposViewState.Loading
-            is ReposViewState.ResultRepoList -> repoListAdapter.apply {
-                itemsList = state.list
-                notifyDataSetChanged()
-            }
+            is ReposViewState.ResultRepoList -> repoListAdapter.apply { itemsList = state.list }
             is ReposViewState.Error -> {
                 binding.tvInfo.showView()
                 binding.tvInfo.text = state.message
