@@ -25,9 +25,27 @@ class GithubRepository @Inject constructor(
     }
         .flowOn(ioDispatcher)
 
+    fun getTrendingTrendingRepositories(isConnected: Boolean): Flow<List<RepoEntity>> = flow {
+
+        val result = when {
+            isConnected -> {
+                val apiResult = service.getTrendingRepositories()
+
+                database.repoDao().insertRepos(
+                    mapResponseToEntityList(apiResult.repositoriesList, true)
+                )
+                database.repoDao().getTrendingRepositories()
+            }
+            else -> database.repoDao().getTrendingRepositories()
+        }
+
+        emit(result)
+    }
+        .flowOn(ioDispatcher)
+
     private suspend fun loadFromNetwork(): List<RepoEntity> {
         val apiResult = service.getRepositories()
-        database.repoDao().insertRepos(mapResponseToEntityList(apiResult))
+        database.repoDao().insertRepos(mapResponseToEntityList(apiResult, false))
         return loadCacheRepos()
     }
 

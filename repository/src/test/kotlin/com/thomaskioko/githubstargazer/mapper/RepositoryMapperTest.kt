@@ -11,7 +11,7 @@ internal class RepositoryMapperTest {
     fun givenResponseList_thenDataIsMappedToEntityList() {
 
         val reposResponse = makeRepoResponseList()
-        val entityList = mapResponseToEntityList(reposResponse)
+        val entityList = mapResponseToEntityList(reposResponse, true)
 
         val response = reposResponse[0]
         val entity = entityList[0]

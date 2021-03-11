@@ -15,8 +15,11 @@ interface RepoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRepos(list: List<RepoEntity>)
 
-    @Query("SELECT * FROM repo ORDER BY stargazersCount DESC")
+    @Query("SELECT * FROM repo where isTrending = 0 ORDER BY stargazersCount DESC")
     suspend fun getRepositories(): List<RepoEntity>
+
+    @Query("SELECT * FROM repo where isTrending = 1 ORDER BY stargazersCount DESC")
+    suspend fun getTrendingRepositories(): List<RepoEntity>
 
     @Query("SELECT * FROM repo where repoId = :repoId")
     suspend fun getRepoById(repoId: Long): RepoEntity

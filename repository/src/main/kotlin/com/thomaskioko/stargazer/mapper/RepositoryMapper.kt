@@ -5,20 +5,21 @@ import com.thomaskioko.stargazer.db.model.RepoEntity
 
 object RepositoryMapper {
 
-    fun mapResponseToEntityList(response: List<RepoResponse>): List<RepoEntity> = response.map {
-        mapResponseToEntityList(it)
-    }
-
-    fun mapResponseToEntityList(response: RepoResponse): RepoEntity =
+    fun mapResponseToEntityList(
+        response: List<RepoResponse>,
+        isTrending: Boolean
+    ): List<RepoEntity> = response.map {
         RepoEntity(
-            repoId = response.id,
-            name = response.name.capitalize(),
-            description = response.description,
-            userName = response.owner.login,
-            stargazersCount = response.stargazersCount,
-            forksCount = response.forksCount,
-            contributorsUrl = response.contributorsUrl,
-            createdDate = response.createdDate,
-            updatedDate = response.updatedDate
+            repoId = it.id,
+            name = it.name.capitalize(),
+            description = it.description,
+            userName = it.owner.login,
+            stargazersCount = it.stargazersCount,
+            forksCount = it.forksCount,
+            contributorsUrl = it.contributorsUrl,
+            createdDate = it.createdDate,
+            updatedDate = it.updatedDate,
+            isTrending = isTrending
         )
+    }
 }

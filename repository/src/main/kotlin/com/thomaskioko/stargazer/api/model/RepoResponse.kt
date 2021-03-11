@@ -11,6 +11,7 @@ data class RepoResponse(
     @Json(name = "owner") val owner: UserResponse,
     @Json(name = "stargazers_count") val stargazersCount: Int,
     @Json(name = "forks") val forksCount: Int,
+    @Json(name = "language") val language: String?,
     @Json(name = "contributors_url") val contributorsUrl: String,
     @Json(name = "created_at") val createdDate: String,
     @Json(name = "updated_at") val updatedDate: String
