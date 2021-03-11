@@ -1,6 +1,9 @@
-name: Android Pull Request CI
+name: Android Feature & Pull Request CI
 
 on:
+  push:
+    branches:
+      - 'feature/*'
   pull_request:
     branches:
       - main
