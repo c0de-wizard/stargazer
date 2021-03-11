@@ -88,9 +88,9 @@ object Dependencies {
             const val api = "org.junit.jupiter:junit-jupiter-api:${DependencyVersions.junit5}"
             const val engine = "org.junit.jupiter:junit-jupiter-engine:${DependencyVersions.junit5}"
             const val params = "org.junit.jupiter:junit-jupiter-params:${DependencyVersions.junit5}"
-            const val runner =" org.junit.platform:junit-platform-runner:${DependencyVersions.junitRunner}"
+            const val runner = "org.junit.platform:junit-platform-runner:${DependencyVersions.junitRunner}"
 
-            //TODO:: Remove this dependency after migrating to junit5
+            // TODO:: Remove this dependency after migrating to junit5
             const val vintage = "org.junit.vintage:junit-vintage-engine:${DependencyVersions.junit5}"
         }
 
