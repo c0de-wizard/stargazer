@@ -25,6 +25,9 @@ object DependencyVersions {
     const val archCoreTesting = "2.1.0"
     const val appCompat = "1.3.0-beta01"
     const val assertJ = "3.19.0"
+    const val compose = "1.0.0-beta01"
+    const val composeActivity = "1.3.0-alpha03"
+    const val composeViewModel = "1.0.0-alpha02"
     const val constraintLayout = "2.1.0-alpha2"
     const val coroutines = "1.4.2" // TODO::Bump up the version once Turbine is upgraded
     const val coreKtx = "1.5.0-beta02"

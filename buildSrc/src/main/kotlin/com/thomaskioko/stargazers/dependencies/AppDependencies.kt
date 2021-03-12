@@ -10,6 +10,18 @@ object Dependencies {
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:${DependencyVersions.constraintLayout}"
         const val dataStore = "androidx.datastore:datastore-preferences:${DependencyVersions.dataStore}"
 
+        object Compose {
+            const val ui = "androidx.compose.ui:ui:${DependencyVersions.compose}"
+            const val tooling = "androidx.compose.ui:ui-tooling:${DependencyVersions.compose}"
+            const val foundation = "androidx.compose.foundation:foundation:${DependencyVersions.compose}"
+            const val material = "androidx.compose.material:material:${DependencyVersions.compose}"
+            const val iconsCore = "androidx.compose.material:material-icons-core:${DependencyVersions.compose}"
+            const val iconsExtended = "androidx.compose.material:material-icons-extended:${DependencyVersions.compose}"
+
+            const val activity = "androidx.activity:activity-compose::${DependencyVersions.composeActivity}"
+            const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-compose::${DependencyVersions.composeViewModel}"
+        }
+
         object Lifecycle {
             const val common = "androidx.lifecycle:lifecycle-common-java8:${DependencyVersions.lifecycle}"
             const val runtime = "androidx.lifecycle:lifecycle-runtime-ktx:${DependencyVersions.lifecycle}"
@@ -73,6 +85,7 @@ object Dependencies {
             const val fragment = "androidx.fragment:fragment-testing:${DependencyVersions.fragmentTesting}"
             const val rules: String = "androidx.test:rules:${DependencyVersions.androidxTest}"
             const val runner: String = "androidx.test:runner:${DependencyVersions.androidxTest}"
+            const val compose = "androidx.compose.ui:ui-test-junit4:${DependencyVersions.compose}"
         }
 
         object Coroutines {
