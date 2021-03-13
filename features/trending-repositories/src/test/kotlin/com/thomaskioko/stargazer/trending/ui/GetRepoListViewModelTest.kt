@@ -6,6 +6,7 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.thomaskioko.stargazer.core.ViewStateResult.Error
 import com.thomaskioko.stargazer.core.ViewStateResult.Success
+import com.thomaskioko.stargazer.core.interactor.invoke
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
 import com.thomaskioko.stargazer.trending.interactor.GetTrendingReposInteractor
 import com.thomaskioko.stargazer.trending.interactor.ViewMockData.makeRepoViewDataModelList
@@ -16,7 +17,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.jupiter.api.Test
 import org.junit.rules.TestRule
-import org.mockito.Mockito.anyBoolean
 
 internal class GetRepoListViewModelTest {
 
@@ -32,10 +32,10 @@ internal class GetRepoListViewModelTest {
 
     @Test
     fun givenDisplayStateIsInvoked_verifyResultRepoListIsReturned() = runBlocking {
-        whenever(interactorTrending(anyBoolean())).thenReturn(flowOf(Success(makeRepoViewDataModelList())))
+        whenever(interactorTrending()).thenReturn(flowOf(Success(makeRepoViewDataModelList())))
 
         viewModel.actionState.test {
-            viewModel.dispatchIntent(ReposIntent.DisplayData(true))
+            viewModel.dispatchIntent(ReposIntent.DisplayData)
 
             assertEquals(expectItem(), ReposViewState.Loading)
             assertEquals(expectItem(), ReposViewState.ResultRepoList(makeRepoViewDataModelList()))
@@ -46,10 +46,10 @@ internal class GetRepoListViewModelTest {
     fun givenFailureResponse_verifyErrorStateIsReturned() = runBlocking {
         val errorMessage = "Something went wrong"
 
-        whenever(interactorTrending(anyBoolean())).thenReturn(flowOf(Error(errorMessage)))
+        whenever(interactorTrending()).thenReturn(flowOf(Error(errorMessage)))
 
         viewModel.actionState.test {
-            viewModel.dispatchIntent(ReposIntent.DisplayData(true))
+            viewModel.dispatchIntent(ReposIntent.DisplayData)
 
             assertEquals(expectItem(), ReposViewState.Loading)
             assertEquals(expectItem(), ReposViewState.Error(errorMessage))

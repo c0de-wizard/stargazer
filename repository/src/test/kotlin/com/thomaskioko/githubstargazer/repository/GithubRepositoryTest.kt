@@ -11,9 +11,11 @@ import com.thomaskioko.githubstargazer.mock.MockData.makeRepoResponseList
 import com.thomaskioko.githubstargazer.mock.MockData.makeTrendingRepoEntityList
 import com.thomaskioko.githubstargazer.mock.MockData.makeTrendingRepoResponseList
 import com.thomaskioko.stargazer.api.service.GitHubService
+import com.thomaskioko.stargazer.core.network.FlowNetworkObserver
 import com.thomaskioko.stargazer.db.GithubDatabase
 import com.thomaskioko.stargazer.db.dao.RepoDao
 import com.thomaskioko.stargazer.repository.GithubRepository
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -37,16 +39,19 @@ class GithubRepositoryTest {
         onBlocking { getRepositories() } doReturn makeRepoResponseList()
         onBlocking { getTrendingRepositories() } doReturn makeTrendingRepoResponseList()
     }
+    private val flowNetworkObserver: FlowNetworkObserver = mock()
 
     private val testDispatcher = TestCoroutineDispatcher()
 
-    private var repository = GithubRepository(service, database, testDispatcher)
+    private var repository = GithubRepository(service, database, flowNetworkObserver, testDispatcher)
 
     @Test
     fun `givenDeviceIsConnected andCacheHasNoData verify data isLoadedFrom Remote`() {
         runBlocking {
 
-            repository.getRepositoryList(true).test {
+            whenever(flowNetworkObserver.observeInternetConnection()).thenReturn(flowOf(true))
+
+            repository.getRepositoryList().test {
                 assertEquals(expectItem(), makeRepoEntityList())
                 expectComplete()
             }
@@ -58,10 +63,30 @@ class GithubRepositoryTest {
     }
 
     @Test
+    fun givenDeviceIsNotConnected_verify_dataIsLoadedFromDatabase() {
+        runBlocking {
+
+            whenever(flowNetworkObserver.observeInternetConnection()).thenReturn(flowOf(false))
+
+            whenever(repoDao.getRepositories()).thenReturn(makeRepoEntityList())
+
+            repository.getRepositoryList().test {
+                assertEquals(expectItem(), makeRepoEntityList())
+                expectComplete()
+            }
+
+            verify(service, never()).getRepositories()
+            verify(database.repoDao()).getRepositories()
+        }
+    }
+
+    @Test
     fun givenDeviceIsConnected_andCacheHasNoData_getTrendingRepositories_isLoadedFromRemote() {
         runBlocking {
 
-            repository.getTrendingTrendingRepositories(true).test {
+            whenever(flowNetworkObserver.observeInternetConnection()).thenReturn(flowOf(true))
+
+            repository.getTrendingTrendingRepositories().test {
                 assertEquals(expectItem(), makeTrendingRepoEntityList())
                 expectComplete()
             }
@@ -76,29 +101,15 @@ class GithubRepositoryTest {
     fun givenDeviceIsNotConnected_verifyTrendingDataIsLoadedFromDatabase() {
         runBlocking {
 
-            repository.getTrendingTrendingRepositories(false).test {
+            whenever(flowNetworkObserver.observeInternetConnection()).thenReturn(flowOf(false))
+
+            repository.getTrendingTrendingRepositories().test {
                 assertEquals(expectItem(), makeTrendingRepoEntityList())
                 expectComplete()
             }
 
             verify(service, never()).getTrendingRepositories()
             verify(database.repoDao()).getTrendingRepositories()
-        }
-    }
-
-    @Test
-    fun givenDeviceIsNotConnected_verify_dataIsLoadedFromDatabase() {
-        runBlocking {
-
-            whenever(repoDao.getRepositories()).thenReturn(makeRepoEntityList())
-
-            repository.getRepositoryList(false).test {
-                assertEquals(expectItem(), makeRepoEntityList())
-                expectComplete()
-            }
-
-            verify(service, never()).getRepositories()
-            verify(database.repoDao()).getRepositories()
         }
     }
 

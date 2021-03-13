@@ -7,13 +7,13 @@ import com.thomaskioko.stargazer.browse.domain.ViewMockData.makeRepoViewDataMode
 import com.thomaskioko.stargazer.browse.model.RepoViewDataModel
 import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.core.ViewStateResult.Error
+import com.thomaskioko.stargazer.core.interactor.invoke
 import com.thomaskioko.stargazer.repository.GithubRepository
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import org.mockito.ArgumentMatchers.anyBoolean
 import org.mockito.Mockito
 
 internal class GetRepoListInteractorTest {
@@ -23,9 +23,9 @@ internal class GetRepoListInteractorTest {
 
     @Test
     fun `whenever getReposIsInvoked expectedDataIsReturned`() = runBlocking {
-        whenever(repository.getRepositoryList(anyBoolean())).thenReturn(flowOf(makeRepoEntityList()))
+        whenever(repository.getRepositoryList()).thenReturn(flowOf(makeRepoEntityList()))
 
-        interactor(true).test {
+        interactor().test {
             assertEquals(expectItem(), ViewStateResult.Success(makeRepoViewDataModelList()))
             expectComplete()
         }
@@ -34,12 +34,12 @@ internal class GetRepoListInteractorTest {
     @Test
     fun givenAnErrorOccurs_ExceptionIsThrown() = runBlocking {
         val errorMessage = "Something went wrong"
-        whenever(repository.getRepositoryList(true))
+        whenever(repository.getRepositoryList())
             .thenReturn(flow { throw Exception(errorMessage) })
 
         val errorResult = Error<ViewStateResult<List<RepoViewDataModel>>>(errorMessage)
 
-        interactor(true).test {
+        interactor().test {
             assertEquals(expectItem(), errorResult)
             expectComplete()
         }
