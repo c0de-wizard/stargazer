@@ -32,13 +32,13 @@
             android:elevation="@dimen/plane_00"
             android:focusable="true"
             android:transitionName="@{@string/repo_card_transition_name(repo.repoId)}"
+            android:onClick="@{(v) -> clickHandler.onClick(v, repo.repoId)}"
             app:cardPreventCornerOverlap="false">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackground"
-                android:onClick="@{(v) -> clickHandler.onClick(v, repo.repoId)}">
+                android:background="?android:attr/selectableItemBackground">
 
                 <TextView
                     android:id="@+id/repo_name"
