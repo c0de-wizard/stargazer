@@ -13,14 +13,19 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.thomaskioko.stargazer.R
 import com.thomaskioko.stargazer.core.injection.annotations.MainDispatcher
+import com.thomaskioko.stargazer.core.network.FlowNetworkObserver
 import com.thomaskioko.stargazer.databinding.ActivityMainBinding
 import com.thomaskioko.stargazer.domain.SettingsManager
 import com.thomaskioko.stargazer.domain.UiTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -32,6 +37,9 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var settingsManager: SettingsManager
+
+    @Inject
+    lateinit var flowNetworkObserver: FlowNetworkObserver
 
     @Inject
     @MainDispatcher lateinit var mainDispatcher: CoroutineDispatcher
@@ -49,6 +57,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
+
+        flowNetworkObserver.observeInternetConnection()
+            .onEach {
+                //TODO:: Show snackBar
+                Timber.d("Device Connection Status: $it")
+            }
+            .launchIn(CoroutineScope(mainDispatcher))
 
         binding.bottomNavigation.setupWithNavController(navController)
 
