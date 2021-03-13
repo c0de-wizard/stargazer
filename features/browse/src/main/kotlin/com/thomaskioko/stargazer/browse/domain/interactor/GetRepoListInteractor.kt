@@ -12,10 +12,10 @@ import javax.inject.Inject
 
 internal class GetRepoListInteractor @Inject constructor(
     private val repository: GithubRepository
-) : Interactor<Boolean, List<RepoViewDataModel>>() {
+) : Interactor<Unit, List<RepoViewDataModel>>() {
 
-    override fun run(params: Boolean): Flow<ViewStateResult<List<RepoViewDataModel>>> =
-        repository.getRepositoryList(params)
+    override fun run(params: Unit): Flow<ViewStateResult<List<RepoViewDataModel>>> =
+        repository.getRepositoryList()
             .map { ViewStateResult.success(mapEntityListToRepoViewModel(it)) }
             .catch { emit(ViewStateResult.error(it.message.orEmpty())) }
 }

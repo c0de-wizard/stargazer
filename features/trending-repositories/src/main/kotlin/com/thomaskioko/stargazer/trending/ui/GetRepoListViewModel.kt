@@ -3,6 +3,7 @@ package com.thomaskioko.stargazer.trending.ui
 import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.core.factory.AssistedViewModelFactory
 import com.thomaskioko.stargazer.core.injection.annotations.DefaultDispatcher
+import com.thomaskioko.stargazer.core.interactor.invoke
 import com.thomaskioko.stargazer.core.viewmodel.BaseViewModel
 import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailScreen
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
@@ -33,7 +34,7 @@ internal class GetRepoListViewModel @AssistedInject constructor(
 
     override fun intentToAction(intent: ReposIntent): ReposAction {
         return when (intent) {
-            is ReposIntent.DisplayData -> LoadRepositories(intent.isConnected)
+            is ReposIntent.DisplayData -> LoadRepositories
             is ReposIntent.RepoItemClicked -> NavigateToRepoDetail(intent.repoId, intent.extras)
         }
     }
@@ -41,7 +42,7 @@ internal class GetRepoListViewModel @AssistedInject constructor(
     override fun handleAction(action: ReposAction) {
         when (action) {
             is LoadRepositories -> {
-                interactorTrending(action.isConnected)
+                interactorTrending()
                     .onEach { mutableViewState.emit(it.reduce()) }
                     .launchIn(ioScope)
             }

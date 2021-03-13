@@ -11,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.google.android.material.transition.MaterialElevationScale
 import com.thomaskioko.stargazer.core.factory.create
-import com.thomaskioko.stargazer.core.util.ConnectivityUtil
 import com.thomaskioko.stargazer.core.viewmodel.observe
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
 import com.thomaskioko.stargazer.trending.R
@@ -63,14 +62,15 @@ internal class TrendingListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentTrendingRepositoriesBinding.inflate(inflater, container, false).apply {
-            viewmodel = getRepoViewModel
+        _binding = FragmentTrendingRepositoriesBinding.inflate(inflater, container, false)
+            .apply {
+                viewmodel = getRepoViewModel
 
-            repoList.apply {
-                repoListAdapter = RepoListAdapter(onRepoItemClick)
-                adapter = repoListAdapter
+                repoList.apply {
+                    repoListAdapter = RepoListAdapter(onRepoItemClick)
+                    adapter = repoListAdapter
+                }
             }
-        }
 
         return binding.root
     }
@@ -81,8 +81,7 @@ internal class TrendingListFragment : Fragment() {
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
 
-        val isConnected = ConnectivityUtil.isConnected(requireActivity())
-        getRepoViewModel.dispatchIntent(ReposIntent.DisplayData(isConnected))
+        getRepoViewModel.dispatchIntent(ReposIntent.DisplayData)
 
         getRepoViewModel.actionState.observe(viewLifecycleOwner) { render(it) }
     }

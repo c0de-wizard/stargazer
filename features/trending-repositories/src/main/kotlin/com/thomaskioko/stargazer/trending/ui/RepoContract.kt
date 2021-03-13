@@ -7,12 +7,12 @@ import com.thomaskioko.stargazer.core.presentation.ViewState
 import com.thomaskioko.stargazer.trending.model.RepoViewDataModel
 
 sealed class ReposIntent : ViewIntent {
-    data class DisplayData(val isConnected: Boolean) : ReposIntent()
+    object DisplayData : ReposIntent()
     data class RepoItemClicked(val repoId: Long, val extras: Navigator.Extras) : ReposIntent()
 }
 
 sealed class ReposAction : ViewAction {
-    data class LoadRepositories(val isConnected: Boolean) : ReposAction()
+    object LoadRepositories : ReposAction()
     data class NavigateToRepoDetail(val repoId: Long, val extras: Navigator.Extras) : ReposAction()
 }
 
