@@ -5,7 +5,7 @@
     app:startDestination="@id/bookmarkListFragment">
 
     <fragment
-        android:id="@+id/bookmarkListFragment"
+        android:id="@id/bookmarkListFragment"
         android:name="com.thomaskioko.stargazer.bookmarks.ui.BookmarkedReposFragment"
         android:label="BookmarkedReposFragment"/>
 </navigation>
