@@ -70,6 +70,10 @@ android {
         kotlinCompilerExtensionVersion = DependencyVersions.compose
         kotlinCompilerVersion = PluginsVersions.kotlin
     }
+
+    hilt {
+        enableExperimentalClasspathAggregation = true
+    }
 }
 
 dependencies {
