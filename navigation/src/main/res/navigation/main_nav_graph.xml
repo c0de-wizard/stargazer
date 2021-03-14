@@ -18,20 +18,36 @@
 
     <action
         android:id="@+id/action_repo_list"
-        app:destination="@id/browse_nav_graph" />
+        app:destination="@id/browse_nav_graph"
+        app:enterAnim="@anim/slide_in_from_top"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/slide_out_to_top" />
 
     <action
         android:id="@+id/action_trending_repos"
-        app:destination="@id/trending_nav_graph" />
+        app:destination="@id/trending_nav_graph"
+        app:enterAnim="@anim/slide_in_from_top"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/slide_out_to_top" />
 
     <action
         android:id="@+id/action_bookmark_list"
-        app:destination="@id/bookmark_nav_graph"/>
+        app:destination="@id/bookmark_nav_graph"
+        app:enterAnim="@anim/slide_in_from_top"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/slide_out_to_top" />
 
 
     <action
         android:id="@+id/action_repo_details"
-        app:destination="@id/repo_details_nav_graph">
+        app:destination="@id/repo_details_nav_graph"
+        app:enterAnim="@anim/slide_in_from_top"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/slide_out_to_top">
 
         <argument
             android:name="repo_id"
