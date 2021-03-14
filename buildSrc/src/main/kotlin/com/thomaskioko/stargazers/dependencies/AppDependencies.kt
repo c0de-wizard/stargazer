@@ -9,6 +9,7 @@ object Dependencies {
         const val coreKtx = "androidx.core:core-ktx:${DependencyVersions.coreKtx}"
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:${DependencyVersions.constraintLayout}"
         const val dataStore = "androidx.datastore:datastore-preferences:${DependencyVersions.dataStore}"
+        const val preferences = "androidx.preference:preference-ktx:${DependencyVersions.preferences}"
 
         object Compose {
             const val ui = "androidx.compose.ui:ui:${DependencyVersions.compose}"

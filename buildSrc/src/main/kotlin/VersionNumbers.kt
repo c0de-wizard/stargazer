@@ -49,6 +49,7 @@ object DependencyVersions {
     const val mockitoKotlin = "2.2.0"
     const val navigation = "2.3.3"
     const val okhttp = "5.0.0-alpha.2"
+    const val preferences = "1.1.1"
     const val retrofit = "2.9.0"
     const val retrofitCoroutinesAdapter = "0.9.2"
     const val robolectric = "4.5.1"
