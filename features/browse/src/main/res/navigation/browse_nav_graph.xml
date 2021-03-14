@@ -6,7 +6,7 @@
     app:startDestination="@id/repoListFragment">
 
     <fragment
-        android:id="@+id/repoListFragment"
+        android:id="@id/repoListFragment"
         android:name="com.thomaskioko.stargazer.browse.ui.RepoListFragment"
         android:label="RepoListFragment"
         tools:layout="@layout/fragment_repo_list">
