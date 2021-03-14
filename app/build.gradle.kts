@@ -11,4 +11,5 @@ dependencies {
     implementation(project(":features:trending-repositories"))
     implementation(project(":features:bookmarks"))
     implementation(project(":features:repo-details"))
+    implementation(project(":features:settings"))
 }

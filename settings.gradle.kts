@@ -10,6 +10,8 @@ include(
     ":features:bookmarks",
     ":features:browse",
     ":features:trending-repositories",
-    ":features:repo-details"
+    ":features:repo-details",
+    ":features:settings",
+    ":common-testing",
 )
-include(":common-testing")
+
