@@ -5,4 +5,12 @@
     <item name="browse_nav_graph" type="id" />
     <item name="bookmark_nav_graph" type="id" />
     <item name="repo_details_nav_graph" type="id" />
+
+    <item name="settings_nav_graph" type="id" />
+
+    <!-- Fragment Id's -->
+    <item name="repoListFragment" type="id" />
+    <item name="bookmarkListFragment" type="id" />
+    <item name="trendingListFragment" type="id" />
+    <item name="settingsFragment" type="id" />
 </resources>
