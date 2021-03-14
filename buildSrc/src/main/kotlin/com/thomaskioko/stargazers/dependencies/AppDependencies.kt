@@ -18,7 +18,7 @@ object Dependencies {
             const val iconsCore = "androidx.compose.material:material-icons-core:${DependencyVersions.compose}"
             const val iconsExtended = "androidx.compose.material:material-icons-extended:${DependencyVersions.compose}"
 
-            const val activity = "androidx.activity:activity-compose::${DependencyVersions.composeActivity}"
+            const val activity = "androidx.activity:activity-compose:${DependencyVersions.composeActivity}"
             const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-compose::${DependencyVersions.composeViewModel}"
         }
 

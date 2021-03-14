@@ -44,6 +44,7 @@ android {
     buildFeatures {
         dataBinding = true
         viewBinding = true
+        compose = true
     }
 
     sourceSets {
@@ -71,6 +72,12 @@ android {
         resources.excludes.add("META-INF/LGPL2.1")
         resources.excludes.add("DebugProbesKt.bin")
     }
+
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = DependencyVersions.compose
+        kotlinCompilerVersion = PluginsVersions.kotlin
+    }
 }
 
 tasks.withType<Test>().configureEach {
@@ -90,6 +97,12 @@ dependencies {
     implementation(Dependencies.AndroidX.coreKtx)
     implementation(Dependencies.AndroidX.constraintLayout)
 
+    implementation(Dependencies.AndroidX.Compose.activity)
+    implementation(Dependencies.AndroidX.Compose.material)
+    implementation(Dependencies.AndroidX.Compose.tooling)
+    implementation(Dependencies.AndroidX.Compose.ui)
+
+    implementation(Dependencies.AndroidX.Lifecycle.runtime)
     implementation(Dependencies.AndroidX.Lifecycle.viewmodel)
 
     implementation(Dependencies.AndroidX.Navigation.fragment)

@@ -45,6 +45,7 @@ android {
     buildFeatures {
         dataBinding = true
         viewBinding = true
+        compose = true
     }
 
     sourceSets {
@@ -64,6 +65,11 @@ android {
         isWarningsAsErrors = true
         isAbortOnError = false
     }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = DependencyVersions.compose
+        kotlinCompilerVersion = PluginsVersions.kotlin
+    }
 }
 
 dependencies {
@@ -75,6 +81,14 @@ dependencies {
     implementation(Dependencies.AndroidX.appCompat)
     implementation(Dependencies.AndroidX.constraintLayout)
     implementation(Dependencies.AndroidX.dataStore)
+
+
+    implementation(Dependencies.AndroidX.Compose.activity)
+    implementation(Dependencies.AndroidX.Compose.material)
+    implementation(Dependencies.AndroidX.Compose.tooling)
+    implementation(Dependencies.AndroidX.Compose.ui)
+
+    implementation(Dependencies.AndroidX.Lifecycle.runtime)
 
     implementation(Dependencies.AndroidX.Navigation.fragment)
     implementation(Dependencies.AndroidX.Navigation.ktx)
