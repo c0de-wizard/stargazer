@@ -14,6 +14,8 @@
 
     <include app:graph="@navigation/repo_details_nav_graph" />
 
+    <include app:graph="@navigation/settings_nav_graph" />
+
     <action
         android:id="@+id/action_repo_list"
         app:destination="@id/browse_nav_graph" />
@@ -35,5 +37,13 @@
             android:name="repo_id"
             app:argType="long" />
     </action>
+
+    <action
+        android:id="@+id/action_settings_fragment"
+        app:destination="@id/settings_nav_graph"
+        app:enterAnim="@anim/slide_in_from_top"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/slide_out_to_top" />
 
 </navigation>
