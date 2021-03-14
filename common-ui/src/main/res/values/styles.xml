@@ -7,4 +7,17 @@
         <item name="itemTextColor">@color/bottom_nav_item</item>
         <item name="itemTextAppearanceActive">@style/TextAppearance.Stargazer.BottomNavigation</item>
     </style>
+
+    <!--Toolbar style to work with light / dark theme-->
+    <style name="Widget.Stargazer.Toolbar.PrimarySurface" parent="@style/Widget.MaterialComponents.Toolbar.PrimarySurface">
+        <item name="android:elevation">4dp</item>
+        <item name="android:background">?attr/colorPrimarySurface</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!--Preference fragment theme-->
+    <style name="Stargazers.PreferenceThemeOverlay" parent="@style/PreferenceThemeOverlay">
+        <item name="android:layout">@layout/fragment_settings</item>
+    </style>
+
 </resources>
