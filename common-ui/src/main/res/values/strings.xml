@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="app_name">Stargazers</string>
     <string name="error_loading">Could not fetch repos!!</string>
     <string name="repo_card_transition_name">repo_card_%1$d</string>
@@ -10,15 +10,8 @@
     <string name="content_description_repo_image">Repository Image</string>
 
     <!-- Settings Fragment -->
-    <string name="fragment_settings_preference_category_theme">Interface</string>
-    <string name="fragment_settings_theme_list_title">App\'s theme</string>
-    <string name="fragment_settings_theme_switch_title">Enable dark theme</string>
-    <string name="fragment_settings_preference_category_help">About</string>
-    <string name="fragment_settings_preference_version">Version</string>
-    <string name="fragment_settings_preference_review">Review the app</string>
-    <string name="fragment_settings_preference_review_summary">To review the app, please follow
-        this link to the app\'s page on Google Play and put your rating within the review
-        section</string>
+    <string name="fragment_settings_preference_category_theme">UI Settings</string>
+    <string name="fragment_settings_theme_switch_title">Change app theme</string>
 
     <!-- Menu Items -->
     <string name="menu_item_settings">Settings</string>
