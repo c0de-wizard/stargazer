@@ -1,4 +1,4 @@
-package com.thomaskioko.stargazer.domain
+package com.thomaskioko.stargazers.settings.domain
 
 import android.content.Context
 import androidx.datastore.preferences.core.booleanPreferencesKey
