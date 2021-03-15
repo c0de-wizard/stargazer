@@ -1,7 +1,6 @@
 package com.thomaskioko.stargazer.ui
 
 import android.os.Bundle
-import android.view.Menu
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
@@ -10,13 +9,12 @@ import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.switchmaterial.SwitchMaterial
 import com.thomaskioko.stargazer.R
 import com.thomaskioko.stargazer.core.injection.annotations.MainDispatcher
 import com.thomaskioko.stargazer.core.network.FlowNetworkObserver
 import com.thomaskioko.stargazer.databinding.ActivityMainBinding
-import com.thomaskioko.stargazer.domain.SettingsManager
-import com.thomaskioko.stargazer.domain.UiTheme
+import com.thomaskioko.stargazers.settings.domain.SettingsManager
+import com.thomaskioko.stargazers.settings.domain.UiTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -56,8 +54,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbar)
-
         flowNetworkObserver.observeInternetConnection()
             .onEach {
                 //TODO:: Show snackBar
@@ -81,7 +77,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setTheme() {
-        GlobalScope.launch(context = mainDispatcher) {
+        val job =  GlobalScope.launch(context = mainDispatcher) {
             settingsManager.getUiModeFlow()
                 .collect {
                     isDarkMode = when (it) {
@@ -96,32 +92,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main, menu)
-
-        val menuItem = menu.findItem(R.id.menu_item_theme)
-        val switch = (menuItem.actionView as SwitchMaterial)
-
-        switch.isChecked = isDarkMode
-
-        switch.setOnCheckedChangeListener { _, isChecked ->
-            isDarkMode = if (isChecked) {
-                updateTheme(UiTheme.DARK)
-                true
-            } else {
-                updateTheme(UiTheme.LIGHT)
-                false
-            }
-        }
-        return true
-    }
-
-    private fun updateTheme(themeTheme: UiTheme) {
-        GlobalScope.launch(context = mainDispatcher) {
-            settingsManager.setUiMode(themeTheme)
-        }
+        job.cancel()
     }
 
     override fun onBackPressed() {
