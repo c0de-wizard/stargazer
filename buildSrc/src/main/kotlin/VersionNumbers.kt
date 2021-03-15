@@ -29,7 +29,7 @@ object DependencyVersions {
     const val composeActivity = "1.3.0-alpha03"
     const val composeViewModel = "1.0.0-alpha02"
     const val constraintLayout = "2.1.0-alpha2"
-    const val coroutines = "1.4.2" // TODO::Bump up the version once Turbine is upgraded
+    const val coroutines = "1.4.3"
     const val coreKtx = "1.5.0-beta02"
     const val dataStore = "1.0.0-alpha07"
     const val espresso: String = "3.4.0-alpha04"
@@ -56,5 +56,5 @@ object DependencyVersions {
     const val room = "2.3.0-beta02"
     const val timber = "4.7.1"
     const val truth = "1.1.2"
-    const val turbine = "0.4.0"
+    const val turbine = "0.4.1"
 }
