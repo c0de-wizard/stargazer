@@ -21,8 +21,6 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <item name="android:navigationBarColor">?attr/colorPrimaryVariant</item>
 
-        <item name="bottomNavigationStyle">@style/Widget.GithubStargazer.BottomNavigationView</item>
-
         <!--Typography-->
         <item name="textAppearanceHeadline2">@style/TextAppearance.Stargazer.Headline2</item>
         <item name="textAppearanceHeadline3">@style/TextAppearance.Stargazer.Headline3</item>
@@ -39,5 +37,8 @@
         <item name="emphasisHighAlpha">0.87</item>
         <item name="emphasisMediumAlpha">0.60</item>
         <item name="emphasisDisabledAlpha">0.38</item>
+
+        <item name="bottomNavigationStyle">@style/Widget.GithubStargazer.BottomNavigationView</item>
+        <item name="preferenceTheme">@style/Stargazers.PreferenceThemeOverlay</item>
     </style>
 </resources>
