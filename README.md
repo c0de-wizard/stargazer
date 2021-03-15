@@ -24,22 +24,10 @@ Stargazer is a simple android project that consumes Github's Api & loads a list 
 
 ## Requirements
 
-* JDK 1.8
+* [Android Studio Arctic Fox](https://developer.android.com/studio/preview?authuser=1)
+* JDK 11
 * [Android SDK](https://developer.android.com/studio/index.html)
 * Latest Android SDK Tools and build tools.
-
-## Environment setup
-
-First off, you require the latest Android Studio 4.1 (or newer) to be able to build the app.
-
-
-* Start Android Studio
-* Select "Open Project" and select the generated root Project folder
-* You may be prompted with "Unlinked gradle project" -> Select "Import gradle project" and select
-the option to use the gradle wrapper
-* You may also be prompted to change to the appropriate SDK folder for your local machine
-* Once the project has compiled -> run the project!
-``
 
 ## Architecture
 
