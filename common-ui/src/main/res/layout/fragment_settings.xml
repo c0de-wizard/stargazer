@@ -10,10 +10,12 @@
         android:id="@+id/toolbar_fragment_simple"
         style="@style/Widget.Stargazer.Toolbar.PrimarySurface"
         android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
         app:contentInsetStartWithNavigation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="?attr/homeAsUpIndicator">
 
         <TextView
             android:id="@+id/toolbar_title"
@@ -22,6 +24,7 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="4dp"
             android:text="@string/toolbar_title_settings"
+            android:gravity="center_vertical"
             android:textColor="?attr/colorOnPrimarySurface" />
 
     </com.google.android.material.appbar.MaterialToolbar>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewmodel"
             type="com.thomaskioko.stargazer.browse.ui.viewmodel.GetReposViewModel" />
@@ -15,6 +16,12 @@
         android:layout_height="match_parent"
         android:background="?android:colorBackground"
         tools:context="com.thomaskioko.githubstargazer.browse.com.thomaskioko.stargazer.browse.ui.RepoListFragment">
+
+        <include
+            android:id="@+id/toolbar_layout"
+            layout="@layout/include_toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" />
 
 
         <TextView
@@ -51,8 +58,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/repo_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:clipToPadding="false"
             android:scrollbars="none"
             android:transitionGroup="true"
@@ -62,7 +69,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_layout"
             app:spanCount="3"
             tools:listitem="@layout/item_repo" />
 
