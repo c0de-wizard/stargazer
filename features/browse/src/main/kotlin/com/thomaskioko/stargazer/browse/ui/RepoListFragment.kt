@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.doOnPreDraw
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -17,8 +17,10 @@ import com.thomaskioko.stargazer.browse.ui.adapter.RepoItemClick
 import com.thomaskioko.stargazer.browse.ui.adapter.RepoListAdapter
 import com.thomaskioko.stargazer.browse.ui.viewmodel.GetReposViewModel
 import com.thomaskioko.stargazer.core.ViewStateResult
+import com.thomaskioko.stargazer.navigation.NavigationScreen
 import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailScreen
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
+import com.thomaskioko.stargazers.ui.BaseFragment
 import com.thomaskioko.stargazers.ui.extensions.hideView
 import com.thomaskioko.stargazers.ui.extensions.showView
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,16 +30,12 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class RepoListFragment : Fragment() {
+class RepoListFragment : BaseFragment<FragmentRepoListBinding>() {
 
     @Inject
     lateinit var screenNavigator: ScreenNavigator
 
     private val getRepoViewModel: GetReposViewModel by viewModels()
-
-    private var _binding: FragmentRepoListBinding? = null
-    private val binding get() = _binding!!
-
     private lateinit var repoListAdapter: RepoListAdapter
 
     private var uiStateJob: Job? = null
@@ -62,12 +60,11 @@ class RepoListFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
+    override fun setBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentRepoListBinding.inflate(inflater, container, false).apply {
+        container: ViewGroup?
+    ): FragmentRepoListBinding = FragmentRepoListBinding.inflate(inflater, container, false)
+        .apply {
 
             viewmodel = getRepoViewModel
 
@@ -77,7 +74,10 @@ class RepoListFragment : Fragment() {
             }
         }
 
-        return binding.root
+    override fun getToolbar(): Toolbar = binding.toolbarLayout.toolbar
+
+    override fun navigateToSettingsScreen() {
+        screenNavigator.goToScreen(NavigationScreen.SettingsScreen)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -105,11 +105,6 @@ class RepoListFragment : Fragment() {
         super.onStop()
     }
 
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
-    }
-
     private fun handleResult(viewStateResult: ViewStateResult<List<RepoViewDataModel>>) {
         when (viewStateResult) {
             is ViewStateResult.Success -> {
@@ -127,4 +122,5 @@ class RepoListFragment : Fragment() {
             }
         }
     }
+
 }

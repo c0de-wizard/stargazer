@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -15,8 +15,10 @@ import com.thomaskioko.stargazer.bookmarks.ui.adapter.BookmarkRepoItemClick
 import com.thomaskioko.stargazer.bookmarks.ui.adapter.BookmarkedReposAdapter
 import com.thomaskioko.stargazer.bookmarks.ui.viewmodel.GetBookmarkedReposViewModel
 import com.thomaskioko.stargazer.core.ViewStateResult
+import com.thomaskioko.stargazer.navigation.NavigationScreen
 import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailScreen
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
+import com.thomaskioko.stargazers.ui.BaseFragment
 import com.thomaskioko.stargazers.ui.extensions.hideView
 import com.thomaskioko.stargazers.ui.extensions.showView
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,15 +28,12 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BookmarkedReposFragment : Fragment() {
+class BookmarkedReposFragment : BaseFragment<FragmentBookmarkedReposBinding>() {
 
     @Inject
     lateinit var screenNavigator: ScreenNavigator
 
     private val getRepoViewModel: GetBookmarkedReposViewModel by viewModels()
-
-    private var _binding: FragmentBookmarkedReposBinding? = null
-    private val binding get() = _binding!!
     private lateinit var repoListAdapter: BookmarkedReposAdapter
 
     private val onRepoItemClick = object : BookmarkRepoItemClick {
@@ -46,12 +45,11 @@ class BookmarkedReposFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
+    override fun setBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentBookmarkedReposBinding.inflate(inflater, container, false)
+        container: ViewGroup?
+    ): FragmentBookmarkedReposBinding =
+        FragmentBookmarkedReposBinding.inflate(inflater, container, false)
             .apply {
                 viewmodel = getRepoViewModel
                 repoList.apply {
@@ -59,7 +57,11 @@ class BookmarkedReposFragment : Fragment() {
                     adapter = repoListAdapter
                 }
             }
-        return binding.root
+
+    override fun getToolbar(): Toolbar = binding.toolbarLayout.toolbar
+
+    override fun navigateToSettingsScreen() {
+        screenNavigator.goToScreen(NavigationScreen.SettingsScreen)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -76,11 +78,6 @@ class BookmarkedReposFragment : Fragment() {
         getRepoViewModel.bookmarkedList
             .onEach(::handleResult)
             .launchIn(lifecycleScope)
-    }
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
     }
 
     private fun handleResult(viewStateResult: ViewStateResult<List<RepoViewDataModel>>) {

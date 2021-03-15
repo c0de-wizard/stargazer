@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
@@ -16,32 +16,38 @@ import com.thomaskioko.stargazer.details.databinding.FragmentRepoDetailsBinding
 import com.thomaskioko.stargazer.details.domain.model.UpdateObject
 import com.thomaskioko.stargazer.details.model.RepoViewDataModel
 import com.thomaskioko.stargazer.details.ui.viewmodel.RepoDetailsViewModel
+import com.thomaskioko.stargazer.navigation.NavigationScreen
+import com.thomaskioko.stargazer.navigation.ScreenNavigator
+import com.thomaskioko.stargazers.ui.BaseFragment
 import com.thomaskioko.stargazers.ui.extensions.themeColor
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class RepoDetailsFragment : Fragment() {
+class RepoDetailsFragment : BaseFragment<FragmentRepoDetailsBinding>() {
+
+    @Inject
+    lateinit var screenNavigator: ScreenNavigator
 
     private val args: RepoDetailsFragmentArgs by navArgs()
     private val getRepoViewModel: RepoDetailsViewModel by viewModels()
 
-    private lateinit var binding: FragmentRepoDetailsBinding
     private lateinit var viewDataModel: RepoViewDataModel
 
-    override fun onCreateView(
+    override fun setBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentRepoDetailsBinding.inflate(inflater, container, false).apply {
-            viewmodel = getRepoViewModel
-            floatingActionButton.setOnClickListener { handleButtonClick() }
-        }
-        return binding.root
+        container: ViewGroup?
+    ): FragmentRepoDetailsBinding  = FragmentRepoDetailsBinding.inflate(inflater, container, false).apply {
+        viewmodel = getRepoViewModel
+        floatingActionButton.setOnClickListener { handleButtonClick() }
     }
+
+    override fun getToolbar(): Toolbar = binding.toolbarLayout.toolbar
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,6 +75,10 @@ class RepoDetailsFragment : Fragment() {
                 .onEach(::handleViewStateResult)
                 .launchIn(lifecycleScope)
         }
+    }
+
+    override fun navigateToSettingsScreen() {
+        screenNavigator.goToScreen(NavigationScreen.SettingsScreen)
     }
 
     private fun handleButtonClick() {
