@@ -11,7 +11,7 @@ object BuildVersions {
 
 object PluginsVersions {
     const val androidGradle = "7.0.0-alpha08"
-    const val kotlin = "1.4.30"
+    const val kotlin = "1.4.31"
     const val navigation = "2.3.2"
     const val daggerHiltAndroid: String = "2.33-beta"
     const val spotless = "5.10.2"
@@ -21,11 +21,12 @@ object PluginsVersions {
 }
 
 object DependencyVersions {
+    const val accompanistCoil = "0.6.2"
     const val androidxTest = "1.4.0-alpha04"
     const val archCoreTesting = "2.1.0"
     const val appCompat = "1.3.0-beta01"
     const val assertJ = "3.19.0"
-    const val compose = "1.0.0-beta01"
+    const val compose = "1.0.0-alpha05"
     const val composeActivity = "1.3.0-alpha03"
     const val composeViewModel = "1.0.0-alpha02"
     const val constraintLayout = "2.1.0-alpha2"
