@@ -14,3 +14,4 @@ include(
     ":features:settings",
     ":common-testing",
 )
+include(":common-ui-compose")
