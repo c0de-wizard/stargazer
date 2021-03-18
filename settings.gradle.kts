@@ -13,5 +13,6 @@ include(
     ":features:repo-details",
     ":features:settings",
     ":common-testing",
+    ":common-ui-compose",
+    ":design:common-ui-resources"
 )
-include(":common-ui-compose")
