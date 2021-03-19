@@ -23,7 +23,7 @@ compileKotlin.kotlinOptions {
 // TODO:: Move version to versionNumbers file
 object PluginsVersions {
     const val androidGradle = "7.0.0-alpha10"
-    const val kotlin = "1.4.30"
+    const val kotlin = "1.4.31"
     const val navigaiton = "2.3.2"
     const val daggerHiltAndroid: String = "2.33-beta"
     const val spotless = "5.10.2"
