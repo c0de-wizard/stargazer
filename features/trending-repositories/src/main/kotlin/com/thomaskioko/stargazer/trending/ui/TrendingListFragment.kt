@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.google.android.material.transition.MaterialElevationScale
 import com.thomaskioko.stargazer.core.factory.create
@@ -83,9 +84,11 @@ internal class TrendingListFragment : BaseFragment<FragmentTrendingRepositoriesB
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
 
-        getRepoViewModel.dispatchIntent(ReposIntent.DisplayData)
+        lifecycleScope.launchWhenStarted {
+            getRepoViewModel.dispatchIntent(ReposIntent.DisplayData)
 
-        getRepoViewModel.actionState.observe(viewLifecycleOwner) { render(it) }
+            getRepoViewModel.actionState.observe(viewLifecycleOwner) { render(it) }
+        }
     }
 
     private fun render(state: ReposViewState) {
