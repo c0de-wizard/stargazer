@@ -2,7 +2,6 @@
 
 import com.thomaskioko.stargazers.dependencies.Dependencies
 import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.getting
 import org.gradle.kotlin.dsl.kotlin
 
 plugins {
@@ -29,6 +28,10 @@ android {
         compose = true
     }
 
+    kotlinOptions {
+        useIR = true
+    }
+
     composeOptions {
         kotlinCompilerExtensionVersion = DependencyVersions.compose
     }
@@ -36,10 +39,14 @@ android {
 }
 
 dependencies {
-    implementation(Dependencies.AndroidX.Compose.accompanistCoil)
+    implementation(project(":common-ui"))
+    implementation(project(":design:common-ui-resources"))
+
     implementation(Dependencies.AndroidX.Compose.activity)
     implementation(Dependencies.AndroidX.Compose.material)
     implementation(Dependencies.AndroidX.Compose.tooling)
     implementation(Dependencies.AndroidX.Compose.ui)
     implementation(Dependencies.AndroidX.Compose.iconsExtended)
+    implementation(Dependencies.AndroidX.Compose.Accompanist.coil)
+    implementation(Dependencies.AndroidX.Compose.Accompanist.insets)
 }

@@ -21,7 +21,7 @@ object PluginsVersions {
 }
 
 object DependencyVersions {
-    const val accompanistCoil = "0.6.2"
+    const val accompanist = "0.6.2"
     const val androidxTest = "1.4.0-alpha04"
     const val archCoreTesting = "2.1.0"
     const val appCompat = "1.3.0-beta01"
