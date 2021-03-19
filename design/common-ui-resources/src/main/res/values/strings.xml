@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bottom_nav_item_trending">Trending</string>
+    <string name="bottom_nav_item_favorite">Favorite</string>
+    <string name="bottom_nav_item_browse">Browse</string>
+</resources>
