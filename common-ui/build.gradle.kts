@@ -6,6 +6,8 @@ plugins {
 
 dependencies {
 
+    implementation(project(":design:common-ui-resources"))
+
     implementation(Dependencies.AndroidX.coreKtx)
     implementation(Dependencies.Google.material)
 }
