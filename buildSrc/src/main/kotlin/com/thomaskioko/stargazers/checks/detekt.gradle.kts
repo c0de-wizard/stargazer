@@ -1,4 +1,4 @@
-package plugins
+package checks
 
 import io.gitlab.arturbosch.detekt.DetektPlugin
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension

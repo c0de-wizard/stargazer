@@ -1,28 +1,33 @@
 @file:Suppress("UnstableApiUsage")
 
 import com.thomaskioko.stargazers.dependencies.Dependencies
+import dependencies.BuildVersions
+import dependencies.DependencyVersions
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getting
 import org.gradle.kotlin.dsl.kotlin
-import org.gradle.kotlin.dsl.project
 
 plugins {
-    id("com.android.library")
+    id("com.android.application")
     kotlin("android")
     id("kotlin-parcelize")
     kotlin("kapt")
     id("androidx.navigation.safeargs.kotlin")
     id("dagger.hilt.android.plugin")
-    id("jacoco")
-    id("plugins.jacoco-report")
     id("de.mannodermaus.android-junit5")
 }
 
 android {
+
     defaultConfig {
+        applicationId = "com.thomaskioko.stargazer"
         minSdkVersion(BuildVersions.minSdkVersion)
         compileSdkVersion(BuildVersions.compileSdkVersion)
         targetSdkVersion(BuildVersions.targetSdkVersion)
+
+        versionCode = BuildVersions.versionCode
+        versionName = BuildVersions.versionName
+        multiDexEnabled = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -34,10 +39,8 @@ android {
 
     buildTypes {
         named("debug") {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             versionNameSuffix = "-DEBUG"
-
-            isTestCoverageEnabled = true
         }
     }
 
@@ -66,58 +69,42 @@ android {
         isAbortOnError = false
     }
 
-    packagingOptions {
-        resources.excludes.add("**/attach_hotspot_windows.dll")
-        resources.excludes.add("META-INF/licenses/**")
-        resources.excludes.add("META-INF/AL2.0")
-        resources.excludes.add("META-INF/LGPL2.1")
-        resources.excludes.add("DebugProbesKt.bin")
-    }
-
-
     composeOptions {
         kotlinCompilerExtensionVersion = DependencyVersions.compose
     }
-}
 
-tasks.withType<Test>().configureEach {
-    useJUnitPlatform()
+    hilt {
+        enableExperimentalClasspathAggregation = true
+    }
 }
 
 dependencies {
 
-    implementation(project(":core"))
-    implementation(project(":design:common-ui"))
-    implementation(project(":navigation"))
-
     testImplementation(project(":common-testing"))
     androidTestImplementation(project(":common-testing"))
 
-    implementation(Dependencies.AndroidX.appCompat)
     implementation(Dependencies.AndroidX.coreKtx)
-    implementation(Dependencies.AndroidX.constraintLayout)
-
-    implementation(Dependencies.AndroidX.Compose.activity)
-    implementation(Dependencies.AndroidX.Compose.material)
-    implementation(Dependencies.AndroidX.Compose.tooling)
-    implementation(Dependencies.AndroidX.Compose.ui)
+    implementation(Dependencies.Google.material)
 
     implementation(Dependencies.AndroidX.Lifecycle.runtime)
-    implementation(Dependencies.AndroidX.Lifecycle.viewmodel)
 
     implementation(Dependencies.AndroidX.Navigation.fragment)
     implementation(Dependencies.AndroidX.Navigation.ktx)
     implementation(Dependencies.AndroidX.Navigation.runtime)
 
-    implementation(Dependencies.Google.material)
-    implementation(Dependencies.timber)
-
-    implementation(Dependencies.Coroutines.android)
-
     implementation(Dependencies.Google.Hilt.core)
     implementation(Dependencies.Google.Hilt.viewmodel)
     kapt(Dependencies.Google.Hilt.compiler)
 
-    androidTestImplementation(Dependencies.Testing.AndroidX.junit)
-    androidTestImplementation(Dependencies.Testing.AndroidX.fragment)
+    implementation(Dependencies.Google.material)
+    implementation(Dependencies.timber)
+    implementation(Dependencies.leakCanary)
+
+    implementation(Dependencies.Retrofit.Moshi.core)
+    implementation(Dependencies.Retrofit.moshiConverter)
+    kapt(Dependencies.Retrofit.Moshi.kapt)
+
+    implementation(Dependencies.OkHttp.loggingInterceptor)
+
+    implementation(Dependencies.Room.roomKtx)
 }

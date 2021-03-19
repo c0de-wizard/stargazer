@@ -1,4 +1,6 @@
-package plugins
+package checks
+
+import org.gradle.kotlin.dsl.configure
 
 val fileFilter = mutableSetOf(
     "**/R.class",

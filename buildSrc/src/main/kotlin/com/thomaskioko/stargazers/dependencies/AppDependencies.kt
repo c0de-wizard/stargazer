@@ -1,5 +1,7 @@
 package com.thomaskioko.stargazers.dependencies
 
+import dependencies.DependencyVersions
+
 object Dependencies {
     const val timber = "com.jakewharton.timber:timber:${DependencyVersions.timber}"
     const val leakCanary = "com.squareup.leakcanary:leakcanary-android:${DependencyVersions.leakCanary}"

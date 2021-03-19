@@ -1,4 +1,4 @@
-package plugins
+package checks
 
 val ktlint: Configuration by configurations.creating
 

@@ -1,4 +1,4 @@
-package plugins
+package checks
 
 import com.diffplug.gradle.spotless.SpotlessExtension
 import com.diffplug.gradle.spotless.SpotlessPlugin

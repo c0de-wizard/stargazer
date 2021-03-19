@@ -1,4 +1,4 @@
-
+package dependencies
 
 object BuildVersions {
     val minSdkVersion = 21

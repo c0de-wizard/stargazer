@@ -1,8 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
 import com.thomaskioko.stargazers.dependencies.Dependencies
+import dependencies.BuildVersions
 import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.getting
 import org.gradle.kotlin.dsl.kotlin
 import org.gradle.kotlin.dsl.project
 
@@ -13,7 +13,7 @@ plugins {
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
     id("jacoco")
-    id("plugins.jacoco-report")
+    id("checks.jacoco-report")
     id("de.mannodermaus.android-junit5")
 }
 

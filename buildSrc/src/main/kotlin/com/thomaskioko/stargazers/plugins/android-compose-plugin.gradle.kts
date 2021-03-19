@@ -1,6 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
 import com.thomaskioko.stargazers.dependencies.Dependencies
+import dependencies.BuildVersions
+import dependencies.DependencyVersions
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.kotlin
 

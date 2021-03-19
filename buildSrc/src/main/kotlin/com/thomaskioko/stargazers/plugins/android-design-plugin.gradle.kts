@@ -1,6 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
 import org.gradle.kotlin.dsl.kotlin
+import dependencies.BuildVersions
 
 plugins {
     id("com.android.library")
