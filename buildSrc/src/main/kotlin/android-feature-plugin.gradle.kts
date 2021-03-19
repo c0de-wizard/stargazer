@@ -87,7 +87,7 @@ tasks.withType<Test>().configureEach {
 dependencies {
 
     implementation(project(":core"))
-    implementation(project(":common-ui"))
+    implementation(project(":design:common-ui"))
     implementation(project(":navigation"))
 
     testImplementation(project(":common-testing"))

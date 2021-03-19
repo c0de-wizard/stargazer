@@ -39,7 +39,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":common-ui"))
+    implementation(project(":design:common-ui"))
     implementation(project(":design:common-ui-resources"))
 
     implementation(Dependencies.AndroidX.Compose.activity)
