@@ -39,6 +39,5 @@
         <item name="emphasisDisabledAlpha">0.38</item>
 
         <item name="bottomNavigationStyle">@style/Widget.GithubStargazer.BottomNavigationView</item>
-        <item name="preferenceTheme">@style/Stargazers.PreferenceThemeOverlay</item>
     </style>
 </resources>

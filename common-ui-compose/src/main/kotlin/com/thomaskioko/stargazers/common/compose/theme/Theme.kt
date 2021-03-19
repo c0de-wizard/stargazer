@@ -39,4 +39,3 @@ fun StargazerTheme(
         content = content
     )
 }
-

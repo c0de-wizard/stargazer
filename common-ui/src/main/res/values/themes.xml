@@ -42,6 +42,5 @@
 
         <!--Default styles-->
         <item name="bottomNavigationStyle">@style/Widget.GithubStargazer.BottomNavigationView</item>
-        <item name="preferenceTheme">@style/Stargazers.PreferenceThemeOverlay</item>
     </style>
 </resources>
