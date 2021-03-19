@@ -57,6 +57,7 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
+        useIR = true
     }
 
     lint {
@@ -68,7 +69,6 @@ android {
 
     composeOptions {
         kotlinCompilerExtensionVersion = DependencyVersions.compose
-        kotlinCompilerVersion = PluginsVersions.kotlin
     }
 
     hilt {
@@ -82,15 +82,7 @@ dependencies {
     androidTestImplementation(project(":common-testing"))
 
     implementation(Dependencies.AndroidX.coreKtx)
-    implementation(Dependencies.AndroidX.appCompat)
-    implementation(Dependencies.AndroidX.constraintLayout)
-    implementation(Dependencies.AndroidX.dataStore)
-
-
-    implementation(Dependencies.AndroidX.Compose.activity)
-    implementation(Dependencies.AndroidX.Compose.material)
-    implementation(Dependencies.AndroidX.Compose.tooling)
-    implementation(Dependencies.AndroidX.Compose.ui)
+    implementation(Dependencies.Google.material)
 
     implementation(Dependencies.AndroidX.Lifecycle.runtime)
 
