@@ -37,13 +37,14 @@ subprojects {
             languageVersion = "1.5"
             apiVersion = "1.5"
             freeCompilerArgs += "-Xuse-experimental=" +
-                "kotlin.Experimental," +
-                "kotlin.time.ExperimentalTime," +
-                "kotlinx.coroutines.ExperimentalCoroutinesApi," +
-                "kotlinx.coroutines.InternalCoroutinesApi," +
-                "kotlinx.coroutines.ObsoleteCoroutinesApi," +
-                "kotlinx.coroutines.FlowPreview"
-            freeCompilerArgs += "-Xopt-in=kotlin.ExperimentalStdlibApi"
+                    "kotlin.RequiresOptIn," +
+                    "kotlin.Experimental," +
+                    "kotlin.time.ExperimentalTime," +
+                    "kotlin.ExperimentalStdlibApi," +
+                    "kotlinx.coroutines.ExperimentalCoroutinesApi," +
+                    "kotlinx.coroutines.InternalCoroutinesApi," +
+                    "kotlinx.coroutines.ObsoleteCoroutinesApi," +
+                    "kotlinx.coroutines.FlowPreview"
         }
     }
 }
