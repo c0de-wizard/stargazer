@@ -1,6 +1,11 @@
 package com.thomaskioko.stargazers.common.compose.theme
 
+import androidx.compose.material.Colors
+import androidx.compose.material.LocalElevationOverlay
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.compositeOver
+import androidx.compose.ui.unit.Dp
 
 val colorPrimaryLight = Color(0xFF344955)
 val colorPrimaryVariantLight = Color(0xFF232f34)
@@ -34,3 +39,23 @@ val colorOnErrorDark = Color(0xFFFFFFFF)
 
 val black = Color(0xFF000000)
 val favorite = Color(0xFFf9be64)
+
+/**
+ * Return the fully opaque color that results from compositing [onSurface] atop [surface] with the
+ * given [alpha]. Useful for situations where semi-transparent colors are undesirable.
+ */
+@Composable
+fun Colors.compositedOnSurface(alpha: Float): Color {
+    return onSurface.copy(alpha = alpha).compositeOver(surface)
+}
+
+/**
+ * Calculates the color of an elevated `surface` in dark mode. Returns `surface` in light mode.
+ */
+@Composable
+fun Colors.elevatedSurface(elevation: Dp): Color {
+    return LocalElevationOverlay.current?.apply(
+        color = this.surface,
+        elevation = elevation
+    ) ?: this.surface
+}
