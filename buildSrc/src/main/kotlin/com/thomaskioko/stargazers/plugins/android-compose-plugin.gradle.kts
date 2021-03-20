@@ -19,6 +19,9 @@ android {
 
     defaultConfig {
         minSdkVersion(BuildVersions.minSdkVersion)
+
+        versionCode = BuildVersions.versionCode
+        versionName(BuildVersions.versionName)
     }
 
     compileOptions {
@@ -44,11 +47,15 @@ dependencies {
     implementation(project(":design:common-ui"))
     implementation(project(":design:common-ui-resources"))
 
-    implementation(Dependencies.AndroidX.Compose.activity)
-    implementation(Dependencies.AndroidX.Compose.material)
-    implementation(Dependencies.AndroidX.Compose.tooling)
-    implementation(Dependencies.AndroidX.Compose.ui)
-    implementation(Dependencies.AndroidX.Compose.iconsExtended)
-    implementation(Dependencies.AndroidX.Compose.Accompanist.coil)
-    implementation(Dependencies.AndroidX.Compose.Accompanist.insets)
+
+    api(Dependencies.AndroidX.Compose.activity)
+    api(Dependencies.AndroidX.Compose.foundation)
+    api(Dependencies.AndroidX.Compose.iconsExtended)
+    api(Dependencies.AndroidX.Compose.material)
+    api(Dependencies.AndroidX.Compose.tooling)
+    api(Dependencies.AndroidX.Compose.ui)
+    api(Dependencies.AndroidX.Compose.runtime)
+    api(Dependencies.AndroidX.Compose.viewModel)
+    api(Dependencies.AndroidX.Compose.Accompanist.coil)
+    api(Dependencies.AndroidX.Compose.Accompanist.insets)
 }
