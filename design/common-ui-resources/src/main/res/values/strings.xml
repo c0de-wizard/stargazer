@@ -3,4 +3,22 @@
     <string name="bottom_nav_item_trending">Trending</string>
     <string name="bottom_nav_item_favorite">Favorite</string>
     <string name="bottom_nav_item_browse">Browse</string>
+    <string name="cd_back">Back</string>
+
+    <string name="settings_title_ui">User Interface</string>
+    <string name="settings_title_about">About Stargazers</string>
+    <string name="settings_title_info">Info</string>
+
+    <string name="settings_title_theme_dark">Enable Dark Mode</string>
+    <string name="settings_title_version">Version</string>
+
+    <string name="settings_theme_title_light">Enable Light Mode</string>
+    <string name="settings_theme_description">Choose between light and dark color palettes for backgrounds, headers and text</string>
+    <string name="settings_theme_light">Switch to Light theme</string>
+
+    <string name="settings_version_number">%1$s (%2$s)</string>
+    <string name="settings_about_description">Stargazer is a simple android project that consumes Github\'s Api &amp; loads a list of repositories from Square\'s organization.</string>
+
+    <!-- Toolbar Title -->
+    <string name="title_settings">Settings</string>
 </resources>
