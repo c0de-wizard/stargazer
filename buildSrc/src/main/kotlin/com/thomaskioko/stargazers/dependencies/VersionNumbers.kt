@@ -5,8 +5,12 @@ object BuildVersions {
     val targetSdkVersion = 30
     val compileSdkVersion = 30
     val buildToolsVersion = "30.0.3"
-    val versionCode = 1
-    val versionName = "0.1"
+    val versionMajor = 3
+    val versionMinor = 0
+    val versionPatch = 0
+    val versionBuild = 0 // Bump for dogfood builds, public betas, etc.
+    val versionCode  = versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
+    val versionName = "${versionMajor}.${versionMinor}.${versionPatch}"
 }
 
 object PluginsVersions {
@@ -28,7 +32,7 @@ object DependencyVersions {
     const val assertJ = "3.19.0"
     const val compose = "1.0.0-beta02"
     const val composeActivity = "1.3.0-alpha04"
-    const val composeViewModel = "1.0.0-alpha02"
+    const val composeViewModel = "1.0.0-alpha03"
     const val constraintLayout = "2.1.0-alpha2"
     const val coroutines = "1.4.3"
     const val coreKtx = "1.5.0-beta02"
