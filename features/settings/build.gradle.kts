@@ -6,6 +6,8 @@ plugins {
 
 dependencies {
 
+    implementation(project(":design:common-ui-compose"))
+
     implementation(Dependencies.AndroidX.dataStore)
     implementation(Dependencies.AndroidX.preferences)
 
