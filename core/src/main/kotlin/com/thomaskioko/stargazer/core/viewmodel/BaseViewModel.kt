@@ -2,7 +2,6 @@ package com.thomaskioko.stargazer.core.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.thomaskioko.stargazer.core.presentation.ViewAction
-import com.thomaskioko.stargazer.core.presentation.ViewIntent
 import com.thomaskioko.stargazer.core.presentation.ViewState
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -16,11 +15,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 
-abstract class BaseViewModel<
-        INTENT : ViewIntent,
-        ACTION : ViewAction,
-        STATE : ViewState,
-        DISPATCHER : CoroutineDispatcher>
+abstract class BaseViewModel<ACTION : ViewAction, STATE : ViewState, DISPATCHER : CoroutineDispatcher>
     (initialViewState: STATE, dispatcher: DISPATCHER) : ViewModel() {
 
     private val viewModelJob = SupervisorJob()
@@ -39,11 +34,10 @@ abstract class BaseViewModel<
 
     val actionState: SharedFlow<STATE> get() = mutableViewState
 
-    fun dispatchIntent(intent: INTENT) {
-        handleAction(intentToAction(intent))
+    fun dispatchAction(action: ACTION) {
+        handleAction(action)
     }
 
-    abstract fun intentToAction(intent: INTENT): ACTION
     abstract fun handleAction(action: ACTION)
 
     override fun onCleared() {

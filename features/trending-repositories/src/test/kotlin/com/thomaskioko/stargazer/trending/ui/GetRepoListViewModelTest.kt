@@ -35,7 +35,7 @@ internal class GetRepoListViewModelTest {
         whenever(interactorTrending()).thenReturn(flowOf(Success(makeRepoViewDataModelList())))
 
         viewModel.actionState.test {
-            viewModel.dispatchIntent(ReposIntent.DisplayData)
+            viewModel.dispatchAction(ReposAction.LoadRepositories)
 
             assertEquals(expectItem(), ReposViewState.Loading)
             assertEquals(expectItem(), ReposViewState.ResultRepoList(makeRepoViewDataModelList()))
@@ -49,7 +49,7 @@ internal class GetRepoListViewModelTest {
         whenever(interactorTrending()).thenReturn(flowOf(Error(errorMessage)))
 
         viewModel.actionState.test {
-            viewModel.dispatchIntent(ReposIntent.DisplayData)
+            viewModel.dispatchAction(ReposAction.LoadRepositories)
 
             assertEquals(expectItem(), ReposViewState.Loading)
             assertEquals(expectItem(), ReposViewState.Error(errorMessage))

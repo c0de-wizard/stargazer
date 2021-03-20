@@ -17,7 +17,7 @@ import com.thomaskioko.stargazer.navigation.NavigationScreen
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
 import com.thomaskioko.stargazer.trending.R
 import com.thomaskioko.stargazer.trending.databinding.FragmentTrendingRepositoriesBinding
-import com.thomaskioko.stargazer.trending.ui.ReposIntent.RepoItemClicked
+import com.thomaskioko.stargazer.trending.ui.ReposAction.NavigateToRepoDetail
 import com.thomaskioko.stargazers.ui.BaseFragment
 import com.thomaskioko.stargazers.ui.extensions.showView
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,7 +43,7 @@ internal class TrendingListFragment : BaseFragment<FragmentTrendingRepositoriesB
             val transitionName = getString(R.string.repo_card_detail_transition_name)
             val extras = FragmentNavigatorExtras(view to transitionName)
 
-            getRepoViewModel.dispatchIntent(RepoItemClicked(repoId, extras))
+            getRepoViewModel.dispatchAction(NavigateToRepoDetail(repoId, extras))
         }
     }
 
@@ -85,7 +85,7 @@ internal class TrendingListFragment : BaseFragment<FragmentTrendingRepositoriesB
         view.doOnPreDraw { startPostponedEnterTransition() }
 
         lifecycleScope.launchWhenStarted {
-            getRepoViewModel.dispatchIntent(ReposIntent.DisplayData)
+            getRepoViewModel.dispatchAction(ReposAction.LoadRepositories)
 
             getRepoViewModel.actionState.observe(viewLifecycleOwner) { render(it) }
         }

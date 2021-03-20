@@ -22,7 +22,7 @@ internal class GetRepoListViewModel @AssistedInject constructor(
     private val interactorTrending: GetTrendingReposInteractor,
     @Assisted private val screenNavigator: ScreenNavigator,
     @DefaultDispatcher private val ioDispatcher: CoroutineDispatcher
-) : BaseViewModel<ReposIntent, ReposAction, ReposViewState, CoroutineDispatcher>(
+) : BaseViewModel<ReposAction, ReposViewState, CoroutineDispatcher>(
     initialViewState = ReposViewState.Loading,
     dispatcher = ioDispatcher
 ) {
@@ -30,13 +30,6 @@ internal class GetRepoListViewModel @AssistedInject constructor(
     @AssistedFactory
     interface Factory : AssistedViewModelFactory<ScreenNavigator> {
         override fun create(data: ScreenNavigator): GetRepoListViewModel
-    }
-
-    override fun intentToAction(intent: ReposIntent): ReposAction {
-        return when (intent) {
-            is ReposIntent.DisplayData -> LoadRepositories
-            is ReposIntent.RepoItemClicked -> NavigateToRepoDetail(intent.repoId, intent.extras)
-        }
     }
 
     override fun handleAction(action: ReposAction) {
