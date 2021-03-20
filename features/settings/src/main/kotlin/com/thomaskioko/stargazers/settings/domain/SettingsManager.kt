@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStore
+import com.thomaskioko.stargazer.core.ViewStateResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -15,14 +16,15 @@ class SettingsManager @Inject constructor(private val context: Context) {
 
     private val Context.dataStore by preferencesDataStore(name = PREFS_NAME)
 
-    fun getUiModeFlow(): Flow<UiTheme> = context.dataStore.data
+    fun getUiModeFlow(): Flow<ViewStateResult<UiTheme>> = context.dataStore.data
         .catch {
-            if (it is IOException) emit(emptyPreferences()) else throw it
+            if (it is IOException) emit(emptyPreferences())
+            else throw it
         }
         .map { preference ->
             when (preference[IS_DARK_MODE] ?: false) {
-                true -> UiTheme.DARK
-                false -> UiTheme.LIGHT
+                true -> ViewStateResult.success(UiTheme.DARK)
+                false -> ViewStateResult.success(UiTheme.LIGHT)
             }
         }
 

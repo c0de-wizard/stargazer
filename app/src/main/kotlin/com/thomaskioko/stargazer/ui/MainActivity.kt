@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.ui.setupWithNavController
 import com.thomaskioko.stargazer.R
+import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.core.injection.annotations.MainDispatcher
 import com.thomaskioko.stargazer.core.network.FlowNetworkObserver
 import com.thomaskioko.stargazer.databinding.ActivityMainBinding
@@ -40,7 +41,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var flowNetworkObserver: FlowNetworkObserver
 
     @Inject
-    @MainDispatcher lateinit var mainDispatcher: CoroutineDispatcher
+    @MainDispatcher
+    lateinit var mainDispatcher: CoroutineDispatcher
 
     private lateinit var binding: ActivityMainBinding
     private var isDarkMode = false
@@ -77,18 +79,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setTheme() {
-        val job =  GlobalScope.launch(context = mainDispatcher) {
+        val job = GlobalScope.launch(context = mainDispatcher) {
             settingsManager.getUiModeFlow()
                 .collect {
                     isDarkMode = when (it) {
-                        UiTheme.LIGHT -> {
-                            setDefaultNightMode(MODE_NIGHT_NO)
+                        is ViewStateResult.Error -> {
+                            Timber.e(it.message)
                             false
                         }
-                        UiTheme.DARK -> {
-                            setDefaultNightMode(MODE_NIGHT_YES)
-                            true
-                        }
+                        is ViewStateResult.Loading -> false
+                        is ViewStateResult.Success -> when (it.data) {
+                                UiTheme.LIGHT -> {
+                                    setDefaultNightMode(MODE_NIGHT_NO)
+                                    false
+                                }
+                                UiTheme.DARK -> {
+                                    setDefaultNightMode(MODE_NIGHT_YES)
+                                    true
+                                }
+                            }
                     }
                 }
         }
