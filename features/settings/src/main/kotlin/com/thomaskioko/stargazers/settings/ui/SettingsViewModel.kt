@@ -40,7 +40,7 @@ class SettingsViewModel @Inject constructor(
 
 internal fun ViewStateResult<UiTheme>.reduce(): SettingsViewState {
     return when (this) {
-        is ViewStateResult.Error -> SettingsViewState.Error("Something went wrong!")
+        is ViewStateResult.Error -> SettingsViewState.Error(message)
         is ViewStateResult.Loading -> SettingsViewState.Loading
         is ViewStateResult.Success -> SettingsViewState.ThemeLoaded(data)
     }
