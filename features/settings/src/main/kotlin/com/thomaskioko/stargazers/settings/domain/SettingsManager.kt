@@ -1,9 +1,10 @@
 package com.thomaskioko.stargazers.settings.domain
 
 import android.content.Context
-import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.thomaskioko.stargazer.core.ViewStateResult
 import kotlinx.coroutines.flow.Flow
@@ -16,30 +17,28 @@ class SettingsManager @Inject constructor(private val context: Context) {
 
     private val Context.dataStore by preferencesDataStore(name = PREFS_NAME)
 
-    fun getUiModeFlow(): Flow<ViewStateResult<UiTheme>> = context.dataStore.data
+    fun getUiModeFlow(): Flow<ViewStateResult<Int>> = context.dataStore.data
         .catch {
             if (it is IOException) emit(emptyPreferences())
             else throw it
         }
         .map { preference ->
             when (preference[IS_DARK_MODE] ?: false) {
-                true -> ViewStateResult.success(UiTheme.DARK)
-                false -> ViewStateResult.success(UiTheme.LIGHT)
+                true -> ViewStateResult.success(AppCompatDelegate.MODE_NIGHT_YES)
+                false -> ViewStateResult.success(AppCompatDelegate.MODE_NIGHT_NO)
+                else -> ViewStateResult.success(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
 
-    suspend fun setUiMode(uiTheme: UiTheme) {
+    suspend fun setUiMode(nightModeSetting: Int) {
         context.dataStore.edit { preferences ->
-            preferences[IS_DARK_MODE] = when (uiTheme) {
-                UiTheme.LIGHT -> false
-                UiTheme.DARK -> true
-            }
+            preferences[IS_DARK_MODE] = nightModeSetting
         }
     }
 
     companion object {
         const val PREFS_NAME = "settings_pref"
-        val IS_DARK_MODE = booleanPreferencesKey("dark_mode")
+        val IS_DARK_MODE = intPreferencesKey("dark_mode")
     }
 }
 
