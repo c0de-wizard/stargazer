@@ -1,11 +1,12 @@
 package com.thomaskioko.stargazers.settings.ui
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.core.injection.annotations.IoDispatcher
 import com.thomaskioko.stargazer.core.viewmodel.BaseViewModel
 import com.thomaskioko.stargazers.settings.domain.SettingsManager
-import com.thomaskioko.stargazers.settings.domain.UiTheme
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.launchIn
@@ -22,6 +23,20 @@ class SettingsViewModel @Inject constructor(
     dispatcher = ioDispatcher
 ) {
 
+    //TODO:: Remove and use actionState instead
+    private val mutableIsNightMode: MutableLiveData<Boolean> = MutableLiveData(false)
+    val isNightMode: LiveData<Boolean> get() = mutableIsNightMode
+
+    fun isNightMode(): Boolean {
+        return requireNotNull(isNightMode.value)
+    }
+
+    fun setNightMode(isEnabled: Boolean) {
+        if (mutableIsNightMode.value != isEnabled) {
+            mutableIsNightMode.value = isEnabled
+        }
+    }
+
     override fun handleAction(action: SettingsActions) {
         when (action) {
             SettingsActions.LoadTheme -> {
@@ -31,14 +46,14 @@ class SettingsViewModel @Inject constructor(
             }
             is SettingsActions.UpdateTheme -> {
                 viewModelScope.launch(context = ioDispatcher) {
-                    settingsManager.setUiMode(action.theme)
+                    settingsManager.setUiMode(action.nightModeSetting)
                 }
             }
         }
     }
 }
 
-internal fun ViewStateResult<UiTheme>.reduce(): SettingsViewState {
+internal fun ViewStateResult<Int>.reduce(): SettingsViewState {
     return when (this) {
         is ViewStateResult.Error -> SettingsViewState.Error(message)
         is ViewStateResult.Loading -> SettingsViewState.Loading
