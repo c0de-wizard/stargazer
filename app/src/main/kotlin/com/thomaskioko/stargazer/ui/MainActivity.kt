@@ -15,7 +15,6 @@ import com.thomaskioko.stargazer.core.injection.annotations.MainDispatcher
 import com.thomaskioko.stargazer.core.network.FlowNetworkObserver
 import com.thomaskioko.stargazer.databinding.ActivityMainBinding
 import com.thomaskioko.stargazers.settings.domain.SettingsManager
-import com.thomaskioko.stargazers.settings.domain.UiTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -37,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var settingsManager: SettingsManager
 
+
     @Inject
     lateinit var flowNetworkObserver: FlowNetworkObserver
 
@@ -44,8 +44,8 @@ class MainActivity : AppCompatActivity() {
     @MainDispatcher
     lateinit var mainDispatcher: CoroutineDispatcher
 
-    private lateinit var binding: ActivityMainBinding
-    private var isDarkMode = false
+    private var _binding: ActivityMainBinding? = null
+    private val binding get() = _binding!!
 
     private val navController: NavController
         get() = navControllerProvider.get()
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme()
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         flowNetworkObserver.observeInternetConnection()
@@ -82,22 +82,16 @@ class MainActivity : AppCompatActivity() {
         val job = GlobalScope.launch(context = mainDispatcher) {
             settingsManager.getUiModeFlow()
                 .collect {
-                    isDarkMode = when (it) {
+                    when (it) {
                         is ViewStateResult.Error -> {
                             Timber.e(it.message)
-                            false
                         }
-                        is ViewStateResult.Loading -> false
+                        is ViewStateResult.Loading -> {
+                        }
                         is ViewStateResult.Success -> when (it.data) {
-                                UiTheme.LIGHT -> {
-                                    setDefaultNightMode(MODE_NIGHT_NO)
-                                    false
-                                }
-                                UiTheme.DARK -> {
-                                    setDefaultNightMode(MODE_NIGHT_YES)
-                                    true
-                                }
-                            }
+                            MODE_NIGHT_NO -> setDefaultNightMode(MODE_NIGHT_NO)
+                            MODE_NIGHT_YES -> setDefaultNightMode(MODE_NIGHT_YES)
+                        }
                     }
                 }
         }
@@ -108,6 +102,11 @@ class MainActivity : AppCompatActivity() {
         if (!onSupportNavigateUp()) {
             super.onBackPressed()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     override fun onSupportNavigateUp(): Boolean = navController.navigateUp()
