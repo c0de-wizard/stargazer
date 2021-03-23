@@ -89,11 +89,15 @@ object Dependencies {
 
         object AndroidX {
             const val junit = "androidx.test.ext:junit:${DependencyVersions.junitTestExt}"
+            const val junitKtx = "androidx.test.ext:junit-ktx:${DependencyVersions.junitTestExt}"
             const val core = "androidx.arch.core:core-testing:${DependencyVersions.archCoreTesting}"
             const val fragment = "androidx.fragment:fragment-testing:${DependencyVersions.fragmentTesting}"
             const val rules: String = "androidx.test:rules:${DependencyVersions.androidxTest}"
             const val runner: String = "androidx.test:runner:${DependencyVersions.androidxTest}"
-            const val compose = "androidx.compose.ui:ui-test-junit4:${DependencyVersions.compose}"
+
+            object Compose {
+                const val ui = "androidx.compose.ui:ui-test-junit4:${DependencyVersions.compose}"
+            }
         }
 
         object Coroutines {

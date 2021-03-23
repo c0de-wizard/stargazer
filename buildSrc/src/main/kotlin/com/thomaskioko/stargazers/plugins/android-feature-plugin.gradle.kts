@@ -120,5 +120,10 @@ dependencies {
     kapt(Dependencies.Google.Hilt.compiler)
 
     androidTestImplementation(Dependencies.Testing.AndroidX.junit)
+    androidTestImplementation(Dependencies.Testing.AndroidX.junitKtx)
     androidTestImplementation(Dependencies.Testing.AndroidX.fragment)
+    androidTestImplementation(Dependencies.Testing.AndroidX.Compose.ui)
+    androidTestImplementation(Dependencies.Google.Hilt.core)
+    androidTestImplementation(Dependencies.Testing.Hilt.androidTesting)
+    kaptAndroidTest(Dependencies.Google.Hilt.compiler)
 }
