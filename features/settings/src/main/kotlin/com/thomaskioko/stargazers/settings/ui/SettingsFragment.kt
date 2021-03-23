@@ -24,6 +24,7 @@ class SettingsFragment : Fragment() {
             setContent {
                 StargazerTheme(darkTheme = settingsViewModel.isNightMode()) {
                     SettingsScreen(
+                        isDarkTheme = settingsViewModel.isNightMode(),
                         onThemeChanged = { settingsViewModel.setNightMode(!settingsViewModel.isNightMode()) },
                         onBackPressed = { activity?.onBackPressed() }
                     )

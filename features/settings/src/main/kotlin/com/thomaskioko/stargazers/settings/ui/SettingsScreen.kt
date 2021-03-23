@@ -39,6 +39,7 @@ import com.thomaskioko.stargazers.settings.R
 
 @Composable
 fun SettingsScreen(
+    isDarkTheme: Boolean,
     onThemeChanged: () -> Unit = { },
     onBackPressed: () -> Unit = { }
 ) {
@@ -52,6 +53,7 @@ fun SettingsScreen(
         },
         content = { innerPadding ->
             SettingsList(
+                isDarkTheme = isDarkTheme,
                 onThemeChanged = onThemeChanged,
                 modifier = Modifier
                     .fillMaxSize()
@@ -64,6 +66,7 @@ fun SettingsScreen(
 
 @Composable
 fun SettingsList(
+    isDarkTheme: Boolean,
     onThemeChanged: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -72,7 +75,10 @@ fun SettingsList(
         contentPadding = PaddingValues(start = 2.dp, end = 16.dp)
     ) {
         item {
-            ThemeSettingsItem(onThemeChanged)
+            ThemeSettingsItem(
+                isDarkTheme,
+                onThemeChanged
+            )
             AboutSettingsItem()
         }
     }
@@ -80,6 +86,7 @@ fun SettingsList(
 
 @Composable
 private fun ThemeSettingsItem(
+    isDarkTheme : Boolean,
     onThemeChanged: () -> Unit,
 ) {
 
@@ -114,10 +121,7 @@ private fun ThemeSettingsItem(
         Switch(
             checked = checkedState,
             enabled = true,
-            onCheckedChange = {
-                checkedState = it
-                onThemeChanged()
-            },
+            onCheckedChange = { onThemeChanged() },
             colors = SwitchDefaults.colors(
                 checkedThumbColor = MaterialTheme.colors.secondaryVariant,
                 checkedTrackColor = MaterialTheme.colors.secondaryVariant,
@@ -198,6 +202,6 @@ private fun SettingListDivider() {
 @Composable
 fun SettingsPropertyPreview() {
     StargazerTheme {
-        SettingsList(onThemeChanged = {})
+        SettingsList(isDarkTheme = false, onThemeChanged = {})
     }
 }
