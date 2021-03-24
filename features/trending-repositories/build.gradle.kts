@@ -5,4 +5,5 @@ plugins {
 dependencies {
 
     implementation(project(":repository"))
+    implementation(project(":design:common-ui-compose"))
 }
