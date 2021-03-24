@@ -1,7 +1,10 @@
-Github Stargazer
---------------------
+<H3 align="center">
+Github Stargazer.
+</H3>
+
 [![codecov](https://codecov.io/gh/c0de-wizard/stargazer/branch/main/graph/badge.svg)](https://codecov.io/gh/c0de-wizard/stargazer)
 
+## Description
 Stargazer is a simple android project that consumes Github's Api & loads a list of repositories from Square's organization.
 
 ### Screenshots
@@ -58,6 +61,14 @@ This layer is where we create different feature modules. Browse Repository & Boo
 ### Navigator
 This module enables us to navigate between the app, as the name suggests. It contains the main navigation graph file and subgraphs each located in every feature module. The beauty of this is that feature modules don't need to depend on other feature modules
 
+🚧 Jetpack Compose (Under Development) 🚧
+I'm currently migrating to [Jetpack Compose](https://developer.android.com/jetpack/compose) and the `:settings` module is in progress for now.
+
+### To Migrate
+
+- [ ] Trending Repositories
+- [ ] Browse
+- [ ] Repo Details
 
 ## Code style
 
@@ -74,6 +85,7 @@ To maintain the style and quality of the code, are used the bellow static analys
 ## Libraries Used
 *   [Navigation Component](https://developer.android.com/guide/navigation/navigation-getting-started)
 *   [JetPack](https://developer.android.com/jetpack)
+    - [Jetpack Compose](https://developer.android.com/jetpack/compose)
     - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) UI related data holder, lifecycle aware.
     - [Room Persistence]() - construct a database using the abstract layer.
     - LiveData - notify domain layer data to views.
