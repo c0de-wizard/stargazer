@@ -6,7 +6,7 @@ import androidx.compose.runtime.Immutable
 @Immutable
 data class Repo(
     val repoId: Long,
-    val name: String,
+    val repoName: String,
     val avatarUrl: String,
     val description: String,
     val userName: String,
@@ -15,6 +15,7 @@ data class Repo(
     val contributorsUrl: String,
     val createdDate: String,
     val updatedDate: String,
+    val language: String,
     val isBookmarked: Boolean
 )
 
@@ -28,7 +29,7 @@ object RepoRepository {
 
 private val repo1 = Repo(
     repoId = 1,
-    name = "Turbine",
+    repoName = "Turbine",
     description = "Turbine is a small testing library for kotlinx.coroutines Flow.",
     avatarUrl = "https://avatars.githubusercontent.com/u/1342004?v=4",
     userName = "cashapp",
@@ -37,12 +38,13 @@ private val repo1 = Repo(
     contributorsUrl = "https://github.com/cashapp/turbine",
     createdDate = "12/01/2003",
     updatedDate = "11/03/2021",
+    language= "Kotlin",
     isBookmarked = false
 )
 
 private val repo2 = Repo(
     repoId = 2,
-    name = "Architecture Samples",
+    repoName = "Architecture Samples",
     description = "A collection of samples to discuss and showcase different architectural tools and patterns for Android apps.",
     avatarUrl = "https://avatars.githubusercontent.com/u/32689599?v=4",
     userName = "android",
@@ -51,11 +53,12 @@ private val repo2 = Repo(
     contributorsUrl = "https://github.com/cashapp/turbine",
     createdDate = "12/01/2003",
     updatedDate = "11/03/2021",
+    language= "Kotlin",
     isBookmarked = false
 )
 private val repo3 = Repo(
     repoId = 3,
-    name = "Shadowsocks-android",
+    repoName = "Shadowsocks-android",
     description = "A shadowsocks client for Android.",
     avatarUrl = "https://avatars.githubusercontent.com/u/32689599?v=4",
     userName = "cashapp",
@@ -64,11 +67,12 @@ private val repo3 = Repo(
     contributorsUrl = "https://github.com/cashapp/turbine",
     createdDate = "12/01/2003",
     updatedDate = "11/03/2021",
+    language= "Kotlin",
     isBookmarked = false
 )
 private val repo4 = Repo(
     repoId = 4,
-    name = "Leakcanary",
+    repoName = "Leakcanary",
     description = "A memory leak detection library for Android",
     avatarUrl = "https://avatars.githubusercontent.com/u/32689599?v=4",
     userName = "cashapp",
@@ -77,11 +81,12 @@ private val repo4 = Repo(
     contributorsUrl = "https://github.com/cashapp/turbine",
     createdDate = "12/01/2003",
     updatedDate = "11/03/2021",
+    language= "Java",
     isBookmarked = false
 )
 private val repo5 = Repo(
     repoId = 5,
-    name = "Material-dialogs",
+    repoName = "Material-dialogs",
     description = "\uD83D\uDE0D A beautiful, fluid, and extensible dialogs API for Kotlin & Android.",
     avatarUrl = "https://avatars.githubusercontent.com/u/32689599?v=4",
     userName = "cashapp",
@@ -90,6 +95,7 @@ private val repo5 = Repo(
     contributorsUrl = "https://github.com/cashapp/turbine",
     createdDate = "12/01/2003",
     updatedDate = "11/03/2021",
+    language= "Kotlin",
     isBookmarked = false
 )
 
