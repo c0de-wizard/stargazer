@@ -85,8 +85,6 @@ internal class TrendingListFragment : BaseFragment<FragmentTrendingRepositoriesB
         view.doOnPreDraw { startPostponedEnterTransition() }
 
         lifecycleScope.launchWhenStarted {
-            getRepoViewModel.dispatchAction(ReposAction.LoadRepositories)
-
             getRepoViewModel.actionState.observe(viewLifecycleOwner) { render(it) }
         }
     }
@@ -103,5 +101,10 @@ internal class TrendingListFragment : BaseFragment<FragmentTrendingRepositoriesB
                 binding.tvInfo.text = state.message
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        getRepoViewModel.dispatchAction(ReposAction.LoadRepositories)
     }
 }
