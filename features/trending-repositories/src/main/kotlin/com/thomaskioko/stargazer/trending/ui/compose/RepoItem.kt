@@ -1,6 +1,7 @@
-package com.thomaskioko.stargazers.common.compose.components
+package com.thomaskioko.stargazer.trending.ui.compose
 
 import android.content.res.Configuration
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,9 +32,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.thomaskioko.stargazer.trending.model.RepoViewDataModel
+import com.thomaskioko.stargazer.trending.ui.mockdata.RepoRepository.getRepository
 import com.thomaskioko.stargazers.common.compose.R
-import com.thomaskioko.stargazers.common.compose.mockdata.Repo
-import com.thomaskioko.stargazers.common.compose.mockdata.RepoRepository
 import com.thomaskioko.stargazers.common.compose.theme.StargazerTheme
 import com.thomaskioko.stargazers.common.compose.theme.black
 import com.thomaskioko.stargazers.common.compose.theme.favorite
@@ -41,11 +42,13 @@ import dev.chrisbanes.accompanist.coil.CoilImage
 
 @Composable
 fun RepoCardItem(
-    repo: Repo,
+    repo: RepoViewDataModel,
+    onItemClicked: (RepoViewDataModel) -> Unit = { }
 ) {
 
     Column(
         modifier = Modifier
+            .clickable(onClick = { onItemClicked(repo) })
             .padding(16.dp)
             .fillMaxWidth()
     ) {
@@ -57,7 +60,7 @@ fun RepoCardItem(
 }
 
 @Composable
-fun RepositoryUserInfo(repo: Repo) {
+fun RepositoryUserInfo(repo: RepoViewDataModel) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -69,7 +72,7 @@ fun RepositoryUserInfo(repo: Repo) {
             contentScale = ContentScale.Fit,
             fadeIn = true,
             modifier = Modifier
-                .size(40.dp, 40.dp)
+                .size(24.dp, 24.dp)
                 .clip(CircleShape),
             loading = {
                 Box(Modifier.matchParentSize()) {
@@ -89,7 +92,7 @@ fun RepositoryUserInfo(repo: Repo) {
         Text(
             text = repo.userName,
             maxLines = 1,
-            style = MaterialTheme.typography.h6,
+            style = MaterialTheme.typography.caption,
         )
     }
 
@@ -97,7 +100,7 @@ fun RepositoryUserInfo(repo: Repo) {
 }
 
 @Composable
-fun RepositoryDetails(repo: Repo) {
+fun RepositoryDetails(repo: RepoViewDataModel) {
     Column {
         Text(
             text = repo.repoName,
@@ -129,7 +132,7 @@ fun RepoListDivider() {
 
 @Composable
 fun RepoMetaData(
-    repo: Repo,
+    repo: RepoViewDataModel,
     modifier: Modifier = Modifier
 ) {
 
@@ -244,7 +247,7 @@ fun RepoCountMetaData(
 )
 @Composable
 private fun RepoListPreview() {
-    val repoList = remember { RepoRepository.getRepository() }
+    val repoList = remember { getRepository() }
     StargazerTheme {
         Surface {
             RepoCardItem(repo = repoList)

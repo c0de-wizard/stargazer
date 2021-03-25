@@ -1,10 +1,16 @@
-package com.thomaskioko.stargazers.common.compose.mockdata
+package com.thomaskioko.stargazer.trending.ui.mockdata
 
+import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Immutable
+import androidx.compose.ui.graphics.Color
+import com.thomaskioko.stargazer.trending.model.RepoViewDataModel
+import com.thomaskioko.stargazers.common.compose.R
+import com.thomaskioko.stargazers.common.compose.theme.java
+import com.thomaskioko.stargazers.common.compose.theme.kotlin
 
 
 @Immutable
-data class Repo(
+data class RepoViewDataModel(
     val repoId: Long,
     val repoName: String,
     val avatarUrl: String,
@@ -16,6 +22,8 @@ data class Repo(
     val createdDate: String,
     val updatedDate: String,
     val language: String,
+    @DrawableRes val languageDrawable: Int,
+    val drawableColor: Color,
     val isBookmarked: Boolean
 )
 
@@ -23,11 +31,11 @@ data class Repo(
  * A fake repo returning sample data
  */
 object RepoRepository {
-    fun getRepositoryList(): List<Repo> = reposList
-    fun getRepository(): Repo = reposList.random()
+    fun getRepositoryList(): List<RepoViewDataModel> = reposList
+    fun getRepository(): RepoViewDataModel = reposList.random()
 }
 
-private val repo1 = Repo(
+private val repo1 = RepoViewDataModel(
     repoId = 1,
     repoName = "Turbine",
     description = "Turbine is a small testing library for kotlinx.coroutines Flow.",
@@ -38,11 +46,13 @@ private val repo1 = Repo(
     contributorsUrl = "https://github.com/cashapp/turbine",
     createdDate = "12/01/2003",
     updatedDate = "11/03/2021",
-    language= "Kotlin",
+    language = "Kotlin",
+    languageDrawable = R.drawable.ic_language_drawable,
+    drawableColor = kotlin,
     isBookmarked = false
 )
 
-private val repo2 = Repo(
+private val repo2 = RepoViewDataModel(
     repoId = 2,
     repoName = "Architecture Samples",
     description = "A collection of samples to discuss and showcase different architectural tools and patterns for Android apps.",
@@ -53,10 +63,12 @@ private val repo2 = Repo(
     contributorsUrl = "https://github.com/cashapp/turbine",
     createdDate = "12/01/2003",
     updatedDate = "11/03/2021",
-    language= "Kotlin",
+    language = "Kotlin",
+    languageDrawable = R.drawable.ic_language_drawable,
+    drawableColor = kotlin,
     isBookmarked = false
 )
-private val repo3 = Repo(
+private val repo3 = RepoViewDataModel(
     repoId = 3,
     repoName = "Shadowsocks-android",
     description = "A shadowsocks client for Android.",
@@ -67,10 +79,12 @@ private val repo3 = Repo(
     contributorsUrl = "https://github.com/cashapp/turbine",
     createdDate = "12/01/2003",
     updatedDate = "11/03/2021",
-    language= "Kotlin",
+    language = "Kotlin",
+    languageDrawable = R.drawable.ic_language_drawable,
+    drawableColor = java,
     isBookmarked = false
 )
-private val repo4 = Repo(
+private val repo4 = RepoViewDataModel(
     repoId = 4,
     repoName = "Leakcanary",
     description = "A memory leak detection library for Android",
@@ -81,10 +95,12 @@ private val repo4 = Repo(
     contributorsUrl = "https://github.com/cashapp/turbine",
     createdDate = "12/01/2003",
     updatedDate = "11/03/2021",
-    language= "Java",
+    language = "Java",
+    languageDrawable = R.drawable.ic_language_drawable,
+    drawableColor = java,
     isBookmarked = false
 )
-private val repo5 = Repo(
+private val repo5 = RepoViewDataModel(
     repoId = 5,
     repoName = "Material-dialogs",
     description = "\uD83D\uDE0D A beautiful, fluid, and extensible dialogs API for Kotlin & Android.",
@@ -95,7 +111,9 @@ private val repo5 = Repo(
     contributorsUrl = "https://github.com/cashapp/turbine",
     createdDate = "12/01/2003",
     updatedDate = "11/03/2021",
-    language= "Kotlin",
+    language = "Kotlin",
+    languageDrawable = R.drawable.ic_language_drawable,
+    drawableColor = kotlin,
     isBookmarked = false
 )
 
