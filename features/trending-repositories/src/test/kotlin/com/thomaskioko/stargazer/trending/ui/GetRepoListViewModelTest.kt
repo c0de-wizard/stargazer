@@ -38,7 +38,7 @@ internal class GetRepoListViewModelTest {
             viewModel.dispatchAction(ReposAction.LoadRepositories)
 
             assertEquals(expectItem(), ReposViewState.Loading)
-            assertEquals(expectItem(), ReposViewState.ResultRepoList(makeRepoViewDataModelList()))
+            assertEquals(expectItem(), ReposViewState.Success(makeRepoViewDataModelList()))
         }
     }
 
