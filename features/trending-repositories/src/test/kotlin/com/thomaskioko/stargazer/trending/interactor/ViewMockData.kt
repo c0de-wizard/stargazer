@@ -2,6 +2,7 @@ package com.thomaskioko.stargazer.trending.interactor
 
 import androidx.compose.ui.graphics.Color
 import com.thomaskioko.stargazer.db.model.RepoEntity
+import com.thomaskioko.stargazer.trending.R
 import com.thomaskioko.stargazer.trending.model.RepoViewDataModel
 
 internal object ViewMockData {
@@ -19,8 +20,8 @@ internal object ViewMockData {
             updatedDate = "1/11/1900",
             language = "Kotlin",
             avatarUrl = "https://avatars.githubusercontent.com/u/32689599?v=4",
-            languageDrawable = 1,
-            drawableColor = Color(0xFF375eab),
+            languageDrawable = R.drawable.ic_language_drawable,
+            drawableColor = Color(0xFFF08E33),
             isBookmarked = false
         )
     )

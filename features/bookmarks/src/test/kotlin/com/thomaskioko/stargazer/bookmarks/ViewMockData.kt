@@ -43,6 +43,8 @@ object ViewMockData {
             contributorsUrl = "",
             createdDate = "1/11/1900",
             updatedDate = "1/11/1900",
+            language = "Kotlin",
+            avatarUrl = "https://avatars.githubusercontent.com/u/32689599?v=4",
             isBookmarked = true
         ),
         RepoEntity(
@@ -55,6 +57,8 @@ object ViewMockData {
             contributorsUrl = "",
             createdDate = "1/11/1900",
             updatedDate = "1/11/1900",
+            language = "Kotlin",
+            avatarUrl = "https://avatars.githubusercontent.com/u/32689599?v=4",
             isBookmarked = true
         )
     )
