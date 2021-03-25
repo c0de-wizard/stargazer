@@ -18,6 +18,7 @@ import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -143,8 +144,8 @@ fun RepoMetaData(
 
             RepoLanguageMetaData(
                 text = repo.language,
-                drawableId = R.drawable.ic_circle_kotlin,
-                iconColor = Color(0xFFF08E33)
+                drawableId = repo.languageDrawable,
+                iconColor = repo.drawableColor
             )
 
             val tintColor = if (repo.isBookmarked) favorite else black
@@ -181,7 +182,7 @@ fun RepoLanguageMetaData(
             painter = painterResource(id = drawableId),
             tint = iconColor,
             contentDescription = contentDescription,
-            modifier = Modifier.size(14.dp, 14.dp)
+            modifier = Modifier.size(18.dp, 18.dp)
         )
 
         Spacer(modifier = Modifier.width(4.dp))
@@ -245,6 +246,8 @@ fun RepoCountMetaData(
 private fun RepoListPreview() {
     val repoList = remember { RepoRepository.getRepository() }
     StargazerTheme {
-        RepoCardItem(repo = repoList)
+        Surface {
+            RepoCardItem(repo = repoList)
+        }
     }
 }
