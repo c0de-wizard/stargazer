@@ -1,22 +1,21 @@
 package com.thomaskioko.stargazers.common.compose.components
 
-import androidx.compose.foundation.clickable
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.Card
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ContentAlpha
-import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Divider
 import androidx.compose.material.Icon
-import androidx.compose.material.ListItem
 import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -39,52 +38,92 @@ import com.thomaskioko.stargazers.common.compose.theme.black
 import com.thomaskioko.stargazers.common.compose.theme.favorite
 import dev.chrisbanes.accompanist.coil.CoilImage
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun RepositoryCardItem(
+fun RepoCardItem(
     repo: Repo,
-    modifier: Modifier = Modifier
 ) {
-    /** Handle click action **/
-    /** Handle click action **/
-    Card(modifier) {
-        /** Handle click action **/
-        /** Handle click action **/
-        ListItem(
-            modifier = modifier
-                .clickable { /** Handle click action **/ }
-                .padding(vertical = 8.dp),
-            icon = {
-                CoilImage(
-                    data = repo.avatarUrl,
+
+    Column(
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth()
+    ) {
+        RepositoryUserInfo(repo = repo)
+        RepositoryDetails(repo = repo)
+        RepoMetaData(repo = repo)
+    }
+
+}
+
+@Composable
+fun RepositoryUserInfo(repo: Repo) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth(),
+    ) {
+        CoilImage(
+            data = repo.avatarUrl,
+            contentDescription = null,
+            contentScale = ContentScale.Fit,
+            fadeIn = true,
+            modifier = Modifier
+                .size(40.dp, 40.dp)
+                .clip(CircleShape),
+            loading = {
+                Box(Modifier.matchParentSize()) {
+                    CircularProgressIndicator(Modifier.align(Alignment.Center))
+                }
+            },
+            error = {
+                Icon(
+                    painter = painterResource(R.drawable.octocat),
                     contentDescription = null,
-                    contentScale = ContentScale.Fit,
-                    modifier = Modifier
-                        .clip(shape = MaterialTheme.shapes.small),
-                    loading = {
-                        Box(Modifier.matchParentSize()) {
-                            CircularProgressIndicator(Modifier.align(Alignment.Center))
-                        }
-                    },
-                    error = {
-                        Icon(
-                            painter = painterResource(R.drawable.octocat),
-                            contentDescription = null,
-                        )
-                    })
-            },
-            text = {
-                Text(
-                    text = repo.name,
-                    maxLines = 1,
-                    style = MaterialTheme.typography.h6,
                 )
-            },
-            secondaryText = {
-                RepoMetaData(repo = repo)
             }
         )
+
+        Spacer(Modifier.width(8.dp))
+
+        Text(
+            text = repo.userName,
+            maxLines = 1,
+            style = MaterialTheme.typography.h6,
+        )
     }
+
+    Spacer(Modifier.height(8.dp))
+}
+
+@Composable
+fun RepositoryDetails(repo: Repo) {
+    Column {
+        Text(
+            text = repo.repoName,
+            maxLines = 1,
+            style = MaterialTheme.typography.h6,
+        )
+
+        Spacer(Modifier.height(8.dp))
+
+        Text(
+            text = repo.description,
+            style = MaterialTheme.typography.body1,
+            modifier = Modifier
+                .fillMaxWidth()
+        )
+
+        Spacer(Modifier.height(8.dp))
+
+    }
+}
+
+@Composable
+fun RepoListDivider() {
+    Divider(
+        modifier = Modifier.padding(horizontal = 14.dp, vertical = 4.dp),
+        color = MaterialTheme.colors.onSurface.copy(alpha = 0.08f)
+    )
 }
 
 @Composable
@@ -98,25 +137,25 @@ fun RepoMetaData(
             .fillMaxWidth()
     ) {
 
-        Text(
-            text = repo.description,
-            style = MaterialTheme.typography.body1,
-            modifier = Modifier
-                .fillMaxWidth()
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
 
-        Spacer(Modifier.height(8.dp))
+            RepoLanguageMetaData(
+                text = repo.language,
+                drawableId = R.drawable.ic_circle_kotlin,
+                iconColor = Color(0xFFF08E33)
+            )
 
-        Row {
             val tintColor = if (repo.isBookmarked) favorite else black
-            RepoRowMetaData(
+            RepoCountMetaData(
                 text = repo.stargazersCount.toString(),
                 drawableId = R.drawable.ic_favorite_black,
                 iconColor = tintColor,
                 contentDescription = "Repository star count",
             )
 
-            RepoRowMetaData(
+            RepoCountMetaData(
                 text = repo.forksCount.toString(),
                 drawableId = R.drawable.ic_fork,
                 contentDescription = "Repository fork count",
@@ -126,7 +165,41 @@ fun RepoMetaData(
 }
 
 @Composable
-fun RepoRowMetaData(
+fun RepoLanguageMetaData(
+    modifier: Modifier = Modifier,
+    text: String,
+    drawableId: Int,
+    contentDescription: String? = null,
+    iconColor: Color = black
+) {
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.Bottom
+    ) {
+        Icon(
+            painter = painterResource(id = drawableId),
+            tint = iconColor,
+            contentDescription = contentDescription,
+            modifier = Modifier.size(14.dp, 14.dp)
+        )
+
+        Spacer(modifier = Modifier.width(4.dp))
+
+        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+            Text(
+                text = text,
+                style = MaterialTheme.typography.body2,
+                modifier = Modifier
+                    .align(Alignment.CenterVertically)
+                    .padding(start = 4.dp, end = 4.dp),
+            )
+        }
+    }
+}
+
+@Composable
+fun RepoCountMetaData(
     modifier: Modifier = Modifier,
     text: String,
     drawableId: Int,
@@ -151,7 +224,6 @@ fun RepoRowMetaData(
                 text = text,
                 style = MaterialTheme.typography.body2,
                 modifier = Modifier
-                    .fillMaxHeight()
                     .align(Alignment.CenterVertically)
                     .padding(start = 4.dp, end = 4.dp),
             )
@@ -161,22 +233,18 @@ fun RepoRowMetaData(
 }
 
 
-
-
-@Preview("Repository Item")
+@Preview(
+    name = "Repository Item",
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+)
+@Preview(
+    name = "Repository Item • Dark",
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+)
 @Composable
-private fun RepoItemPreview() {
-    val repo = remember { RepoRepository.getRepository() }
+private fun RepoListPreview() {
+    val repoList = remember { RepoRepository.getRepository() }
     StargazerTheme {
-        RepositoryCardItem(repo = repo)
-    }
-}
-
-@Preview("Repository Item®")
-@Composable
-private fun RepoItemDarkPreview() {
-    val repo = remember { RepoRepository.getRepository() }
-    StargazerTheme(darkTheme = true) {
-        RepositoryCardItem(repo = repo)
+        RepoCardItem(repo = repoList)
     }
 }
