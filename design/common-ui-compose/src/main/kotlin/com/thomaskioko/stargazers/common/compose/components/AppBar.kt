@@ -1,5 +1,7 @@
 package com.thomaskioko.stargazers.common.compose.components
 
+import android.content.res.Configuration
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -37,6 +39,18 @@ fun AppBar(
 }
 
 @Composable
+fun AppBarSettings(
+    title: @Composable RowScope.() -> Unit,
+    navigationIcon: @Composable (() -> Unit) = { AppBarHomeIcon() }
+) {
+    AppBar(
+        title = title ,
+        navigationIcon = navigationIcon,
+        actions = { AppBarSettingsIcon() },
+    )
+}
+
+@Composable
 fun AppBarScaffold(
     title: @Composable RowScope.() -> Unit,
     actions: @Composable RowScope.() -> Unit = {},
@@ -65,7 +79,7 @@ fun AppBarScaffold(
 
 @Composable
 fun AppBarHomeIcon(onNavIconPressed: () -> Unit = { }) {
-    Icon(
+    Image(
         painter = painterResource(R.drawable.octocat),
         contentDescription = null,
         modifier = Modifier
@@ -85,19 +99,44 @@ fun AppBarBackIcon(onBackPressed: () -> Unit = { }) {
     )
 }
 
-@Preview("AppBar")
 @Composable
-private fun AppBarPreview() {
+fun AppBarSettingsIcon(onSettingsPressed: () -> Unit = { }) {
+    Icon(
+        painter = painterResource(R.drawable.ic_settings),
+        contentDescription = stringResource(R.string.cd_back),
+        modifier = Modifier
+            .clickable(onClick = onSettingsPressed)
+            .padding(16.dp)
+    )
+}
+
+@Preview(
+    name = "AppBar",
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+)
+@Preview(
+    name = "AppBar• Dark",
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+)
+@Composable
+private fun AppBarDarkPreview() {
     StargazerTheme {
         AppBar(title = { Text("Stargazers") })
     }
 }
 
-@Preview("AppBar • Dark")
+@Preview(
+    name = "AppBar Settings",
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+)
+@Preview(
+    name = "AppBar Settings• Dark",
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+)
 @Composable
-private fun AppBarDarkPreview() {
-    StargazerTheme(darkTheme = true) {
-        AppBar(title = { Text("Stargazers") })
+fun AppBarSettingsPreview() {
+    StargazerTheme {
+        AppBarSettings(title = { Text("Stargazers") })
     }
 }
 
