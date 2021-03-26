@@ -25,7 +25,7 @@ import com.thomaskioko.stargazers.common.compose.theme.elevatedSurface
 
 
 @Composable
-fun AppBar(
+fun StargazersTopBar(
     title: @Composable RowScope.() -> Unit,
     actions: @Composable RowScope.() -> Unit = {},
     navigationIcon: @Composable (() -> Unit) = { AppBarHomeIcon() }
@@ -43,7 +43,7 @@ fun AppBarSettings(
     title: @Composable RowScope.() -> Unit,
     navigationIcon: @Composable (() -> Unit) = { AppBarHomeIcon() }
 ) {
-    AppBar(
+    StargazersTopBar(
         title = title ,
         navigationIcon = navigationIcon,
         actions = { AppBarSettingsIcon() },
@@ -121,7 +121,7 @@ fun AppBarSettingsIcon(onSettingsPressed: () -> Unit = { }) {
 @Composable
 private fun AppBarDarkPreview() {
     StargazerTheme {
-        AppBar(title = { Text("Stargazers") })
+        StargazersTopBar(title = { Text("Stargazers") })
     }
 }
 
