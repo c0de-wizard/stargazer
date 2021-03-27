@@ -62,13 +62,16 @@ This layer is where we create different feature modules. Browse Repository & Boo
 This module enables us to navigate between the app, as the name suggests. It contains the main navigation graph file and subgraphs each located in every feature module. The beauty of this is that feature modules don't need to depend on other feature modules
 
 🚧 Jetpack Compose (Under Development) 🚧
-I'm currently migrating to [Jetpack Compose](https://developer.android.com/jetpack/compose) and the `:settings` module is in progress for now.
+I'm currently migrating each module to [Jetpack Compose](https://developer.android.com/jetpack/compose).
 
-### To Migrate
+### Progress
 
-- [ ] Trending Repositories
-- [ ] Browse
+- [x] Settings
+- [x] Trending Repositories
+- [ ] Browse (Implement search functionality)
 - [ ] Repo Details
+- [ ] Migrate Navigation to Navigation Compose
+- [ ] Add Pagination (Maybe 😁).
 
 ## Code style
 
@@ -116,10 +119,6 @@ To maintain the style and quality of the code, are used the bellow static analys
 - [x] Refactor BaseViewModel class implementation: Replace LiveData with flow.
 - [x] Materialize app.
 - [x] Cleanup Kotlin DSL Implementation.
-- [ ] Create some from of 'StateMachine' to handle states lifeCycle
-- [ ] Add Pagination (Maybe 😁).
-- [ ] Refactor Navigation and add fragments to Navigation Graph programmatically.
-- [ ] Implement search functionality.
 
 ### Test Tasks
 - [x] Switch to Junit5
