@@ -40,6 +40,18 @@ val colorOnErrorDark = Color(0xFFFFFFFF)
 val black = Color(0xFF000000)
 val favorite = Color(0xFFf9be64)
 
+//Language colors
+val css =  Color(0xFF563d7c)
+val go =  Color(0xFF375eab)
+val kotlin =  Color(0xFFF08E33)
+val php =  Color(0xFF4F5D95)
+val javaScript =  Color(0xFFf1e05a)
+val java =  Color(0xFFB07219)
+val swift =  Color(0xFFffac45)
+val ruby =  Color(0xFF701516)
+val python =  Color(0xFF3572A5)
+val other =  Color(0xFFA9A6A0)
+
 /**
  * Return the fully opaque color that results from compositing [onSurface] atop [surface] with the
  * given [alpha]. Useful for situations where semi-transparent colors are undesirable.
