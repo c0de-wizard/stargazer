@@ -60,13 +60,6 @@ android {
         useIR = true
     }
 
-    lint {
-        lintConfig = rootProject.file(".lint/config.xml")
-        isCheckAllWarnings = true
-        isWarningsAsErrors = true
-        isAbortOnError = false
-    }
-
     packagingOptions {
         resources.excludes.add("**/attach_hotspot_windows.dll")
         resources.excludes.add("META-INF/licenses/**")

@@ -41,6 +41,7 @@ android {
         named("debug") {
             isMinifyEnabled = false
             versionNameSuffix = "-DEBUG"
+            applicationIdSuffix = ".debug"
         }
     }
 
@@ -60,13 +61,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
         useIR = true
-    }
-
-    lint {
-        lintConfig = rootProject.file(".lint/config.xml")
-        isCheckAllWarnings = true
-        isWarningsAsErrors = true
-        isAbortOnError = false
     }
 
     composeOptions {
