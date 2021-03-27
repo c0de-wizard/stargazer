@@ -17,40 +17,53 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.thomaskioko.stargazer.trending.R
 import com.thomaskioko.stargazer.trending.model.RepoViewDataModel
+import com.thomaskioko.stargazer.trending.ui.ReposViewState
 import com.thomaskioko.stargazer.trending.ui.mockdata.RepoRepository.getRepositoryList
-import com.thomaskioko.stargazers.common.compose.components.AppBar
 import com.thomaskioko.stargazers.common.compose.components.AppBarSettingsIcon
+import com.thomaskioko.stargazers.common.compose.components.CircularLoadingView
+import com.thomaskioko.stargazers.common.compose.components.SnackBarErrorRetry
+import com.thomaskioko.stargazers.common.compose.components.StargazersTopBar
 import com.thomaskioko.stargazers.common.compose.theme.StargazerTheme
 
 @Composable
-fun TrendingRepositoryScreen(
-    repoList: List<RepoViewDataModel>,
+internal fun TrendingRepositoryScreen(
+    repoViewState: ReposViewState,
     onSettingsPressed: () -> Unit = { },
+    onItemClicked: (Long) -> Unit = { },
+    onErrorActionRetry: () -> Unit = { },
 ) {
 
     Scaffold(
         topBar = {
-            AppBar(
+            StargazersTopBar(
                 title = { Row { Text(text = stringResource(R.string.app_name)) } },
                 actions = { AppBarSettingsIcon(onSettingsPressed = onSettingsPressed) }
             )
         },
         content = { innerPadding ->
-            TrendingRepositoryList(
-                repoList = repoList,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
-            )
+            when (repoViewState) {
+                ReposViewState.Loading -> CircularLoadingView()
+                is ReposViewState.Error -> SnackBarErrorRetry(
+                    errorMessage = repoViewState.message,
+                    onErrorAction = onErrorActionRetry
+                )
+                is ReposViewState.Success -> TrendingRepositoryList(
+                    repoList = repoViewState.list,
+                    onRepoItemClicked = onItemClicked,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(innerPadding)
+                )
+            }
         }
     )
 }
 
 @Composable
 fun TrendingRepositoryList(
-    repoList: List<RepoViewDataModel>,
     modifier: Modifier = Modifier,
-    onItemClicked: (RepoViewDataModel) -> Unit = { }
+    repoList: List<RepoViewDataModel>,
+    onRepoItemClicked: (Long) -> Unit = { }
 ) {
 
     LazyColumn(
@@ -58,7 +71,7 @@ fun TrendingRepositoryList(
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
         items(repoList) { repo ->
-            RepoCardItem(repo = repo, onItemClicked = { onItemClicked(repo) })
+            RepoCardItem(repo = repo, onRepoItemClicked = { onRepoItemClicked(repo.repoId) })
             RepoListDivider()
         }
     }
@@ -78,7 +91,7 @@ fun TrendingRepositoryList(
 @Composable
 fun RepoListScreenPreview() {
     StargazerTheme {
-        TrendingRepositoryScreen(
+        TrendingRepositoryList(
             repoList = getRepositoryList()
         )
     }

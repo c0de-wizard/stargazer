@@ -7,6 +7,7 @@ import com.thomaskioko.stargazer.core.interactor.invoke
 import com.thomaskioko.stargazer.core.viewmodel.BaseViewModel
 import com.thomaskioko.stargazer.navigation.NavigationScreen
 import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailScreen
+import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailsScreen
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
 import com.thomaskioko.stargazer.trending.interactor.GetTrendingReposInteractor
 import com.thomaskioko.stargazer.trending.model.RepoViewDataModel
@@ -42,8 +43,12 @@ internal class GetRepoListViewModel @AssistedInject constructor(
                     .launchIn(ioScope)
             }
             is NavigateToSettingsScreen -> screenNavigator.goToScreen(NavigationScreen.SettingsScreen)
+            //TODO:: Get rid of the extras object when we fully navigate to compose
             is NavigateToRepoDetail ->
                 screenNavigator.goToScreen(RepoDetailScreen(action.repoId, action.extras))
+            is ReposAction.NavigateToRepoDetailScreen -> screenNavigator.goToScreen(
+                RepoDetailsScreen(action.repoId)
+            )
         }
     }
 }
