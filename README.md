@@ -1,8 +1,15 @@
-<H3 align="center">
+<H2 align="center">
 Github Stargazer.
-</H3>
+</H2>
 
-[![codecov](https://codecov.io/gh/c0de-wizard/stargazer/branch/main/graph/badge.svg)](https://codecov.io/gh/c0de-wizard/stargazer)
+<div align="center">
+    <a href = "https://developer.android.com/jetpack/androidx/versions/all-channel?authuser=1#march_24_2021">
+      <img src = "https://img.shields.io/badge/Jetpack%20Compose-1.0.0%20beta03-brightgreen" />
+    </a>
+    <a href = "https://codecov.io/gh/c0de-wizard/stargazer">
+          <img src = "https://codecov.io/gh/c0de-wizard/stargazer/branch/main/graph/badge.svg" />
+    </a>
+</div>
 
 ## Description
 Stargazer is a simple android project that consumes Github's Api & loads a list of repositories from Square's organization.
