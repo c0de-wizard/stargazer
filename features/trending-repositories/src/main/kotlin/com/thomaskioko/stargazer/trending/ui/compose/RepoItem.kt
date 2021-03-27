@@ -43,12 +43,12 @@ import dev.chrisbanes.accompanist.coil.CoilImage
 @Composable
 fun RepoCardItem(
     repo: RepoViewDataModel,
-    onItemClicked: (RepoViewDataModel) -> Unit = { }
+    onRepoItemClicked: (Long) -> Unit = { }
 ) {
 
     Column(
         modifier = Modifier
-            .clickable(onClick = { onItemClicked(repo) })
+            .clickable(onClick = { onRepoItemClicked(repo.repoId) })
             .padding(16.dp)
             .fillMaxWidth()
     ) {
@@ -76,7 +76,10 @@ fun RepositoryUserInfo(repo: RepoViewDataModel) {
                 .clip(CircleShape),
             loading = {
                 Box(Modifier.matchParentSize()) {
-                    CircularProgressIndicator(Modifier.align(Alignment.Center))
+                    CircularProgressIndicator(
+                       modifier = Modifier.align(Alignment.Center),
+                        color = MaterialTheme.colors.secondary
+                    )
                 }
             },
             error = {
