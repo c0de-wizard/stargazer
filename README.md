@@ -66,9 +66,9 @@ This layer is where we create different feature modules. Browse Repository & Boo
 - **UI**: This is responsible displaying data.
 
 ### Navigator
-This module enables us to navigate between the app, as the name suggests. It contains the main navigation graph file and subgraphs each located in every feature module. The beauty of this is that feature modules don't need to depend on other feature modules
+This module enables us to navigate between the app, as the name suggests. It contains the main navigation graph file and sub-graphs each located in every feature module. The beauty of this is that feature modules don't need to depend on other feature modules
 
-🚧 Jetpack Compose (Under Development) 🚧
+### 🚧 Jetpack Compose (Under Development) 🚧
 I'm currently migrating each module to [Jetpack Compose](https://developer.android.com/jetpack/compose).
 
 ### Progress
