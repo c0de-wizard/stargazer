@@ -23,7 +23,7 @@ internal class GetRepoListViewModel @AssistedInject constructor(
     private val interactorTrending: GetTrendingReposInteractor,
     @Assisted private val screenNavigator: ScreenNavigator,
     @DefaultDispatcher private val ioDispatcher: CoroutineDispatcher
-) : BaseViewModel<ReposAction, ReposViewState, CoroutineDispatcher>(
+) : BaseViewModel<ReposAction, ReposViewState>(
     initialViewState = ReposViewState.Loading,
     dispatcher = ioDispatcher
 ) {
