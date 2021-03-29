@@ -5,14 +5,13 @@ import app.cash.turbine.test
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.core.ViewStateResult.Error
-import com.thomaskioko.stargazer.core.ViewStateResult.Loading
 import com.thomaskioko.stargazer.core.ViewStateResult.Success
 import com.thomaskioko.stargazer.details.domain.GetRepoByIdInteractor
 import com.thomaskioko.stargazer.details.domain.UpdateRepoBookmarkStateInteractor
 import com.thomaskioko.stargazer.details.domain.model.UpdateObject
-import com.thomaskioko.stargazer.details.model.RepoViewDataModel
+import com.thomaskioko.stargazer.details.ui.DetailAction
+import com.thomaskioko.stargazer.details.ui.DetailViewState
 import com.thomaskioko.stargazer.details.ui.viewmodel.RepoDetailsViewModel
 import com.thomaskioko.stargazer.repo_details.util.ViewMockData.makeRepoViewDataModel
 import kotlinx.coroutines.flow.flowOf
@@ -48,12 +47,12 @@ internal class RepoDetailsViewModelTest {
     fun `givenRepoId verify successStateIsReturned`() = runBlocking {
         val repoViewDataModel = makeRepoViewDataModel()
 
-        viewModel.repoMutableStateResultFlow.test {
+        viewModel.actionState.test {
 
-            viewModel.getRepoById(1)
+            viewModel.dispatchAction(DetailAction.LoadRepo(1))
 
-            assertEquals(expectItem(), Loading<ViewStateResult<List<RepoViewDataModel>>>())
-            assertEquals(expectItem(), Success(repoViewDataModel))
+            assertEquals(expectItem(), DetailViewState.Loading)
+            assertEquals(expectItem(), DetailViewState.Success(repoViewDataModel))
         }
     }
 
@@ -64,15 +63,12 @@ internal class RepoDetailsViewModelTest {
 
         whenever(getRepoByIdInteractor(1)).thenReturn(flowOf(Error(errorMessage)))
 
-        viewModel.repoMutableStateResultFlow.test {
+        viewModel.actionState.test {
 
-            viewModel.getRepoById(1)
+            viewModel.dispatchAction(DetailAction.LoadRepo(1))
 
-            assertEquals(expectItem(), Loading<ViewStateResult<List<RepoViewDataModel>>>())
-            assertEquals(
-                expectItem(),
-                Error<ViewStateResult<List<RepoViewDataModel>>>(errorMessage)
-            )
+            assertEquals(expectItem(), DetailViewState.Loading)
+            assertEquals(expectItem(), DetailViewState.Error(errorMessage))
         }
     }
 
@@ -81,12 +77,12 @@ internal class RepoDetailsViewModelTest {
         val updateObject = UpdateObject(1, true)
         val repoViewDataModel = makeRepoViewDataModel()
 
-        viewModel.repoUpdateMutableStateResultFlow.test {
+        viewModel.actionState.test {
 
-            viewModel.updateBookmarkState(updateObject)
+            viewModel.dispatchAction(DetailAction.UpdateRepo(updateObject))
 
-            assertEquals(expectItem(), Loading<ViewStateResult<List<RepoViewDataModel>>>())
-            assertEquals(expectItem(), Success(repoViewDataModel))
+            assertEquals(expectItem(), DetailViewState.Loading)
+            assertEquals(expectItem(), DetailViewState.Success(repoViewDataModel))
         }
     }
 }
