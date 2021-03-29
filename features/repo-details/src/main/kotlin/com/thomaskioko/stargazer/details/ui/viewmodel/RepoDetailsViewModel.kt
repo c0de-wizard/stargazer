@@ -1,17 +1,15 @@
 package com.thomaskioko.stargazer.details.ui.viewmodel
 
-import androidx.lifecycle.ViewModel
 import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.core.injection.annotations.DefaultDispatcher
+import com.thomaskioko.stargazer.core.viewmodel.BaseViewModel
 import com.thomaskioko.stargazer.details.domain.GetRepoByIdInteractor
 import com.thomaskioko.stargazer.details.domain.UpdateRepoBookmarkStateInteractor
-import com.thomaskioko.stargazer.details.domain.model.UpdateObject
 import com.thomaskioko.stargazer.details.model.RepoViewDataModel
+import com.thomaskioko.stargazer.details.ui.DetailAction
+import com.thomaskioko.stargazer.details.ui.DetailViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -21,31 +19,30 @@ internal class RepoDetailsViewModel @Inject constructor(
     private val getRepoByIdInteractor: GetRepoByIdInteractor,
     private val bookmarkStateInteractor: UpdateRepoBookmarkStateInteractor,
     @DefaultDispatcher private val ioDispatcher: CoroutineDispatcher
-) : ViewModel() {
+) : BaseViewModel<DetailAction, DetailViewState>(
+    initialViewState = DetailViewState.Loading,
+    dispatcher = ioDispatcher
+) {
 
-    private val viewModelJob = SupervisorJob()
-    private val ioScope = CoroutineScope(ioDispatcher + viewModelJob)
+    override fun handleAction(action: DetailAction) {
+        when(action) {
+            is DetailAction.LoadRepo -> {
+                getRepoByIdInteractor(action.repoId)
+                    .onEach { mutableViewState.emit(it.reduce()) }
+                    .launchIn(ioScope)
+            }
+            is DetailAction.UpdateRepo -> bookmarkStateInteractor(action.data)
+                .onEach { mutableViewState.emit(it.reduce()) }
+                .launchIn(ioScope)
 
-    val repoMutableStateResultFlow: MutableStateFlow<ViewStateResult<RepoViewDataModel>> =
-        MutableStateFlow(ViewStateResult.loading())
-
-    val repoUpdateMutableStateResultFlow: MutableStateFlow<ViewStateResult<RepoViewDataModel>> =
-        MutableStateFlow(ViewStateResult.loading())
-
-    fun getRepoById(repoId: Long) {
-        getRepoByIdInteractor(repoId)
-            .onEach { repoMutableStateResultFlow.emit(it) }
-            .launchIn(ioScope)
+        }
     }
+}
 
-    fun updateBookmarkState(updateObject: UpdateObject) {
-        bookmarkStateInteractor(updateObject)
-            .onEach { repoUpdateMutableStateResultFlow.emit(it) }
-            .launchIn(ioScope)
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
+internal fun ViewStateResult<RepoViewDataModel>.reduce(): DetailViewState {
+    return when (this) {
+        is ViewStateResult.Loading -> DetailViewState.Loading
+        is ViewStateResult.Success -> DetailViewState.Success(data)
+        is ViewStateResult.Error -> DetailViewState.Error(message)
     }
 }
