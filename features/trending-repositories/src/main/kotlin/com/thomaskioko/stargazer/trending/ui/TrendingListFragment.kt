@@ -43,17 +43,11 @@ internal class TrendingListFragment : Fragment() {
                     TrendingRepositoryScreen(
                         repoViewState = states,
                         onErrorActionRetry = { getRepoViewModel.dispatchAction(LoadRepositories) },
-                        onItemClicked = {
-                            getRepoViewModel.dispatchAction(
-                                NavigateToRepoDetailScreen(
-                                    it
-                                )
-                            )
+                        onItemClicked = { repoId ->
+                            getRepoViewModel.dispatchAction(NavigateToRepoDetailScreen(repoId))
                         },
                         onSettingsPressed = {
-                            getRepoViewModel.dispatchAction(
-                                NavigateToSettingsScreen
-                            )
+                            getRepoViewModel.dispatchAction(NavigateToSettingsScreen)
                         }
                     )
                 }
