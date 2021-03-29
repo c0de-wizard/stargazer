@@ -8,7 +8,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.google.android.material.transition.MaterialElevationScale
 import com.thomaskioko.githubstargazer.browse.R
 import com.thomaskioko.githubstargazer.browse.databinding.FragmentRepoListBinding
@@ -18,7 +17,7 @@ import com.thomaskioko.stargazer.browse.ui.adapter.RepoListAdapter
 import com.thomaskioko.stargazer.browse.ui.viewmodel.GetReposViewModel
 import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.navigation.NavigationScreen
-import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailScreen
+import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailsScreen
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
 import com.thomaskioko.stargazers.ui.BaseFragment
 import com.thomaskioko.stargazers.ui.extensions.hideView
@@ -42,10 +41,7 @@ class RepoListFragment : BaseFragment<FragmentRepoListBinding>() {
 
     private val onRepoItemClick = object : RepoItemClick {
         override fun onClick(view: View, repoId: Long) {
-            val transitionName = getString(R.string.repo_card_detail_transition_name)
-            val extras = FragmentNavigatorExtras(view to transitionName)
-
-            screenNavigator.goToScreen(RepoDetailScreen(repoId, extras))
+            screenNavigator.goToScreen(RepoDetailsScreen(repoId))
         }
     }
 

@@ -1,10 +1,8 @@
 package com.thomaskioko.stargazer.navigation
 
 import androidx.navigation.NavController
-import androidx.navigation.Navigator
 import com.thomaskioko.stargazer.actions.MainNavGraphDirections
 import com.thomaskioko.stargazer.navigation.NavigationScreen.BookmarkListScreen
-import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailScreen
 import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoListScreen
 import com.thomaskioko.stargazer.navigation.NavigationScreen.SettingsScreen
 import com.thomaskioko.stargazer.navigation.NavigationScreen.TrendingRepositoriesScreen
@@ -16,11 +14,6 @@ sealed class NavigationScreen {
     object RepoListScreen : NavigationScreen()
     object BookmarkListScreen : NavigationScreen()
     object SettingsScreen : NavigationScreen()
-    //TODO:: Get rid of the extras object when we fully navigate to compose
-    data class RepoDetailScreen(
-        val repoId: Long,
-        val extras: Navigator.Extras
-    ) : NavigationScreen()
     data class RepoDetailsScreen(
         val repoId: Long
     ) : NavigationScreen()
@@ -44,15 +37,8 @@ class ScreenNavigationImpl @Inject constructor(
                 .navigate(MainNavGraphDirections.actionTrendingRepos())
             SettingsScreen -> navControllerProvider.get()
                 .navigate(MainNavGraphDirections.actionSettingsFragment())
-            is RepoDetailScreen -> navControllerProvider.get()
-                .navigate(
-                    MainNavGraphDirections.actionRepoDetails(navigationScreen.repoId),
-                    navigationScreen.extras
-                )
             is NavigationScreen.RepoDetailsScreen -> navControllerProvider.get()
-                .navigate(
-                    MainNavGraphDirections.actionRepoDetails(navigationScreen.repoId)
-                )
+                .navigate(MainNavGraphDirections.actionRepoDetails(navigationScreen.repoId))
         }
     }
 }
