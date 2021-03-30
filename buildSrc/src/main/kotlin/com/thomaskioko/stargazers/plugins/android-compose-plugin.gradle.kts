@@ -58,4 +58,6 @@ dependencies {
     api(Dependencies.AndroidX.Compose.viewModel)
     api(Dependencies.AndroidX.Compose.Accompanist.coil)
     api(Dependencies.AndroidX.Compose.Accompanist.insets)
+    api(Dependencies.AndroidX.Compose.Accompanist.Google.coil)
+    api(Dependencies.AndroidX.Compose.Accompanist.Google.insets)
 }

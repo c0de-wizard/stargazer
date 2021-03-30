@@ -24,9 +24,15 @@ object Dependencies {
             const val activity = "androidx.activity:activity-compose:${DependencyVersions.composeActivity}"
             const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-compose:${DependencyVersions.composeViewModel}"
 
+
             object Accompanist {
                 const val coil = "dev.chrisbanes.accompanist:accompanist-coil:${DependencyVersions.accompanist}"
                 const val insets = "dev.chrisbanes.accompanist:accompanist-insets:${DependencyVersions.accompanist}"
+
+                object Google {
+                    const val coil = "com.google.accompanist:accompanist-coil:${DependencyVersions.accompanistGoogle}"
+                    const val insets = "com.google.accompanist:accompanist-insets:${DependencyVersions.accompanistGoogle}"
+                }
             }
         }
 
