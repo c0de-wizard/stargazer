@@ -21,6 +21,8 @@ sealed class NavigationScreen {
 
 interface ScreenNavigator {
     fun goToScreen(navigationScreen: NavigationScreen)
+
+    fun goBack()
 }
 
 class ScreenNavigationImpl @Inject constructor(
@@ -40,5 +42,10 @@ class ScreenNavigationImpl @Inject constructor(
             is NavigationScreen.RepoDetailsScreen -> navControllerProvider.get()
                 .navigate(MainNavGraphDirections.actionRepoDetails(navigationScreen.repoId))
         }
+    }
+
+    override fun goBack() {
+        navControllerProvider.get()
+            .navigateUp()
     }
 }

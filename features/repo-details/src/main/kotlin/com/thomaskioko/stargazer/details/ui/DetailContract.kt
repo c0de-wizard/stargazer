@@ -6,6 +6,7 @@ import com.thomaskioko.stargazer.details.domain.model.UpdateObject
 import com.thomaskioko.stargazer.details.model.RepoViewDataModel
 
 sealed class DetailAction : ViewAction {
+    object BackPressed: DetailAction()
     data class LoadRepo(val repoId: Long) : DetailAction()
     data class UpdateRepo(val data: UpdateObject) : DetailAction()
 }
