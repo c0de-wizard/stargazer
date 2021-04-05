@@ -21,4 +21,8 @@
 
     <!-- Toolbar Title -->
     <string name="title_settings">Settings</string>
+
+
+    <string name="fab_bookmark">Bookmark</string>
+    <string name="fab_remove_bookmark">Remove Bookmark</string>
 </resources>
