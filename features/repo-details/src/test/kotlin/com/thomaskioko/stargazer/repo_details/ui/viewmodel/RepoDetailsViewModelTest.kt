@@ -13,6 +13,7 @@ import com.thomaskioko.stargazer.details.domain.model.UpdateObject
 import com.thomaskioko.stargazer.details.ui.DetailAction
 import com.thomaskioko.stargazer.details.ui.DetailViewState
 import com.thomaskioko.stargazer.details.ui.viewmodel.RepoDetailsViewModel
+import com.thomaskioko.stargazer.navigation.ScreenNavigator
 import com.thomaskioko.stargazer.repo_details.util.ViewMockData.makeRepoViewDataModel
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
@@ -28,18 +29,22 @@ internal class RepoDetailsViewModelTest {
     @get:Rule
     val instantTaskExecutorRule: TestRule = InstantTaskExecutorRule()
 
+    private val updateObject = UpdateObject(1, true)
+    private val repoViewModelData = makeRepoViewDataModel()
+    private val screenNavigator = mock<ScreenNavigator>()
+    private val testCoroutineDispatcher = TestCoroutineDispatcher()
+
     private val getRepoByIdInteractor: GetRepoByIdInteractor = mock {
-        on { invoke(anyLong()) } doReturn flowOf(Success(makeRepoViewDataModel()))
+        on { invoke(anyLong()) } doReturn flowOf(Success(repoViewModelData))
     }
     private val bookmarkStateInteractor: UpdateRepoBookmarkStateInteractor = mock {
-        val updateObject = UpdateObject(1, true)
-        on { invoke(updateObject) } doReturn flowOf(Success(makeRepoViewDataModel()))
+        on { invoke(updateObject) } doReturn flowOf(Success(repoViewModelData))
     }
 
-    private val testCoroutineDispatcher = TestCoroutineDispatcher()
     private var viewModel: RepoDetailsViewModel = RepoDetailsViewModel(
         getRepoByIdInteractor,
         bookmarkStateInteractor,
+        screenNavigator,
         testCoroutineDispatcher
     )
 
@@ -74,15 +79,12 @@ internal class RepoDetailsViewModelTest {
 
     @Test
     fun `givenUpdateRepoIsInvoked verify successStateIsReturned`() = runBlocking {
-        val updateObject = UpdateObject(1, true)
-        val repoViewDataModel = makeRepoViewDataModel()
-
         viewModel.actionState.test {
 
             viewModel.dispatchAction(DetailAction.UpdateRepo(updateObject))
 
             assertEquals(expectItem(), DetailViewState.Loading)
-            assertEquals(expectItem(), DetailViewState.Success(repoViewDataModel))
+            assertEquals(expectItem(), DetailViewState.Success(repoViewModelData))
         }
     }
 }
