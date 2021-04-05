@@ -54,6 +54,7 @@ dependencies {
     api(Dependencies.AndroidX.Compose.material)
     api(Dependencies.AndroidX.Compose.tooling)
     api(Dependencies.AndroidX.Compose.ui)
+    api(Dependencies.AndroidX.Compose.uiUtil)
     api(Dependencies.AndroidX.Compose.runtime)
     api(Dependencies.AndroidX.Compose.viewModel)
     api(Dependencies.AndroidX.Compose.Accompanist.coil)
