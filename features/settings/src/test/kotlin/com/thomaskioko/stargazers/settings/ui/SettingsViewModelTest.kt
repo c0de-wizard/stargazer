@@ -32,7 +32,7 @@ internal class SettingsViewModelTest {
     @Test
     fun givenThemeIsSet_verify_CorrectValueIsEmitted() = runBlocking {
 
-        viewModel.actionState.test {
+        viewModel.stateFlow.test {
             viewModel.dispatchAction(SettingsActions.LoadTheme)
 
             assertEquals(expectItem(), SettingsViewState.Loading)
@@ -43,7 +43,7 @@ internal class SettingsViewModelTest {
     @Test
     fun givenThemeIsUpdated_verify_updateFunctionIsInvoked() = runBlocking {
 
-        viewModel.actionState.test {
+        viewModel.stateFlow.test {
             viewModel.dispatchAction(SettingsActions.UpdateTheme(2))
 
             assertEquals(expectItem(), SettingsViewState.Loading)
@@ -58,7 +58,7 @@ internal class SettingsViewModelTest {
 
         whenever(settingsManager.getUiModeFlow()).thenReturn(flowOf(ViewStateResult.Error(errorMessage)))
 
-        viewModel.actionState.test {
+        viewModel.stateFlow.test {
             viewModel.dispatchAction(SettingsActions.LoadTheme)
 
             assertEquals(expectItem(), SettingsViewState.Loading)

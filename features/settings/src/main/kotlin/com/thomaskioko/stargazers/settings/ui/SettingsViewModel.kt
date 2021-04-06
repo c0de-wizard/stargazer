@@ -18,7 +18,7 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(
     private val settingsManager: SettingsManager,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
-) : BaseViewModel<SettingsActions, SettingsViewState, CoroutineDispatcher>(
+) : BaseViewModel<SettingsActions, SettingsViewState>(
     initialViewState = SettingsViewState.Loading,
     dispatcher = ioDispatcher
 ) {

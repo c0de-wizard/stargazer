@@ -34,7 +34,7 @@ internal class GetRepoListViewModelTest {
     fun givenDisplayStateIsInvoked_verifyResultRepoListIsReturned() = runBlocking {
         whenever(interactorTrending()).thenReturn(flowOf(Success(makeRepoViewDataModelList())))
 
-        viewModel.actionState.test {
+        viewModel.stateFlow.test {
             viewModel.dispatchAction(ReposAction.LoadRepositories)
 
             assertEquals(expectItem(), ReposViewState.Loading)
@@ -48,7 +48,7 @@ internal class GetRepoListViewModelTest {
 
         whenever(interactorTrending()).thenReturn(flowOf(Error(errorMessage)))
 
-        viewModel.actionState.test {
+        viewModel.stateFlow.test {
             viewModel.dispatchAction(ReposAction.LoadRepositories)
 
             assertEquals(expectItem(), ReposViewState.Loading)

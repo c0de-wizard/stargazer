@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.thomaskioko.stargazer.bookmarks.R
 import com.thomaskioko.stargazer.bookmarks.databinding.FragmentBookmarkedReposBinding
 import com.thomaskioko.stargazer.bookmarks.model.RepoViewDataModel
@@ -16,7 +15,7 @@ import com.thomaskioko.stargazer.bookmarks.ui.adapter.BookmarkedReposAdapter
 import com.thomaskioko.stargazer.bookmarks.ui.viewmodel.GetBookmarkedReposViewModel
 import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.navigation.NavigationScreen
-import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailScreen
+import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailsScreen
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
 import com.thomaskioko.stargazers.ui.BaseFragment
 import com.thomaskioko.stargazers.ui.extensions.hideView
@@ -38,10 +37,7 @@ class BookmarkedReposFragment : BaseFragment<FragmentBookmarkedReposBinding>() {
 
     private val onRepoItemClick = object : BookmarkRepoItemClick {
         override fun onClick(view: View, repoId: Long) {
-            val transitionName = getString(R.string.repo_card_detail_transition_name)
-            val extras = FragmentNavigatorExtras(view to transitionName)
-
-            screenNavigator.goToScreen(RepoDetailScreen(repoId, extras))
+            screenNavigator.goToScreen(RepoDetailsScreen(repoId))
         }
     }
 

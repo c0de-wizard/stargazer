@@ -6,13 +6,11 @@ import com.thomaskioko.stargazer.core.injection.annotations.DefaultDispatcher
 import com.thomaskioko.stargazer.core.interactor.invoke
 import com.thomaskioko.stargazer.core.viewmodel.BaseViewModel
 import com.thomaskioko.stargazer.navigation.NavigationScreen
-import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailScreen
 import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailsScreen
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
 import com.thomaskioko.stargazer.trending.interactor.GetTrendingReposInteractor
 import com.thomaskioko.stargazer.trending.model.RepoViewDataModel
 import com.thomaskioko.stargazer.trending.ui.ReposAction.LoadRepositories
-import com.thomaskioko.stargazer.trending.ui.ReposAction.NavigateToRepoDetail
 import com.thomaskioko.stargazer.trending.ui.ReposAction.NavigateToSettingsScreen
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -25,7 +23,7 @@ internal class GetRepoListViewModel @AssistedInject constructor(
     private val interactorTrending: GetTrendingReposInteractor,
     @Assisted private val screenNavigator: ScreenNavigator,
     @DefaultDispatcher private val ioDispatcher: CoroutineDispatcher
-) : BaseViewModel<ReposAction, ReposViewState, CoroutineDispatcher>(
+) : BaseViewModel<ReposAction, ReposViewState>(
     initialViewState = ReposViewState.Loading,
     dispatcher = ioDispatcher
 ) {
@@ -43,9 +41,6 @@ internal class GetRepoListViewModel @AssistedInject constructor(
                     .launchIn(ioScope)
             }
             is NavigateToSettingsScreen -> screenNavigator.goToScreen(NavigationScreen.SettingsScreen)
-            //TODO:: Get rid of the extras object when we fully navigate to compose
-            is NavigateToRepoDetail ->
-                screenNavigator.goToScreen(RepoDetailScreen(action.repoId, action.extras))
             is ReposAction.NavigateToRepoDetailScreen -> screenNavigator.goToScreen(
                 RepoDetailsScreen(action.repoId)
             )

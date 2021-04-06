@@ -10,13 +10,20 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.thomaskioko.stargazer.trending.R
 import com.thomaskioko.stargazer.trending.model.RepoViewDataModel
+import com.thomaskioko.stargazer.trending.ui.GetRepoListViewModel
 import com.thomaskioko.stargazer.trending.ui.ReposViewState
 import com.thomaskioko.stargazer.trending.ui.mockdata.RepoRepository.getRepositoryList
 import com.thomaskioko.stargazers.common.compose.components.AppBarSettingsIcon
@@ -27,11 +34,21 @@ import com.thomaskioko.stargazers.common.compose.theme.StargazerTheme
 
 @Composable
 internal fun TrendingRepositoryScreen(
-    repoViewState: ReposViewState,
+    viewModel: GetRepoListViewModel,
     onSettingsPressed: () -> Unit = { },
     onItemClicked: (Long) -> Unit = { },
     onErrorActionRetry: () -> Unit = { },
 ) {
+
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val actionState = viewModel.stateFlow
+
+    val actionStateLifeCycleAware = remember (actionState, lifecycleOwner){
+        actionState.flowWithLifecycle(lifecycleOwner.lifecycle, Lifecycle.State.STARTED)
+    }
+
+    val repoViewState by actionStateLifeCycleAware
+        .collectAsState(initial = ReposViewState.Loading)
 
     Scaffold(
         topBar = {
@@ -44,11 +61,11 @@ internal fun TrendingRepositoryScreen(
             when (repoViewState) {
                 ReposViewState.Loading -> CircularLoadingView()
                 is ReposViewState.Error -> SnackBarErrorRetry(
-                    errorMessage = repoViewState.message,
+                    errorMessage = (repoViewState as ReposViewState.Error).message,
                     onErrorAction = onErrorActionRetry
                 )
                 is ReposViewState.Success -> TrendingRepositoryList(
-                    repoList = repoViewState.list,
+                    repoList = (repoViewState as ReposViewState.Success).list,
                     onRepoItemClicked = onItemClicked,
                     modifier = Modifier
                         .fillMaxSize()

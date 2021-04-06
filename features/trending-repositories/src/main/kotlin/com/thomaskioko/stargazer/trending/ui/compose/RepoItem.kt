@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import com.thomaskioko.stargazer.trending.model.RepoViewDataModel
 import com.thomaskioko.stargazer.trending.ui.mockdata.RepoRepository.getRepository
 import com.thomaskioko.stargazers.common.compose.R
+import com.thomaskioko.stargazers.common.compose.components.OutlinedAvatar
 import com.thomaskioko.stargazers.common.compose.theme.StargazerTheme
 import com.thomaskioko.stargazers.common.compose.theme.black
 import com.thomaskioko.stargazers.common.compose.theme.favorite
@@ -66,28 +67,11 @@ fun RepositoryUserInfo(repo: RepoViewDataModel) {
         modifier = Modifier
             .fillMaxWidth(),
     ) {
-        CoilImage(
-            data = repo.avatarUrl,
-            contentDescription = null,
-            contentScale = ContentScale.Fit,
-            fadeIn = true,
+        OutlinedAvatar(
+            url = repo.avatarUrl,
             modifier = Modifier
-                .size(24.dp, 24.dp)
-                .clip(CircleShape),
-            loading = {
-                Box(Modifier.matchParentSize()) {
-                    CircularProgressIndicator(
-                       modifier = Modifier.align(Alignment.Center),
-                        color = MaterialTheme.colors.secondary
-                    )
-                }
-            },
-            error = {
-                Icon(
-                    painter = painterResource(R.drawable.octocat),
-                    contentDescription = null,
-                )
-            }
+                .size(30.dp)
+                .clip(CircleShape)
         )
 
         Spacer(Modifier.width(8.dp))

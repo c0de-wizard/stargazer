@@ -5,29 +5,32 @@ import com.thomaskioko.stargazer.core.presentation.ViewAction
 import com.thomaskioko.stargazer.core.presentation.ViewState
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 
-abstract class BaseViewModel<ACTION : ViewAction, STATE : ViewState, DISPATCHER : CoroutineDispatcher>
-    (initialViewState: STATE, dispatcher: DISPATCHER) : ViewModel() {
+abstract class BaseViewModel<A : ViewAction, S : ViewState>(
+    initialViewState: S,
+    dispatcher: CoroutineDispatcher = Dispatchers.IO
+) : ViewModel() {
 
     private val viewModelJob = SupervisorJob()
     val ioScope = CoroutineScope(dispatcher + viewModelJob)
 
-    protected val mutableViewState: MutableStateFlow<STATE> =
+    protected val mutableViewState: MutableStateFlow<S> =
         MutableStateFlow(initialViewState)
 
-    val actionState: SharedFlow<STATE> get() = mutableViewState
+    val stateFlow: Flow<S> get() = mutableViewState
 
-    fun dispatchAction(action: ACTION) {
-        handleAction(action)
-    }
-
-    abstract fun handleAction(action: ACTION)
+    abstract fun handleAction(action: A)
 
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
+    }
+
+    fun dispatchAction(action: A) {
+        handleAction(action)
     }
 }

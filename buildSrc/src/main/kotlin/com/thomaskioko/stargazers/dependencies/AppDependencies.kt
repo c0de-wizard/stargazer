@@ -15,8 +15,11 @@ object Dependencies {
 
         object Compose {
             const val ui = "androidx.compose.ui:ui:${DependencyVersions.compose}"
+            const val uiUtil = "androidx.compose.ui:ui-util:${DependencyVersions.compose}"
+            const val uiLayout = "androidx.ui:ui-layout:${DependencyVersions.compose}"
             const val tooling = "androidx.compose.ui:ui-tooling:${DependencyVersions.compose}"
             const val foundation = "androidx.compose.foundation:foundation:${DependencyVersions.compose}"
+            const val foundationLayout = "androidx.compose.foundation:foundation-layout:${DependencyVersions.compose}"
             const val material = "androidx.compose.material:material:${DependencyVersions.compose}"
             const val iconsCore = "androidx.compose.material:material-icons-core:${DependencyVersions.compose}"
             const val iconsExtended = "androidx.compose.material:material-icons-extended:${DependencyVersions.compose}"
@@ -24,9 +27,15 @@ object Dependencies {
             const val activity = "androidx.activity:activity-compose:${DependencyVersions.composeActivity}"
             const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-compose:${DependencyVersions.composeViewModel}"
 
+
             object Accompanist {
                 const val coil = "dev.chrisbanes.accompanist:accompanist-coil:${DependencyVersions.accompanist}"
                 const val insets = "dev.chrisbanes.accompanist:accompanist-insets:${DependencyVersions.accompanist}"
+
+                object Google {
+                    const val coil = "com.google.accompanist:accompanist-coil:${DependencyVersions.accompanistGoogle}"
+                    const val insets = "com.google.accompanist:accompanist-insets:${DependencyVersions.accompanistGoogle}"
+                }
             }
         }
 
