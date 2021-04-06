@@ -3,11 +3,14 @@ Github Stargazer.
 </H2>
 
 <div align="center">
-    <a href = "https://developer.android.com/jetpack/androidx/versions/all-channel?authuser=1#march_24_2021">
-      <img src = "https://img.shields.io/badge/Jetpack%20Compose-1.0.0%20beta03-brightgreen" />
+    <a href = "https://github.com/c0de-wizard/stargazer/actions/workflows/android-release-build.yml">
+          <img src = "https://github.com/c0de-wizard/stargazer/actions/workflows/android-release-build.yml/badge.svg" />
     </a>
     <a href = "https://codecov.io/gh/c0de-wizard/stargazer">
           <img src = "https://codecov.io/gh/c0de-wizard/stargazer/branch/main/graph/badge.svg" />
+    </a>
+    <a href = "https://developer.android.com/jetpack/androidx/versions/all-channel?authuser=1#march_24_2021">
+      <img src = "https://img.shields.io/badge/Jetpack%20Compose-1.0.0%20beta03-brightgreen" />
     </a>
 </div>
 
