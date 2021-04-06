@@ -1,31 +1,9 @@
-package com.thomaskioko.stargazer.trending.ui.mockdata
+package com.thomaskioko.stargazers.common.compose.components.mockdata
 
-import androidx.annotation.DrawableRes
-import androidx.compose.runtime.Immutable
-import androidx.compose.ui.graphics.Color
-import com.thomaskioko.stargazer.trending.model.RepoViewDataModel
 import com.thomaskioko.stargazers.common.compose.R
+import com.thomaskioko.stargazers.common.compose.model.RepoViewDataModel
 import com.thomaskioko.stargazers.common.compose.theme.java
 import com.thomaskioko.stargazers.common.compose.theme.kotlin
-
-
-@Immutable
-data class RepoViewDataModel(
-    val repoId: Long,
-    val repoName: String,
-    val avatarUrl: String,
-    val description: String,
-    val userName: String,
-    val stargazersCount: Int,
-    val forksCount: Int,
-    val contributorsUrl: String,
-    val createdDate: String,
-    val updatedDate: String,
-    val language: String,
-    @DrawableRes val languageDrawable: Int,
-    val drawableColor: Color,
-    val isBookmarked: Boolean
-)
 
 /**
  * A fake repo returning sample data
