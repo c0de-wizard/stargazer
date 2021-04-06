@@ -22,18 +22,25 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.thomaskioko.stargazer.details.R
 import com.thomaskioko.stargazer.details.model.RepoViewDataModel
 import com.thomaskioko.stargazer.details.ui.DetailViewState
 import com.thomaskioko.stargazer.details.ui.compose.mockdata.repoViewDataModel
+import com.thomaskioko.stargazer.details.ui.viewmodel.RepoDetailsViewModel
 import com.thomaskioko.stargazers.common.compose.components.AppBarBackIcon
 import com.thomaskioko.stargazers.common.compose.components.CircularLoadingView
 import com.thomaskioko.stargazers.common.compose.components.OutlinedAvatar
@@ -46,10 +53,19 @@ import com.thomaskioko.stargazers.common.compose.theme.StargazerTheme
 
 @Composable
 internal fun RepoDetailScreen(
-    viewState: DetailViewState,
+    viewModel: RepoDetailsViewModel,
     onBackPressed: () -> Unit = { },
     onRepoBookMarked: (RepoViewDataModel) -> Unit = { },
 ) {
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val actionState = viewModel.stateFlow
+
+    val actionStateLifeCycleAware = remember (actionState, lifecycleOwner){
+        actionState.flowWithLifecycle(lifecycleOwner.lifecycle, Lifecycle.State.STARTED)
+    }
+
+    val viewState by actionStateLifeCycleAware
+        .collectAsState(initial = DetailViewState.Loading)
 
     Scaffold(
         topBar = {
@@ -62,12 +78,12 @@ internal fun RepoDetailScreen(
             when (viewState) {
                 DetailViewState.Loading -> CircularLoadingView()
                 is DetailViewState.Error -> SnackBarErrorRetry(
-                    errorMessage = viewState.message,
+                    errorMessage = (viewState as DetailViewState.Error).message,
                     onErrorAction = {}
                 )
                 is DetailViewState.Success -> RepoDetails(
                     onRepoBookMarked = onRepoBookMarked,
-                    repo = viewState.viewDataModel,
+                    repo = (viewState as DetailViewState.Success).viewDataModel,
                 )
             }
         }
