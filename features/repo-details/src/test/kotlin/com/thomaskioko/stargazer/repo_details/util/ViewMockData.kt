@@ -38,4 +38,10 @@ internal object ViewMockData {
         drawableColor = kotlin,
         languageDrawable = R.drawable.ic_language_drawable,
     )
+
+    fun makeUpdatedRepo(): RepoViewDataModel {
+        val repoViewDataModel = makeRepoViewDataModel()
+
+        return repoViewDataModel.copy(isBookmarked = !repoViewDataModel.isBookmarked)
+    }
 }
