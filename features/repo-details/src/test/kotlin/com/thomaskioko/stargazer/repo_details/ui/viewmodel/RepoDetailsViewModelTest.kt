@@ -52,7 +52,7 @@ internal class RepoDetailsViewModelTest {
     fun `givenRepoId verify successStateIsReturned`() = runBlocking {
         val repoViewDataModel = makeRepoViewDataModel()
 
-        viewModel.actionState.test {
+        viewModel.stateFlow.test {
 
             viewModel.dispatchAction(DetailAction.LoadRepo(1))
 
@@ -68,7 +68,7 @@ internal class RepoDetailsViewModelTest {
 
         whenever(getRepoByIdInteractor(1)).thenReturn(flowOf(Error(errorMessage)))
 
-        viewModel.actionState.test {
+        viewModel.stateFlow.test {
 
             viewModel.dispatchAction(DetailAction.LoadRepo(1))
 
@@ -79,7 +79,7 @@ internal class RepoDetailsViewModelTest {
 
     @Test
     fun `givenUpdateRepoIsInvoked verify successStateIsReturned`() = runBlocking {
-        viewModel.actionState.test {
+        viewModel.stateFlow.test {
 
             viewModel.dispatchAction(DetailAction.UpdateRepo(updateObject))
 
