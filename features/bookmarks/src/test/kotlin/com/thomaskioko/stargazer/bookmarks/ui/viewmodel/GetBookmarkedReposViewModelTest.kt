@@ -11,7 +11,7 @@ import com.thomaskioko.stargazer.core.ViewStateResult.Error
 import com.thomaskioko.stargazer.core.ViewStateResult.Loading
 import com.thomaskioko.stargazer.core.ViewStateResult.Success
 import com.thomaskioko.stargazer.core.interactor.invoke
-import com.thomaskioko.stargazers.common.compose.model.RepoViewDataModel
+import com.thomaskioko.stargazers.common.model.RepoViewDataModel
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher

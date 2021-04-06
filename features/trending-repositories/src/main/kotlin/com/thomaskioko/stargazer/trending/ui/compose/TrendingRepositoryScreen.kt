@@ -31,7 +31,7 @@ import com.thomaskioko.stargazers.common.compose.components.RepoCardItem
 import com.thomaskioko.stargazers.common.compose.components.RepoListDivider
 import com.thomaskioko.stargazers.common.compose.components.SnackBarErrorRetry
 import com.thomaskioko.stargazers.common.compose.components.StargazersTopBar
-import com.thomaskioko.stargazers.common.compose.model.RepoViewDataModel
+import com.thomaskioko.stargazers.common.model.RepoViewDataModel
 import com.thomaskioko.stargazers.common.compose.theme.StargazerTheme
 
 @Composable

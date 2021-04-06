@@ -3,7 +3,7 @@ package com.thomaskioko.stargazer.trending.model
 import androidx.compose.ui.graphics.Color
 import com.thomaskioko.stargazer.db.model.RepoEntity
 import com.thomaskioko.stargazer.trending.R
-import com.thomaskioko.stargazers.common.compose.model.RepoViewDataModel
+import com.thomaskioko.stargazers.common.model.RepoViewDataModel
 import com.thomaskioko.stargazers.common.compose.theme.css
 import com.thomaskioko.stargazers.common.compose.theme.java
 import com.thomaskioko.stargazers.common.compose.theme.kotlin

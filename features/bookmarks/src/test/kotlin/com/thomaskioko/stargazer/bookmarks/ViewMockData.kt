@@ -2,7 +2,7 @@ package com.thomaskioko.stargazer.bookmarks
 
 import androidx.compose.ui.graphics.Color
 import com.thomaskioko.stargazer.db.model.RepoEntity
-import com.thomaskioko.stargazers.common.compose.model.RepoViewDataModel
+import com.thomaskioko.stargazers.common.model.RepoViewDataModel
 
 object ViewMockData {
 

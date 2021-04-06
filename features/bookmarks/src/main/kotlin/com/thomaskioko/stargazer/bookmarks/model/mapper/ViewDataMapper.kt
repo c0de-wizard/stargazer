@@ -3,7 +3,7 @@ package com.thomaskioko.stargazer.bookmarks.model.mapper
 import androidx.compose.ui.graphics.Color
 import com.thomaskioko.stargazer.bookmarks.R
 import com.thomaskioko.stargazer.db.model.RepoEntity
-import com.thomaskioko.stargazers.common.compose.model.RepoViewDataModel
+import com.thomaskioko.stargazers.common.model.RepoViewDataModel
 import com.thomaskioko.stargazers.common.compose.theme.css
 import com.thomaskioko.stargazers.common.compose.theme.java
 import com.thomaskioko.stargazers.common.compose.theme.kotlin

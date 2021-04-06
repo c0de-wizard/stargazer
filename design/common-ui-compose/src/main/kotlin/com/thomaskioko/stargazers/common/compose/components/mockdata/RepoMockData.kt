@@ -1,7 +1,7 @@
 package com.thomaskioko.stargazers.common.compose.components.mockdata
 
 import com.thomaskioko.stargazers.common.compose.R
-import com.thomaskioko.stargazers.common.compose.model.RepoViewDataModel
+import com.thomaskioko.stargazers.common.model.RepoViewDataModel
 import com.thomaskioko.stargazers.common.compose.theme.java
 import com.thomaskioko.stargazers.common.compose.theme.kotlin
 

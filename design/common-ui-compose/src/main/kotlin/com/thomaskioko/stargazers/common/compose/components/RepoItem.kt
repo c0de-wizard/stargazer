@@ -31,7 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.thomaskioko.stargazers.common.compose.R
 import com.thomaskioko.stargazers.common.compose.components.mockdata.RepoRepository.getRepository
-import com.thomaskioko.stargazers.common.compose.model.RepoViewDataModel
+import com.thomaskioko.stargazers.common.model.RepoViewDataModel
 import com.thomaskioko.stargazers.common.compose.theme.StargazerTheme
 import com.thomaskioko.stargazers.common.compose.theme.black
 import com.thomaskioko.stargazers.common.compose.theme.favorite

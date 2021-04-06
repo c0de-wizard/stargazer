@@ -3,7 +3,7 @@ package com.thomaskioko.stargazer.trending.ui
 
 import com.thomaskioko.stargazer.core.presentation.ViewAction
 import com.thomaskioko.stargazer.core.presentation.ViewState
-import com.thomaskioko.stargazers.common.compose.model.RepoViewDataModel
+import com.thomaskioko.stargazers.common.model.RepoViewDataModel
 
 sealed class ReposAction : ViewAction {
     object LoadRepositories : ReposAction()
