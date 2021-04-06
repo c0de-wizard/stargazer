@@ -3,7 +3,7 @@ package com.thomaskioko.stargazer.trending.interactor
 import androidx.compose.ui.graphics.Color
 import com.thomaskioko.stargazer.db.model.RepoEntity
 import com.thomaskioko.stargazer.trending.R
-import com.thomaskioko.stargazer.trending.model.RepoViewDataModel
+import com.thomaskioko.stargazers.common.compose.model.RepoViewDataModel
 
 internal object ViewMockData {
 

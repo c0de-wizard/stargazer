@@ -10,7 +10,7 @@ import com.thomaskioko.stargazer.core.interactor.invoke
 import com.thomaskioko.stargazer.repository.GithubRepository
 import com.thomaskioko.stargazer.trending.interactor.ViewMockData.makeRepoEntityList
 import com.thomaskioko.stargazer.trending.interactor.ViewMockData.makeRepoViewDataModelList
-import com.thomaskioko.stargazer.trending.model.RepoViewDataModel
+import com.thomaskioko.stargazers.common.compose.model.RepoViewDataModel
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking

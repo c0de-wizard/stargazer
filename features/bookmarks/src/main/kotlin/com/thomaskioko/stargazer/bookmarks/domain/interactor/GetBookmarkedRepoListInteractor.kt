@@ -1,11 +1,11 @@
 package com.thomaskioko.stargazer.bookmarks.domain.interactor
 
-import com.thomaskioko.stargazer.bookmarks.model.RepoViewDataModel
 import com.thomaskioko.stargazer.bookmarks.model.mapper.ViewDataMapper.mapEntityToRepoViewModel
 import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.core.injection.annotations.IoDispatcher
 import com.thomaskioko.stargazer.core.interactor.Interactor
 import com.thomaskioko.stargazer.repository.GithubRepository
+import com.thomaskioko.stargazers.common.compose.model.RepoViewDataModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch

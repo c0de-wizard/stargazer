@@ -9,9 +9,9 @@ import com.thomaskioko.stargazer.navigation.NavigationScreen
 import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailsScreen
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
 import com.thomaskioko.stargazer.trending.interactor.GetTrendingReposInteractor
-import com.thomaskioko.stargazer.trending.model.RepoViewDataModel
 import com.thomaskioko.stargazer.trending.ui.ReposAction.LoadRepositories
 import com.thomaskioko.stargazer.trending.ui.ReposAction.NavigateToSettingsScreen
+import com.thomaskioko.stargazers.common.compose.model.RepoViewDataModel
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject

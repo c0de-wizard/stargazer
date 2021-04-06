@@ -22,14 +22,16 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import com.thomaskioko.stargazer.trending.R
-import com.thomaskioko.stargazer.trending.model.RepoViewDataModel
 import com.thomaskioko.stargazer.trending.ui.GetRepoListViewModel
 import com.thomaskioko.stargazer.trending.ui.ReposViewState
-import com.thomaskioko.stargazer.trending.ui.mockdata.RepoRepository.getRepositoryList
+import com.thomaskioko.stargazers.common.compose.components.mockdata.RepoRepository.getRepositoryList
 import com.thomaskioko.stargazers.common.compose.components.AppBarSettingsIcon
 import com.thomaskioko.stargazers.common.compose.components.CircularLoadingView
+import com.thomaskioko.stargazers.common.compose.components.RepoCardItem
+import com.thomaskioko.stargazers.common.compose.components.RepoListDivider
 import com.thomaskioko.stargazers.common.compose.components.SnackBarErrorRetry
 import com.thomaskioko.stargazers.common.compose.components.StargazersTopBar
+import com.thomaskioko.stargazers.common.compose.model.RepoViewDataModel
 import com.thomaskioko.stargazers.common.compose.theme.StargazerTheme
 
 @Composable

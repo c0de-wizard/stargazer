@@ -4,8 +4,8 @@ import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.core.injection.annotations.IoDispatcher
 import com.thomaskioko.stargazer.core.interactor.Interactor
 import com.thomaskioko.stargazer.repository.GithubRepository
-import com.thomaskioko.stargazer.trending.model.RepoViewDataModel
 import com.thomaskioko.stargazer.trending.model.ViewDataMapper.mapEntityListToRepoViewModel
+import com.thomaskioko.stargazers.common.compose.model.RepoViewDataModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
