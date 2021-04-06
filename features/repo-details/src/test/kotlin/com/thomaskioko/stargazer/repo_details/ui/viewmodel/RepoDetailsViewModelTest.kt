@@ -9,12 +9,12 @@ import com.thomaskioko.stargazer.core.ViewStateResult.Error
 import com.thomaskioko.stargazer.core.ViewStateResult.Success
 import com.thomaskioko.stargazer.details.domain.GetRepoByIdInteractor
 import com.thomaskioko.stargazer.details.domain.UpdateRepoBookmarkStateInteractor
-import com.thomaskioko.stargazer.details.domain.model.UpdateObject
 import com.thomaskioko.stargazer.details.ui.DetailAction
 import com.thomaskioko.stargazer.details.ui.DetailViewState
 import com.thomaskioko.stargazer.details.ui.viewmodel.RepoDetailsViewModel
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
 import com.thomaskioko.stargazer.repo_details.util.ViewMockData.makeRepoViewDataModel
+import com.thomaskioko.stargazer.repo_details.util.ViewMockData.makeUpdatedRepo
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -29,7 +29,7 @@ internal class RepoDetailsViewModelTest {
     @get:Rule
     val instantTaskExecutorRule: TestRule = InstantTaskExecutorRule()
 
-    private val updateObject = UpdateObject(1, true)
+    private val updateObject = makeUpdatedRepo()
     private val repoViewModelData = makeRepoViewDataModel()
     private val screenNavigator = mock<ScreenNavigator>()
     private val testCoroutineDispatcher = TestCoroutineDispatcher()

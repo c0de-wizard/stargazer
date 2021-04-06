@@ -3,7 +3,6 @@ package com.thomaskioko.stargazer.details.domain
 import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.core.injection.annotations.IoDispatcher
 import com.thomaskioko.stargazer.core.interactor.Interactor
-import com.thomaskioko.stargazer.details.domain.model.UpdateObject
 import com.thomaskioko.stargazer.details.model.RepoViewDataModel
 import com.thomaskioko.stargazer.details.model.ViewDataMapper.mapEntityToRepoViewModel
 import com.thomaskioko.stargazer.repository.GithubRepository
@@ -18,9 +17,9 @@ import javax.inject.Inject
 internal class UpdateRepoBookmarkStateInteractor @Inject constructor(
     private val repository: GithubRepository,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
-) : Interactor<UpdateObject, RepoViewDataModel>() {
+) : Interactor<RepoViewDataModel, RepoViewDataModel>() {
 
-    override fun run(params: UpdateObject): Flow<ViewStateResult<RepoViewDataModel>> =
+    override fun run(params: RepoViewDataModel): Flow<ViewStateResult<RepoViewDataModel>> =
         flowOf(params.isBookmarked)
             .map { isBookmarked -> if (isBookmarked) 1 else 0 }
             .map { repository.updateRepoBookMarkStatus(it, params.repoId) }
