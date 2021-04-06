@@ -1,4 +1,4 @@
-name: Android Feature & Pull Request CI
+name: Android Branch Build
 
 on:
   push:

@@ -1,4 +1,4 @@
-name: Android Master CI
+name: Android Build
 
 on:
   push:
