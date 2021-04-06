@@ -19,8 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Run Lint
-        run: ./gradlew lintDebug -q
 
       - name: Run Spotless Apply
         run: ./gradlew spotlessApply
