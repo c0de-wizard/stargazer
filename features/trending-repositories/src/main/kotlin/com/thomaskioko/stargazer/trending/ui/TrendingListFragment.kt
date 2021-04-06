@@ -39,9 +39,8 @@ internal class TrendingListFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setContent {
                 StargazerTheme {
-                    val states by getRepoViewModel.actionState.collectAsState(initial = ReposViewState.Loading)
                     TrendingRepositoryScreen(
-                        repoViewState = states,
+                        viewModel = getRepoViewModel,
                         onErrorActionRetry = { getRepoViewModel.dispatchAction(LoadRepositories) },
                         onItemClicked = { repoId ->
                             getRepoViewModel.dispatchAction(NavigateToRepoDetailScreen(repoId))
