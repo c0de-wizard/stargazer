@@ -14,6 +14,7 @@ import com.thomaskioko.stargazer.api.service.GitHubService
 import com.thomaskioko.stargazer.core.network.FlowNetworkObserver
 import com.thomaskioko.stargazer.db.GithubDatabase
 import com.thomaskioko.stargazer.db.dao.RepoDao
+import com.thomaskioko.stargazer.paging.GithubRemoteMediator
 import com.thomaskioko.stargazer.repository.GithubRepository
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
@@ -37,13 +38,22 @@ class GithubRepositoryTest {
     }
     private val service: GitHubService = mock {
         onBlocking { getRepositories() } doReturn makeRepoResponseList()
-        onBlocking { getTrendingRepositories() } doReturn makeTrendingRepoResponseList()
+        onBlocking { getTrendingRepositories(1) } doReturn makeTrendingRepoResponseList()
+    }
+    private val remoteMediator: GithubRemoteMediator = mock {
+
     }
     private val flowNetworkObserver: FlowNetworkObserver = mock()
 
     private val testDispatcher = TestCoroutineDispatcher()
 
-    private var repository = GithubRepository(service, database, flowNetworkObserver, testDispatcher)
+    private var repository = GithubRepository(
+        service,
+        database,
+        remoteMediator,
+        flowNetworkObserver,
+        testDispatcher
+    )
 
     @Test
     fun `givenDeviceIsConnected andCacheHasNoData verify data isLoadedFrom Remote`() {
@@ -86,12 +96,12 @@ class GithubRepositoryTest {
 
             whenever(flowNetworkObserver.observeInternetConnection()).thenReturn(flowOf(true))
 
-            repository.getTrendingTrendingRepositories().test {
+            repository.getTrendingTrendingRepositories(1).test {
                 assertEquals(expectItem(), makeTrendingRepoEntityList())
                 expectComplete()
             }
 
-            verify(service).getTrendingRepositories()
+            verify(service).getTrendingRepositories(1)
             verify(database.repoDao()).insertRepos(makeTrendingRepoEntityList())
             verify(database.repoDao()).getTrendingRepositories()
         }
@@ -103,12 +113,12 @@ class GithubRepositoryTest {
 
             whenever(flowNetworkObserver.observeInternetConnection()).thenReturn(flowOf(false))
 
-            repository.getTrendingTrendingRepositories().test {
+            repository.getTrendingTrendingRepositories(1).test {
                 assertEquals(expectItem(), makeTrendingRepoEntityList())
                 expectComplete()
             }
 
-            verify(service, never()).getTrendingRepositories()
+            verify(service, never()).getTrendingRepositories(1)
             verify(database.repoDao()).getTrendingRepositories()
         }
     }
