@@ -12,28 +12,25 @@ import com.thomaskioko.stargazers.common.compose.theme.swift
 
 internal object ViewDataMapper {
 
-    fun mapEntityListToRepoViewModel(list: List<RepoEntity>) =
-        list.map { entity ->
-            RepoViewDataModel(
-                repoId = entity.repoId,
-                repoName = entity.name,
-                description = entity.description ?: "",
-                userName = entity.userName,
-                stargazersCount = entity.stargazersCount,
-                forksCount = entity.forksCount,
-                contributorsUrl = entity.contributorsUrl,
-                createdDate = entity.createdDate,
-                updatedDate = entity.updatedDate,
-                language = entity.language,
-                avatarUrl = entity.avatarUrl,
-                languageDrawable = R.drawable.ic_language_drawable,
-                drawableColor = mapLanguageToColor(entity.language),
-                isBookmarked = entity.isBookmarked
-            )
-        }
+    fun mapEntityToViewModel(entity: RepoEntity) = RepoViewDataModel(
+        repoId = entity.repoId,
+        repoName = entity.name,
+        description = entity.description ?: "",
+        userName = entity.userName,
+        stargazersCount = entity.stargazersCount,
+        forksCount = entity.forksCount,
+        contributorsUrl = entity.contributorsUrl,
+        createdDate = entity.createdDate,
+        updatedDate = entity.updatedDate,
+        language = entity.language,
+        avatarUrl = entity.avatarUrl,
+        languageDrawable = R.drawable.ic_language_drawable,
+        drawableColor = mapLanguageToColor(entity.language),
+        isBookmarked = entity.isBookmarked
+    )
 
     private fun mapLanguageToColor(language: String): Color {
-        return when(language){
+        return when (language) {
             "Kotlin" -> kotlin
             "java" -> java
             "swift" -> swift
