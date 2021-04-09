@@ -21,7 +21,7 @@ object ViewMockData {
             avatarUrl = "https://avatars.githubusercontent.com/u/32689599?v=4",
             languageDrawable = R.drawable.ic_language_drawable,
             drawableColor = Color(0xFFF08E33),
-            isBookmarked = false
+            isBookmarked = true
         ),
         RepoViewDataModel(
             repoId = 2L,
@@ -37,7 +37,7 @@ object ViewMockData {
             avatarUrl = "https://avatars.githubusercontent.com/u/32689599?v=4",
             languageDrawable = R.drawable.ic_language_drawable,
             drawableColor = Color(0xFFF08E33),
-            isBookmarked = false
+            isBookmarked = true
         )
     )
 
