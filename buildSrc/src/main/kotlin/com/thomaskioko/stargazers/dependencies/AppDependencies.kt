@@ -11,6 +11,7 @@ object Dependencies {
         const val coreKtx = "androidx.core:core-ktx:${DependencyVersions.coreKtx}"
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:${DependencyVersions.constraintLayout}"
         const val dataStore = "androidx.datastore:datastore-preferences:${DependencyVersions.dataStore}"
+        const val paging = "androidx.paging:paging-runtime-ktx:${DependencyVersions.paging}"
         const val preferences = "androidx.preference:preference-ktx:${DependencyVersions.preferences}"
 
         object Compose {
@@ -23,6 +24,7 @@ object Dependencies {
             const val material = "androidx.compose.material:material:${DependencyVersions.compose}"
             const val iconsCore = "androidx.compose.material:material-icons-core:${DependencyVersions.compose}"
             const val iconsExtended = "androidx.compose.material:material-icons-extended:${DependencyVersions.compose}"
+            const val paging = "androidx.paging:paging-compose:${DependencyVersions.pagingCompose}"
             const val runtime = "androidx.compose.runtime:runtime:${DependencyVersions.compose}"
             const val activity = "androidx.activity:activity-compose:${DependencyVersions.composeActivity}"
             const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-compose:${DependencyVersions.composeViewModel}"
