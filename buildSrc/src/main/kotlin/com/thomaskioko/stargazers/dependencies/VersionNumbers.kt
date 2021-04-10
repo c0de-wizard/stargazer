@@ -56,6 +56,8 @@ object DependencyVersions {
     const val mockitoKotlin = "2.2.0"
     const val navigation = "2.3.4"
     const val okhttp = "5.0.0-alpha.2"
+    const val paging = "3.0.0-beta03"
+    const val pagingCompose = "1.0.0-alpha08"
     const val preferences = "1.1.1"
     const val retrofit = "2.9.0"
     const val retrofitCoroutinesAdapter = "0.9.2"
