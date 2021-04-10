@@ -9,6 +9,8 @@ dependencies {
     implementation(project(":core"))
     testImplementation(project(":common-testing"))
 
+    implementation(Dependencies.AndroidX.paging)
+
     implementation(Dependencies.Retrofit.retrofit)
     implementation(Dependencies.Retrofit.coroutinesConverter)
     implementation(Dependencies.OkHttp.okhttp)
