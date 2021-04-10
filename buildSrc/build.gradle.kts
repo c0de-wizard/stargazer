@@ -22,7 +22,7 @@ compileKotlin.kotlinOptions {
 
 // TODO:: Move version to versionNumbers file
 object PluginsVersions {
-    const val androidGradle = "7.0.0-alpha13"
+    const val androidGradle = "7.0.0-alpha14"
     const val kotlin = "1.4.31"
     const val navigaiton = "2.3.2"
     const val daggerHiltAndroid: String = "2.33-beta"
