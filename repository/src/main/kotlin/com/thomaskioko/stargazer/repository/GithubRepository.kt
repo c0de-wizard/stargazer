@@ -4,7 +4,6 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.RemoteMediator
 import com.thomaskioko.stargazer.api.service.GitHubService
 import com.thomaskioko.stargazer.core.injection.annotations.IoDispatcher
 import com.thomaskioko.stargazer.core.network.FlowNetworkObserver
@@ -47,10 +46,10 @@ class GithubRepository @Inject constructor(
     fun getTrendingTrendingRepositories(): Flow<PagingData<RepoEntity>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 20,
+                pageSize = 10,
                 enablePlaceholders = true,
                 prefetchDistance = 5,
-                initialLoadSize = 40
+                initialLoadSize = 30
             ),
             remoteMediator = remoteMediator,
             pagingSourceFactory = { database.repoDao().getPagedTrendingRepositories() }
