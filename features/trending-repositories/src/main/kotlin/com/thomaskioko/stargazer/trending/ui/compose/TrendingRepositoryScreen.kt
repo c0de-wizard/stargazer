@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -21,18 +20,24 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
+import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.items
 import com.thomaskioko.stargazer.trending.R
 import com.thomaskioko.stargazer.trending.ui.GetRepoListViewModel
 import com.thomaskioko.stargazer.trending.ui.ReposViewState
-import com.thomaskioko.stargazers.common.compose.components.mockdata.RepoRepository.getRepositoryList
 import com.thomaskioko.stargazers.common.compose.components.AppBarSettingsIcon
 import com.thomaskioko.stargazers.common.compose.components.CircularLoadingView
+import com.thomaskioko.stargazers.common.compose.components.LoadingItem
 import com.thomaskioko.stargazers.common.compose.components.RepoCardItem
 import com.thomaskioko.stargazers.common.compose.components.RepoListDivider
 import com.thomaskioko.stargazers.common.compose.components.SnackBarErrorRetry
 import com.thomaskioko.stargazers.common.compose.components.StargazersTopBar
-import com.thomaskioko.stargazers.common.model.RepoViewDataModel
+import com.thomaskioko.stargazers.common.compose.components.mockdata.RepoRepository.getLazyRepositoryList
 import com.thomaskioko.stargazers.common.compose.theme.StargazerTheme
+import com.thomaskioko.stargazers.common.model.RepoViewDataModel
+import kotlinx.coroutines.flow.flowOf
 
 @Composable
 internal fun TrendingRepositoryScreen(
@@ -45,7 +50,7 @@ internal fun TrendingRepositoryScreen(
     val lifecycleOwner = LocalLifecycleOwner.current
     val actionState = viewModel.stateFlow
 
-    val actionStateLifeCycleAware = remember (actionState, lifecycleOwner){
+    val actionStateLifeCycleAware = remember(actionState, lifecycleOwner) {
         actionState.flowWithLifecycle(lifecycleOwner.lifecycle, Lifecycle.State.STARTED)
     }
 
@@ -66,13 +71,19 @@ internal fun TrendingRepositoryScreen(
                     errorMessage = (repoViewState as ReposViewState.Error).message,
                     onErrorAction = onErrorActionRetry
                 )
-                is ReposViewState.Success -> TrendingRepositoryList(
-                    repoList = (repoViewState as ReposViewState.Success).list,
-                    onRepoItemClicked = onItemClicked,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(innerPadding)
-                )
+                is ReposViewState.Success -> {
+                    val lazyRepoItems = flowOf(
+                        (repoViewState as ReposViewState.Success).list
+                    ).collectAsLazyPagingItems()
+
+                    TrendingRepositoryList(
+                        lazyRepoItems = lazyRepoItems,
+                        onRepoItemClicked = onItemClicked,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(innerPadding)
+                    )
+                }
             }
         }
     )
@@ -81,7 +92,7 @@ internal fun TrendingRepositoryScreen(
 @Composable
 fun TrendingRepositoryList(
     modifier: Modifier = Modifier,
-    repoList: List<RepoViewDataModel>,
+    lazyRepoItems: LazyPagingItems<RepoViewDataModel>,
     onRepoItemClicked: (Long) -> Unit = { }
 ) {
 
@@ -89,9 +100,41 @@ fun TrendingRepositoryList(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
-        items(repoList) { repo ->
-            RepoCardItem(repo = repo, onRepoItemClicked = { onRepoItemClicked(repo.repoId) })
-            RepoListDivider()
+        items(lazyRepoItems) { repo ->
+
+            repo?.let {
+                RepoCardItem(repo = repo, onRepoItemClicked = { onRepoItemClicked(repo.repoId) })
+                RepoListDivider()
+            }
+
+            lazyRepoItems.apply {
+                when {
+                    loadState.refresh is LoadState.Loading -> {
+                        this@LazyColumn.item { CircularLoadingView() }
+                    }
+                    loadState.append is LoadState.Loading -> {
+                        this@LazyColumn.item { LoadingItem() }
+                    }
+                    loadState.refresh is LoadState.Error -> {
+                        val exception = lazyRepoItems.loadState.refresh as LoadState.Error
+                        this@LazyColumn.item {
+                            SnackBarErrorRetry(
+                                errorMessage = exception.error.localizedMessage!!,
+                                onErrorAction = { retry() }
+                            )
+                        }
+                    }
+                    loadState.append is LoadState.Error -> {
+                        val exception = lazyRepoItems.loadState.append as LoadState.Error
+                        this@LazyColumn.item {
+                            SnackBarErrorRetry(
+                                errorMessage = exception.error.localizedMessage!!,
+                                onErrorAction = { retry() }
+                            )
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -111,7 +154,7 @@ fun TrendingRepositoryList(
 fun RepoListScreenPreview() {
     StargazerTheme {
         TrendingRepositoryList(
-            repoList = getRepositoryList()
+            lazyRepoItems = getLazyRepositoryList().collectAsLazyPagingItems()
         )
     }
 }
