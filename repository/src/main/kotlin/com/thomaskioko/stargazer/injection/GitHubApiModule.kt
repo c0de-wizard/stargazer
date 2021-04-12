@@ -10,7 +10,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.Call
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
+import okhttp3.logging.HttpLoggingInterceptor.Level.BASIC
 import okhttp3.logging.HttpLoggingInterceptor.Level.NONE
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -45,7 +45,7 @@ object GitHubApiModule {
 
     @Provides
     fun provideLoggingInterceptor() =
-        HttpLoggingInterceptor().apply { level = if (BuildConfig.DEBUG) BODY else NONE }
+        HttpLoggingInterceptor().apply { level = if (BuildConfig.DEBUG) BASIC else NONE }
 
     @Provides
     @Singleton
