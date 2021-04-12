@@ -1,15 +1,17 @@
 package com.thomaskioko.stargazers.common.compose.components.mockdata
 
+import androidx.paging.PagingData
 import com.thomaskioko.stargazers.common.compose.R
-import com.thomaskioko.stargazers.common.model.RepoViewDataModel
 import com.thomaskioko.stargazers.common.compose.theme.java
 import com.thomaskioko.stargazers.common.compose.theme.kotlin
+import com.thomaskioko.stargazers.common.model.RepoViewDataModel
+import kotlinx.coroutines.flow.flowOf
 
 /**
  * A fake repo returning sample data
  */
 object RepoRepository {
-    fun getRepositoryList(): List<RepoViewDataModel> = reposList
+    fun getLazyRepositoryList() = flowOf(PagingData.from(reposList))
     fun getRepository(): RepoViewDataModel = reposList.random()
 }
 
