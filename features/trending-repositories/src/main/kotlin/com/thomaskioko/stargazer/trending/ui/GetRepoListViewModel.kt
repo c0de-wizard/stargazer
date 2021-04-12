@@ -1,5 +1,6 @@
 package com.thomaskioko.stargazer.trending.ui
 
+import androidx.paging.PagingData
 import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.core.factory.AssistedViewModelFactory
 import com.thomaskioko.stargazer.core.injection.annotations.DefaultDispatcher
@@ -48,7 +49,7 @@ internal class GetRepoListViewModel @AssistedInject constructor(
     }
 }
 
-internal fun ViewStateResult<List<RepoViewDataModel>>.reduce(): ReposViewState {
+internal fun ViewStateResult<PagingData<RepoViewDataModel>>.reduce(): ReposViewState {
     return when (this) {
         is ViewStateResult.Loading -> ReposViewState.Loading
         is ViewStateResult.Success -> ReposViewState.Success(data)
