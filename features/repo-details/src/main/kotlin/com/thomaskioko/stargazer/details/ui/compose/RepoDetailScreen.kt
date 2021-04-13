@@ -211,4 +211,3 @@ fun RepoDetailsPreview() {
         RepoDetails(repo = repoViewDataModel())
     }
 }
-
