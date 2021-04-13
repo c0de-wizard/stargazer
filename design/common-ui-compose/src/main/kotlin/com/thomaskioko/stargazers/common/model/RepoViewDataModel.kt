@@ -1,4 +1,4 @@
-package com.thomaskioko.stargazer.trending.model
+package com.thomaskioko.stargazers.common.model
 
 import androidx.annotation.DrawableRes
 import androidx.compose.ui.graphics.Color

@@ -1,9 +1,10 @@
 package com.thomaskioko.stargazer.trending.ui
 
 
+import androidx.paging.PagingData
 import com.thomaskioko.stargazer.core.presentation.ViewAction
 import com.thomaskioko.stargazer.core.presentation.ViewState
-import com.thomaskioko.stargazer.trending.model.RepoViewDataModel
+import com.thomaskioko.stargazers.common.model.RepoViewDataModel
 
 sealed class ReposAction : ViewAction {
     object LoadRepositories : ReposAction()
@@ -13,6 +14,6 @@ sealed class ReposAction : ViewAction {
 
 internal sealed class ReposViewState : ViewState {
     object Loading : ReposViewState()
-    data class Success(val list: List<RepoViewDataModel>) : ReposViewState()
+    data class Success(val list: PagingData<RepoViewDataModel>) : ReposViewState()
     data class Error(val message: String = "") : ReposViewState()
 }

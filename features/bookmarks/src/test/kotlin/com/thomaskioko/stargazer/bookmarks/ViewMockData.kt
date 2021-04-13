@@ -1,14 +1,15 @@
 package com.thomaskioko.stargazer.bookmarks
 
-import com.thomaskioko.stargazer.bookmarks.model.RepoViewDataModel
+import androidx.compose.ui.graphics.Color
 import com.thomaskioko.stargazer.db.model.RepoEntity
+import com.thomaskioko.stargazers.common.model.RepoViewDataModel
 
 object ViewMockData {
 
     fun makeRepoViewDataModelList() = listOf(
         RepoViewDataModel(
             repoId = 1L,
-            name = "Square",
+            repoName = "Square",
             description = "Some cool description about the app",
             userName = "ninja",
             stargazersCount = 1,
@@ -16,11 +17,15 @@ object ViewMockData {
             contributorsUrl = "",
             createdDate = "1/11/1900",
             updatedDate = "1/11/1900",
+            language = "Kotlin",
+            avatarUrl = "https://avatars.githubusercontent.com/u/32689599?v=4",
+            languageDrawable = R.drawable.ic_language_drawable,
+            drawableColor = Color(0xFFF08E33),
             isBookmarked = true
         ),
         RepoViewDataModel(
             repoId = 2L,
-            name = "Square",
+            repoName = "Square",
             description = "Some cool description about the app",
             userName = "ninja",
             stargazersCount = 1,
@@ -28,6 +33,10 @@ object ViewMockData {
             contributorsUrl = "",
             createdDate = "1/11/1900",
             updatedDate = "1/11/1900",
+            language = "Kotlin",
+            avatarUrl = "https://avatars.githubusercontent.com/u/32689599?v=4",
+            languageDrawable = R.drawable.ic_language_drawable,
+            drawableColor = Color(0xFFF08E33),
             isBookmarked = true
         )
     )

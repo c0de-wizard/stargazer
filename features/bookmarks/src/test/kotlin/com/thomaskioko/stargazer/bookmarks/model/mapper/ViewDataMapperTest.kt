@@ -20,7 +20,7 @@ internal class ViewDataMapperTest {
         assertThat(entityList.size).isEqualTo(viewModelList.size)
 
         assertThat(entity.repoId).isEqualTo(viewDataModel.repoId)
-        assertThat(entity.name).isEqualTo(viewDataModel.name)
+        assertThat(entity.name).isEqualTo(viewDataModel.repoName)
         assertThat(entity.userName).isEqualTo(viewDataModel.userName)
         assertThat(entity.description).isEqualTo(viewDataModel.description)
         assertThat(entity.stargazersCount).isEqualTo(viewDataModel.stargazersCount)

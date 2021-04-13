@@ -6,6 +6,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Snackbar
@@ -22,7 +23,11 @@ import com.thomaskioko.stargazers.common.compose.theme.StargazerTheme
 @Composable
 fun SimpleErrorView(errorMessage: String) {
     TextButton(onClick = { }, Modifier.fillMaxSize()) {
-        Text(errorMessage, textAlign = TextAlign.Center)
+        Text(
+            text = errorMessage,
+            textAlign = TextAlign.Center,
+            color = MaterialTheme.colors.error
+        )
     }
 }
 
@@ -31,7 +36,6 @@ fun SimpleErrorView(errorMessage: String) {
 fun SnackBarErrorRetry(
     errorMessage: String,
     showError: Boolean = errorMessage.isNotBlank(),
-    modifier: Modifier = Modifier,
     onErrorAction: () -> Unit = { },
 ) {
 
@@ -39,10 +43,11 @@ fun SnackBarErrorRetry(
         visible = showError,
         enter = slideInVertically(initialOffsetY = { it }),
         exit = slideOutVertically(targetOffsetY = { it }),
-        modifier = modifier
     ) {
         Snackbar(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth(),
             content = { Text(errorMessage) },
             action = {
                 TextButton(

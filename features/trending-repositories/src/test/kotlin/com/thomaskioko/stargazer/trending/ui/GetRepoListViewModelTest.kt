@@ -9,7 +9,7 @@ import com.thomaskioko.stargazer.core.ViewStateResult.Success
 import com.thomaskioko.stargazer.core.interactor.invoke
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
 import com.thomaskioko.stargazer.trending.interactor.GetTrendingReposInteractor
-import com.thomaskioko.stargazer.trending.interactor.ViewMockData.makeRepoViewDataModelList
+import com.thomaskioko.stargazer.trending.interactor.ViewMockData.makePagingRepoViewDataModelList
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -32,13 +32,14 @@ internal class GetRepoListViewModelTest {
 
     @Test
     fun givenDisplayStateIsInvoked_verifyResultRepoListIsReturned() = runBlocking {
-        whenever(interactorTrending()).thenReturn(flowOf(Success(makeRepoViewDataModelList())))
+        val pagingViewDataList = makePagingRepoViewDataModelList()
+        whenever(interactorTrending()).thenReturn(flowOf(Success(pagingViewDataList)))
 
         viewModel.stateFlow.test {
             viewModel.dispatchAction(ReposAction.LoadRepositories)
 
             assertEquals(expectItem(), ReposViewState.Loading)
-            assertEquals(expectItem(), ReposViewState.Success(makeRepoViewDataModelList()))
+            assertEquals(expectItem(), ReposViewState.Success(pagingViewDataList))
         }
     }
 
