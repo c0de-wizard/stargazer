@@ -9,7 +9,7 @@ dependencies {
     implementation(project(":design:common-ui-compose"))
     implementation(project(":repository"))
     implementation(project(":navigation"))
-    implementation(project(":features:browse"))
+    implementation(project(":features:search"))
     implementation(project(":features:trending-repositories"))
     implementation(project(":features:bookmarks"))
     implementation(project(":features:repo-details"))

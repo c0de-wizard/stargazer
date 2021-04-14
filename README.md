@@ -79,10 +79,10 @@ I'm currently migrating each module to [Jetpack Compose](https://developer.andro
 - [x] Settings
 - [x] Trending Repositories
 - [x] Repo Details
-- [ ] Favorite
+- [x] Add Pagination.
 - [ ] Browse (Implement search functionality)
+- [ ] Favorite
 - [ ] Migrate Navigation to Navigation Compose
-- [ ] Add Pagination (Maybe 😁).
 
 ## Code style
 

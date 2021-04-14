@@ -7,7 +7,7 @@ include(
     ":navigation",
     ":repository",
     ":features:bookmarks",
-    ":features:browse",
+    ":features:search",
     ":features:trending-repositories",
     ":features:repo-details",
     ":features:settings",
