@@ -1,7 +1,7 @@
 package com.thomaskioko.githubstargazer.mock
 
 import com.thomaskioko.stargazer.api.model.RepoResponse
-import com.thomaskioko.stargazer.api.model.TrendingRepositoriesResponse
+import com.thomaskioko.stargazer.api.model.RepositoriesResponse
 import com.thomaskioko.stargazer.api.model.UserResponse
 import com.thomaskioko.stargazer.db.model.RepoEntity
 
@@ -27,7 +27,7 @@ internal object MockData {
         )
     )
 
-    fun makeTrendingRepoResponseList() = TrendingRepositoriesResponse(
+    fun makeTrendingRepoResponseList() = RepositoriesResponse(
         totalCount = 2222,
         incompleteResults = false,
         repositoriesList = listOf(
