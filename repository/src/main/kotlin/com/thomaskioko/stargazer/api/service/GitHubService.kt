@@ -18,4 +18,9 @@ interface GitHubService {
         @Query("sort") sort: String = "stars",
         @Query("order") order: String = "desc",
     ): RepositoriesResponse
+
+    @GET("search/repositories")
+    suspend fun searchRepositories(
+        @Query("q") query: String
+    ): RepositoriesResponse
 }

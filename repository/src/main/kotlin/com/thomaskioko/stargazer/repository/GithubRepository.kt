@@ -56,9 +56,27 @@ class GithubRepository @Inject constructor(
         ).flow
     }
 
+    fun searchRepository(query: String): Flow<List<RepoEntity>> {
+        return flowNetworkObserver.observeInternetConnection()
+            .map { isConnected ->
+                if (isConnected) loadNetworkSearchQuery(query) else
+                    database.repoDao().searchRepository(query)
+            }
+            .flowOn(ioDispatcher)
+    }
+
+    private suspend fun loadNetworkSearchQuery(query: String) : List<RepoEntity>
+        {
+            val apiResult = service.searchRepositories(query)
+            database.repoDao().insertRepos(mapResponseToEntityList(apiResult.repositoriesList))
+
+            return database.repoDao().searchRepository(query)
+        }
+
+
     private suspend fun loadFromNetwork(): List<RepoEntity> {
         val apiResult = service.getRepositories()
-        database.repoDao().insertRepos(mapResponseToEntityList(apiResult, false))
+        database.repoDao().insertRepos(mapResponseToEntityList(apiResult))
         return loadCacheRepos()
     }
 
