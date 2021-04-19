@@ -5,13 +5,11 @@ import app.cash.turbine.test
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.thomaskioko.stargazer.browse.domain.ViewMockData.makeRepoViewDataModelList
-import com.thomaskioko.stargazer.browse.domain.interactor.GetRepoListInteractor
-import com.thomaskioko.stargazer.browse.model.RepoViewDataModel
+import com.thomaskioko.stargazer.browse.domain.interactor.SearchRepositoriesInteractor
+import com.thomaskioko.stargazer.browse.ui.SearchAction
+import com.thomaskioko.stargazer.browse.ui.SearchAction.SearchRepository
+import com.thomaskioko.stargazer.browse.ui.SearchViewState
 import com.thomaskioko.stargazer.core.ViewStateResult
-import com.thomaskioko.stargazer.core.ViewStateResult.Error
-import com.thomaskioko.stargazer.core.ViewStateResult.Loading
-import com.thomaskioko.stargazer.core.ViewStateResult.Success
-import com.thomaskioko.stargazer.core.interactor.invoke
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -25,21 +23,25 @@ internal class GetReposViewModelTest {
     @get:Rule
     val instantTaskExecutorRule: TestRule = InstantTaskExecutorRule()
 
-    private val interactor: GetRepoListInteractor = mock()
+    private val interactor: SearchRepositoriesInteractor = mock()
     private val testCoroutineDispatcher = TestCoroutineDispatcher()
 
     private val viewModel = GetReposViewModel(interactor, testCoroutineDispatcher)
 
     @Test
     fun `givenSuccessfulResponse verify successStateIsReturned`() = runBlocking {
-        whenever(interactor()).thenReturn(flowOf(Success(makeRepoViewDataModelList())))
+        whenever(interactor("Sq")).thenReturn(flowOf(
+            ViewStateResult.Success(
+                makeRepoViewDataModelList()
+            )
+        ))
 
-        viewModel.repoList.test {
+        viewModel.stateFlow.test {
 
-            viewModel.getRepoList()
+            viewModel.dispatchAction(SearchRepository("Sq"))
 
-            assertEquals(expectItem(), Loading<ViewStateResult<List<RepoViewDataModel>>>())
-            assertEquals(expectItem(), Success(makeRepoViewDataModelList()))
+            assertEquals(expectItem(), SearchViewState.Init)
+            assertEquals(expectItem(), SearchViewState.Success(makeRepoViewDataModelList()))
         }
     }
 
@@ -47,14 +49,14 @@ internal class GetReposViewModelTest {
     fun `givenFailureResponse verify errorStateIsReturned`() = runBlocking {
         val errorMessage = "Something went wrong"
 
-        whenever(interactor()).thenReturn(flowOf(Error(errorMessage)))
+        whenever(interactor("Sq")).thenReturn(flowOf(ViewStateResult.Error(errorMessage)))
 
-        viewModel.repoList.test {
+        viewModel.stateFlow.test {
 
-            viewModel.getRepoList()
+            viewModel.dispatchAction(SearchRepository("Sq"))
 
-            assertEquals(expectItem(), Loading<ViewStateResult<List<RepoViewDataModel>>>())
-            assertEquals(expectItem(), Error<ViewStateResult<RepoViewDataModel>>(errorMessage))
+            assertEquals(expectItem(), SearchViewState.Init)
+            assertEquals(expectItem(), SearchViewState.Error(errorMessage))
         }
     }
 }
