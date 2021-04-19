@@ -10,12 +10,12 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-internal class GetRepoListInteractor @Inject constructor(
+internal class SearchRepositoriesInteractor @Inject constructor(
     private val repository: GithubRepository
-) : Interactor<Unit, List<RepoViewDataModel>>() {
+) : Interactor<String, List<RepoViewDataModel>>() {
 
-    override fun run(params: Unit): Flow<ViewStateResult<List<RepoViewDataModel>>> =
-        repository.getRepositoryList()
+    override fun run(params: String): Flow<ViewStateResult<List<RepoViewDataModel>>> =
+        repository.searchRepository(params)
             .map { ViewStateResult.success(mapEntityListToRepoViewModel(it)) }
             .catch { emit(ViewStateResult.error(it.message.orEmpty())) }
 }
