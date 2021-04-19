@@ -1,42 +1,42 @@
 package com.thomaskioko.stargazer.browse.ui.viewmodel
 
-import androidx.lifecycle.ViewModel
-import com.thomaskioko.stargazer.browse.domain.interactor.GetRepoListInteractor
+import com.thomaskioko.stargazer.browse.domain.interactor.SearchRepositoriesInteractor
 import com.thomaskioko.stargazer.browse.model.RepoViewDataModel
+import com.thomaskioko.stargazer.browse.ui.SearchAction
+import com.thomaskioko.stargazer.browse.ui.SearchAction.SearchRepository
+import com.thomaskioko.stargazer.browse.ui.SearchViewState
 import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.core.injection.annotations.DefaultDispatcher
-import com.thomaskioko.stargazer.core.interactor.invoke
+import com.thomaskioko.stargazer.core.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
 internal class GetReposViewModel @Inject constructor(
-    private val interactor: GetRepoListInteractor,
+    private val interactor: SearchRepositoriesInteractor,
     @DefaultDispatcher private val ioDispatcher: CoroutineDispatcher
-) : ViewModel() {
+) : BaseViewModel<SearchAction, SearchViewState>(
+    initialViewState = SearchViewState.Init,
+    dispatcher = ioDispatcher
+) {
 
-    private val viewModelJob = SupervisorJob()
-    private val ioScope = CoroutineScope(ioDispatcher + viewModelJob)
-
-    private val _repoListMutableStateResultFlow: MutableStateFlow<ViewStateResult<List<RepoViewDataModel>>> =
-        MutableStateFlow(ViewStateResult.loading())
-    val repoList: SharedFlow<ViewStateResult<List<RepoViewDataModel>>> get() = _repoListMutableStateResultFlow
-
-    fun getRepoList() {
-        interactor()
-            .onEach { _repoListMutableStateResultFlow.emit(it) }
-            .launchIn(ioScope)
+    override fun handleAction(action: SearchAction) {
+        when (action) {
+            is SearchRepository ->
+                interactor(action.query)
+                    .onEach { mutableViewState.emit(it.reduce())  }
+                    .launchIn(ioScope)
+        }
     }
+}
 
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
+internal fun ViewStateResult<List<RepoViewDataModel>>.reduce(): SearchViewState {
+    return when (this) {
+        is ViewStateResult.Loading -> SearchViewState.Loading
+        is ViewStateResult.Success -> SearchViewState.Success(data)
+        is ViewStateResult.Error -> SearchViewState.Error(message)
     }
 }
