@@ -29,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
@@ -41,7 +42,7 @@ import com.thomaskioko.stargazer.details.model.RepoViewDataModel
 import com.thomaskioko.stargazer.details.ui.DetailViewState
 import com.thomaskioko.stargazer.details.ui.compose.mockdata.repoViewDataModel
 import com.thomaskioko.stargazer.details.ui.viewmodel.RepoDetailsViewModel
-import com.thomaskioko.stargazers.common.compose.components.AppBarBackIcon
+import com.thomaskioko.stargazers.common.compose.components.AppBarPainterIcon
 import com.thomaskioko.stargazers.common.compose.components.CircularLoadingView
 import com.thomaskioko.stargazers.common.compose.components.OutlinedAvatar
 import com.thomaskioko.stargazers.common.compose.components.SnackBarErrorRetry
@@ -60,7 +61,7 @@ internal fun RepoDetailScreen(
     val lifecycleOwner = LocalLifecycleOwner.current
     val actionState = viewModel.stateFlow
 
-    val actionStateLifeCycleAware = remember (actionState, lifecycleOwner){
+    val actionStateLifeCycleAware = remember(actionState, lifecycleOwner) {
         actionState.flowWithLifecycle(lifecycleOwner.lifecycle, Lifecycle.State.STARTED)
     }
 
@@ -71,7 +72,12 @@ internal fun RepoDetailScreen(
         topBar = {
             StargazersTopBar(
                 title = { },
-                navigationIcon = { AppBarBackIcon(onBackPressed = onBackPressed) }
+                navigationIcon = {
+                    AppBarPainterIcon(
+                        painterResource = painterResource(R.drawable.ic_back),
+                        onClickAction = onBackPressed
+                    )
+                }
             )
         },
         content = {

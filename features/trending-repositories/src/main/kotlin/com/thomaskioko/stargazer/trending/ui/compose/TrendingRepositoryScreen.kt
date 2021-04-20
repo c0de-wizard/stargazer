@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,7 +28,7 @@ import androidx.paging.compose.items
 import com.thomaskioko.stargazer.trending.R
 import com.thomaskioko.stargazer.trending.ui.GetRepoListViewModel
 import com.thomaskioko.stargazer.trending.ui.ReposViewState
-import com.thomaskioko.stargazers.common.compose.components.AppBarSettingsIcon
+import com.thomaskioko.stargazers.common.compose.components.AppBarPainterIcon
 import com.thomaskioko.stargazers.common.compose.components.CircularLoadingView
 import com.thomaskioko.stargazers.common.compose.components.LoadingItem
 import com.thomaskioko.stargazers.common.compose.components.RepoCardItem
@@ -61,7 +62,12 @@ internal fun TrendingRepositoryScreen(
         topBar = {
             StargazersTopBar(
                 title = { Row { Text(text = stringResource(R.string.app_name)) } },
-                actions = { AppBarSettingsIcon(onSettingsPressed = onSettingsPressed) }
+                actions = {
+                    AppBarPainterIcon(
+                        painterResource = painterResource(R.drawable.ic_settings),
+                        onClickAction = onSettingsPressed
+                    )
+                }
             )
         },
         content = { innerPadding ->
