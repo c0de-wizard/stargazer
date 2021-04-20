@@ -12,9 +12,13 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.primarySurface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,18 +39,6 @@ fun StargazersTopBar(
         navigationIcon = navigationIcon,
         actions = actions,
         backgroundColor = MaterialTheme.colors.primarySurface
-    )
-}
-
-@Composable
-fun AppBarSettings(
-    title: @Composable RowScope.() -> Unit,
-    navigationIcon: @Composable (() -> Unit) = { AppBarHomeIcon() }
-) {
-    StargazersTopBar(
-        title = title ,
-        navigationIcon = navigationIcon,
-        actions = { AppBarSettingsIcon() },
     )
 }
 
@@ -89,23 +81,29 @@ fun AppBarHomeIcon(onNavIconPressed: () -> Unit = { }) {
 }
 
 @Composable
-fun AppBarBackIcon(onBackPressed: () -> Unit = { }) {
+fun AppBarPainterIcon(
+    painterResource: Painter,
+    onClickAction: () -> Unit = { }
+) {
     Icon(
-        painter = painterResource(R.drawable.ic_back),
+        painter = painterResource,
         contentDescription = stringResource(R.string.cd_back),
         modifier = Modifier
-            .clickable(onClick = onBackPressed)
+            .clickable(onClick = onClickAction)
             .padding(16.dp)
     )
 }
 
 @Composable
-fun AppBarSettingsIcon(onSettingsPressed: () -> Unit = { }) {
+fun AppBarImageVectorIcon(
+    icon: ImageVector,
+    onClickAction: () -> Unit = { }
+) {
     Icon(
-        painter = painterResource(R.drawable.ic_settings),
+        imageVector = icon,
         contentDescription = stringResource(R.string.cd_back),
         modifier = Modifier
-            .clickable(onClick = onSettingsPressed)
+            .clickable(onClick = onClickAction)
             .padding(16.dp)
     )
 }
@@ -136,7 +134,50 @@ private fun AppBarDarkPreview() {
 @Composable
 fun AppBarSettingsPreview() {
     StargazerTheme {
-        AppBarSettings(title = { Text("Stargazers") })
+        StargazersTopBar(
+            title = { Text("Stargazers") },
+            navigationIcon = {
+                AppBarPainterIcon(
+                    painterResource = painterResource(R.drawable.ic_back),
+                    onClickAction = {}
+                )
+            },
+            actions = {
+                AppBarPainterIcon(
+                    painterResource = painterResource(R.drawable.ic_settings),
+                    onClickAction = {}
+                )
+            },
+        )
+    }
+}
+
+@Preview(
+    name = "AppBar Search",
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+)
+@Preview(
+    name = "AppBar Search• Dark",
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+)
+@Composable
+fun AppBarSearchPreview() {
+    StargazerTheme {
+        StargazersTopBar(
+            title = { Text("Stargazers") },
+            navigationIcon = {
+                AppBarPainterIcon(
+                    painterResource = painterResource(R.drawable.octocat),
+                    onClickAction = {}
+                )
+            },
+            actions = {
+                AppBarImageVectorIcon(
+                    icon = Icons.Outlined.Search,
+                    onClickAction = {}
+                )
+            },
+        )
     }
 }
 
