@@ -49,11 +49,10 @@ fun SnackBarErrorRetry(
                 .padding(16.dp)
                 .fillMaxWidth(),
             content = { Text(errorMessage) },
+            actionOnNewLine = true,
             action = {
                 TextButton(
-                    onClick = {
-                        onErrorAction()
-                    },
+                    onClick = { onErrorAction() },
                 ) {
                     Text(
                         text = "Retry",
@@ -84,11 +83,11 @@ private fun SnackBarErrorPreview() {
 }
 
 @Preview(
-    name = "LoadingView",
+    name = "ErrorView",
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Preview(
-    name = "LoadingView • Dark",
+    name = "ErrorView • Dark",
     uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
