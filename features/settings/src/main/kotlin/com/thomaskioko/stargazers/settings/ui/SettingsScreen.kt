@@ -49,7 +49,7 @@ fun SettingsScreen(
                 title = { Row { Text(text = stringResource(R.string.title_settings)) } },
                 navigationIcon = {
                     AppBarPainterIcon(
-                        painterResource = painterResource(com.thomaskioko.stargazers.common.compose.R.drawable.ic_back),
+                        painterResource = painterResource(R.drawable.ic_back),
                         onClickAction = onBackPressed
                     )
                 },
@@ -80,10 +80,7 @@ fun SettingsList(
         contentPadding = PaddingValues(start = 2.dp, end = 16.dp)
     ) {
         item {
-            ThemeSettingsItem(
-                isDarkTheme,
-                onThemeChanged
-            )
+            ThemeSettingsItem(isDarkTheme, onThemeChanged)
             AboutSettingsItem()
         }
     }
