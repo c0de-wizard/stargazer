@@ -56,6 +56,7 @@ fun SnackBarErrorRetry(
 
             when(actionResult){
                 SnackbarResult.ActionPerformed -> { onErrorAction() }
+                SnackbarResult.Dismissed -> {}
             }
         }
     }
