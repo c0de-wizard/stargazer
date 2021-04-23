@@ -6,7 +6,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.thomaskioko.stargazers.common.ui.resources.R
+import com.thomaskioko.stargazers.common.compose.R
 
 private val WorkSans = FontFamily(
     Font(R.font.work_sans),
