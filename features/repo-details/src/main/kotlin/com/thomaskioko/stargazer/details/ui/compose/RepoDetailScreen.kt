@@ -102,7 +102,7 @@ private fun RepoDetailContent(
     when (viewState) {
         DetailViewState.Loading -> CircularLoadingView()
         is DetailViewState.Error -> SnackBarErrorRetry(
-            snackbarHostState = scaffoldState.snackbarHostState,
+            snackBarHostState = scaffoldState.snackbarHostState,
             coroutineScope = coroutineScope,
             errorMessage = viewState.message,
             onErrorAction = {}

@@ -106,7 +106,7 @@ private fun ScreenContent(
     when (repoViewState) {
         ReposViewState.Loading -> CircularLoadingView()
         is ReposViewState.Error -> SnackBarErrorRetry(
-            snackbarHostState = scaffoldState.snackbarHostState,
+            snackBarHostState = scaffoldState.snackbarHostState,
             coroutineScope = coroutineScope,
             errorMessage = repoViewState.message,
             onErrorAction = onErrorActionRetry
@@ -161,7 +161,7 @@ fun TrendingRepositoryList(
                         val exception = lazyRepoItems.loadState.refresh as LoadState.Error
                         this@LazyColumn.item {
                             SnackBarErrorRetry(
-                                snackbarHostState = hostState,
+                                snackBarHostState = hostState,
                                 coroutineScope = coroutineScope,
                                 errorMessage = exception.error.localizedMessage!!,
                                 onErrorAction = { retry() }
@@ -172,7 +172,7 @@ fun TrendingRepositoryList(
                         val exception = lazyRepoItems.loadState.append as LoadState.Error
                         this@LazyColumn.item {
                             SnackBarErrorRetry(
-                                snackbarHostState = hostState,
+                                snackBarHostState = hostState,
                                 coroutineScope = coroutineScope,
                                 errorMessage = exception.error.localizedMessage!!,
                                 onErrorAction = { retry() }
