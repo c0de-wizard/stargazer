@@ -14,5 +14,4 @@ include(
     ":common-testing",
     ":design:common-ui",
     ":design:common-ui-compose",
-    ":design:common-ui-resources"
 )
