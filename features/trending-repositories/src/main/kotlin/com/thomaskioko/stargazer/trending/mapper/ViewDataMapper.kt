@@ -1,4 +1,4 @@
-package com.thomaskioko.stargazer.trending.model
+package com.thomaskioko.stargazer.trending.mapper
 
 import androidx.compose.ui.graphics.Color
 import com.thomaskioko.stargazer.db.model.RepoEntity

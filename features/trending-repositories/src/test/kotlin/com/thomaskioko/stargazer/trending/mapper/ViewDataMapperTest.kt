@@ -1,8 +1,8 @@
-package com.thomaskioko.stargazer.trending.model
+package com.thomaskioko.stargazer.trending.mapper
 
 import com.google.common.truth.Truth
 import com.thomaskioko.stargazer.trending.interactor.ViewMockData.makeRepoEntityList
-import com.thomaskioko.stargazer.trending.model.ViewDataMapper.mapEntityToViewModel
+import com.thomaskioko.stargazer.trending.mapper.ViewDataMapper.mapEntityToViewModel
 import org.junit.jupiter.api.Test
 
 
