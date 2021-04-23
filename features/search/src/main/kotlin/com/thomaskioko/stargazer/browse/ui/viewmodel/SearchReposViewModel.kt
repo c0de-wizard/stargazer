@@ -10,12 +10,14 @@ import com.thomaskioko.stargazer.core.injection.annotations.DefaultDispatcher
 import com.thomaskioko.stargazer.core.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
-internal class GetReposViewModel @Inject constructor(
+internal class SearchReposViewModel @Inject constructor(
     private val interactor: SearchRepositoriesInteractor,
     @DefaultDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : BaseViewModel<SearchAction, SearchViewState>(
@@ -27,8 +29,9 @@ internal class GetReposViewModel @Inject constructor(
         when (action) {
             is SearchRepository ->
                 interactor(action.query)
+                    .debounce(250)
                     .onEach { mutableViewState.emit(it.reduce())  }
-                    .launchIn(ioScope)
+                    .stateIn(ioScope, SharingStarted.Eagerly, emptyList<RepoViewDataModel>())
         }
     }
 }

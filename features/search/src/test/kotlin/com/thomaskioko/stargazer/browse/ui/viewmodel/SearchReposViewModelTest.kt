@@ -6,7 +6,6 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.thomaskioko.stargazer.browse.domain.ViewMockData.makeRepoViewDataModelList
 import com.thomaskioko.stargazer.browse.domain.interactor.SearchRepositoriesInteractor
-import com.thomaskioko.stargazer.browse.ui.SearchAction
 import com.thomaskioko.stargazer.browse.ui.SearchAction.SearchRepository
 import com.thomaskioko.stargazer.browse.ui.SearchViewState
 import com.thomaskioko.stargazer.core.ViewStateResult
@@ -18,7 +17,7 @@ import org.junit.Rule
 import org.junit.jupiter.api.Test
 import org.junit.rules.TestRule
 
-internal class GetReposViewModelTest {
+internal class SearchReposViewModelTest {
 
     @get:Rule
     val instantTaskExecutorRule: TestRule = InstantTaskExecutorRule()
@@ -26,7 +25,7 @@ internal class GetReposViewModelTest {
     private val interactor: SearchRepositoriesInteractor = mock()
     private val testCoroutineDispatcher = TestCoroutineDispatcher()
 
-    private val viewModel = GetReposViewModel(interactor, testCoroutineDispatcher)
+    private val viewModel = SearchReposViewModel(interactor, testCoroutineDispatcher)
 
     @Test
     fun `givenSuccessfulResponse verify successStateIsReturned`() = runBlocking {
