@@ -20,7 +20,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-internal class GetRepoListViewModel @AssistedInject constructor(
+internal class TrendingRepoListViewModel @AssistedInject constructor(
     private val interactorTrending: GetTrendingReposInteractor,
     @Assisted private val screenNavigator: ScreenNavigator,
     @DefaultDispatcher private val ioDispatcher: CoroutineDispatcher
@@ -31,7 +31,7 @@ internal class GetRepoListViewModel @AssistedInject constructor(
 
     @AssistedFactory
     interface Factory : AssistedViewModelFactory<ScreenNavigator> {
-        override fun create(data: ScreenNavigator): GetRepoListViewModel
+        override fun create(data: ScreenNavigator): TrendingRepoListViewModel
     }
 
     override fun handleAction(action: ReposAction) {

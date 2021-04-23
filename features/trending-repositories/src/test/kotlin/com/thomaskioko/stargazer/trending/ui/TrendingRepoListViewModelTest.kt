@@ -18,7 +18,7 @@ import org.junit.Rule
 import org.junit.jupiter.api.Test
 import org.junit.rules.TestRule
 
-internal class GetRepoListViewModelTest {
+internal class TrendingRepoListViewModelTest {
 
     @get:Rule
     val instantTaskExecutorRule: TestRule = InstantTaskExecutorRule()
@@ -28,7 +28,7 @@ internal class GetRepoListViewModelTest {
     private val testCoroutineDispatcher = TestCoroutineDispatcher()
 
     private val viewModel =
-        GetRepoListViewModel(interactorTrending, screenNavigator, testCoroutineDispatcher)
+        TrendingRepoListViewModel(interactorTrending, screenNavigator, testCoroutineDispatcher)
 
     @Test
     fun givenDisplayStateIsInvoked_verifyResultRepoListIsReturned() = runBlocking {
