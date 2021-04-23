@@ -6,19 +6,21 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Snackbar
+import androidx.compose.material.SnackbarHostState
+import androidx.compose.material.SnackbarResult
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.thomaskioko.stargazers.common.compose.theme.StargazerTheme
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun SimpleErrorView(errorMessage: String) {
@@ -34,6 +36,8 @@ fun SimpleErrorView(errorMessage: String) {
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun SnackBarErrorRetry(
+    snackBarHostState: SnackbarHostState,
+    coroutineScope: CoroutineScope,
     errorMessage: String,
     showError: Boolean = errorMessage.isNotBlank(),
     onErrorAction: () -> Unit = { },
@@ -44,23 +48,16 @@ fun SnackBarErrorRetry(
         enter = slideInVertically(initialOffsetY = { it }),
         exit = slideOutVertically(targetOffsetY = { it }),
     ) {
-        Snackbar(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
-            content = { Text(errorMessage) },
-            actionOnNewLine = true,
-            action = {
-                TextButton(
-                    onClick = { onErrorAction() },
-                ) {
-                    Text(
-                        text = "Retry",
-                        color = MaterialTheme.colors.secondary
-                    )
-                }
+        coroutineScope.launch {
+            val actionResult = snackBarHostState.showSnackbar(
+                message = errorMessage,
+                actionLabel = "Retry"
+            )
+
+            when(actionResult){
+                SnackbarResult.ActionPerformed -> { onErrorAction() }
             }
-        )
+        }
     }
 }
 
@@ -75,9 +72,17 @@ fun SnackBarErrorRetry(
 )
 @Composable
 private fun SnackBarErrorPreview() {
+
+    val coroutineScope = rememberCoroutineScope()
+    val snackBarHostState = remember { SnackbarHostState() }
+
     StargazerTheme {
         Surface {
-            SnackBarErrorRetry("Something went wrong!!")
+            SnackBarErrorRetry(
+                snackBarHostState = snackBarHostState,
+                coroutineScope = coroutineScope,
+                "Something went wrong!!"
+            )
         }
     }
 }
