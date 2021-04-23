@@ -31,7 +31,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.thomaskioko.stargazer.trending.R
-import com.thomaskioko.stargazer.trending.ui.GetRepoListViewModel
+import com.thomaskioko.stargazer.trending.ui.TrendingRepoListViewModel
 import com.thomaskioko.stargazer.trending.ui.ReposViewState
 import com.thomaskioko.stargazers.common.compose.components.AppBarPainterIcon
 import com.thomaskioko.stargazers.common.compose.components.CircularLoadingView
@@ -49,7 +49,7 @@ import kotlinx.coroutines.flow.flowOf
 
 @Composable
 internal fun TrendingRepositoryScreen(
-    viewModel: GetRepoListViewModel,
+    viewModel: TrendingRepoListViewModel,
     onSettingsPressed: () -> Unit = { },
     onItemClicked: (Long) -> Unit = { },
     onErrorActionRetry: () -> Unit = { },
