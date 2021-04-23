@@ -1,10 +1,11 @@
 package com.thomaskioko.stargazer.browse.ui
 
-import com.thomaskioko.stargazer.browse.model.RepoViewDataModel
 import com.thomaskioko.stargazer.core.presentation.ViewAction
 import com.thomaskioko.stargazer.core.presentation.ViewState
+import com.thomaskioko.stargazers.common.model.RepoViewDataModel
 
 sealed class SearchAction : ViewAction {
+    object BackPressed : SearchAction()
     data class SearchRepository(val query: String) : SearchAction()
 }
 
