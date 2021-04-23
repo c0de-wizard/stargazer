@@ -5,9 +5,13 @@ import com.thomaskioko.stargazer.db.model.RepoEntity
 import com.thomaskioko.stargazer.trending.R
 import com.thomaskioko.stargazers.common.model.RepoViewDataModel
 import com.thomaskioko.stargazers.common.compose.theme.css
+import com.thomaskioko.stargazers.common.compose.theme.go
 import com.thomaskioko.stargazers.common.compose.theme.java
+import com.thomaskioko.stargazers.common.compose.theme.javaScript
 import com.thomaskioko.stargazers.common.compose.theme.kotlin
 import com.thomaskioko.stargazers.common.compose.theme.other
+import com.thomaskioko.stargazers.common.compose.theme.php
+import com.thomaskioko.stargazers.common.compose.theme.ruby
 import com.thomaskioko.stargazers.common.compose.theme.swift
 
 internal object ViewDataMapper {
@@ -30,11 +34,15 @@ internal object ViewDataMapper {
     )
 
     private fun mapLanguageToColor(language: String): Color {
-        return when (language) {
-            "Kotlin" -> kotlin
-            "java" -> java
-            "swift" -> swift
-            "css" -> css
+        return when {
+            language.equals("Kotlin", ignoreCase = true) -> kotlin
+            language.equals("java", ignoreCase = true) -> java
+            language.equals("javascript", ignoreCase = true) -> javaScript
+            language.equals("go", ignoreCase = true) -> go
+            language.equals("ruby", ignoreCase = true) -> ruby
+            language.equals("swift", ignoreCase = true) -> swift
+            language.equals("php", ignoreCase = true) -> php
+            language.equals("css", ignoreCase = true) -> css
             else -> other
         }
     }
