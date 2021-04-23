@@ -9,8 +9,6 @@ import com.thomaskioko.stargazer.core.ViewStateResult.Error
 import com.thomaskioko.stargazer.core.interactor.invoke
 import com.thomaskioko.stargazer.repository.GithubRepository
 import com.thomaskioko.stargazer.trending.interactor.ViewMockData.makePagingRepoEntityModelList
-import com.thomaskioko.stargazer.trending.interactor.ViewMockData.makePagingRepoViewDataModelList
-import com.thomaskioko.stargazer.trending.interactor.ViewMockData.makeRepoViewDataModelList
 import com.thomaskioko.stargazers.common.model.RepoViewDataModel
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
