@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import app.cash.turbine.test
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.thomaskioko.stargazer.core.ViewStateResult.Error
 import com.thomaskioko.stargazer.core.ViewStateResult.Success
@@ -86,5 +87,12 @@ internal class RepoDetailsViewModelTest {
             assertEquals(expectItem(), DetailViewState.Loading)
             assertEquals(expectItem(), DetailViewState.Success(repoViewModelData))
         }
+    }
+
+    @Test
+    fun `when backIsPressed verify navigatorIsInvoked`() = runBlocking {
+        viewModel.dispatchAction(DetailAction.BackPressed)
+
+        verify(screenNavigator).goBack()
     }
 }

@@ -3,10 +3,12 @@ package com.thomaskioko.stargazer.trending.ui
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import app.cash.turbine.test
 import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.thomaskioko.stargazer.core.ViewStateResult.Error
 import com.thomaskioko.stargazer.core.ViewStateResult.Success
 import com.thomaskioko.stargazer.core.interactor.invoke
+import com.thomaskioko.stargazer.navigation.NavigationScreen
 import com.thomaskioko.stargazer.navigation.ScreenNavigator
 import com.thomaskioko.stargazer.trending.interactor.GetTrendingReposInteractor
 import com.thomaskioko.stargazer.trending.interactor.ViewMockData.makePagingRepoViewDataModelList
@@ -55,5 +57,20 @@ internal class TrendingRepoListViewModelTest {
             assertEquals(expectItem(), ReposViewState.Loading)
             assertEquals(expectItem(), ReposViewState.Error(errorMessage))
         }
+    }
+
+
+    @Test
+    fun `when settingsIsPressed verify navigatorIsInvoked`() = runBlocking {
+        viewModel.dispatchAction(ReposAction.NavigateToSettingsScreen)
+
+        verify(screenNavigator).goToScreen(NavigationScreen.SettingsScreen)
+    }
+
+    @Test
+    fun `when repoIsClicked verify navigateToDetailIsInvoked`() = runBlocking {
+        viewModel.dispatchAction(ReposAction.NavigateToRepoDetailScreen(1L))
+
+        verify(screenNavigator).goToScreen(NavigationScreen.RepoDetailsScreen(1L))
     }
 }
