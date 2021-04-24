@@ -102,7 +102,7 @@ I'm currently migrating each module to [Jetpack Compose](https://developer.andro
 - [x] Repo Details
 - [x] Add Pagination.
 - [x] Browse (Implement search functionality)
-- [ ] Favorite
+- [x] Favorite
 - [ ] Migrate Navigation & BottomBar to Navigation Compose
 
 ## Code style
