@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.flowOf
  */
 object RepoRepository {
     fun getLazyRepositoryList() = flowOf(PagingData.from(reposList))
+    fun getRepositoryList() = reposList
     fun getRepository(): RepoViewDataModel = reposList.random()
 }
 
