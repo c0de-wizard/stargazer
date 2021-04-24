@@ -5,7 +5,6 @@ import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.thomaskioko.stargazer.core.ViewStateResult.Success
 import com.thomaskioko.stargazer.details.domain.UpdateRepoBookmarkStateInteractor
-import com.thomaskioko.stargazer.details.domain.model.UpdateObject
 import com.thomaskioko.stargazer.repo_details.util.ViewMockData.makeRepoEntity
 import com.thomaskioko.stargazer.repo_details.util.ViewMockData.makeRepoViewDataModel
 import com.thomaskioko.stargazer.repository.GithubRepository
@@ -25,7 +24,7 @@ internal class UpdateRepoBookmarkStateInteractorTest {
 
     @Test
     fun `whenever updateRepoIsInvoked expectedDataIsReturned`() = runBlocking {
-        interactor(UpdateObject(1, false)).test {
+        interactor(makeRepoViewDataModel()).test {
             assertEquals(expectItem(), Success(makeRepoViewDataModel()))
             expectComplete()
         }

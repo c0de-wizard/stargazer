@@ -3,13 +3,15 @@ rootProject.name = "Stargazer"
 include(
     ":app",
     ":core",
-    ":common-ui",
     ":common-testing",
     ":navigation",
     ":repository",
     ":features:bookmarks",
-    ":features:browse",
+    ":features:search",
     ":features:trending-repositories",
-    ":features:repo-details"
+    ":features:repo-details",
+    ":features:settings",
+    ":common-testing",
+    ":design:common-ui",
+    ":design:common-ui-compose",
 )
-include(":common-testing")

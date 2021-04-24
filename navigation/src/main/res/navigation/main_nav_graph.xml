@@ -6,7 +6,7 @@
 
     <include app:graph="@navigation/home_nav_graph" />
 
-    <include app:graph="@navigation/browse_nav_graph" />
+    <include app:graph="@navigation/search_nav_graph" />
 
     <include app:graph="@navigation/trending_nav_graph" />
 
@@ -14,26 +14,52 @@
 
     <include app:graph="@navigation/repo_details_nav_graph" />
 
+    <include app:graph="@navigation/settings_nav_graph" />
+
     <action
-        android:id="@+id/action_repo_list"
-        app:destination="@id/browse_nav_graph" />
+        android:id="@+id/action_search_repos"
+        app:destination="@id/search_nav_graph"
+        app:enterAnim="@anim/slide_in_from_top"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/slide_out_to_top" />
 
     <action
         android:id="@+id/action_trending_repos"
-        app:destination="@id/trending_nav_graph" />
+        app:destination="@id/trending_nav_graph"
+        app:enterAnim="@anim/slide_in_from_top"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/slide_out_to_top" />
 
     <action
         android:id="@+id/action_bookmark_list"
-        app:destination="@id/bookmark_nav_graph"/>
+        app:destination="@id/bookmark_nav_graph"
+        app:enterAnim="@anim/slide_in_from_top"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/slide_out_to_top" />
 
 
     <action
         android:id="@+id/action_repo_details"
-        app:destination="@id/repo_details_nav_graph">
+        app:destination="@id/repo_details_nav_graph"
+        app:enterAnim="@anim/slide_in_from_top"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/slide_out_to_top">
 
         <argument
             android:name="repo_id"
             app:argType="long" />
     </action>
+
+    <action
+        android:id="@+id/action_settings_fragment"
+        app:destination="@id/settings_nav_graph"
+        app:enterAnim="@anim/slide_in_from_top"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/slide_out_to_top" />
 
 </navigation>

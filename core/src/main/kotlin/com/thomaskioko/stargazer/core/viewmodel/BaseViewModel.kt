@@ -2,52 +2,35 @@ package com.thomaskioko.stargazer.core.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.thomaskioko.stargazer.core.presentation.ViewAction
-import com.thomaskioko.stargazer.core.presentation.ViewIntent
 import com.thomaskioko.stargazer.core.presentation.ViewState
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.flow.stateIn
 
-abstract class BaseViewModel<
-        INTENT : ViewIntent,
-        ACTION : ViewAction,
-        STATE : ViewState,
-        DISPATCHER : CoroutineDispatcher>
-    (initialViewState: STATE, dispatcher: DISPATCHER) : ViewModel() {
+abstract class BaseViewModel<A : ViewAction, S : ViewState>(
+    initialViewState: S,
+    dispatcher: CoroutineDispatcher = Dispatchers.IO
+) : ViewModel() {
 
     private val viewModelJob = SupervisorJob()
     val ioScope = CoroutineScope(dispatcher + viewModelJob)
 
-    protected val channelState = Channel<STATE>(
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
-    ).apply { offer(initialViewState) }
-
-    val state: StateFlow<STATE> = channelState.receiveAsFlow()
-        .stateIn(ioScope, SharingStarted.Lazily, initialViewState)
-
-
-    protected val mutableViewState: MutableStateFlow<STATE> =
+    protected val mutableViewState: MutableStateFlow<S> =
         MutableStateFlow(initialViewState)
 
-    val actionState: SharedFlow<STATE> get() = mutableViewState
+    val stateFlow: Flow<S> get() = mutableViewState
 
-    fun dispatchIntent(intent: INTENT) {
-        handleAction(intentToAction(intent))
-    }
-
-    abstract fun intentToAction(intent: INTENT): ACTION
-    abstract fun handleAction(action: ACTION)
+    abstract fun handleAction(action: A)
 
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
+    }
+
+    fun dispatchAction(action: A) {
+        handleAction(action)
     }
 }

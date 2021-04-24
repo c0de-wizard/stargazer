@@ -1,20 +1,22 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import dependencies.PluginsVersions
+import dependencies.DependencyVersions
 
 buildscript {
     repositories.applyDefault()
 }
 
 plugins {
-    id("com.vanniktech.android.junit.jacoco") version DependencyVersions.jacoco
+    id("com.vanniktech.android.junit.jacoco") version "0.16.0"
 }
 
 allprojects {
     repositories.applyDefault()
 
-    plugins.apply("plugins.ktlint")
-    plugins.apply("plugins.detekt")
-    plugins.apply("plugins.spotless")
-    plugins.apply("plugins.dependency-updates")
+    plugins.apply("checks.ktlint")
+    plugins.apply("checks.detekt")
+    plugins.apply("checks.spotless")
+    plugins.apply("checks.dependency-updates")
 
     configurations.all {
         resolutionStrategy.force("org.jetbrains.kotlinx:kotlinx-coroutines-core:${DependencyVersions.coroutines}")
@@ -37,13 +39,14 @@ subprojects {
             languageVersion = "1.5"
             apiVersion = "1.5"
             freeCompilerArgs += "-Xuse-experimental=" +
-                "kotlin.Experimental," +
-                "kotlin.time.ExperimentalTime," +
-                "kotlinx.coroutines.ExperimentalCoroutinesApi," +
-                "kotlinx.coroutines.InternalCoroutinesApi," +
-                "kotlinx.coroutines.ObsoleteCoroutinesApi," +
-                "kotlinx.coroutines.FlowPreview"
-            freeCompilerArgs += "-Xopt-in=kotlin.ExperimentalStdlibApi"
+                    "kotlin.RequiresOptIn," +
+                    "kotlin.Experimental," +
+                    "kotlin.time.ExperimentalTime," +
+                    "kotlin.ExperimentalStdlibApi," +
+                    "kotlinx.coroutines.ExperimentalCoroutinesApi," +
+                    "kotlinx.coroutines.InternalCoroutinesApi," +
+                    "kotlinx.coroutines.ObsoleteCoroutinesApi," +
+                    "kotlinx.coroutines.FlowPreview"
         }
     }
 }

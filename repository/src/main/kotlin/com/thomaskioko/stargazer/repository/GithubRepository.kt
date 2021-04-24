@@ -1,53 +1,86 @@
 package com.thomaskioko.stargazer.repository
 
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.thomaskioko.stargazer.api.service.GitHubService
 import com.thomaskioko.stargazer.core.injection.annotations.IoDispatcher
+import com.thomaskioko.stargazer.core.network.FlowNetworkObserver
 import com.thomaskioko.stargazer.db.GithubDatabase
 import com.thomaskioko.stargazer.db.model.RepoEntity
 import com.thomaskioko.stargazer.mapper.RepositoryMapper.mapResponseToEntityList
+import com.thomaskioko.stargazer.paging.GithubRemoteMediator
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class GithubRepository @Inject constructor(
     private val service: GitHubService,
     private val database: GithubDatabase,
+    private val remoteMediator: GithubRemoteMediator,
+    private val flowNetworkObserver: FlowNetworkObserver,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) {
 
-    fun getRepositoryList(isConnected: Boolean): Flow<List<RepoEntity>> = flow {
-        when {
-            isConnected -> emit(loadFromNetwork())
-            else -> emit(loadCacheRepos())
-        }
+    fun getRepositoryList(): Flow<List<RepoEntity>> =
+        flowNetworkObserver.observeInternetConnection()
+            .map { isConnected -> if (isConnected) loadFromNetwork() else loadCacheRepos() }
+            .flowOn(ioDispatcher)
+
+    fun getTrendingTrendingRepositories(page: Int): Flow<List<RepoEntity>> =
+        flowNetworkObserver.observeInternetConnection()
+            .map { isConnected -> if (isConnected) loadTrendingFromNetwork(page) else loadTrendingCacheRepos() }
+            .flowOn(ioDispatcher)
+
+    private suspend fun loadTrendingFromNetwork(page: Int): List<RepoEntity> {
+        val apiResult = service.getTrendingRepositories(page)
+        database.repoDao()
+            .insertRepos(mapResponseToEntityList(apiResult.repositoriesList, true))
+        return loadTrendingCacheRepos()
     }
-        .flowOn(ioDispatcher)
 
-    fun getTrendingTrendingRepositories(isConnected: Boolean): Flow<List<RepoEntity>> = flow {
+    @OptIn(ExperimentalPagingApi::class)
+    fun getTrendingTrendingRepositories(): Flow<PagingData<RepoEntity>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 10,
+                enablePlaceholders = true,
+                prefetchDistance = 5,
+                initialLoadSize = 30
+            ),
+            remoteMediator = remoteMediator,
+            pagingSourceFactory = { database.repoDao().getPagedTrendingRepositories() }
+        ).flow
+    }
 
-        val result = when {
-            isConnected -> {
-                val apiResult = service.getTrendingRepositories()
-
-                database.repoDao().insertRepos(
-                    mapResponseToEntityList(apiResult.repositoriesList, true)
-                )
-                database.repoDao().getTrendingRepositories()
+    fun searchRepository(query: String): Flow<List<RepoEntity>> {
+        return flowNetworkObserver.observeInternetConnection()
+            .map { isConnected ->
+                if (isConnected) loadNetworkSearchQuery(query) else
+                    database.repoDao().searchRepository(query)
             }
-            else -> database.repoDao().getTrendingRepositories()
+            .flowOn(ioDispatcher)
+    }
+
+    private suspend fun loadNetworkSearchQuery(query: String) : List<RepoEntity>
+        {
+            val apiResult = service.searchRepositories(query)
+            database.repoDao().insertRepos(mapResponseToEntityList(apiResult.repositoriesList))
+
+            return database.repoDao().searchRepository(query)
         }
 
-        emit(result)
-    }
-        .flowOn(ioDispatcher)
 
     private suspend fun loadFromNetwork(): List<RepoEntity> {
         val apiResult = service.getRepositories()
-        database.repoDao().insertRepos(mapResponseToEntityList(apiResult, false))
+        database.repoDao().insertRepos(mapResponseToEntityList(apiResult))
         return loadCacheRepos()
     }
+
+    private suspend fun loadTrendingCacheRepos() = database.repoDao().getTrendingRepositories()
 
     private suspend fun loadCacheRepos() = database.repoDao().getRepositories()
 

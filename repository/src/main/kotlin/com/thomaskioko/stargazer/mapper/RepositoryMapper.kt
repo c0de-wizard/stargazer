@@ -7,7 +7,7 @@ object RepositoryMapper {
 
     fun mapResponseToEntityList(
         response: List<RepoResponse>,
-        isTrending: Boolean
+        isTrending: Boolean = false
     ): List<RepoEntity> = response.map {
         RepoEntity(
             repoId = it.id,
@@ -19,6 +19,8 @@ object RepositoryMapper {
             contributorsUrl = it.contributorsUrl,
             createdDate = it.createdDate,
             updatedDate = it.updatedDate,
+            language = it.language ?: "Other",
+            avatarUrl = it.owner.avatarUrl,
             isTrending = isTrending
         )
     }

@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    implementation(Dependencies.Coroutines.android)
+    api(Dependencies.Coroutines.android)
     api(Dependencies.Testing.Coroutines.test)
 
     api(Dependencies.Testing.truth)

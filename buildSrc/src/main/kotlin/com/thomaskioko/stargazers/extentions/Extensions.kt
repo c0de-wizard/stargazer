@@ -6,4 +6,5 @@ fun RepositoryHandler.applyDefault() {
     mavenCentral()
     maven("https://dl.bintray.com/kotlin/kotlin-eap")
     maven("https://oss.sonatype.org/content/repositories/snapshots/")
+    maven("https://kotlin.bintray.com/kotlinx")
 }

@@ -8,10 +8,10 @@
         android:title="@string/menu_item_trending" />
 
     <item
-        android:id="@id/browse_nav_graph"
+        android:id="@id/search_nav_graph"
         android:enabled="true"
-        android:icon="@drawable/ic_list"
-        android:title="@string/menu_item_mvvm" />
+        android:icon="@drawable/ic_baseline_search"
+        android:title="@string/menu_item_search" />
 
     <item
         android:id="@id/bookmark_nav_graph"

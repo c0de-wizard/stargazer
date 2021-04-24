@@ -1,27 +1,28 @@
 package com.thomaskioko.stargazer.navigation
 
 import androidx.navigation.NavController
-import androidx.navigation.Navigator
 import com.thomaskioko.stargazer.actions.MainNavGraphDirections
 import com.thomaskioko.stargazer.navigation.NavigationScreen.BookmarkListScreen
-import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailScreen
-import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoListScreen
+import com.thomaskioko.stargazer.navigation.NavigationScreen.SearchReposScreen
+import com.thomaskioko.stargazer.navigation.NavigationScreen.SettingsScreen
 import com.thomaskioko.stargazer.navigation.NavigationScreen.TrendingRepositoriesScreen
 import javax.inject.Inject
 import javax.inject.Provider
 
 sealed class NavigationScreen {
     object TrendingRepositoriesScreen : NavigationScreen()
-    object RepoListScreen : NavigationScreen()
+    object SearchReposScreen : NavigationScreen()
     object BookmarkListScreen : NavigationScreen()
-    data class RepoDetailScreen(
-        val repoId: Long,
-        val extras: Navigator.Extras
+    object SettingsScreen : NavigationScreen()
+    data class RepoDetailsScreen(
+        val repoId: Long
     ) : NavigationScreen()
 }
 
 interface ScreenNavigator {
     fun goToScreen(navigationScreen: NavigationScreen)
+
+    fun goBack()
 }
 
 class ScreenNavigationImpl @Inject constructor(
@@ -30,17 +31,21 @@ class ScreenNavigationImpl @Inject constructor(
 
     override fun goToScreen(navigationScreen: NavigationScreen) {
         when (navigationScreen) {
-            RepoListScreen -> navControllerProvider.get()
-                .navigate(MainNavGraphDirections.actionRepoList())
+            SearchReposScreen -> navControllerProvider.get()
+                .navigate(MainNavGraphDirections.actionSearchRepos())
             BookmarkListScreen -> navControllerProvider.get()
                 .navigate(MainNavGraphDirections.actionBookmarkList())
             TrendingRepositoriesScreen -> navControllerProvider.get()
                 .navigate(MainNavGraphDirections.actionTrendingRepos())
-            is RepoDetailScreen -> navControllerProvider.get()
-                .navigate(
-                    MainNavGraphDirections.actionRepoDetails(navigationScreen.repoId),
-                    navigationScreen.extras
-                )
+            SettingsScreen -> navControllerProvider.get()
+                .navigate(MainNavGraphDirections.actionSettingsFragment())
+            is NavigationScreen.RepoDetailsScreen -> navControllerProvider.get()
+                .navigate(MainNavGraphDirections.actionRepoDetails(navigationScreen.repoId))
         }
+    }
+
+    override fun goBack() {
+        navControllerProvider.get()
+            .navigateUp()
     }
 }

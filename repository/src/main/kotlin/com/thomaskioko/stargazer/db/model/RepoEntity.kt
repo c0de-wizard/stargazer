@@ -17,6 +17,8 @@ data class RepoEntity(
     val contributorsUrl: String,
     val createdDate: String,
     val updatedDate: String,
+    val language: String,
+    val avatarUrl: String,
     val isBookmarked: Boolean = false,
     val isTrending: Boolean = false
 )

@@ -1,0 +1,43 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Theme.Stargazer" parent="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#212121</item>
+        <item name="colorPrimaryVariant">#000000</item>
+        <item name="colorSecondary">#2188ff</item>
+        <item name="colorSecondaryVariant">#005cc5</item>
+        <item name="colorAccent">#f18e33</item>
+
+        <item name="android:colorBackground">#212121</item>
+        <item name="colorSurface">#212121</item>
+        <item name="colorPrimarySurfaceVariant">?attr/colorPrimaryVariant</item>
+        <item name="colorError">#F44336</item>
+
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorOnSecondary">#d1d5da</item>
+        <item name="colorOnBackground">#212121</item>
+        <item name="colorOnSurface">#FFFFFF</item>
+        <item name="colorOnError">#FFFFFF</item>
+
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:navigationBarColor">?attr/colorPrimaryVariant</item>
+
+        <!--Typography-->
+        <item name="textAppearanceHeadline2">@style/TextAppearance.Stargazer.Headline2</item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.Stargazer.Headline3</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.Stargazer.Headline4</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.Stargazer.Headline5</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.Stargazer.Headline6</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.Stargazer.Subtitle1</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.Stargazer.Subtitle2</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.Stargazer.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.Stargazer.Body2</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.Stargazer.Caption</item>
+        <item name="textAppearanceOverline">@style/TextAppearance.Stargazer.Overline</item>
+
+        <item name="emphasisHighAlpha">0.87</item>
+        <item name="emphasisMediumAlpha">0.60</item>
+        <item name="emphasisDisabledAlpha">0.38</item>
+
+        <item name="bottomNavigationStyle">@style/Widget.GithubStargazer.BottomNavigationView</item>
+    </style>
+</resources>

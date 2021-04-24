@@ -1,42 +1,61 @@
 package com.thomaskioko.stargazer.bookmarks.ui.viewmodel
 
-import androidx.lifecycle.ViewModel
-import com.thomaskioko.stargazer.bookmarks.domain.interactor.GetBookmarkedRepoListInteractor
-import com.thomaskioko.stargazer.bookmarks.model.RepoViewDataModel
+import com.thomaskioko.stargazer.bookmarks.domain.GetBookmarkedRepoListInteractor
+import com.thomaskioko.stargazer.bookmarks.ui.BookmarkActions
+import com.thomaskioko.stargazer.bookmarks.ui.BookmarkActions.LoadRepositories
+import com.thomaskioko.stargazer.bookmarks.ui.BookmarkActions.NavigateToRepoDetailScreen
+import com.thomaskioko.stargazer.bookmarks.ui.BookmarkActions.NavigateToSettingsScreen
+import com.thomaskioko.stargazer.bookmarks.ui.BookmarkViewState
 import com.thomaskioko.stargazer.core.ViewStateResult
+import com.thomaskioko.stargazer.core.factory.AssistedViewModelFactory
 import com.thomaskioko.stargazer.core.injection.annotations.DefaultDispatcher
 import com.thomaskioko.stargazer.core.interactor.invoke
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.thomaskioko.stargazer.core.viewmodel.BaseViewModel
+import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailsScreen
+import com.thomaskioko.stargazer.navigation.NavigationScreen.SettingsScreen
+import com.thomaskioko.stargazer.navigation.ScreenNavigator
+import com.thomaskioko.stargazers.common.model.RepoViewDataModel
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onEach
-import javax.inject.Inject
+import kotlinx.coroutines.flow.stateIn
 
-@HiltViewModel
-class GetBookmarkedReposViewModel @Inject constructor(
+internal class GetBookmarkedReposViewModel @AssistedInject constructor(
     private val interactor: GetBookmarkedRepoListInteractor,
+    @Assisted private val screenNavigator: ScreenNavigator,
     @DefaultDispatcher private val ioDispatcher: CoroutineDispatcher
-) : ViewModel() {
+) :  BaseViewModel<BookmarkActions, BookmarkViewState>(
+    initialViewState = BookmarkViewState.Loading,
+    dispatcher = ioDispatcher
+){
 
-    private val _mutableRepoListStateResult: MutableStateFlow<ViewStateResult<List<RepoViewDataModel>>> =
-        MutableStateFlow(ViewStateResult.loading())
-    val bookmarkedList: SharedFlow<ViewStateResult<List<RepoViewDataModel>>> get() = _mutableRepoListStateResult
-
-    private val viewModelJob = SupervisorJob()
-    private val ioScope = CoroutineScope(ioDispatcher + viewModelJob)
-
-    fun getBookmarkedRepos() {
-        interactor()
-            .onEach { _mutableRepoListStateResult.emit(it) }
-            .launchIn(ioScope)
+    override fun handleAction(action: BookmarkActions) {
+       when(action){
+           LoadRepositories -> {
+               interactor()
+                   .onEach { mutableViewState.emit(it.reduce()) }
+                   .stateIn(ioScope, SharingStarted.Eagerly, emptyList<RepoViewDataModel>())
+           }
+           NavigateToSettingsScreen -> screenNavigator.goToScreen(SettingsScreen)
+           is NavigateToRepoDetailScreen -> screenNavigator.goToScreen(
+               RepoDetailsScreen(action.repoId)
+           )
+       }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
+    @AssistedFactory
+    interface Factory : AssistedViewModelFactory<ScreenNavigator> {
+        override fun create(data: ScreenNavigator): GetBookmarkedReposViewModel
+    }
+}
+
+internal fun ViewStateResult<List<RepoViewDataModel>>.reduce(): BookmarkViewState {
+    return when (this) {
+        is ViewStateResult.Loading -> BookmarkViewState.Loading
+        is ViewStateResult.Success -> BookmarkViewState.Success(data)
+        is ViewStateResult.Error -> BookmarkViewState.Error(message)
     }
 }

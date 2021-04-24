@@ -6,7 +6,9 @@ plugins {
 
 dependencies {
 
+    implementation(Dependencies.timber)
     implementation(Dependencies.AndroidX.appCompat)
+    implementation(Dependencies.AndroidX.coreKtx)
     implementation(Dependencies.AndroidX.Lifecycle.common)
     implementation(Dependencies.AndroidX.Lifecycle.runtime)
     implementation(Dependencies.AndroidX.Lifecycle.viewmodel)

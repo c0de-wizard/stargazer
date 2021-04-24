@@ -5,7 +5,6 @@ import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.thomaskioko.stargazer.bookmarks.ViewMockData.makeRepoEntityList
 import com.thomaskioko.stargazer.bookmarks.ViewMockData.makeRepoViewDataModelList
-import com.thomaskioko.stargazer.bookmarks.domain.interactor.GetBookmarkedRepoListInteractor
 import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.core.interactor.invoke
 import com.thomaskioko.stargazer.repository.GithubRepository

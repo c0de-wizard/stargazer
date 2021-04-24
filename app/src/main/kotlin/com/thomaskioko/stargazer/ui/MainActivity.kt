@@ -1,7 +1,6 @@
 package com.thomaskioko.stargazer.ui
 
 import android.os.Bundle
-import android.view.Menu
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
@@ -10,17 +9,21 @@ import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.switchmaterial.SwitchMaterial
 import com.thomaskioko.stargazer.R
+import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.core.injection.annotations.MainDispatcher
+import com.thomaskioko.stargazer.core.network.FlowNetworkObserver
 import com.thomaskioko.stargazer.databinding.ActivityMainBinding
-import com.thomaskioko.stargazer.domain.SettingsManager
-import com.thomaskioko.stargazer.domain.UiTheme
+import com.thomaskioko.stargazers.settings.domain.SettingsManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -33,11 +36,16 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var settingsManager: SettingsManager
 
-    @Inject
-    @MainDispatcher lateinit var mainDispatcher: CoroutineDispatcher
 
-    private lateinit var binding: ActivityMainBinding
-    private var isDarkMode = false
+    @Inject
+    lateinit var flowNetworkObserver: FlowNetworkObserver
+
+    @Inject
+    @MainDispatcher
+    lateinit var mainDispatcher: CoroutineDispatcher
+
+    private var _binding: ActivityMainBinding? = null
+    private val binding get() = _binding!!
 
     private val navController: NavController
         get() = navControllerProvider.get()
@@ -45,10 +53,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme()
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbar)
+        flowNetworkObserver.observeInternetConnection()
+            .onEach {
+                //TODO:: Show snackBar
+                Timber.d("Device Connection Status: $it")
+            }
+            .launchIn(CoroutineScope(mainDispatcher))
 
         binding.bottomNavigation.setupWithNavController(navController)
 
@@ -66,53 +79,34 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setTheme() {
-        GlobalScope.launch(context = mainDispatcher) {
+        val job = GlobalScope.launch(context = mainDispatcher) {
             settingsManager.getUiModeFlow()
                 .collect {
-                    isDarkMode = when (it) {
-                        UiTheme.LIGHT -> {
-                            setDefaultNightMode(MODE_NIGHT_NO)
-                            false
+                    when (it) {
+                        is ViewStateResult.Error -> {
+                            Timber.e(it.message)
                         }
-                        UiTheme.DARK -> {
-                            setDefaultNightMode(MODE_NIGHT_YES)
-                            true
+                        is ViewStateResult.Loading -> {
+                        }
+                        is ViewStateResult.Success -> when (it.data) {
+                            MODE_NIGHT_NO -> setDefaultNightMode(MODE_NIGHT_NO)
+                            MODE_NIGHT_YES -> setDefaultNightMode(MODE_NIGHT_YES)
                         }
                     }
                 }
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main, menu)
-
-        val menuItem = menu.findItem(R.id.menu_item_theme)
-        val switch = (menuItem.actionView as SwitchMaterial)
-
-        switch.isChecked = isDarkMode
-
-        switch.setOnCheckedChangeListener { _, isChecked ->
-            isDarkMode = if (isChecked) {
-                updateTheme(UiTheme.DARK)
-                true
-            } else {
-                updateTheme(UiTheme.LIGHT)
-                false
-            }
-        }
-        return true
-    }
-
-    private fun updateTheme(themeTheme: UiTheme) {
-        GlobalScope.launch(context = mainDispatcher) {
-            settingsManager.setUiMode(themeTheme)
-        }
+        job.cancel()
     }
 
     override fun onBackPressed() {
         if (!onSupportNavigateUp()) {
             super.onBackPressed()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     override fun onSupportNavigateUp(): Boolean = navController.navigateUp()
