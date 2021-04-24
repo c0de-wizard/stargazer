@@ -3,15 +3,20 @@ package com.thomaskioko.stargazer.bookmarks.ui.viewmodel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import app.cash.turbine.test
 import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.thomaskioko.stargazer.bookmarks.ViewMockData.makeRepoViewDataModelList
-import com.thomaskioko.stargazer.bookmarks.domain.interactor.GetBookmarkedRepoListInteractor
-import com.thomaskioko.stargazer.core.ViewStateResult
+import com.thomaskioko.stargazer.bookmarks.domain.GetBookmarkedRepoListInteractor
+import com.thomaskioko.stargazer.bookmarks.ui.BookmarkActions
+import com.thomaskioko.stargazer.bookmarks.ui.BookmarkActions.NavigateToRepoDetailScreen
+import com.thomaskioko.stargazer.bookmarks.ui.BookmarkActions.NavigateToSettingsScreen
+import com.thomaskioko.stargazer.bookmarks.ui.BookmarkViewState
 import com.thomaskioko.stargazer.core.ViewStateResult.Error
-import com.thomaskioko.stargazer.core.ViewStateResult.Loading
 import com.thomaskioko.stargazer.core.ViewStateResult.Success
 import com.thomaskioko.stargazer.core.interactor.invoke
-import com.thomaskioko.stargazers.common.model.RepoViewDataModel
+import com.thomaskioko.stargazer.navigation.NavigationScreen
+import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailsScreen
+import com.thomaskioko.stargazer.navigation.ScreenNavigator
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -27,18 +32,23 @@ internal class GetBookmarkedReposViewModelTest {
 
     private val interactor: GetBookmarkedRepoListInteractor = mock()
     private val testCoroutineDispatcher = TestCoroutineDispatcher()
-    private val viewModel = GetBookmarkedReposViewModel(interactor, testCoroutineDispatcher)
+    private val screenNavigator: ScreenNavigator = mock()
+    private val viewModel = GetBookmarkedReposViewModel(
+        interactor,
+        screenNavigator,
+        testCoroutineDispatcher
+    )
 
     @Test
     fun `givenSuccessfulResponse verify successStateIsReturned`() = runBlocking {
         whenever(interactor()).thenReturn(flowOf(Success(makeRepoViewDataModelList())))
 
-        viewModel.bookmarkedList.test {
+        viewModel.stateFlow.test {
 
-            viewModel.getBookmarkedRepos()
+            viewModel.dispatchAction(BookmarkActions.LoadRepositories)
 
-            assertEquals(expectItem(), Loading<ViewStateResult<List<RepoViewDataModel>>>())
-            assertEquals(expectItem(), Success(makeRepoViewDataModelList()))
+            assertEquals(expectItem(), BookmarkViewState.Loading)
+            assertEquals(expectItem(), BookmarkViewState.Success(makeRepoViewDataModelList()))
         }
     }
 
@@ -48,12 +58,26 @@ internal class GetBookmarkedReposViewModelTest {
 
         whenever(interactor()).thenReturn(flowOf(Error(errorMessage)))
 
-        viewModel.bookmarkedList.test {
+        viewModel.stateFlow.test {
 
-            viewModel.getBookmarkedRepos()
+            viewModel.dispatchAction(BookmarkActions.LoadRepositories)
 
-            assertEquals(expectItem(), Loading<ViewStateResult<List<RepoViewDataModel>>>())
-            assertEquals(expectItem(), Error<ViewStateResult<RepoViewDataModel>>(errorMessage))
+            assertEquals(expectItem(), BookmarkViewState.Loading)
+            assertEquals(expectItem(), BookmarkViewState.Error(errorMessage))
         }
+    }
+
+    @Test
+    fun `when settingsIsPressed verify navigatorIsInvoked`() = runBlocking {
+        viewModel.dispatchAction(NavigateToSettingsScreen)
+
+        verify(screenNavigator).goToScreen(NavigationScreen.SettingsScreen)
+    }
+
+    @Test
+    fun `when repoIsClicked verify navigateToDetailIsInvoked`() = runBlocking {
+        viewModel.dispatchAction(NavigateToRepoDetailScreen(1L))
+
+        verify(screenNavigator).goToScreen(RepoDetailsScreen(1L))
     }
 }
