@@ -129,6 +129,7 @@ configuration and you find them in the project root directory `.{toolName}`.
 - LiveData - notify domain layer data to views.
 - Lifecycle - dispose of observing data when lifecycle state changes.
 - [DataStore](https://developer.android.com/topic/libraries/architecture/datastore) - Replacement for shared preference.
+- [Paging3](https://developer.android.com/topic/libraries/architecture/paging/v3-overview) - For loading & displaying data from local storage and network.
 
 * [Material-Components](https://github.com/material-components/material-components-android) - Material design
   components.
