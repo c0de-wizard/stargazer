@@ -17,18 +17,21 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
+import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
@@ -41,15 +44,17 @@ import com.thomaskioko.stargazer.details.model.RepoViewDataModel
 import com.thomaskioko.stargazer.details.ui.DetailViewState
 import com.thomaskioko.stargazer.details.ui.compose.mockdata.repoViewDataModel
 import com.thomaskioko.stargazer.details.ui.viewmodel.RepoDetailsViewModel
-import com.thomaskioko.stargazers.common.compose.components.AppBarBackIcon
+import com.thomaskioko.stargazers.common.compose.components.AppBarPainterIcon
 import com.thomaskioko.stargazers.common.compose.components.CircularLoadingView
 import com.thomaskioko.stargazers.common.compose.components.OutlinedAvatar
 import com.thomaskioko.stargazers.common.compose.components.SnackBarErrorRetry
 import com.thomaskioko.stargazers.common.compose.components.StargazerFab
+import com.thomaskioko.stargazers.common.compose.components.StargazersScaffold
 import com.thomaskioko.stargazers.common.compose.components.StargazersTopBar
 import com.thomaskioko.stargazers.common.compose.components.util.NetworkImage
 import com.thomaskioko.stargazers.common.compose.components.util.scrim
 import com.thomaskioko.stargazers.common.compose.theme.StargazerTheme
+import kotlinx.coroutines.CoroutineScope
 
 @Composable
 internal fun RepoDetailScreen(
@@ -57,37 +62,56 @@ internal fun RepoDetailScreen(
     onBackPressed: () -> Unit = { },
     onRepoBookMarked: (RepoViewDataModel) -> Unit = { },
 ) {
+    val scaffoldState = rememberScaffoldState()
+    val coroutineScope = rememberCoroutineScope()
+
     val lifecycleOwner = LocalLifecycleOwner.current
     val actionState = viewModel.stateFlow
 
-    val actionStateLifeCycleAware = remember (actionState, lifecycleOwner){
+    val actionStateLifeCycleAware = remember(actionState, lifecycleOwner) {
         actionState.flowWithLifecycle(lifecycleOwner.lifecycle, Lifecycle.State.STARTED)
     }
 
     val viewState by actionStateLifeCycleAware
         .collectAsState(initial = DetailViewState.Loading)
 
-    Scaffold(
-        topBar = {
+    StargazersScaffold(
+        scaffoldState = scaffoldState,
+        appBar = {
             StargazersTopBar(
                 title = { },
-                navigationIcon = { AppBarBackIcon(onBackPressed = onBackPressed) }
+                navigationIcon = {
+                    AppBarPainterIcon(
+                        painterResource = painterResource(R.drawable.ic_back),
+                        onClickAction = onBackPressed
+                    )
+                }
             )
         },
-        content = {
-            when (viewState) {
-                DetailViewState.Loading -> CircularLoadingView()
-                is DetailViewState.Error -> SnackBarErrorRetry(
-                    errorMessage = (viewState as DetailViewState.Error).message,
-                    onErrorAction = {}
-                )
-                is DetailViewState.Success -> RepoDetails(
-                    onRepoBookMarked = onRepoBookMarked,
-                    repo = (viewState as DetailViewState.Success).viewDataModel,
-                )
-            }
-        }
+        content = { RepoDetailContent(viewState, scaffoldState, coroutineScope, onRepoBookMarked) }
     )
+}
+
+@Composable
+private fun RepoDetailContent(
+    viewState: DetailViewState,
+    scaffoldState: ScaffoldState,
+    coroutineScope: CoroutineScope,
+    onRepoBookMarked: (RepoViewDataModel) -> Unit
+) {
+    when (viewState) {
+        DetailViewState.Loading -> CircularLoadingView()
+        is DetailViewState.Error -> SnackBarErrorRetry(
+            snackBarHostState = scaffoldState.snackbarHostState,
+            coroutineScope = coroutineScope,
+            errorMessage = viewState.message,
+            onErrorAction = {}
+        )
+        is DetailViewState.Success -> RepoDetails(
+            onRepoBookMarked = onRepoBookMarked,
+            repo = viewState.viewDataModel,
+        )
+    }
 }
 
 @Composable

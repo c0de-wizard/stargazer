@@ -2,7 +2,7 @@
 <resources>
     <item name="home_nav_graph" type="id" />
     <item name="trending_nav_graph" type="id" />
-    <item name="browse_nav_graph" type="id" />
+    <item name="search_nav_graph" type="id" />
     <item name="bookmark_nav_graph" type="id" />
     <item name="repo_details_nav_graph" type="id" />
 

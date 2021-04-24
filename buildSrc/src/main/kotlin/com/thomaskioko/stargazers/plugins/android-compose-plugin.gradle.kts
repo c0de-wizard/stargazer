@@ -45,7 +45,6 @@ android {
 
 dependencies {
     implementation(project(":design:common-ui"))
-    implementation(project(":design:common-ui-resources"))
 
 
     api(Dependencies.AndroidX.Compose.activity)

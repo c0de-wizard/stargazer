@@ -128,4 +128,20 @@ class RepoDaoTest {
 
         assertEquals(updatedRepo.isBookmarked, true)
     }
+
+    @Test
+    fun givenAQuery_verifySearchIsInvoked() = runBlocking {
+
+        val list = listOf(
+            makeRepoEntity(12314, "Mvvm"),
+            makeRepoEntity(12, "Square"),
+            makeRepoEntity(124, "Suqare"),
+            makeRepoEntity(24, "Supra")
+        )
+
+        database.repoDao().insertRepos(list)
+
+        val repo = database.repoDao().searchRepository("Su")
+        assertEquals(2, repo.size)
+    }
 }

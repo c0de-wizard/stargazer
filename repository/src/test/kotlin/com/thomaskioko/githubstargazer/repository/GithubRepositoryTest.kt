@@ -9,7 +9,9 @@ import com.thomaskioko.githubstargazer.mock.MockData.makeRepoEntity
 import com.thomaskioko.githubstargazer.mock.MockData.makeRepoEntityList
 import com.thomaskioko.githubstargazer.mock.MockData.makeRepoResponseList
 import com.thomaskioko.githubstargazer.mock.MockData.makeTrendingRepoEntityList
-import com.thomaskioko.githubstargazer.mock.MockData.makeTrendingRepoResponseList
+import com.thomaskioko.githubstargazer.mock.MockData.makeRepositoryResponseList
+import com.thomaskioko.githubstargazer.mock.MockData.makeResponse
+import com.thomaskioko.githubstargazer.mock.MockData.makeSearchEntity
 import com.thomaskioko.stargazer.api.service.GitHubService
 import com.thomaskioko.stargazer.core.network.FlowNetworkObserver
 import com.thomaskioko.stargazer.db.GithubDatabase
@@ -21,6 +23,7 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.mockito.Mockito.anyString
 import org.mockito.Mockito.never
 import org.mockito.Mockito.verify
 
@@ -31,6 +34,7 @@ class GithubRepositoryTest {
         onBlocking { getTrendingRepositories() } doReturn makeTrendingRepoEntityList()
         onBlocking { getBookmarkedRepos() } doReturn makeRepoEntityList()
         onBlocking { getRepoById(1234) } doReturn makeRepoEntity(1234, false)
+        onBlocking { searchRepository("Su") } doReturn makeSearchEntity()
     }
 
     private val database: GithubDatabase = mock {
@@ -38,7 +42,15 @@ class GithubRepositoryTest {
     }
     private val service: GitHubService = mock {
         onBlocking { getRepositories() } doReturn makeRepoResponseList()
-        onBlocking { getTrendingRepositories(1) } doReturn makeTrendingRepoResponseList()
+        onBlocking { getTrendingRepositories(1) } doReturn makeRepositoryResponseList()
+        onBlocking { searchRepositories(anyString()) } doReturn makeRepositoryResponseList(
+            response = listOf(
+                makeResponse(12314, "Mvvm"),
+                makeResponse(12, "Square"),
+                makeResponse(124, "Suqare"),
+                makeResponse(24, "Supra")
+            )
+        )
     }
     private val remoteMediator: GithubRemoteMediator = mock {
 
@@ -120,6 +132,46 @@ class GithubRepositoryTest {
 
             verify(service, never()).getTrendingRepositories(1)
             verify(database.repoDao()).getTrendingRepositories()
+        }
+    }
+
+    @Test
+    fun givenDeviceIsConnected_andCacheHasNoData_SearchRepository_isLoadedFromRemote() {
+        runBlocking {
+
+            val list = listOf(
+                makeRepoEntity(12314, "Mvvm"),
+                makeRepoEntity(12, "Square"),
+                makeRepoEntity(124, "Suqare"),
+                makeRepoEntity(24, "Supra")
+            )
+
+            whenever(flowNetworkObserver.observeInternetConnection()).thenReturn(flowOf(true))
+
+            repository.searchRepository("Su").test {
+                assertEquals(expectItem(), makeSearchEntity())
+                expectComplete()
+            }
+
+            verify(service).searchRepositories("Su")
+            verify(repoDao).insertRepos(list)
+            verify(repoDao).searchRepository("Su")
+        }
+    }
+
+    @Test
+    fun givenDeviceIsNotConnected_verifySearchRepositoryIsLoadedFromDatabase() {
+        runBlocking {
+
+            whenever(flowNetworkObserver.observeInternetConnection()).thenReturn(flowOf(false))
+
+            repository.searchRepository("Su").test {
+                assertEquals(expectItem(), makeSearchEntity())
+                expectComplete()
+            }
+
+            verify(service, never()).searchRepositories("Su")
+            verify(repoDao).searchRepository("Su")
         }
     }
 

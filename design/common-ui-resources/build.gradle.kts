@@ -1,3 +1,0 @@
-plugins {
-    `android-design-plugin`
-}

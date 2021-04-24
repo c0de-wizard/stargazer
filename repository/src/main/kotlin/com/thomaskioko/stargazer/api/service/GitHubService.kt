@@ -1,7 +1,7 @@
 package com.thomaskioko.stargazer.api.service
 
 import com.thomaskioko.stargazer.api.model.RepoResponse
-import com.thomaskioko.stargazer.api.model.TrendingRepositoriesResponse
+import com.thomaskioko.stargazer.api.model.RepositoriesResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -17,5 +17,10 @@ interface GitHubService {
         @Query("created") created: String = "2021-01-27", //TODO:: Pass current date
         @Query("sort") sort: String = "stars",
         @Query("order") order: String = "desc",
-    ): TrendingRepositoriesResponse
+    ): RepositoriesResponse
+
+    @GET("search/repositories")
+    suspend fun searchRepositories(
+        @Query("q") query: String
+    ): RepositoriesResponse
 }

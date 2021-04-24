@@ -3,7 +3,7 @@ package com.thomaskioko.stargazer.navigation
 import androidx.navigation.NavController
 import com.thomaskioko.stargazer.actions.MainNavGraphDirections
 import com.thomaskioko.stargazer.navigation.NavigationScreen.BookmarkListScreen
-import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoListScreen
+import com.thomaskioko.stargazer.navigation.NavigationScreen.SearchReposScreen
 import com.thomaskioko.stargazer.navigation.NavigationScreen.SettingsScreen
 import com.thomaskioko.stargazer.navigation.NavigationScreen.TrendingRepositoriesScreen
 import javax.inject.Inject
@@ -11,7 +11,7 @@ import javax.inject.Provider
 
 sealed class NavigationScreen {
     object TrendingRepositoriesScreen : NavigationScreen()
-    object RepoListScreen : NavigationScreen()
+    object SearchReposScreen : NavigationScreen()
     object BookmarkListScreen : NavigationScreen()
     object SettingsScreen : NavigationScreen()
     data class RepoDetailsScreen(
@@ -31,8 +31,8 @@ class ScreenNavigationImpl @Inject constructor(
 
     override fun goToScreen(navigationScreen: NavigationScreen) {
         when (navigationScreen) {
-            RepoListScreen -> navControllerProvider.get()
-                .navigate(MainNavGraphDirections.actionRepoList())
+            SearchReposScreen -> navControllerProvider.get()
+                .navigate(MainNavGraphDirections.actionSearchRepos())
             BookmarkListScreen -> navControllerProvider.get()
                 .navigate(MainNavGraphDirections.actionBookmarkList())
             TrendingRepositoriesScreen -> navControllerProvider.get()

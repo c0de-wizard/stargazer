@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -23,12 +21,12 @@ import javax.inject.Inject
 internal class TrendingListFragment : Fragment() {
 
     @Inject
-    lateinit var factory: GetRepoListViewModel.Factory
+    lateinit var factory: TrendingRepoListViewModel.Factory
 
     @Inject
     lateinit var screenNavigator: ScreenNavigator
 
-    private val getRepoViewModel: GetRepoListViewModel by viewModels {
+    private val trendingRepoViewModel: TrendingRepoListViewModel by viewModels {
         create(factory, screenNavigator)
     }
 
@@ -40,13 +38,13 @@ internal class TrendingListFragment : Fragment() {
             setContent {
                 StargazerTheme {
                     TrendingRepositoryScreen(
-                        viewModel = getRepoViewModel,
-                        onErrorActionRetry = { getRepoViewModel.dispatchAction(LoadRepositories) },
+                        viewModel = trendingRepoViewModel,
+                        onErrorActionRetry = { trendingRepoViewModel.dispatchAction(LoadRepositories) },
                         onItemClicked = { repoId ->
-                            getRepoViewModel.dispatchAction(NavigateToRepoDetailScreen(repoId))
+                            trendingRepoViewModel.dispatchAction(NavigateToRepoDetailScreen(repoId))
                         },
                         onSettingsPressed = {
-                            getRepoViewModel.dispatchAction(NavigateToSettingsScreen)
+                            trendingRepoViewModel.dispatchAction(NavigateToSettingsScreen)
                         }
                     )
                 }
@@ -56,6 +54,6 @@ internal class TrendingListFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        getRepoViewModel.dispatchAction(LoadRepositories)
+        trendingRepoViewModel.dispatchAction(LoadRepositories)
     }
 }

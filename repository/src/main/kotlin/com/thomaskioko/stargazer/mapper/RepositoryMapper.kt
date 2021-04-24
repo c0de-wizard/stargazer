@@ -7,7 +7,7 @@ object RepositoryMapper {
 
     fun mapResponseToEntityList(
         response: List<RepoResponse>,
-        isTrending: Boolean
+        isTrending: Boolean = false
     ): List<RepoEntity> = response.map {
         RepoEntity(
             repoId = it.id,

@@ -28,6 +28,9 @@ interface RepoDao {
     @Query("SELECT * FROM repo where isBookmarked = 1")
     suspend fun getBookmarkedRepos(): List<RepoEntity>
 
+    @Query("SELECT * FROM repo WHERE name LIKE  '%' || :query || '%'")
+    suspend fun searchRepository(query: String): List<RepoEntity>
+
     @Query("UPDATE repo SET isBookmarked = :isBookmarked where repoId = :repoId")
     suspend fun setBookmarkStatus(isBookmarked: Int, repoId: Long)
 

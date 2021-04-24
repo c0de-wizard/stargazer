@@ -32,7 +32,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.thomaskioko.stargazers.common.compose.components.AppBarBackIcon
+import com.thomaskioko.stargazers.common.compose.components.AppBarPainterIcon
 import com.thomaskioko.stargazers.common.compose.theme.StargazerTheme
 import com.thomaskioko.stargazers.settings.R
 
@@ -47,7 +47,12 @@ fun SettingsScreen(
         topBar = {
             TopAppBar(
                 title = { Row { Text(text = stringResource(R.string.title_settings)) } },
-                navigationIcon = { AppBarBackIcon(onBackPressed = onBackPressed) },
+                navigationIcon = {
+                    AppBarPainterIcon(
+                        painterResource = painterResource(R.drawable.ic_back),
+                        onClickAction = onBackPressed
+                    )
+                },
                 backgroundColor = MaterialTheme.colors.primarySurface
             )
         },
@@ -75,10 +80,7 @@ fun SettingsList(
         contentPadding = PaddingValues(start = 2.dp, end = 16.dp)
     ) {
         item {
-            ThemeSettingsItem(
-                isDarkTheme,
-                onThemeChanged
-            )
+            ThemeSettingsItem(isDarkTheme, onThemeChanged)
             AboutSettingsItem()
         }
     }
@@ -86,7 +88,7 @@ fun SettingsList(
 
 @Composable
 private fun ThemeSettingsItem(
-    isDarkTheme : Boolean,
+    isDarkTheme: Boolean,
     onThemeChanged: () -> Unit,
 ) {
 
