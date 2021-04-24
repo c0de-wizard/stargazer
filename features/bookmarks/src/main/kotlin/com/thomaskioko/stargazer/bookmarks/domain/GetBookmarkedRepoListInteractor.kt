@@ -1,6 +1,6 @@
-package com.thomaskioko.stargazer.bookmarks.domain.interactor
+package com.thomaskioko.stargazer.bookmarks.domain
 
-import com.thomaskioko.stargazer.bookmarks.model.mapper.ViewDataMapper.mapEntityToRepoViewModel
+import com.thomaskioko.stargazer.bookmarks.mapper.ViewDataMapper.mapEntityToRepoViewModel
 import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.core.injection.annotations.IoDispatcher
 import com.thomaskioko.stargazer.core.interactor.Interactor

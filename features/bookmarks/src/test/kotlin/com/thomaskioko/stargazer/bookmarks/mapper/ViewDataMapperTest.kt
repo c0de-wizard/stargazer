@@ -1,8 +1,8 @@
-package com.thomaskioko.stargazer.bookmarks.model.mapper
+package com.thomaskioko.stargazer.bookmarks.mapper
 
 import com.google.common.truth.Truth.assertThat
 import com.thomaskioko.stargazer.bookmarks.ViewMockData.makeRepoEntityList
-import com.thomaskioko.stargazer.bookmarks.model.mapper.ViewDataMapper.mapEntityToRepoViewModel
+import com.thomaskioko.stargazer.bookmarks.mapper.ViewDataMapper.mapEntityToRepoViewModel
 import org.junit.jupiter.api.Test
 
 

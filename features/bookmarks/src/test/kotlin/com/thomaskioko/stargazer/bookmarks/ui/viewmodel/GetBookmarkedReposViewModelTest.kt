@@ -5,7 +5,7 @@ import app.cash.turbine.test
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.thomaskioko.stargazer.bookmarks.ViewMockData.makeRepoViewDataModelList
-import com.thomaskioko.stargazer.bookmarks.domain.interactor.GetBookmarkedRepoListInteractor
+import com.thomaskioko.stargazer.bookmarks.domain.GetBookmarkedRepoListInteractor
 import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.core.ViewStateResult.Error
 import com.thomaskioko.stargazer.core.ViewStateResult.Loading
