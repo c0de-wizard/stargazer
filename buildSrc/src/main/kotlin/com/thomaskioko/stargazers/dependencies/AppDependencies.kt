@@ -17,12 +17,9 @@ object Dependencies {
         object Compose {
             const val ui = "androidx.compose.ui:ui:${DependencyVersions.compose}"
             const val uiUtil = "androidx.compose.ui:ui-util:${DependencyVersions.compose}"
-            const val uiLayout = "androidx.ui:ui-layout:${DependencyVersions.compose}"
             const val tooling = "androidx.compose.ui:ui-tooling:${DependencyVersions.compose}"
             const val foundation = "androidx.compose.foundation:foundation:${DependencyVersions.compose}"
-            const val foundationLayout = "androidx.compose.foundation:foundation-layout:${DependencyVersions.compose}"
             const val material = "androidx.compose.material:material:${DependencyVersions.compose}"
-            const val iconsCore = "androidx.compose.material:material-icons-core:${DependencyVersions.compose}"
             const val iconsExtended = "androidx.compose.material:material-icons-extended:${DependencyVersions.compose}"
             const val paging = "androidx.paging:paging-compose:${DependencyVersions.pagingCompose}"
             const val runtime = "androidx.compose.runtime:runtime:${DependencyVersions.compose}"
