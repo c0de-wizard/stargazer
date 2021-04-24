@@ -27,6 +27,7 @@
 
     <!-- Toolbar Title -->
     <string name="title_settings">Settings</string>
+    <string name="title_bookmarks">Bookmarks</string>
 
 
     <string name="fab_bookmark">Bookmark</string>
