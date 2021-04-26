@@ -1,5 +1,6 @@
 package com.thomaskioko.stargazer.browse.ui.viewmodel
 
+import androidx.paging.PagingData
 import com.thomaskioko.stargazer.browse.domain.interactor.SearchRepositoriesInteractor
 import com.thomaskioko.stargazer.browse.ui.SearchAction
 import com.thomaskioko.stargazer.browse.ui.SearchAction.BackPressed
@@ -52,7 +53,7 @@ internal class SearchReposViewModel @AssistedInject constructor(
 
 }
 
-internal fun ViewStateResult<List<RepoViewDataModel>>.reduce(): SearchViewState {
+internal fun ViewStateResult<PagingData<RepoViewDataModel>>.reduce(): SearchViewState {
     return when (this) {
         is ViewStateResult.Loading -> SearchViewState.Loading
         is ViewStateResult.Success -> SearchViewState.Success(data)
