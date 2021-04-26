@@ -5,7 +5,7 @@ import app.cash.turbine.test
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
-import com.thomaskioko.stargazer.browse.domain.ViewMockData.makeRepoViewDataModelList
+import com.thomaskioko.stargazer.browse.domain.ViewMockData.makePagingRepoViewDataModelList
 import com.thomaskioko.stargazer.browse.domain.interactor.SearchRepositoriesInteractor
 import com.thomaskioko.stargazer.browse.ui.SearchAction
 import com.thomaskioko.stargazer.browse.ui.SearchAction.SearchRepository
@@ -36,14 +36,15 @@ internal class SearchReposViewModelTest {
 
     @Test
     fun `givenSuccessfulResponse verify successStateIsReturned`() = runBlocking {
-        whenever(interactor("Sq")).thenReturn(flowOf(Success(makeRepoViewDataModelList())))
+        val pagingViewDataList = makePagingRepoViewDataModelList()
+        whenever(interactor("Sq")).thenReturn(flowOf(Success(pagingViewDataList)))
 
         viewModel.stateFlow.test {
 
             viewModel.dispatchAction(SearchRepository("Sq"))
 
             assertEquals(expectItem(), SearchViewState.Init)
-            assertEquals(expectItem(), SearchViewState.Success(makeRepoViewDataModelList()))
+            assertEquals(expectItem(), SearchViewState.Success(pagingViewDataList))
         }
     }
 
