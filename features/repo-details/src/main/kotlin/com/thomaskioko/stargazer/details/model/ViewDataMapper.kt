@@ -13,7 +13,7 @@ internal object ViewDataMapper {
 
     fun mapEntityToRepoViewModel(entity: RepoEntity) =
         RepoViewDataModel(
-            repoId = entity.repoId,
+            repoId = entity.id,
             repoName = entity.name,
             description = entity.description ?: "",
             userName = entity.userName,

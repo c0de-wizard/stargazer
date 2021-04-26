@@ -14,7 +14,7 @@ internal class ViewDataMapperTest{
         val entity = makeRepoEntityList()[0]
         val viewDataModel =  mapEntityToViewModel(entity)
 
-        Truth.assertThat(entity.repoId).isEqualTo(viewDataModel.repoId)
+        Truth.assertThat(entity.id).isEqualTo(viewDataModel.repoId)
         Truth.assertThat(entity.name).isEqualTo(viewDataModel.repoName)
         Truth.assertThat(entity.userName).isEqualTo(viewDataModel.userName)
         Truth.assertThat(entity.description).isEqualTo(viewDataModel.description)

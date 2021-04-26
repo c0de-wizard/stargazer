@@ -43,7 +43,7 @@ object ViewMockData {
 
     fun makeRepoEntityList() = listOf(
         RepoEntity(
-            repoId = 1L,
+            id = 1L,
             name = "Square",
             description = "Some cool description about the app",
             userName = "ninja",
@@ -57,7 +57,7 @@ object ViewMockData {
             isBookmarked = true
         ),
         RepoEntity(
-            repoId = 2L,
+            id = 2L,
             name = "Square",
             description = "Some cool description about the app",
             userName = "ninja",

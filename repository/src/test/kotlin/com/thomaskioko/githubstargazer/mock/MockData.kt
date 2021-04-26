@@ -1,5 +1,6 @@
 package com.thomaskioko.githubstargazer.mock
 
+import androidx.paging.PagingData
 import com.thomaskioko.stargazer.api.model.RepoResponse
 import com.thomaskioko.stargazer.api.model.RepositoriesResponse
 import com.thomaskioko.stargazer.api.model.UserResponse
@@ -53,7 +54,7 @@ internal object MockData {
 
     fun makeRepoEntityList() = listOf(
         RepoEntity(
-            repoId = 1L,
+            id = 1L,
             name = "Square",
             description = "Some cool description about the app",
             userName = "ninja",
@@ -70,7 +71,7 @@ internal object MockData {
 
     fun makeTrendingRepoEntityList() = listOf(
         RepoEntity(
-            repoId = 1L,
+            id = 1L,
             name = "Square",
             description = "Some cool description about the app",
             userName = "ninja",
@@ -86,7 +87,7 @@ internal object MockData {
     )
 
     fun makeRepoEntity(repoId: Long, isTrending: Boolean) = RepoEntity(
-        repoId = repoId,
+        id = repoId,
         name = "Square",
         description = "Some cool description about the app",
         userName = "ninja",
@@ -101,7 +102,7 @@ internal object MockData {
     )
 
     fun makeRepoEntity(repoId: Long, name: String) = RepoEntity(
-        repoId = repoId,
+        id = repoId,
         name = name,
         description = "Some cool description about the app",
         userName = "ninja",
@@ -137,6 +138,13 @@ internal object MockData {
         createdDate = "1/11/1900",
         updatedDate = "1/11/1900",
         language = "Kotlin"
+    )
+
+    fun makePagingSearchEntity() = PagingData.from(
+        listOf(
+            makeRepoEntity(124, "Suqare"),
+            makeRepoEntity(24, "Supra")
+        )
     )
 
     fun makeSearchEntity() = listOf(

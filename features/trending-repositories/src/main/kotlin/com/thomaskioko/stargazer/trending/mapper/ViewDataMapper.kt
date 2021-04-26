@@ -17,7 +17,7 @@ import com.thomaskioko.stargazers.common.compose.theme.swift
 internal object ViewDataMapper {
 
     fun mapEntityToViewModel(entity: RepoEntity) = RepoViewDataModel(
-        repoId = entity.repoId,
+        repoId = entity.id,
         repoName = entity.name,
         description = entity.description ?: "",
         userName = entity.userName,

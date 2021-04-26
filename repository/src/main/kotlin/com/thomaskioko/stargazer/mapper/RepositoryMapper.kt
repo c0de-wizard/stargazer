@@ -10,7 +10,7 @@ object RepositoryMapper {
         isTrending: Boolean = false
     ): List<RepoEntity> = response.map {
         RepoEntity(
-            repoId = it.id,
+            id = it.id,
             name = it.name.capitalize(),
             description = it.description,
             userName = it.owner.login,

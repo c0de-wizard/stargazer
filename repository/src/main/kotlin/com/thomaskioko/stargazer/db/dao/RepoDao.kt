@@ -13,27 +13,30 @@ interface RepoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRepos(list: List<RepoEntity>)
 
-    @Query("SELECT * FROM repo where isTrending = 0 ORDER BY stargazersCount DESC")
+    @Query("SELECT * FROM repos where isTrending = 0 ORDER BY stargazersCount DESC")
     suspend fun getRepositories(): List<RepoEntity>
 
-    @Query("SELECT * FROM repo where isTrending = 1 ORDER BY stargazersCount DESC")
+    @Query("SELECT * FROM repos where isTrending = 1 ORDER BY stargazersCount DESC")
     suspend fun getTrendingRepositories(): List<RepoEntity>
 
-    @Query("SELECT * FROM repo where isTrending = 1 ORDER BY stargazersCount DESC")
+    @Query("SELECT * FROM repos where isTrending = 1 ORDER BY stargazersCount DESC")
     fun getPagedTrendingRepositories(): PagingSource<Int, RepoEntity>
 
-    @Query("SELECT * FROM repo where repoId = :repoId")
+    @Query("SELECT * FROM repos where id = :repoId")
     suspend fun getRepoById(repoId: Long): RepoEntity
 
-    @Query("SELECT * FROM repo where isBookmarked = 1")
+    @Query("SELECT * FROM repos where isBookmarked = 1")
     suspend fun getBookmarkedRepos(): List<RepoEntity>
 
-    @Query("SELECT * FROM repo WHERE name LIKE  '%' || :query || '%'")
+    @Query("SELECT * FROM repos WHERE name LIKE  '%' || :query || '%'")
     suspend fun searchRepository(query: String): List<RepoEntity>
 
-    @Query("UPDATE repo SET isBookmarked = :isBookmarked where repoId = :repoId")
+    @Query("SELECT * FROM repos WHERE name LIKE '%' || :query || '%' OR description LIKE '%' || :query || '%' ORDER BY stargazersCount DESC, name ASC")
+    fun searchRepoByName(query: String):  PagingSource<Int, RepoEntity>
+
+    @Query("UPDATE repos SET isBookmarked = :isBookmarked where id = :repoId")
     suspend fun setBookmarkStatus(isBookmarked: Int, repoId: Long)
 
-    @Query("DELETE FROM repo")
+    @Query("DELETE FROM repos")
     suspend fun clearRepos()
 }

@@ -10,7 +10,7 @@ internal object ViewMockData {
 
     fun makeRepoEntityList() = listOf(
         RepoEntity(
-            repoId = 1L,
+            id = 1L,
             name = "Square",
             description = "Some cool description about the app",
             userName = "ninja",
@@ -49,7 +49,7 @@ internal object ViewMockData {
     fun makePagingRepoEntityModelList() = PagingData.from(
         listOf(
             RepoEntity(
-                repoId = 1L,
+                id = 1L,
                 name = "Square",
                 description = "Some cool description about the app",
                 userName = "ninja",

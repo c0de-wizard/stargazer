@@ -17,7 +17,7 @@ internal class RepositoryMapperTest {
         val entity = entityList[0]
 
         assertThat(reposResponse.size).isEqualTo(entityList.size)
-        assertThat(response.id).isEqualTo(entity.repoId)
+        assertThat(response.id).isEqualTo(entity.id)
         assertThat(response.name).isEqualTo(entity.name)
         assertThat(response.owner.login).isEqualTo(entity.userName)
         assertThat(response.description).isEqualTo(entity.description)

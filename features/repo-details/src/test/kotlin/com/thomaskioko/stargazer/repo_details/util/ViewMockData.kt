@@ -8,7 +8,7 @@ import com.thomaskioko.stargazers.common.compose.theme.kotlin
 internal object ViewMockData {
 
     fun makeRepoEntity() = RepoEntity(
-        repoId = 1L,
+        id = 1L,
         name = "Square",
         description = "Some cool description about the app",
         userName = "ninja",
