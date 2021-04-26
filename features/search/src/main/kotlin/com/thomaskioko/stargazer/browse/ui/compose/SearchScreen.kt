@@ -267,9 +267,5 @@ private fun SearchTopBarContent(
                 )
             }
         }
-
-        LazyColumn {
-
-        }
     }
 }
