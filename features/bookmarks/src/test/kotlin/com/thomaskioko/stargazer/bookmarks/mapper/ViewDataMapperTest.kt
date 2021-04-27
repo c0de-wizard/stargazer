@@ -19,15 +19,16 @@ internal class ViewDataMapperTest {
 
         assertThat(entityList.size).isEqualTo(viewModelList.size)
 
-        assertThat(entity.id).isEqualTo(viewDataModel.repoId)
-        assertThat(entity.name).isEqualTo(viewDataModel.repoName)
-        assertThat(entity.userName).isEqualTo(viewDataModel.userName)
-        assertThat(entity.description).isEqualTo(viewDataModel.description)
-        assertThat(entity.stargazersCount).isEqualTo(viewDataModel.stargazersCount)
-        assertThat(entity.forksCount).isEqualTo(viewDataModel.forksCount)
-        assertThat(entity.contributorsUrl).isEqualTo(viewDataModel.contributorsUrl)
-        assertThat(entity.createdDate).isEqualTo(viewDataModel.createdDate)
-        assertThat(entity.updatedDate).isEqualTo(viewDataModel.updatedDate)
-        assertThat(entity.isBookmarked).isEqualTo(viewDataModel.isBookmarked)
+
+        assertThat(viewDataModel.repoId).isEqualTo(entity.id)
+        assertThat(viewDataModel.repoName).isEqualTo(entity.name)
+        assertThat(viewDataModel.userName).isEqualTo(entity.userName)
+        assertThat(viewDataModel.description).isEqualTo(entity.description)
+        assertThat(viewDataModel.stargazersCount).isEqualTo("1.2k")
+        assertThat(viewDataModel.forksCount).isEqualTo("1.2k")
+        assertThat(viewDataModel.contributorsUrl).isEqualTo(entity.contributorsUrl)
+        assertThat(viewDataModel.createdDate).isEqualTo(entity.createdDate)
+        assertThat(viewDataModel.updatedDate).isEqualTo(entity.updatedDate)
+        assertThat(viewDataModel.isBookmarked).isEqualTo(entity.isBookmarked)
     }
 }
