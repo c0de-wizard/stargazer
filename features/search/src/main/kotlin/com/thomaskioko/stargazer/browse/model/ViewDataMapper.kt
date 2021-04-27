@@ -2,6 +2,7 @@ package com.thomaskioko.stargazer.browse.model
 
 import androidx.compose.ui.graphics.Color
 import com.thomaskioko.githubstargazer.browse.R
+import com.thomaskioko.stargazer.core.util.countFormatter
 import com.thomaskioko.stargazer.db.model.RepoEntity
 import com.thomaskioko.stargazers.common.compose.theme.css
 import com.thomaskioko.stargazers.common.compose.theme.go
@@ -21,8 +22,8 @@ internal object ViewDataMapper {
         repoName = entity.name,
         description = entity.description ?: "",
         userName = entity.userName,
-        stargazersCount = entity.stargazersCount,
-        forksCount = entity.forksCount,
+        stargazersCount = countFormatter(entity.stargazersCount.toLong()) ,
+        forksCount = countFormatter(entity.forksCount.toLong()),
         contributorsUrl = entity.contributorsUrl,
         createdDate = entity.createdDate,
         updatedDate = entity.updatedDate,
@@ -39,8 +40,8 @@ internal object ViewDataMapper {
             repoName = entity.name,
             description = entity.description ?: "",
             userName = entity.userName,
-            stargazersCount = entity.stargazersCount,
-            forksCount = entity.forksCount,
+            stargazersCount = countFormatter(entity.stargazersCount.toLong()) ,
+            forksCount = countFormatter(entity.forksCount.toLong()),
             contributorsUrl = entity.contributorsUrl,
             createdDate = entity.createdDate,
             updatedDate = entity.updatedDate,
