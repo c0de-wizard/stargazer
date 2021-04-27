@@ -1,5 +1,6 @@
 package com.thomaskioko.stargazer.browse.ui.compose
 
+import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,36 +10,27 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
@@ -54,8 +46,10 @@ import com.thomaskioko.stargazers.common.compose.components.CircularLoadingView
 import com.thomaskioko.stargazers.common.compose.components.LoadingItem
 import com.thomaskioko.stargazers.common.compose.components.RepoCardItem
 import com.thomaskioko.stargazers.common.compose.components.RepoListDivider
+import com.thomaskioko.stargazers.common.compose.components.SearchBar
 import com.thomaskioko.stargazers.common.compose.components.SnackBarErrorRetry
 import com.thomaskioko.stargazers.common.compose.components.StargazersScaffold
+import com.thomaskioko.stargazers.common.compose.theme.StargazerTheme
 import com.thomaskioko.stargazers.common.model.RepoViewDataModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.flowOf
@@ -72,7 +66,6 @@ internal fun SearchScreen(
 
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
-    val query = remember { mutableStateOf(TextFieldValue()) }
 
     val lifecycleOwner = LocalLifecycleOwner.current
     val actionState = viewModel.stateFlow
@@ -88,7 +81,6 @@ internal fun SearchScreen(
         scaffoldState = scaffoldState,
         appBar = {
             SearchTopBarContent(
-                textFieldValueState = query,
                 onSearch = onSearch,
                 onBackPressed = onBackPressed
             )
@@ -201,11 +193,9 @@ fun TrendingRepositoryList(
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun SearchTopBarContent(
-    textFieldValueState: MutableState<TextFieldValue>,
     onSearch: (String) -> Unit = { },
     onBackPressed: () -> Unit = { },
 ) {
-    val keyboardController = LocalSoftwareKeyboardController.current
 
     Column {
         Surface(
@@ -221,50 +211,48 @@ private fun SearchTopBarContent(
             ) {
 
                 Icon(
-                    painter = painterResource(R.drawable.ic_back),
+                    imageVector = Icons.Filled.ArrowBack,
                     contentDescription = stringResource(R.string.cd_back),
+                    tint = MaterialTheme.colors.onSecondary,
                     modifier = Modifier
                         .clickable(onClick = { onBackPressed() })
                         .padding(16.dp)
                 )
 
-                OutlinedTextField(
-                    value = textFieldValueState.value,
-                    onValueChange = {
-                        textFieldValueState.value = it
-                        onSearch(textFieldValueState.value.text)
-                    },
-                    label = {
-                        Text(
-                            text = "Search Repository",
-                            color = MaterialTheme.colors.onSecondary
-                        )
-                    },
-                    textStyle = TextStyle(color = MaterialTheme.colors.onSecondary),
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        cursorColor = MaterialTheme.colors.onSecondary,
-                        textColor = MaterialTheme.colors.onSecondary,
-                        disabledTextColor = MaterialTheme.colors.onSecondary,
-                        focusedBorderColor = MaterialTheme.colors.onSecondary,
-                        unfocusedBorderColor = MaterialTheme.colors.onSecondary,
-                    ),
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Filled.Search,
-                            contentDescription = null,
-                            tint = MaterialTheme.colors.onSecondary
-                        )
-                    },
-                    keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
-                    keyboardActions = KeyboardActions(onDone = {
-                        onSearch(textFieldValueState.value.text)
-                        keyboardController?.hide()
-                    }),
+                SearchBar(
+                    onSearch = onSearch,
                     modifier = Modifier
                         .fillMaxWidth(.9f)
                         .padding(8.dp)
-                        .weight(1f),
+                        .weight(1f)
                 )
+            }
+        }
+    }
+}
+
+@Preview(
+    name = "SearchTopBar",
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+)
+@Preview(
+    name = "SearchTopBar • Dark",
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+)
+@Composable
+private fun SearchTopBarPreview() {
+    val scaffoldState = rememberScaffoldState()
+    StargazerTheme {
+        Surface {
+            StargazersScaffold(
+                scaffoldState = scaffoldState,
+                appBar = {
+                    SearchTopBarContent(
+                        onSearch = {  },
+                        onBackPressed = {  }
+                    )
+                }
+            ) {
             }
         }
     }
