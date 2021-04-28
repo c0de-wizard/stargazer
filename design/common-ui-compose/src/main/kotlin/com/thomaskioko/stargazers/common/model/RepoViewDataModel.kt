@@ -9,6 +9,7 @@ data class RepoViewDataModel(
     val avatarUrl: String,
     val description: String,
     val userName: String,
+    val userType: String,
     val stargazersCount: String,
     val forksCount: String,
     val contributorsUrl: String,

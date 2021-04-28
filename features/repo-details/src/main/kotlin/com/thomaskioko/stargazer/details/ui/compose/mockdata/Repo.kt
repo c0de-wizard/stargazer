@@ -9,6 +9,7 @@ internal fun repoViewDataModel() = RepoViewDataModel(
     repoName = "Material Dialogs",
     description = "\uD83D\uDE0D A beautiful, fluid, and extensible dialogs API for Kotlin & Android.",
     userName = "ninja",
+    userType = "Organisation",
     stargazersCount = 1,
     forksCount = 1,
     contributorsUrl = "",

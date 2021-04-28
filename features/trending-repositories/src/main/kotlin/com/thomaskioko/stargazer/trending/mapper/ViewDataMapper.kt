@@ -22,6 +22,7 @@ internal object ViewDataMapper {
         repoName = entity.name,
         description = entity.description ?: "",
         userName = entity.userName,
+        userType = entity.userType,
         stargazersCount = countFormatter(entity.stargazersCount.toLong()),
         forksCount = countFormatter(entity.forksCount.toLong()) ,
         contributorsUrl = entity.contributorsUrl,

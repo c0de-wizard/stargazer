@@ -9,6 +9,7 @@ data class RepoEntity(
     val name: String,
     val description: String?,
     val userName: String,
+    val userType: String,
     val stargazersCount: Int,
     val forksCount: Int,
     val contributorsUrl: String,
