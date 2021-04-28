@@ -18,8 +18,6 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-private const val PAGE_SIZE = 50
-
 class GithubRepository @Inject constructor(
     private val service: GitHubService,
     private val database: GithubDatabase,
@@ -37,9 +35,10 @@ class GithubRepository @Inject constructor(
     fun getTrendingTrendingRepositories(): Flow<PagingData<RepoEntity>> {
         return Pager(
             config = PagingConfig(
-                pageSize = PAGE_SIZE,
-                maxSize = PAGE_SIZE + (PAGE_SIZE * 2),
+                pageSize = 10,
+                initialLoadSize = 30,
                 enablePlaceholders = false,
+                prefetchDistance = 1,
             ),
             remoteMediator = remoteMediator,
             pagingSourceFactory = { database.repoDao().getPagedTrendingRepositories() }
@@ -50,9 +49,10 @@ class GithubRepository @Inject constructor(
     fun searchRepository(query: String): Flow<PagingData<RepoEntity>> {
         return Pager(
             config =  PagingConfig(
-                pageSize = PAGE_SIZE,
-                maxSize = PAGE_SIZE + (PAGE_SIZE * 2),
-                enablePlaceholders = false
+                pageSize = 10,
+                initialLoadSize = 30,
+                enablePlaceholders = false,
+                prefetchDistance = 1,
             ),
             remoteMediator = GithubSearchRemoteMediator(query, service, database),
             pagingSourceFactory = { database.repoDao().searchRepoByName(query) }
