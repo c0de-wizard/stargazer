@@ -1,11 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
-import com.thomaskioko.stargazers.dependencies.Dependencies
-import dependencies.BuildVersions
-import dependencies.DependencyVersions
-import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.getting
-import org.gradle.kotlin.dsl.kotlin
+import com.thomaskioko.stargazers.util.libs
 
 plugins {
     id("com.android.application")
@@ -21,12 +16,10 @@ android {
 
     defaultConfig {
         applicationId = "com.thomaskioko.stargazer"
-        minSdkVersion(BuildVersions.minSdkVersion)
-        compileSdkVersion(BuildVersions.compileSdkVersion)
-        targetSdkVersion(BuildVersions.targetSdkVersion)
+        minSdk = libs.versions.android.min.get().toInt()
+        compileSdk = libs.versions.android.compile.get().toInt()
+        targetSdk = libs.versions.android.target.get().toInt()
 
-        versionCode = BuildVersions.versionCode
-        versionName = BuildVersions.versionName
         multiDexEnabled = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -64,7 +57,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = DependencyVersions.compose
+        kotlinCompilerExtensionVersion = libs.versions.compose.get().toString()
     }
 
     hilt {
@@ -77,28 +70,28 @@ dependencies {
     testImplementation(project(":common-testing"))
     androidTestImplementation(project(":common-testing"))
 
-    implementation(Dependencies.AndroidX.coreKtx)
-    implementation(Dependencies.Google.material)
+    implementation(libs.androidx.coreKtx)
+    implementation(libs.material)
 
-    implementation(Dependencies.AndroidX.Lifecycle.runtime)
+    implementation(libs.lifecycle.runtime)
 
-    implementation(Dependencies.AndroidX.Navigation.fragment)
-    implementation(Dependencies.AndroidX.Navigation.ktx)
-    implementation(Dependencies.AndroidX.Navigation.runtime)
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ktx)
+    implementation(libs.navigation.runtime)
 
-    implementation(Dependencies.Google.Hilt.core)
-    implementation(Dependencies.Google.Hilt.viewmodel)
-    kapt(Dependencies.Google.Hilt.compiler)
+    implementation(libs.hilt.core)
+    implementation(libs.hilt.viewmodel)
+    kapt(libs.hilt.compiler)
 
-    implementation(Dependencies.Google.material)
-    implementation(Dependencies.timber)
-    implementation(Dependencies.leakCanary)
+    implementation(libs.material)
+    implementation(libs.timber)
+    implementation(libs.leakCanary)
 
-    implementation(Dependencies.Retrofit.Moshi.core)
-    implementation(Dependencies.Retrofit.moshiConverter)
-    kapt(Dependencies.Retrofit.Moshi.kapt)
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.coroutines)
+    kapt(libs.moshi.kapt)
 
-    implementation(Dependencies.OkHttp.loggingInterceptor)
+    implementation(libs.okhttp.logging)
 
-    implementation(Dependencies.Room.roomKtx)
+    implementation(libs.room.ktx)
 }

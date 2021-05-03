@@ -1,7 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
-import org.gradle.kotlin.dsl.kotlin
-import dependencies.BuildVersions
+import com.thomaskioko.stargazers.util.libs
 
 plugins {
     id("com.android.library")
@@ -10,10 +9,10 @@ plugins {
 
 android {
 
-    compileSdkVersion(BuildVersions.compileSdkVersion)
+    compileSdk = libs.versions.android.compile.get().toInt()
 
     defaultConfig {
-        minSdkVersion(BuildVersions.minSdkVersion)
+        minSdk = libs.versions.android.min.get().toInt()
     }
 
     compileOptions {
