@@ -17,7 +17,7 @@ internal object MockData {
                 id = 1L,
                 login = "ninja",
                 avatarUrl = "https://avatars.githubusercontent.com/u/32689599?v=4",
-                type = "Organization"
+                type = "Organisation"
             ),
             stargazersCount = 1,
             forksCount = 1,
@@ -40,7 +40,7 @@ internal object MockData {
                     id = 1L,
                     login = "ninja",
                     avatarUrl = "https://avatars.githubusercontent.com/u/32689599?v=4",
-                    type = "Organization"
+                    type = "Organisation"
                 ),
                 stargazersCount = 1,
                 forksCount = 1,
@@ -58,6 +58,7 @@ internal object MockData {
             name = "Square",
             description = "Some cool description about the app",
             userName = "ninja",
+            userType = "Organisation",
             stargazersCount = 1,
             forksCount = 1,
             contributorsUrl = "",
@@ -75,6 +76,7 @@ internal object MockData {
             name = "Square",
             description = "Some cool description about the app",
             userName = "ninja",
+            userType = "Organisation",
             stargazersCount = 1,
             forksCount = 1,
             contributorsUrl = "",
@@ -91,6 +93,7 @@ internal object MockData {
         name = "Square",
         description = "Some cool description about the app",
         userName = "ninja",
+        userType = "Organisation",
         stargazersCount = 1,
         forksCount = 1,
         contributorsUrl = "",
@@ -106,6 +109,7 @@ internal object MockData {
         name = name,
         description = "Some cool description about the app",
         userName = "ninja",
+        userType = "Organisation",
         stargazersCount = 1,
         forksCount = 1,
         contributorsUrl = "",
@@ -130,7 +134,7 @@ internal object MockData {
             id = 1L,
             login = "ninja",
             avatarUrl = "https://avatars.githubusercontent.com/u/32689599?v=4",
-            type = "Organization"
+            type = "Organisation"
         ),
         stargazersCount = 1,
         forksCount = 1,
