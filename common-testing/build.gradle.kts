@@ -1,33 +1,31 @@
-import com.thomaskioko.stargazers.dependencies.Dependencies
-
 plugins {
     `kotlin-library`
 }
 
 dependencies {
-    api(Dependencies.Coroutines.android)
-    api(Dependencies.Testing.Coroutines.test)
+    api(libs.coroutines.android)
+    api(libs.testing.coroutines.test)
 
-    api(Dependencies.Testing.truth)
-    api(Dependencies.Testing.assertJ)
-    api(Dependencies.Testing.turbine)
-    api(Dependencies.Testing.mockitoKotlin)
-    api(Dependencies.Testing.robolectric)
+    api(libs.testing.truth)
+    api(libs.testing.assertJ)
+    api(libs.testing.turbine)
+    api(libs.testing.mockitoKotlin)
+    api(libs.testing.robolectric)
 
-    api(Dependencies.Testing.junit)
+    api(libs.testing.junit)
     // TODO:: Remove truth & vintage dependency after migrating to junit5
-    api(Dependencies.Testing.Junit.api)
-    api(Dependencies.Testing.Junit.params)
-    api(Dependencies.Testing.Junit.engine)
-    api(Dependencies.Testing.Junit.vintage)
+    api(libs.testing.junit5.api)
+    api(libs.testing.junit5.params)
+    api(libs.testing.junit5.engine)
+    api(libs.testing.junit5.vintage)
 
-    api(Dependencies.Testing.Mockito.core)
-    api(Dependencies.Testing.Mockito.android)
+    api(libs.testing.mockito.core)
+    api(libs.testing.mockito.android)
 
-    api(Dependencies.Testing.Espresso.core)
+    api(libs.testing.espresso.core)
 
-    api(Dependencies.Testing.AndroidX.core)
-    api(Dependencies.Testing.AndroidX.junit)
-    api(Dependencies.Testing.AndroidX.rules)
-    api(Dependencies.Testing.AndroidX.runner)
+    api(libs.testing.androidx.core)
+    api(libs.testing.androidx.junit)
+    api(libs.testing.androidx.rules)
+    api(libs.testing.androidx.runner)
 }

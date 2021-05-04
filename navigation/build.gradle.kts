@@ -1,4 +1,6 @@
-import com.thomaskioko.stargazers.dependencies.Dependencies
+@file:Suppress("UnstableApiUsage")
+
+import com.thomaskioko.stargazers.util.libs
 
 plugins {
     `android-library-plugin`
@@ -7,7 +9,7 @@ plugins {
 
 dependencies {
 
-    implementation(Dependencies.AndroidX.Navigation.ktx)
-    implementation(Dependencies.AndroidX.Navigation.fragment)
-    implementation(Dependencies.AndroidX.Navigation.runtime)
+    implementation(libs.navigation.ktx)
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.runtime)
 }

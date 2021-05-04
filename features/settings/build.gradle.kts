@@ -1,4 +1,6 @@
-import com.thomaskioko.stargazers.dependencies.Dependencies
+@file:Suppress("UnstableApiUsage")
+
+import com.thomaskioko.stargazers.util.libs
 
 plugins {
     `android-feature-plugin`
@@ -8,7 +10,7 @@ dependencies {
 
     implementation(project(":design:common-ui-compose"))
 
-    implementation(Dependencies.AndroidX.dataStore)
-    implementation(Dependencies.AndroidX.preferences)
+    implementation(libs.androidx.dataStore)
+    implementation(libs.androidx.preferences)
 
 }

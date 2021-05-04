@@ -1,6 +1,4 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import dependencies.PluginsVersions
-import dependencies.DependencyVersions
 
 buildscript {
     repositories.applyDefault()
@@ -17,18 +15,6 @@ allprojects {
     plugins.apply("checks.detekt")
     plugins.apply("checks.spotless")
     plugins.apply("checks.dependency-updates")
-
-    configurations.all {
-        resolutionStrategy.force("org.jetbrains.kotlinx:kotlinx-coroutines-core:${DependencyVersions.coroutines}")
-        resolutionStrategy.force("org.jetbrains.kotlinx:kotlinx-coroutines-android:${DependencyVersions.coroutines}")
-        resolutionStrategy.force("org.jetbrains.kotlinx:kotlinx-coroutines-test:${DependencyVersions.coroutines}")
-
-        resolutionStrategy.eachDependency {
-            if (requested.group == "org.jetbrains.kotlin") {
-                useVersion(PluginsVersions.kotlin)
-            }
-        }
-    }
 }
 
 subprojects {
