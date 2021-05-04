@@ -1,5 +1,0 @@
-<resources>
-    <string name="error_loading">Could not fetch repos!!</string>
-    <string name="name">Start Gazer</string>
-    <string name="menu_title_bookmarks">Bookmarks</string>
-</resources>
