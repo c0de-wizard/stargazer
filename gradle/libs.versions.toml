@@ -23,6 +23,7 @@ archCoreTesting = "2.1.0"
 appCompat = "1.3.0-rc01"
 assertJ = "3.19.0"
 compose = "1.0.0-beta05"
+composeNavigation = "1.0.0-alpha10"
 composeActivity = "1.3.0-alpha07"
 composeViewModel = "1.0.0-alpha04"
 constraintLayout = "2.1.0-beta01"
@@ -77,6 +78,7 @@ compose-uiUtil = { module = "androidx.compose.ui:ui-util", version.ref = "compos
 compose-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
 compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
+compose-navigation = { module = "androidx.navigation:navigation-compose", version.ref = "composeNavigation" }
 compose-iconsExtended = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }
 compose-paging = { module = "androidx.paging:paging-compose", version.ref = "pagingCompose" }
 compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "compose" }
@@ -102,6 +104,7 @@ material = { module = "com.google.android.material:material", version.ref = "mat
 hilt-core = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 hilt-viewmodel = { module = "androidx.hilt:hilt-lifecycle-viewmodel", version.ref = "hiltViewModel" }
+hilt-compose = "androidx.hilt:hilt-navigation-compose:1.0.0-alpha01"
 
 okhttp-core = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 okhttp-logging = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
