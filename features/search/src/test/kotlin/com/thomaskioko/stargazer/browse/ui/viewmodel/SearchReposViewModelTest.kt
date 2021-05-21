@@ -12,8 +12,8 @@ import com.thomaskioko.stargazer.browse.ui.SearchAction.SearchRepository
 import com.thomaskioko.stargazer.browse.ui.SearchViewState
 import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.core.ViewStateResult.Success
-import com.thomaskioko.stargazer.navigation.NavigationScreen
-import com.thomaskioko.stargazer.navigation.ScreenNavigator
+import com.thomaskioko.stargazer.navigation.ScreenDirections
+import com.thomaskioko.stargazer.navigation.ScreenNavigationManager
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -28,7 +28,7 @@ internal class SearchReposViewModelTest {
     val instantTaskExecutorRule: TestRule = InstantTaskExecutorRule()
 
     private val interactor: SearchRepositoriesInteractor = mock()
-    private val screenNavigator: ScreenNavigator = mock()
+    private val screenNavigator: ScreenNavigationManager = mock()
     private val testCoroutineDispatcher = TestCoroutineDispatcher()
 
     private val viewModel =
@@ -67,13 +67,13 @@ internal class SearchReposViewModelTest {
     fun `when backIsPressed verify navigatorIsInvoked`() = runBlocking {
         viewModel.dispatchAction(SearchAction.BackPressed)
 
-        verify(screenNavigator).goBack()
+        // TODO:: User screenNavigator to go back verify(screenNavigator).goBack()
     }
 
     @Test
     fun `when repoIsClicked verify navigateToDetailIsInvoked`() = runBlocking {
         viewModel.dispatchAction(SearchAction.NavigateToRepoDetailScreen(1L))
 
-        verify(screenNavigator).goToScreen(NavigationScreen.RepoDetailsScreen(1L))
+        verify(screenNavigator).navigate(ScreenDirections.Details)
     }
 }

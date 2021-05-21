@@ -32,15 +32,24 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.thomaskioko.stargazers.common.compose.components.AppBarPainterIcon
 import com.thomaskioko.stargazers.common.compose.theme.StargazerTheme
 import com.thomaskioko.stargazers.settings.R
 
+@Composable
+fun SettingsScreen(
+    onBackPressed: () -> Unit = { }
+) {
+    SettingsScreen(
+        viewModel = hiltViewModel(),
+        onBackPressed = onBackPressed
+    )
+}
 
 @Composable
 fun SettingsScreen(
-    isDarkTheme: Boolean,
-    onThemeChanged: () -> Unit = { },
+    viewModel: SettingsViewModel,
     onBackPressed: () -> Unit = { }
 ) {
     Scaffold(
@@ -58,8 +67,10 @@ fun SettingsScreen(
         },
         content = { innerPadding ->
             SettingsList(
-                isDarkTheme = isDarkTheme,
-                onThemeChanged = onThemeChanged,
+                isDarkTheme = false,
+                onThemeChanged = {
+                    viewModel.dispatchAction(SettingsActions.UpdateTheme(it))
+                },
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
@@ -72,7 +83,7 @@ fun SettingsScreen(
 @Composable
 fun SettingsList(
     isDarkTheme: Boolean,
-    onThemeChanged: () -> Unit,
+    onThemeChanged: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -89,7 +100,7 @@ fun SettingsList(
 @Composable
 private fun ThemeSettingsItem(
     isDarkTheme: Boolean,
-    onThemeChanged: () -> Unit,
+    onThemeChanged: (Int) -> Unit,
 ) {
 
     var checkedState by remember { mutableStateOf(false) }
@@ -123,7 +134,7 @@ private fun ThemeSettingsItem(
         Switch(
             checked = checkedState,
             enabled = true,
-            onCheckedChange = { onThemeChanged() },
+            onCheckedChange = { onThemeChanged(1) },
             colors = SwitchDefaults.colors(
                 checkedThumbColor = MaterialTheme.colors.secondaryVariant,
                 checkedTrackColor = MaterialTheme.colors.secondaryVariant,

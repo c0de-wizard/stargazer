@@ -1,16 +1,17 @@
 package com.thomaskioko.stargazer.navigation.injection
 
-import com.thomaskioko.stargazer.navigation.ScreenNavigationImpl
-import com.thomaskioko.stargazer.navigation.ScreenNavigator
-import dagger.Binds
+import com.thomaskioko.stargazer.navigation.ScreenNavigationManager
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
-@InstallIn(ActivityComponent::class)
 @Module
-interface NavigationModule {
+@InstallIn(SingletonComponent::class)
+class NavigationModule {
 
-    @get:Binds
-    val ScreenNavigationImpl.screenNavigatorImpl: ScreenNavigator
+    @Singleton
+    @Provides
+    fun providesNavigationManager() = ScreenNavigationManager()
 }

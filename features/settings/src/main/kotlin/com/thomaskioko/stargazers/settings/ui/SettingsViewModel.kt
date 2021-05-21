@@ -1,7 +1,5 @@
 package com.thomaskioko.stargazers.settings.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.core.injection.annotations.IoDispatcher
@@ -22,20 +20,6 @@ class SettingsViewModel @Inject constructor(
     initialViewState = SettingsViewState.Loading,
     dispatcher = ioDispatcher
 ) {
-
-    //TODO:: Remove and use actionState instead
-    private val mutableIsNightMode: MutableLiveData<Boolean> = MutableLiveData(false)
-    val isNightMode: LiveData<Boolean> get() = mutableIsNightMode
-
-    fun isNightMode(): Boolean {
-        return requireNotNull(isNightMode.value)
-    }
-
-    fun setNightMode(isEnabled: Boolean) {
-        if (mutableIsNightMode.value != isEnabled) {
-            mutableIsNightMode.value = isEnabled
-        }
-    }
 
     override fun handleAction(action: SettingsActions) {
         when (action) {

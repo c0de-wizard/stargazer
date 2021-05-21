@@ -8,8 +8,8 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.thomaskioko.stargazer.core.ViewStateResult.Error
 import com.thomaskioko.stargazer.core.ViewStateResult.Success
 import com.thomaskioko.stargazer.core.interactor.invoke
-import com.thomaskioko.stargazer.navigation.NavigationScreen
-import com.thomaskioko.stargazer.navigation.ScreenNavigator
+import com.thomaskioko.stargazer.navigation.ScreenDirections
+import com.thomaskioko.stargazer.navigation.ScreenNavigationManager
 import com.thomaskioko.stargazer.trending.interactor.GetTrendingReposInteractor
 import com.thomaskioko.stargazer.trending.interactor.ViewMockData.makePagingRepoViewDataModelList
 import kotlinx.coroutines.flow.flowOf
@@ -26,7 +26,7 @@ internal class TrendingRepoListViewModelTest {
     val instantTaskExecutorRule: TestRule = InstantTaskExecutorRule()
 
     private val interactorTrending: GetTrendingReposInteractor = mock()
-    private val screenNavigator: ScreenNavigator = mock()
+    private val screenNavigator: ScreenNavigationManager = mock()
     private val testCoroutineDispatcher = TestCoroutineDispatcher()
 
     private val viewModel =
@@ -64,13 +64,13 @@ internal class TrendingRepoListViewModelTest {
     fun `when settingsIsPressed verify navigatorIsInvoked`() = runBlocking {
         viewModel.dispatchAction(ReposAction.NavigateToSettingsScreen)
 
-        verify(screenNavigator).goToScreen(NavigationScreen.SettingsScreen)
+        verify(screenNavigator).navigate(ScreenDirections.Settings)
     }
 
     @Test
     fun `when repoIsClicked verify navigateToDetailIsInvoked`() = runBlocking {
         viewModel.dispatchAction(ReposAction.NavigateToRepoDetailScreen(1L))
 
-        verify(screenNavigator).goToScreen(NavigationScreen.RepoDetailsScreen(1L))
+        verify(screenNavigator).navigate(ScreenDirections.Details)
     }
 }

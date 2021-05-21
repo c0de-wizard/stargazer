@@ -9,6 +9,9 @@ plugins {
 
 dependencies {
 
+    implementation(project(":design:common-ui"))
+    implementation(project(":design:common-ui-compose"))
+
     implementation(libs.navigation.ktx)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.runtime)

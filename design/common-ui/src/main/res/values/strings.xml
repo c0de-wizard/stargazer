@@ -48,4 +48,10 @@
     <!-- Toolbar Titles -->
     <string name="toolbar_title_settings">Settings</string>
 
+    <string name="empty_list">Why you no have bookmarks?</string>
+    <string name="toolbar_name">Your Stars</string>
+
+    <string name="name">Start Gazer</string>
+    <string name="menu_title_bookmarks">Bookmarks</string>
+
 </resources>

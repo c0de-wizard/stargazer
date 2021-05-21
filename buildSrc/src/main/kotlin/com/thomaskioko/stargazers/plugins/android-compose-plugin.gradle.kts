@@ -43,6 +43,7 @@ dependencies {
     api(libs.compose.foundation)
     api(libs.compose.iconsExtended)
     api(libs.compose.material)
+    api(libs.compose.navigation)
     api(libs.compose.tooling)
     api(libs.compose.ui)
     api(libs.compose.uiUtil)
@@ -53,4 +54,5 @@ dependencies {
     api(libs.compose.insets)
     api(libs.compose.accompanist.google.coil)
     api(libs.compose.accompanist.google.insets)
+    api(libs.hilt.compose)
 }
