@@ -23,6 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.paging.LoadState
@@ -31,8 +32,9 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.thomaskioko.stargazer.trending.R
-import com.thomaskioko.stargazer.trending.ui.TrendingRepoListViewModel
+import com.thomaskioko.stargazer.trending.ui.ReposAction
 import com.thomaskioko.stargazer.trending.ui.ReposViewState
+import com.thomaskioko.stargazer.trending.ui.TrendingRepoListViewModel
 import com.thomaskioko.stargazers.common.compose.components.AppBarPainterIcon
 import com.thomaskioko.stargazers.common.compose.components.CircularLoadingView
 import com.thomaskioko.stargazers.common.compose.components.LoadingItem
@@ -48,12 +50,22 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.flowOf
 
 @Composable
+fun TrendingRepositoryScreen(
+    onItemClicked: (Long) -> Unit,
+){
+    TrendingRepositoryScreen(
+        viewModel = hiltViewModel(),
+        onItemClicked = onItemClicked
+    )
+}
+
+@Composable
 internal fun TrendingRepositoryScreen(
     viewModel: TrendingRepoListViewModel,
-    onSettingsPressed: () -> Unit = { },
-    onItemClicked: (Long) -> Unit = { },
-    onErrorActionRetry: () -> Unit = { },
+    onItemClicked: (Long) -> Unit,
 ) {
+
+    viewModel.dispatchAction(ReposAction.LoadRepositories)
 
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
@@ -76,7 +88,9 @@ internal fun TrendingRepositoryScreen(
                 actions = {
                     AppBarPainterIcon(
                         painterResource = painterResource(R.drawable.ic_settings),
-                        onClickAction = onSettingsPressed
+                        onClickAction = {
+                            viewModel.dispatchAction(ReposAction.NavigateToSettingsScreen)
+                        }
                     )
                 }
             )
@@ -86,8 +100,8 @@ internal fun TrendingRepositoryScreen(
                 repoViewState,
                 scaffoldState,
                 coroutineScope,
-                onErrorActionRetry,
-                onItemClicked,
+                onErrorActionRetry = { viewModel.dispatchAction(ReposAction.LoadRepositories)},
+                onItemClicked = onItemClicked,
                 innerPadding
             )
         }

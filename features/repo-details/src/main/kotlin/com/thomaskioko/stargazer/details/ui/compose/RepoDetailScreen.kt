@@ -43,7 +43,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
@@ -51,31 +50,43 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import com.google.accompanist.insets.statusBarsPadding
 import com.thomaskioko.stargazer.details.R
 import com.thomaskioko.stargazer.details.model.RepoViewDataModel
+import com.thomaskioko.stargazer.details.ui.DetailAction
 import com.thomaskioko.stargazer.details.ui.DetailViewState
 import com.thomaskioko.stargazer.details.ui.compose.mockdata.repoViewDataModel
 import com.thomaskioko.stargazer.details.ui.viewmodel.RepoDetailsViewModel
-import com.thomaskioko.stargazers.common.compose.components.AppBarPainterIcon
 import com.thomaskioko.stargazers.common.compose.components.CircularLoadingView
 import com.thomaskioko.stargazers.common.compose.components.OutlinedAvatar
 import com.thomaskioko.stargazers.common.compose.components.SnackBarErrorRetry
 import com.thomaskioko.stargazers.common.compose.components.StargazerFab
 import com.thomaskioko.stargazers.common.compose.components.StargazersScaffold
-import com.thomaskioko.stargazers.common.compose.components.StargazersTopBar
 import com.thomaskioko.stargazers.common.compose.components.util.NetworkImage
 import com.thomaskioko.stargazers.common.compose.components.util.scrim
 import com.thomaskioko.stargazers.common.compose.theme.StargazerTheme
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
+fun RepoDetailsScreen(
+    repoId: Long?,
+    onBackPressed: () -> Unit = { },
+) {
+    RepoDetailScreen(
+        viewModel = hiltViewModel(),
+        onBackPressed = onBackPressed,
+        repoId = repoId
+    )
+}
+
+@Composable
 internal fun RepoDetailScreen(
     viewModel: RepoDetailsViewModel,
     onBackPressed: () -> Unit = { },
-    onRepoBookMarked: (RepoViewDataModel) -> Unit = { },
+    repoId: Long?
 ) {
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
@@ -85,6 +96,12 @@ internal fun RepoDetailScreen(
 
     val actionStateLifeCycleAware = remember(actionState, lifecycleOwner) {
         actionState.flowWithLifecycle(lifecycleOwner.lifecycle, Lifecycle.State.STARTED)
+    }
+
+    if (repoId != null) {
+        viewModel.dispatchAction(DetailAction.LoadRepo(repoId))
+    } else {
+        //TODO:: Show Error
     }
 
     val viewState by actionStateLifeCycleAware
@@ -97,8 +114,8 @@ internal fun RepoDetailScreen(
                 viewState,
                 scaffoldState,
                 coroutineScope,
-                onRepoBookMarked,
-                onBackPressed
+                onRepoBookMarked = { viewModel.dispatchAction(DetailAction.UpdateRepo(it)) },
+                onBackPressed = onBackPressed
             )
         }
     )

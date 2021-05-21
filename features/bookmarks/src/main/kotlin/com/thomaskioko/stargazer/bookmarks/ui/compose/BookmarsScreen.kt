@@ -29,9 +29,13 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import com.thomaskioko.stargazer.bookmarks.R
+import com.thomaskioko.stargazer.bookmarks.ui.BookmarkActions.LoadRepositories
+import com.thomaskioko.stargazer.bookmarks.ui.BookmarkActions.NavigateToRepoDetailScreen
+import com.thomaskioko.stargazer.bookmarks.ui.BookmarkActions.NavigateToSettingsScreen
 import com.thomaskioko.stargazer.bookmarks.ui.BookmarkViewState
 import com.thomaskioko.stargazer.bookmarks.ui.viewmodel.GetBookmarkedReposViewModel
 import com.thomaskioko.stargazers.common.compose.components.AppBarPainterIcon
@@ -47,12 +51,17 @@ import com.thomaskioko.stargazers.common.model.RepoViewDataModel
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
+fun BookmarksScreen() {
+    BookmarksScreen(
+        viewModel = hiltViewModel(),
+    )
+}
+
+@Composable
 internal fun BookmarksScreen(
     viewModel: GetBookmarkedReposViewModel,
-    onRepoClicked: (Long) -> Unit,
-    onSettingsPressed: () -> Unit = { },
-    onErrorActionRetry: () -> Unit = { },
 ) {
+    viewModel.dispatchAction(LoadRepositories)
 
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
@@ -75,7 +84,7 @@ internal fun BookmarksScreen(
                 actions = {
                     AppBarPainterIcon(
                         painterResource = painterResource(R.drawable.ic_settings),
-                        onClickAction = onSettingsPressed
+                        onClickAction = { viewModel.dispatchAction(NavigateToSettingsScreen) }
                     )
                 }
             )
@@ -85,9 +94,9 @@ internal fun BookmarksScreen(
                 repoViewState,
                 scaffoldState,
                 coroutineScope,
-                onErrorActionRetry,
-                onRepoClicked,
-                innerPadding
+                innerPadding,
+                onErrorActionRetry = { viewModel.dispatchAction(LoadRepositories) },
+                onItemClicked = { viewModel.dispatchAction(NavigateToRepoDetailScreen(it)) }
             )
         }
     )
@@ -98,9 +107,9 @@ internal fun ScreenContent(
     repoViewState: BookmarkViewState,
     scaffoldState: ScaffoldState,
     coroutineScope: CoroutineScope,
+    innerPadding: PaddingValues,
     onErrorActionRetry: () -> Unit,
-    onItemClicked: (Long) -> Unit,
-    innerPadding: PaddingValues
+    onItemClicked: (Long) -> Unit
 ) {
 
     when (repoViewState) {
