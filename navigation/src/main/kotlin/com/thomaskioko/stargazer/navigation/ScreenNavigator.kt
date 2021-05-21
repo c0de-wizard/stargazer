@@ -1,51 +1,59 @@
 package com.thomaskioko.stargazer.navigation
 
-import androidx.navigation.NavController
-import com.thomaskioko.stargazer.actions.MainNavGraphDirections
-import com.thomaskioko.stargazer.navigation.NavigationScreen.BookmarkListScreen
-import com.thomaskioko.stargazer.navigation.NavigationScreen.SearchReposScreen
-import com.thomaskioko.stargazer.navigation.NavigationScreen.SettingsScreen
-import com.thomaskioko.stargazer.navigation.NavigationScreen.TrendingRepositoriesScreen
-import javax.inject.Inject
-import javax.inject.Provider
+import androidx.annotation.StringRes
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.ui.graphics.vector.ImageVector
+import kotlinx.coroutines.flow.MutableStateFlow
 
-sealed class NavigationScreen {
-    object TrendingRepositoriesScreen : NavigationScreen()
-    object SearchReposScreen : NavigationScreen()
-    object BookmarkListScreen : NavigationScreen()
-    object SettingsScreen : NavigationScreen()
-    data class RepoDetailsScreen(
-        val repoId: Long
-    ) : NavigationScreen()
+
+sealed class TabScreens(
+    val route: String,
+    @StringRes val resourceId: Int,
+    val icon: ImageVector
+) {
+    object Trending : TabScreens(ScreenDirections.Trending.destination, R.string.menu_item_trending, Icons.Filled.List)
+    object Search : TabScreens(ScreenDirections.Search.destination, R.string.menu_item_search, Icons.Filled.Search)
+    object Favorite : TabScreens(ScreenDirections.Favorite.destination, R.string.menu_item_favorite, Icons.Filled.Bookmark)
 }
 
-interface ScreenNavigator {
-    fun goToScreen(navigationScreen: NavigationScreen)
-
-    fun goBack()
+interface NavigationCommand {
+    val destination: String
 }
 
-class ScreenNavigationImpl @Inject constructor(
-    private val navControllerProvider: Provider<NavController>
-) : ScreenNavigator {
-
-    override fun goToScreen(navigationScreen: NavigationScreen) {
-        when (navigationScreen) {
-            SearchReposScreen -> navControllerProvider.get()
-                .navigate(MainNavGraphDirections.actionSearchRepos())
-            BookmarkListScreen -> navControllerProvider.get()
-                .navigate(MainNavGraphDirections.actionBookmarkList())
-            TrendingRepositoriesScreen -> navControllerProvider.get()
-                .navigate(MainNavGraphDirections.actionTrendingRepos())
-            SettingsScreen -> navControllerProvider.get()
-                .navigate(MainNavGraphDirections.actionSettingsFragment())
-            is NavigationScreen.RepoDetailsScreen -> navControllerProvider.get()
-                .navigate(MainNavGraphDirections.actionRepoDetails(navigationScreen.repoId))
-        }
+object ScreenDirections {
+    val Default = object : NavigationCommand {
+        override val destination = ""
     }
 
-    override fun goBack() {
-        navControllerProvider.get()
-            .navigateUp()
+    val Settings = object : NavigationCommand {
+        override val destination = "settings"
+    }
+
+    val Details = object : NavigationCommand {
+        override val destination = "details"
+    }
+
+    val Trending = object : NavigationCommand {
+        override val destination = "trending"
+    }
+
+    val Favorite = object : NavigationCommand {
+        override val destination = "favorite"
+    }
+
+    val Search = object : NavigationCommand {
+        override val destination = "search"
+    }
+}
+
+class ScreenNavigationManager {
+
+    var directionsList = MutableStateFlow(ScreenDirections.Default)
+
+    fun navigate(directions: NavigationCommand) {
+        directionsList.value = directions
     }
 }
