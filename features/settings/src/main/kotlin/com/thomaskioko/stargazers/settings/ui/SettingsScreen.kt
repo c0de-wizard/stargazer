@@ -67,7 +67,6 @@ fun SettingsScreen(
         },
         content = { innerPadding ->
             SettingsList(
-                isDarkTheme = false,
                 onThemeChanged = {
                     viewModel.dispatchAction(SettingsActions.UpdateTheme(it))
                 },
@@ -82,7 +81,6 @@ fun SettingsScreen(
 
 @Composable
 fun SettingsList(
-    isDarkTheme: Boolean,
     onThemeChanged: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -91,7 +89,7 @@ fun SettingsList(
         contentPadding = PaddingValues(start = 2.dp, end = 16.dp)
     ) {
         item {
-            ThemeSettingsItem(isDarkTheme, onThemeChanged)
+            ThemeSettingsItem(onThemeChanged)
             AboutSettingsItem()
         }
     }
@@ -99,7 +97,6 @@ fun SettingsList(
 
 @Composable
 private fun ThemeSettingsItem(
-    isDarkTheme: Boolean,
     onThemeChanged: (Int) -> Unit,
 ) {
 
@@ -134,7 +131,14 @@ private fun ThemeSettingsItem(
         Switch(
             checked = checkedState,
             enabled = true,
-            onCheckedChange = { onThemeChanged(1) },
+            onCheckedChange = {
+                checkedState = it
+
+                when (it) {
+                    true -> onThemeChanged(1)
+                    false -> onThemeChanged(2)
+                }
+            },
             colors = SwitchDefaults.colors(
                 checkedThumbColor = MaterialTheme.colors.secondaryVariant,
                 checkedTrackColor = MaterialTheme.colors.secondaryVariant,
@@ -215,6 +219,6 @@ private fun SettingListDivider() {
 @Composable
 fun SettingsPropertyPreview() {
     StargazerTheme {
-        SettingsList(isDarkTheme = false, onThemeChanged = {})
+        SettingsList(onThemeChanged = {})
     }
 }
