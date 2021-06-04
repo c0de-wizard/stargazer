@@ -83,7 +83,6 @@ dependencies {
     implementation(libs.hilt.viewmodel)
     kapt(libs.hilt.compiler)
 
-    implementation(libs.material)
     implementation(libs.timber)
     implementation(libs.leakCanary)
 
