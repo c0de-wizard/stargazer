@@ -38,6 +38,7 @@ android {
     buildFeatures {
         dataBinding = true
         viewBinding = true
+        compose = true
     }
 
     sourceSets {
@@ -49,6 +50,10 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.get().toString()
     }
 
     lint {
@@ -75,4 +80,6 @@ dependencies {
     implementation(libs.hilt.core)
     implementation(libs.hilt.viewmodel)
     kapt(libs.hilt.compiler)
+
+    implementation(libs.compose.runtime)
 }

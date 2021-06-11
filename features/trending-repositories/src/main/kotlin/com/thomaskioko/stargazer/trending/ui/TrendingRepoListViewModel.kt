@@ -5,8 +5,6 @@ import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.core.injection.annotations.DefaultDispatcher
 import com.thomaskioko.stargazer.core.interactor.invoke
 import com.thomaskioko.stargazer.core.viewmodel.BaseViewModel
-import com.thomaskioko.stargazer.navigation.ScreenDirections
-import com.thomaskioko.stargazer.navigation.ScreenNavigationManager
 import com.thomaskioko.stargazer.trending.interactor.GetTrendingReposInteractor
 import com.thomaskioko.stargazer.trending.ui.ReposAction.LoadRepositories
 import com.thomaskioko.stargazer.trending.ui.ReposAction.NavigateToSettingsScreen
@@ -21,12 +19,15 @@ import javax.inject.Inject
 @HiltViewModel
 internal class TrendingRepoListViewModel @Inject constructor(
     private val interactorTrending: GetTrendingReposInteractor,
-    private val screenNavigationManager: ScreenNavigationManager,
     @DefaultDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : BaseViewModel<ReposAction, ReposViewState>(
     initialViewState = ReposViewState.Loading,
     dispatcher = ioDispatcher
 ) {
+
+    init {
+        dispatchAction(LoadRepositories)
+    }
 
     override fun handleAction(action: ReposAction) {
         when (action) {
@@ -36,10 +37,10 @@ internal class TrendingRepoListViewModel @Inject constructor(
                     .stateIn(ioScope, SharingStarted.Eagerly, emptyList<RepoViewDataModel>())
             }
             is NavigateToSettingsScreen -> {
-                screenNavigationManager.navigate(ScreenDirections.Settings)
+                //TODO:: use navHost instance to hand navigation
             }
             is ReposAction.NavigateToRepoDetailScreen -> {
-                screenNavigationManager.navigate(ScreenDirections.Details)
+                //TODO:: use navHost instance to hand navigation
             }
         }
     }

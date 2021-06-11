@@ -84,12 +84,13 @@ This layer is where we create different feature modules. Browse Repository & Boo
 - **Domain**: This layer orchestrates the flow of data from Data Layer to the ui layer. It also has mappers that
   transform objects to the required type. eg Entity -> ViewModelData
 - **UI**: This is responsible displaying data.
+- **Navigation**: Each feature is responsible for defining it's own route on the NavHost. This prevents us
+  from having a god class with all the routes.
 
-### Navigator
+### Navigation
 
-This module enables us to navigate between the app, as the name suggests. It contains the main navigation graph file and
-sub-graphs each located in every feature module. The beauty of this is that feature modules don't need to depend on
-other feature modules
+This module is responsible for creating routes withing NavHost using factories. Each feature module has it's own navigation factory
+and is responsible for defining the route.
 
 ### 🚧 Jetpack Compose (Under Development) 🚧
 
@@ -103,7 +104,7 @@ I'm currently migrating each module to [Jetpack Compose](https://developer.andro
 - [x] Add Pagination.
 - [x] Browse (Implement search functionality)
 - [x] Favorite
-- [ ] Migrate Navigation & BottomBar to Navigation Compose
+- [x] Migrate Navigation & BottomBar to Navigation Compose
 
 ## Code style
 
@@ -148,7 +149,7 @@ configuration and you find them in the project root directory `.{toolName}`.
 
 ### TODO
 
-- [ ] Add Diagram flow
+- [ ] Add flow diagram explaining the architecture
 
 ### License
 ```

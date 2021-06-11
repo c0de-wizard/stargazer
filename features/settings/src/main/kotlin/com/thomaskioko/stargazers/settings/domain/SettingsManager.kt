@@ -41,7 +41,3 @@ class SettingsManager @Inject constructor(private val context: Context) {
         val IS_DARK_MODE = intPreferencesKey("dark_mode")
     }
 }
-
-enum class UiTheme {
-    LIGHT, DARK
-}

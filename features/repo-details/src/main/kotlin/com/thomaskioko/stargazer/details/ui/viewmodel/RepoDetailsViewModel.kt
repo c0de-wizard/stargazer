@@ -8,7 +8,6 @@ import com.thomaskioko.stargazer.details.domain.UpdateRepoBookmarkStateInteracto
 import com.thomaskioko.stargazer.details.model.RepoViewDataModel
 import com.thomaskioko.stargazer.details.ui.DetailAction
 import com.thomaskioko.stargazer.details.ui.DetailViewState
-import com.thomaskioko.stargazer.navigation.ScreenNavigationManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.launchIn
@@ -19,7 +18,6 @@ import javax.inject.Inject
 internal class RepoDetailsViewModel @Inject constructor(
     private val getRepoByIdInteractor: GetRepoByIdInteractor,
     private val bookmarkStateInteractor: UpdateRepoBookmarkStateInteractor,
-    private val screenNavigationManager: ScreenNavigationManager,
     @DefaultDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : BaseViewModel<DetailAction, DetailViewState>(
     initialViewState = DetailViewState.Loading,

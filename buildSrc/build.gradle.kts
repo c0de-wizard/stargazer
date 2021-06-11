@@ -27,7 +27,6 @@ dependencies {
     implementation(libs.kotlin.gradle)
     implementation(libs.kotlin.allopen)
     implementation(libs.android.gradle)
-    implementation(libs.plugins.navigation)
     implementation(libs.plugins.hilt)
     implementation(libs.plugins.ktlint)
     implementation(libs.plugins.spotless)

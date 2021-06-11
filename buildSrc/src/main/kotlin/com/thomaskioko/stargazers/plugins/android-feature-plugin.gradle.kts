@@ -7,7 +7,6 @@ plugins {
     kotlin("android")
     id("kotlin-parcelize")
     kotlin("kapt")
-    id("androidx.navigation.safeargs.kotlin")
     id("dagger.hilt.android.plugin")
     id("jacoco")
     id("checks.jacoco-report")
@@ -93,10 +92,6 @@ dependencies {
 
     implementation(libs.lifecycle.runtime)
     implementation(libs.lifecycle.viewmodel)
-
-    implementation(libs.navigation.fragment)
-    implementation(libs.navigation.ktx)
-    implementation(libs.navigation.runtime)
 
     implementation(libs.material)
     implementation(libs.timber)

@@ -24,15 +24,15 @@ subprojects {
             useIR = true
             languageVersion = "1.5"
             apiVersion = "1.5"
-            freeCompilerArgs += "-Xuse-experimental=" +
-                    "kotlin.RequiresOptIn," +
-                    "kotlin.Experimental," +
-                    "kotlin.time.ExperimentalTime," +
-                    "kotlin.ExperimentalStdlibApi," +
-                    "kotlinx.coroutines.ExperimentalCoroutinesApi," +
-                    "kotlinx.coroutines.InternalCoroutinesApi," +
-                    "kotlinx.coroutines.ObsoleteCoroutinesApi," +
-                    "kotlinx.coroutines.FlowPreview"
+            freeCompilerArgs = freeCompilerArgs + listOf(
+                "-Xopt-in=kotlin.ExperimentalStdlibApi",
+                "-Xopt-in=kotlin.time.ExperimentalTime",
+                "-Xopt-in=kotlin.RequiresOptIn",
+                "-Xopt-in=kotlin.contracts.ExperimentalContracts",
+                "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                "-Xopt-in=kotlinx.coroutines.FlowPreview",
+                "-Xopt-in=androidx.compose.foundation.ExperimentalFoundationApi",
+            )
         }
     }
 }

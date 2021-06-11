@@ -1,7 +1,5 @@
 [versions]
-gradle = "7.0.2"
-
-kotlin = "1.4.32"
+kotlin = "1.5.10"
 
 android-compile = "30"
 android-target = "30"
@@ -15,53 +13,52 @@ detekt = "1.0.1"
 androidJunit5 = "1.7.1.1"
 
 accompanist = "0.6.2"
-accompanistGoogle = "0.10.0"
-androidxTest = "1.4.0-beta01"
+accompanistGoogle = "0.11.1"
+androidxTest = "1.4.0-beta02"
 archCoreTesting = "2.1.0"
-appCompat = "1.4.0-alpha01"
+appCompat = "1.4.0-alpha02"
 assertJ = "3.19.0"
-compose = "1.0.0-beta07"
+compose = "1.0.0-beta08"
 composeNavigation = "2.4.0-alpha01"
-composeActivity = "1.3.0-alpha08"
-composeViewModel = "1.0.0-alpha05"
+composeActivity = "1.3.0-beta01"
+composeViewModel = "1.0.0-alpha06"
 constraintLayout = "2.1.0-beta02"
 coroutines = "1.5.0"
-coreKtx = "1.6.0-beta01"
+coreKtx = "1.6.0-beta02"
 dataStore = "1.0.0-beta01"
-espresso = "3.4.0-beta01"
+espresso = "3.4.0-beta02"
 fragmentTesting = "1.3.3"
-hilt = "2.35.1"
+hilt = "2.37"
 hiltViewModel = "1.0.0-alpha03"
+hiltNavigation = "1.0.0-alpha02"
 jacoco = "0.16.0"
 junit4 = "4.13.2"
-junitTestExt = "1.1.3-beta01"
+junitTestExt = "1.1.3-beta02"
 junit5 = "5.8.0-M1"
 junitRunner = "1.3.2"
 ktLint = "0.41.0"
 leakCanary = "2.7"
 lifecycle = "2.4.0-alpha01"
-material = "1.4.0-beta01"
+material = "1.4.0-rc01"
 moshi = "1.12.0"
-mockito = "3.10.0"
+mockito = "3.11.1"
 mockitoKotlin = "2.2.0"
-navigation = "2.4.0-alpha01"
 okhttp = "5.0.0-alpha.2"
-paging = "3.0.0"
-pagingCompose = "1.0.0-alpha09"
+paging = "3.1.0-alpha01"
+pagingCompose = "1.0.0-alpha10"
 preferences = "1.1.1"
 retrofit = "2.9.0"
 retrofitCoroutinesAdapter = "0.9.2"
-robolectric = "4.6-alpha-1"
+robolectric = "4.6-alpha-2"
 room = "2.4.0-alpha02"
 timber = "4.7.1"
-truth = "1.1.2"
-turbine = "0.5.0"
+truth = "1.1.3"
+turbine = "0.5.2"
 
 spotless = "5.10.2"
 detekt = "1.0.1"
 plugins-gradle-versions = "0.38.0"
 plugins-android-junit = "1.7.1.1"
-plugins-navigaiton = "2.4.0-alpha01"
 
 [libraries]
 androidx-appCompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompat" }
@@ -91,10 +88,6 @@ lifecycle-common = { module = "androidx.lifecycle:lifecycle-common-java8", versi
 lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
 lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 
-navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
-navigation-runtime = { module = "androidx.navigation:navigation-runtime-ktx", version.ref = "navigation" }
-navigation-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
-
 coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 
 material = { module = "com.google.android.material:material", version.ref = "material" }
@@ -102,7 +95,7 @@ material = { module = "com.google.android.material:material", version.ref = "mat
 hilt-core = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 hilt-viewmodel = { module = "androidx.hilt:hilt-lifecycle-viewmodel", version.ref = "hiltViewModel" }
-hilt-compose = "androidx.hilt:hilt-navigation-compose:1.0.0-alpha02"
+hilt-compose-navigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigation" }
 
 okhttp-core = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 okhttp-logging = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
@@ -125,7 +118,6 @@ android-gradle = { module = "com.android.tools.build:gradle", version.ref = "and
 kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-allopen = { module = "org.jetbrains.kotlin:kotlin-allopen", version.ref = "kotlin" }
 
-plugins-navigation = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "plugins-navigaiton" }
 plugins-android-junit = { module = "de.mannodermaus.gradle.plugins:android-junit5", version.ref = "plugins-android-junit" }
 plugins-dependency-check = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "plugins-gradle-versions" }
 plugins-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }

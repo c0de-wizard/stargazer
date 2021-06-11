@@ -50,9 +50,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
+import androidx.navigation.NavHostController
 import com.google.accompanist.insets.statusBarsPadding
 import com.thomaskioko.stargazer.details.R
 import com.thomaskioko.stargazer.details.model.RepoViewDataModel
@@ -71,22 +71,9 @@ import com.thomaskioko.stargazers.common.compose.theme.StargazerTheme
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
-fun RepoDetailsScreen(
-    repoId: Long?,
-    onBackPressed: () -> Unit = { },
-) {
-    RepoDetailScreen(
-        viewModel = hiltViewModel(),
-        onBackPressed = onBackPressed,
-        repoId = repoId
-    )
-}
-
-@Composable
 internal fun RepoDetailScreen(
     viewModel: RepoDetailsViewModel,
-    onBackPressed: () -> Unit = { },
-    repoId: Long?
+    navController: NavHostController,
 ) {
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
@@ -98,8 +85,9 @@ internal fun RepoDetailScreen(
         actionState.flowWithLifecycle(lifecycleOwner.lifecycle, Lifecycle.State.STARTED)
     }
 
+    val repoId = navController.currentBackStackEntry?.arguments?.getString("repoId")
     if (repoId != null) {
-        viewModel.dispatchAction(DetailAction.LoadRepo(repoId))
+        viewModel.dispatchAction(DetailAction.LoadRepo(repoId.toLong()))
     } else {
         //TODO:: Show Error
     }
@@ -115,7 +103,7 @@ internal fun RepoDetailScreen(
                 scaffoldState,
                 coroutineScope,
                 onRepoBookMarked = { viewModel.dispatchAction(DetailAction.UpdateRepo(it)) },
-                onBackPressed = onBackPressed
+                onBackPressed = {  navController.popBackStack() }
             )
         }
     )

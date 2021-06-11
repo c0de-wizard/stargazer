@@ -10,8 +10,6 @@ import com.thomaskioko.stargazer.core.ViewStateResult
 import com.thomaskioko.stargazer.core.injection.annotations.DefaultDispatcher
 import com.thomaskioko.stargazer.core.interactor.invoke
 import com.thomaskioko.stargazer.core.viewmodel.BaseViewModel
-import com.thomaskioko.stargazer.navigation.ScreenDirections
-import com.thomaskioko.stargazer.navigation.ScreenNavigationManager
 import com.thomaskioko.stargazers.common.model.RepoViewDataModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -23,7 +21,6 @@ import javax.inject.Inject
 @HiltViewModel
 internal class GetBookmarkedReposViewModel @Inject constructor(
     private val interactor: GetBookmarkedRepoListInteractor,
-    private val screenNavigationManager: ScreenNavigationManager,
     @DefaultDispatcher private val ioDispatcher: CoroutineDispatcher
 ) :  BaseViewModel<BookmarkActions, BookmarkViewState>(
     initialViewState = BookmarkViewState.Loading,
@@ -38,10 +35,10 @@ internal class GetBookmarkedReposViewModel @Inject constructor(
                    .stateIn(ioScope, SharingStarted.Eagerly, emptyList<RepoViewDataModel>())
            }
            NavigateToSettingsScreen -> {
-               screenNavigationManager.navigate(ScreenDirections.Settings)
+               //TODO:: use navHost instance to hand navigation
            }
            is NavigateToRepoDetailScreen -> {
-               screenNavigationManager.navigate(ScreenDirections.Details)
+               //TODO:: use navHost instance to hand navigation
            }
        }
     }
