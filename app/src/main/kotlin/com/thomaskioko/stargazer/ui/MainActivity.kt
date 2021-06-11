@@ -10,32 +10,22 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.ProvideWindowInsets
-import com.thomaskioko.stargazer.bookmarks.ui.compose.BookmarksScreen
-import com.thomaskioko.stargazer.browse.ui.compose.SearchScreen
 import com.thomaskioko.stargazer.core.network.FlowNetworkObserver
-import com.thomaskioko.stargazer.details.ui.compose.RepoDetailsScreen
-import com.thomaskioko.stargazer.navigation.ScreenDirections.Details
-import com.thomaskioko.stargazer.navigation.ScreenDirections.Favorite
-import com.thomaskioko.stargazer.navigation.ScreenDirections.Search
-import com.thomaskioko.stargazer.navigation.ScreenDirections.Settings
-import com.thomaskioko.stargazer.navigation.ScreenDirections.Trending
-import com.thomaskioko.stargazer.navigation.ScreenNavigationManager
+import com.thomaskioko.stargazer.navigation.ComposeNavigationFactory
+import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailsNavScreen
+import com.thomaskioko.stargazer.navigation.NavigationScreen.SettingsNavScreen
+import com.thomaskioko.stargazer.navigation.NavigationScreen.TrendingRepositoriesNavScreen
 import com.thomaskioko.stargazer.navigation.TabScreens
-import com.thomaskioko.stargazer.trending.ui.compose.TrendingRepositoryScreen
+import com.thomaskioko.stargazer.navigation.addNavigation
 import com.thomaskioko.stargazers.common.compose.theme.StargazerTheme
 import com.thomaskioko.stargazers.settings.domain.SettingsManager
-import com.thomaskioko.stargazers.settings.ui.SettingsScreen
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -43,11 +33,10 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var screenNavigationManager: ScreenNavigationManager
-
-    @Inject
     lateinit var settingsManager: SettingsManager
 
+    @Inject
+    lateinit var composeNavigationFactories: @JvmSuppressWildcards Set<ComposeNavigationFactory>
 
     @Inject
     lateinit var flowNetworkObserver: FlowNetworkObserver
@@ -60,12 +49,6 @@ class MainActivity : AppCompatActivity() {
             ProvideWindowInsets(consumeWindowInsets = false) {
                 val navController = rememberNavController()
 
-                screenNavigationManager.directionsList.collectAsState().value.also { command ->
-                    if (command.destination.isNotEmpty()) {
-                        navController.navigate(command.destination)
-                    }
-                }
-
                 val bottomNavigationItems = listOf(
                     TabScreens.Trending,
                     TabScreens.Search,
@@ -77,7 +60,9 @@ class MainActivity : AppCompatActivity() {
                     Scaffold(
                         bottomBar = {
                             when {
-                                route != Settings.destination && !route.contains(Details.destination) -> {
+                                route != SettingsNavScreen.route && !route.contains(
+                                    RepoDetailsNavScreen.route
+                                ) -> {
                                     StargazersBottomNavigation(
                                         navController,
                                         bottomNavigationItems
@@ -85,49 +70,16 @@ class MainActivity : AppCompatActivity() {
                                 }
                             }
                         },
-                    ) {
-                        StargazerNavHost(navController)
-                    }
+                        content = {
+                            NavHost(
+                                navController,
+                                startDestination = TrendingRepositoriesNavScreen.route
+                            ) {
+                                composeNavigationFactories.addNavigation(this, navController)
+                            }
+                        }
+                    )
                 }
-            }
-        }
-    }
-
-    @Composable
-    private fun StargazerNavHost(
-        navController: NavHostController
-    ) {
-        NavHost(navController, startDestination = Trending.destination) {
-
-            composable(Trending.destination) {
-                TrendingRepositoryScreen(
-                    onItemClicked = { repoId ->
-                        navController.navigate("${Details.destination}/$repoId")
-                    }
-                )
-            }
-
-            composable(Search.destination) {
-                SearchScreen()
-            }
-            composable(Favorite.destination) {
-                BookmarksScreen()
-            }
-
-            composable(Settings.destination) {
-                SettingsScreen(
-                    onBackPressed = { navController.navigateUp() }
-                )
-            }
-
-            composable(
-                route = "${Details.destination}/{repoId}",
-                arguments = listOf(navArgument("repoId") { type = NavType.LongType })
-            ) { entry ->
-                RepoDetailsScreen(
-                    onBackPressed = { navController.navigateUp() },
-                    repoId = entry.arguments?.getLong("repoId")
-                )
             }
         }
     }
@@ -160,6 +112,6 @@ class MainActivity : AppCompatActivity() {
     @Composable
     private fun currentRoute(navController: NavHostController): String {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
-        return navBackStackEntry?.destination?.route ?: Trending.destination
+        return navBackStackEntry?.destination?.route ?: TrendingRepositoriesNavScreen.route
     }
 }
