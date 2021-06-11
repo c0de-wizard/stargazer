@@ -26,9 +26,11 @@ subprojects {
             apiVersion = "1.5"
             freeCompilerArgs = freeCompilerArgs + listOf(
                 "-Xopt-in=kotlin.ExperimentalStdlibApi",
+                "-Xopt-in=kotlin.time.ExperimentalTime",
                 "-Xopt-in=kotlin.RequiresOptIn",
                 "-Xopt-in=kotlin.contracts.ExperimentalContracts",
                 "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                "-Xopt-in=kotlinx.coroutines.FlowPreview",
                 "-Xopt-in=androidx.compose.foundation.ExperimentalFoundationApi",
             )
         }
