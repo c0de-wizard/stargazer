@@ -1,4 +1,4 @@
-import com.thomaskioko.stargazers.dependencies.Dependencies
+import com.thomaskioko.stargazers.util.libs
 
 plugins {
     `android-library-plugin`
@@ -6,12 +6,13 @@ plugins {
 
 dependencies {
 
-    implementation(Dependencies.timber)
-    implementation(Dependencies.AndroidX.appCompat)
-    implementation(Dependencies.AndroidX.coreKtx)
-    implementation(Dependencies.AndroidX.Lifecycle.common)
-    implementation(Dependencies.AndroidX.Lifecycle.runtime)
-    implementation(Dependencies.AndroidX.Lifecycle.viewmodel)
+    implementation(libs.timber)
+    implementation(libs.androidx.appCompat)
+    implementation(libs.androidx.coreKtx)
+    implementation(libs.lifecycle.common)
+    implementation(libs.lifecycle.runtime)
+    implementation(libs.lifecycle.viewmodel)
+    implementation(libs.compose.runtime)
 
-    implementation(Dependencies.Coroutines.android)
+    implementation(libs.coroutines.android)
 }

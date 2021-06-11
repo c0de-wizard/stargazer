@@ -32,16 +32,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.thomaskioko.stargazers.common.compose.components.AppBarPainterIcon
 import com.thomaskioko.stargazers.common.compose.theme.StargazerTheme
 import com.thomaskioko.stargazers.settings.R
 
 
 @Composable
-fun SettingsScreen(
-    isDarkTheme: Boolean,
-    onThemeChanged: () -> Unit = { },
-    onBackPressed: () -> Unit = { }
+internal fun SettingsScreen(
+    viewModel: SettingsViewModel,
+    navController: NavHostController
 ) {
     Scaffold(
         topBar = {
@@ -50,7 +50,7 @@ fun SettingsScreen(
                 navigationIcon = {
                     AppBarPainterIcon(
                         painterResource = painterResource(R.drawable.ic_back),
-                        onClickAction = onBackPressed
+                        onClickAction = { navController.navigateUp() }
                     )
                 },
                 backgroundColor = MaterialTheme.colors.primarySurface
@@ -58,8 +58,9 @@ fun SettingsScreen(
         },
         content = { innerPadding ->
             SettingsList(
-                isDarkTheme = isDarkTheme,
-                onThemeChanged = onThemeChanged,
+                onThemeChanged = {
+                    viewModel.dispatchAction(SettingsActions.UpdateTheme(it))
+                },
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
@@ -71,8 +72,7 @@ fun SettingsScreen(
 
 @Composable
 fun SettingsList(
-    isDarkTheme: Boolean,
-    onThemeChanged: () -> Unit,
+    onThemeChanged: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -80,7 +80,7 @@ fun SettingsList(
         contentPadding = PaddingValues(start = 2.dp, end = 16.dp)
     ) {
         item {
-            ThemeSettingsItem(isDarkTheme, onThemeChanged)
+            ThemeSettingsItem(onThemeChanged)
             AboutSettingsItem()
         }
     }
@@ -88,8 +88,7 @@ fun SettingsList(
 
 @Composable
 private fun ThemeSettingsItem(
-    isDarkTheme: Boolean,
-    onThemeChanged: () -> Unit,
+    onThemeChanged: (Int) -> Unit,
 ) {
 
     var checkedState by remember { mutableStateOf(false) }
@@ -123,7 +122,14 @@ private fun ThemeSettingsItem(
         Switch(
             checked = checkedState,
             enabled = true,
-            onCheckedChange = { onThemeChanged() },
+            onCheckedChange = {
+                checkedState = it
+
+                when (it) {
+                    true -> onThemeChanged(1)
+                    false -> onThemeChanged(2)
+                }
+            },
             colors = SwitchDefaults.colors(
                 checkedThumbColor = MaterialTheme.colors.secondaryVariant,
                 checkedTrackColor = MaterialTheme.colors.secondaryVariant,
@@ -204,6 +210,6 @@ private fun SettingListDivider() {
 @Composable
 fun SettingsPropertyPreview() {
     StargazerTheme {
-        SettingsList(isDarkTheme = false, onThemeChanged = {})
+        SettingsList(onThemeChanged = {})
     }
 }

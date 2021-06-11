@@ -2,6 +2,7 @@ package com.thomaskioko.stargazer.bookmarks.mapper
 
 import androidx.compose.ui.graphics.Color
 import com.thomaskioko.stargazer.bookmarks.R
+import com.thomaskioko.stargazer.core.util.countFormatter
 import com.thomaskioko.stargazer.db.model.RepoEntity
 import com.thomaskioko.stargazers.common.model.RepoViewDataModel
 import com.thomaskioko.stargazers.common.compose.theme.css
@@ -18,12 +19,13 @@ object ViewDataMapper {
 
     fun mapEntityToRepoViewModel(entity: RepoEntity) =
         RepoViewDataModel(
-            repoId = entity.repoId,
+            repoId = entity.id,
             repoName = entity.name,
             description = entity.description ?: "",
             userName = entity.userName,
-            stargazersCount = entity.stargazersCount,
-            forksCount = entity.forksCount,
+            userType = entity.userType,
+            stargazersCount = countFormatter(entity.stargazersCount.toLong()) ,
+            forksCount = countFormatter(entity.forksCount.toLong()),
             contributorsUrl = entity.contributorsUrl,
             createdDate = entity.createdDate,
             updatedDate = entity.updatedDate,

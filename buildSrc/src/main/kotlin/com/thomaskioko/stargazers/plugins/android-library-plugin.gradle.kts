@@ -1,10 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
-import com.thomaskioko.stargazers.dependencies.Dependencies
-import dependencies.BuildVersions
-import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.kotlin
-import org.gradle.kotlin.dsl.project
+import com.thomaskioko.stargazers.util.libs
 
 plugins {
     id("com.android.library")
@@ -19,9 +15,9 @@ plugins {
 
 android {
     defaultConfig {
-        minSdkVersion(BuildVersions.minSdkVersion)
-        compileSdkVersion(BuildVersions.compileSdkVersion)
-        targetSdkVersion(BuildVersions.targetSdkVersion)
+        minSdk = libs.versions.android.min.get().toInt()
+        compileSdk = libs.versions.android.compile.get().toInt()
+        targetSdk = libs.versions.android.target.get().toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -34,7 +30,6 @@ android {
     buildTypes {
         named("debug") {
             isMinifyEnabled = true
-            versionNameSuffix = "-DEBUG"
 
             isTestCoverageEnabled = true
         }
@@ -43,6 +38,7 @@ android {
     buildFeatures {
         dataBinding = true
         viewBinding = true
+        compose = true
     }
 
     sourceSets {
@@ -54,6 +50,10 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.get().toString()
     }
 
     lint {
@@ -77,7 +77,9 @@ dependencies {
     testImplementation(project(":common-testing"))
     androidTestImplementation(project(":common-testing"))
 
-    implementation(Dependencies.Google.Hilt.core)
-    implementation(Dependencies.Google.Hilt.viewmodel)
-    kapt(Dependencies.Google.Hilt.compiler)
+    implementation(libs.hilt.core)
+    implementation(libs.hilt.viewmodel)
+    kapt(libs.hilt.compiler)
+
+    implementation(libs.compose.runtime)
 }

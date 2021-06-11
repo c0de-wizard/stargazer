@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import app.cash.turbine.test
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.thomaskioko.stargazer.core.ViewStateResult.Error
 import com.thomaskioko.stargazer.core.ViewStateResult.Success
@@ -13,7 +12,6 @@ import com.thomaskioko.stargazer.details.domain.UpdateRepoBookmarkStateInteracto
 import com.thomaskioko.stargazer.details.ui.DetailAction
 import com.thomaskioko.stargazer.details.ui.DetailViewState
 import com.thomaskioko.stargazer.details.ui.viewmodel.RepoDetailsViewModel
-import com.thomaskioko.stargazer.navigation.ScreenNavigator
 import com.thomaskioko.stargazer.repo_details.util.ViewMockData.makeRepoViewDataModel
 import com.thomaskioko.stargazer.repo_details.util.ViewMockData.makeUpdatedRepo
 import kotlinx.coroutines.flow.flowOf
@@ -32,7 +30,6 @@ internal class RepoDetailsViewModelTest {
 
     private val updateObject = makeUpdatedRepo()
     private val repoViewModelData = makeRepoViewDataModel()
-    private val screenNavigator = mock<ScreenNavigator>()
     private val testCoroutineDispatcher = TestCoroutineDispatcher()
 
     private val getRepoByIdInteractor: GetRepoByIdInteractor = mock {
@@ -45,7 +42,6 @@ internal class RepoDetailsViewModelTest {
     private var viewModel: RepoDetailsViewModel = RepoDetailsViewModel(
         getRepoByIdInteractor,
         bookmarkStateInteractor,
-        screenNavigator,
         testCoroutineDispatcher
     )
 
@@ -93,6 +89,6 @@ internal class RepoDetailsViewModelTest {
     fun `when backIsPressed verify navigatorIsInvoked`() = runBlocking {
         viewModel.dispatchAction(DetailAction.BackPressed)
 
-        verify(screenNavigator).goBack()
+        // TODO:: User screenNavigator to go back verify(screenNavigator).goBack()
     }
 }

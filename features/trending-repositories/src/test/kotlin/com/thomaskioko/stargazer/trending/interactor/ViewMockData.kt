@@ -10,12 +10,13 @@ internal object ViewMockData {
 
     fun makeRepoEntityList() = listOf(
         RepoEntity(
-            repoId = 1L,
+            id = 1L,
             name = "Square",
             description = "Some cool description about the app",
             userName = "ninja",
-            stargazersCount = 1,
-            forksCount = 1,
+            userType = "Organisation",
+            stargazersCount = 1200,
+            forksCount = 1200,
             contributorsUrl = "",
             createdDate = "1/11/1900",
             updatedDate = "1/11/1900",
@@ -32,8 +33,9 @@ internal object ViewMockData {
                 repoName = "Square",
                 description = "Some cool description about the app",
                 userName = "ninja",
-                stargazersCount = 1,
-                forksCount = 1,
+                userType = "Organisation",
+                stargazersCount = "1.2k",
+                forksCount = "1.2k",
                 contributorsUrl = "",
                 createdDate = "1/11/1900",
                 updatedDate = "1/11/1900",
@@ -49,12 +51,13 @@ internal object ViewMockData {
     fun makePagingRepoEntityModelList() = PagingData.from(
         listOf(
             RepoEntity(
-                repoId = 1L,
+                id = 1L,
                 name = "Square",
                 description = "Some cool description about the app",
                 userName = "ninja",
-                stargazersCount = 1,
-                forksCount = 1,
+                userType = "Organisation",
+                stargazersCount = 1200,
+                forksCount = 1200,
                 contributorsUrl = "",
                 createdDate = "1/11/1900",
                 updatedDate = "1/11/1900",

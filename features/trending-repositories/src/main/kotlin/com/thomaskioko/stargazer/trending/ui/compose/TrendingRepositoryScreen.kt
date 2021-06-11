@@ -25,14 +25,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
+import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.cachedIn
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
+import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailsNavScreen
+import com.thomaskioko.stargazer.navigation.NavigationScreen.SettingsNavScreen
 import com.thomaskioko.stargazer.trending.R
-import com.thomaskioko.stargazer.trending.ui.TrendingRepoListViewModel
+import com.thomaskioko.stargazer.trending.ui.ReposAction
 import com.thomaskioko.stargazer.trending.ui.ReposViewState
+import com.thomaskioko.stargazer.trending.ui.TrendingRepoListViewModel
 import com.thomaskioko.stargazers.common.compose.components.AppBarPainterIcon
 import com.thomaskioko.stargazers.common.compose.components.CircularLoadingView
 import com.thomaskioko.stargazers.common.compose.components.LoadingItem
@@ -50,9 +54,7 @@ import kotlinx.coroutines.flow.flowOf
 @Composable
 internal fun TrendingRepositoryScreen(
     viewModel: TrendingRepoListViewModel,
-    onSettingsPressed: () -> Unit = { },
-    onItemClicked: (Long) -> Unit = { },
-    onErrorActionRetry: () -> Unit = { },
+    navController: NavHostController,
 ) {
 
     val scaffoldState = rememberScaffoldState()
@@ -76,7 +78,9 @@ internal fun TrendingRepositoryScreen(
                 actions = {
                     AppBarPainterIcon(
                         painterResource = painterResource(R.drawable.ic_settings),
-                        onClickAction = onSettingsPressed
+                        onClickAction = {
+                            navController.navigate(SettingsNavScreen.route)
+                        }
                     )
                 }
             )
@@ -86,8 +90,10 @@ internal fun TrendingRepositoryScreen(
                 repoViewState,
                 scaffoldState,
                 coroutineScope,
-                onErrorActionRetry,
-                onItemClicked,
+                onErrorActionRetry = { viewModel.dispatchAction(ReposAction.LoadRepositories)},
+                onItemClicked = { repoId ->
+                    navController.navigate("${RepoDetailsNavScreen.route}/$repoId")
+                },
                 innerPadding
             )
         }

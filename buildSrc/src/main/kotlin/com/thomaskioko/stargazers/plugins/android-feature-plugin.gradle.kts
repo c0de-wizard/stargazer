@@ -1,18 +1,12 @@
 @file:Suppress("UnstableApiUsage")
 
-import com.thomaskioko.stargazers.dependencies.Dependencies
-import dependencies.BuildVersions
-import dependencies.DependencyVersions
-import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.kotlin
-import org.gradle.kotlin.dsl.project
+import com.thomaskioko.stargazers.util.libs
 
 plugins {
     id("com.android.library")
     kotlin("android")
     id("kotlin-parcelize")
     kotlin("kapt")
-    id("androidx.navigation.safeargs.kotlin")
     id("dagger.hilt.android.plugin")
     id("jacoco")
     id("checks.jacoco-report")
@@ -21,9 +15,9 @@ plugins {
 
 android {
     defaultConfig {
-        minSdkVersion(BuildVersions.minSdkVersion)
-        compileSdkVersion(BuildVersions.compileSdkVersion)
-        targetSdkVersion(BuildVersions.targetSdkVersion)
+        minSdk = libs.versions.android.min.get().toInt()
+        compileSdk = libs.versions.android.compile.get().toInt()
+        targetSdk = libs.versions.android.target.get().toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -36,7 +30,7 @@ android {
     buildTypes {
         named("debug") {
             isMinifyEnabled = true
-            versionNameSuffix = "-DEBUG"
+            //versionNameSuffix = "-DEBUG"
 
             isTestCoverageEnabled = true
         }
@@ -70,7 +64,7 @@ android {
 
 
     composeOptions {
-        kotlinCompilerExtensionVersion = DependencyVersions.compose
+        kotlinCompilerExtensionVersion = libs.versions.compose.get().toString()
     }
 }
 
@@ -87,36 +81,31 @@ dependencies {
     testImplementation(project(":common-testing"))
     androidTestImplementation(project(":common-testing"))
 
-    implementation(Dependencies.AndroidX.appCompat)
-    implementation(Dependencies.AndroidX.coreKtx)
-    implementation(Dependencies.AndroidX.constraintLayout)
+    implementation(libs.androidx.appCompat)
+    implementation(libs.androidx.coreKtx)
+    implementation(libs.androidx.constraintLayout)
 
-    implementation(Dependencies.AndroidX.Compose.activity)
-    implementation(Dependencies.AndroidX.Compose.material)
-    implementation(Dependencies.AndroidX.Compose.tooling)
-    implementation(Dependencies.AndroidX.Compose.ui)
+    implementation(libs.compose.activity)
+    implementation(libs.compose.material)
+    implementation(libs.compose.tooling)
+    implementation(libs.compose.ui)
 
-    implementation(Dependencies.AndroidX.Lifecycle.runtime)
-    implementation(Dependencies.AndroidX.Lifecycle.viewmodel)
+    implementation(libs.lifecycle.runtime)
+    implementation(libs.lifecycle.viewmodel)
 
-    implementation(Dependencies.AndroidX.Navigation.fragment)
-    implementation(Dependencies.AndroidX.Navigation.ktx)
-    implementation(Dependencies.AndroidX.Navigation.runtime)
+    implementation(libs.material)
+    implementation(libs.timber)
 
-    implementation(Dependencies.Google.material)
-    implementation(Dependencies.timber)
+    implementation(libs.coroutines.android)
 
-    implementation(Dependencies.Coroutines.android)
+    implementation(libs.hilt.core)
+    implementation(libs.hilt.viewmodel)
+    kapt(libs.hilt.compiler)
 
-    implementation(Dependencies.Google.Hilt.core)
-    implementation(Dependencies.Google.Hilt.viewmodel)
-    kapt(Dependencies.Google.Hilt.compiler)
-
-    androidTestImplementation(Dependencies.Testing.AndroidX.junit)
-    androidTestImplementation(Dependencies.Testing.AndroidX.junitKtx)
-    androidTestImplementation(Dependencies.Testing.AndroidX.fragment)
-    androidTestImplementation(Dependencies.Testing.AndroidX.Compose.ui)
-    androidTestImplementation(Dependencies.Google.Hilt.core)
-    androidTestImplementation(Dependencies.Testing.Hilt.androidTesting)
-    kaptAndroidTest(Dependencies.Google.Hilt.compiler)
+    androidTestImplementation(libs.testing.androidx.junit)
+    androidTestImplementation(libs.testing.androidx.junitktx)
+    androidTestImplementation(libs.testing.compose.ui)
+    androidTestImplementation(libs.hilt.core)
+    androidTestImplementation(libs.testing.hilt)
+    kaptAndroidTest(libs.hilt.compiler)
 }

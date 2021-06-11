@@ -1,3 +1,4 @@
+enableFeaturePreview("VERSION_CATALOGS")
 rootProject.name = "Stargazer"
 
 include(

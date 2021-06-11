@@ -1,13 +1,17 @@
-import com.thomaskioko.stargazers.dependencies.Dependencies
+@file:Suppress("UnstableApiUsage")
+
+import com.thomaskioko.stargazers.util.libs
 
 plugins {
     `android-library-plugin`
-    id("androidx.navigation.safeargs.kotlin")
 }
 
 dependencies {
 
-    implementation(Dependencies.AndroidX.Navigation.ktx)
-    implementation(Dependencies.AndroidX.Navigation.fragment)
-    implementation(Dependencies.AndroidX.Navigation.runtime)
+    implementation(project(":design:common-ui"))
+    implementation(project(":design:common-ui-compose"))
+
+    implementation(libs.compose.runtime)
+    implementation(libs.compose.navigation)
+    implementation(libs.hilt.compose.navigation)
 }

@@ -8,10 +8,11 @@ import com.thomaskioko.stargazers.common.compose.theme.kotlin
 internal object ViewMockData {
 
     fun makeRepoEntity() = RepoEntity(
-        repoId = 1L,
+        id = 1L,
         name = "Square",
         description = "Some cool description about the app",
         userName = "ninja",
+        userType = "Organisation",
         stargazersCount = 1,
         forksCount = 1,
         contributorsUrl = "",
@@ -27,6 +28,7 @@ internal object ViewMockData {
         repoName = "Square",
         description = "Some cool description about the app",
         userName = "ninja",
+        userType = "Organisation",
         stargazersCount = 1,
         forksCount = 1,
         contributorsUrl = "",

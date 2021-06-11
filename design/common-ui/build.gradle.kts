@@ -1,4 +1,6 @@
-import com.thomaskioko.stargazers.dependencies.Dependencies
+@file:Suppress("UnstableApiUsage")
+
+import com.thomaskioko.stargazers.util.libs
 
 plugins {
     `android-library-plugin`
@@ -6,7 +8,7 @@ plugins {
 
 dependencies {
 
-    implementation(Dependencies.AndroidX.appCompat)
-    implementation(Dependencies.AndroidX.coreKtx)
-    implementation(Dependencies.Google.material)
+    implementation(libs.androidx.appCompat)
+    implementation(libs.androidx.coreKtx)
+    implementation(libs.material)
 }

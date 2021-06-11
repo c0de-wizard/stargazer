@@ -1,10 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
-import com.thomaskioko.stargazers.dependencies.Dependencies
-import dependencies.BuildVersions
-import dependencies.DependencyVersions
-import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.kotlin
+import com.thomaskioko.stargazers.util.libs
 
 plugins {
     id("com.android.library")
@@ -15,13 +11,10 @@ plugins {
 
 android {
 
-    compileSdkVersion(BuildVersions.compileSdkVersion)
+    compileSdk = libs.versions.android.compile.get().toInt()
 
     defaultConfig {
-        minSdkVersion(BuildVersions.minSdkVersion)
-
-        versionCode = BuildVersions.versionCode
-        versionName(BuildVersions.versionName)
+        minSdk = libs.versions.android.min.get().toInt()
     }
 
     compileOptions {
@@ -38,7 +31,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = DependencyVersions.compose
+        kotlinCompilerExtensionVersion = libs.versions.compose.get().toString()
     }
 
 }
@@ -46,19 +39,20 @@ android {
 dependencies {
     implementation(project(":design:common-ui"))
 
-
-    api(Dependencies.AndroidX.Compose.activity)
-    api(Dependencies.AndroidX.Compose.foundation)
-    api(Dependencies.AndroidX.Compose.iconsExtended)
-    api(Dependencies.AndroidX.Compose.material)
-    api(Dependencies.AndroidX.Compose.tooling)
-    api(Dependencies.AndroidX.Compose.ui)
-    api(Dependencies.AndroidX.Compose.uiUtil)
-    api(Dependencies.AndroidX.Compose.paging)
-    api(Dependencies.AndroidX.Compose.runtime)
-    api(Dependencies.AndroidX.Compose.viewModel)
-    api(Dependencies.AndroidX.Compose.Accompanist.coil)
-    api(Dependencies.AndroidX.Compose.Accompanist.insets)
-    api(Dependencies.AndroidX.Compose.Accompanist.Google.coil)
-    api(Dependencies.AndroidX.Compose.Accompanist.Google.insets)
+    api(libs.compose.activity)
+    api(libs.compose.foundation)
+    api(libs.compose.iconsExtended)
+    api(libs.compose.material)
+    api(libs.compose.navigation)
+    api(libs.compose.tooling)
+    api(libs.compose.ui)
+    api(libs.compose.uiUtil)
+    api(libs.compose.paging)
+    api(libs.compose.runtime)
+    api(libs.compose.viewModel)
+    api(libs.compose.coil)
+    api(libs.compose.insets)
+    api(libs.compose.accompanist.google.coil)
+    api(libs.compose.accompanist.google.insets)
+    api(libs.hilt.compose.navigation)
 }

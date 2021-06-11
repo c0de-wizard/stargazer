@@ -1,4 +1,6 @@
-import com.thomaskioko.stargazers.dependencies.Dependencies
+@file:Suppress("UnstableApiUsage")
+
+import com.thomaskioko.stargazers.util.libs
 
 plugins {
     `android-library-plugin`
@@ -9,17 +11,17 @@ dependencies {
     implementation(project(":core"))
     testImplementation(project(":common-testing"))
 
-    implementation(Dependencies.AndroidX.paging)
+    implementation(libs.androidx.paging)
 
-    implementation(Dependencies.Retrofit.retrofit)
-    implementation(Dependencies.Retrofit.coroutinesConverter)
-    implementation(Dependencies.OkHttp.okhttp)
-    implementation(Dependencies.OkHttp.loggingInterceptor)
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.coroutines)
+    implementation(libs.retrofit.moshi)
+    implementation(libs.okhttp.core)
+    implementation(libs.okhttp.logging)
 
-    implementation(Dependencies.Retrofit.Moshi.core)
-    implementation(Dependencies.Retrofit.moshiConverter)
-    kapt(Dependencies.Retrofit.Moshi.kapt)
+    implementation(libs.moshi.core)
+    kapt(libs.moshi.kapt)
 
-    implementation(Dependencies.Room.roomKtx)
-    kapt(Dependencies.Room.compiler)
+    implementation(libs.room.ktx)
+    kapt(libs.room.compiler)
 }

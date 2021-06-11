@@ -1,11 +1,9 @@
 package checks
 
-import dependencies.DependencyVersions
-
 val ktlint: Configuration by configurations.creating
 
 dependencies {
-    ktlint("com.pinterest:ktlint:${DependencyVersions.ktLint}")
+    ktlint("com.pinterest:ktlint:0.41.0")
 }
 
 tasks {

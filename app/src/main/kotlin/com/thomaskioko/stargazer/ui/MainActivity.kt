@@ -1,113 +1,117 @@
 package com.thomaskioko.stargazer.ui
 
 import android.os.Bundle
-import android.view.View
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
-import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
-import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.ui.setupWithNavController
-import com.thomaskioko.stargazer.R
-import com.thomaskioko.stargazer.core.ViewStateResult
-import com.thomaskioko.stargazer.core.injection.annotations.MainDispatcher
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.insets.ProvideWindowInsets
 import com.thomaskioko.stargazer.core.network.FlowNetworkObserver
-import com.thomaskioko.stargazer.databinding.ActivityMainBinding
+import com.thomaskioko.stargazer.navigation.ComposeNavigationFactory
+import com.thomaskioko.stargazer.navigation.NavigationScreen.RepoDetailsNavScreen
+import com.thomaskioko.stargazer.navigation.NavigationScreen.SettingsNavScreen
+import com.thomaskioko.stargazer.navigation.NavigationScreen.TrendingRepositoriesNavScreen
+import com.thomaskioko.stargazer.navigation.TabScreens
+import com.thomaskioko.stargazer.navigation.addNavigation
+import com.thomaskioko.stargazers.common.compose.theme.StargazerTheme
 import com.thomaskioko.stargazers.settings.domain.SettingsManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
-import javax.inject.Provider
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var navControllerProvider: Provider<NavController>
-
-    @Inject
     lateinit var settingsManager: SettingsManager
 
+    @Inject
+    lateinit var composeNavigationFactories: @JvmSuppressWildcards Set<ComposeNavigationFactory>
 
     @Inject
     lateinit var flowNetworkObserver: FlowNetworkObserver
 
-    @Inject
-    @MainDispatcher
-    lateinit var mainDispatcher: CoroutineDispatcher
-
-    private var _binding: ActivityMainBinding? = null
-    private val binding get() = _binding!!
-
-    private val navController: NavController
-        get() = navControllerProvider.get()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTheme()
-        _binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
-        flowNetworkObserver.observeInternetConnection()
-            .onEach {
-                //TODO:: Show snackBar
-                Timber.d("Device Connection Status: $it")
-            }
-            .launchIn(CoroutineScope(mainDispatcher))
+        setContent {
+            ProvideWindowInsets(consumeWindowInsets = false) {
+                val navController = rememberNavController()
 
-        binding.bottomNavigation.setupWithNavController(navController)
+                val bottomNavigationItems = listOf(
+                    TabScreens.Trending,
+                    TabScreens.Search,
+                    TabScreens.Favorite,
+                )
+                val route = currentRoute(navController)
 
-        // Hide bottom nav on screens which don't require it
-        lifecycleScope.launchWhenResumed {
-            navController.addOnDestinationChangedListener { _, destination, _ ->
-                when (destination.id) {
-                    R.id.repoListFragment, R.id.trendingListFragment, R.id.bookmarkListFragment ->
-                        binding.bottomNavigation.visibility =
-                            View.VISIBLE
-                    else -> binding.bottomNavigation.visibility = View.GONE
+                StargazerTheme {
+                    Scaffold(
+                        bottomBar = {
+                            when {
+                                route != SettingsNavScreen.route && !route.contains(
+                                    RepoDetailsNavScreen.route
+                                ) -> {
+                                    StargazersBottomNavigation(
+                                        navController,
+                                        bottomNavigationItems
+                                    )
+                                }
+                            }
+                        },
+                        content = {
+                            NavHost(
+                                navController,
+                                startDestination = TrendingRepositoriesNavScreen.route
+                            ) {
+                                composeNavigationFactories.addNavigation(this, navController)
+                            }
+                        }
+                    )
                 }
             }
         }
     }
 
-    private fun setTheme() {
-        val job = GlobalScope.launch(context = mainDispatcher) {
-            settingsManager.getUiModeFlow()
-                .collect {
-                    when (it) {
-                        is ViewStateResult.Error -> {
-                            Timber.e(it.message)
-                        }
-                        is ViewStateResult.Loading -> {
-                        }
-                        is ViewStateResult.Success -> when (it.data) {
-                            MODE_NIGHT_NO -> setDefaultNightMode(MODE_NIGHT_NO)
-                            MODE_NIGHT_YES -> setDefaultNightMode(MODE_NIGHT_YES)
+    @Composable
+    private fun StargazersBottomNavigation(
+        navController: NavHostController,
+        items: List<TabScreens>
+    ) {
+        BottomNavigation {
+            val currentRoute = currentRoute(navController)
+            items.forEach { screen ->
+                BottomNavigationItem(
+                    icon = { Icon(screen.icon, contentDescription = null) },
+                    label = { Text(stringResource(id = screen.resourceId)) },
+                    selected = currentRoute == screen.route,
+                    alwaysShowLabel = false,
+                    selectedContentColor = MaterialTheme.colors.secondary,
+                    unselectedContentColor = MaterialTheme.colors.onPrimary,
+                    onClick = {
+                        if (currentRoute != screen.route) {
+                            navController.navigate(screen.route)
                         }
                     }
-                }
-        }
-        job.cancel()
-    }
-
-    override fun onBackPressed() {
-        if (!onSupportNavigateUp()) {
-            super.onBackPressed()
+                )
+            }
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
+    @Composable
+    private fun currentRoute(navController: NavHostController): String {
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        return navBackStackEntry?.destination?.route ?: TrendingRepositoriesNavScreen.route
     }
-
-    override fun onSupportNavigateUp(): Boolean = navController.navigateUp()
 }

@@ -2,6 +2,7 @@ package com.thomaskioko.stargazer.browse.model
 
 import androidx.compose.ui.graphics.Color
 import com.thomaskioko.githubstargazer.browse.R
+import com.thomaskioko.stargazer.core.util.countFormatter
 import com.thomaskioko.stargazer.db.model.RepoEntity
 import com.thomaskioko.stargazers.common.compose.theme.css
 import com.thomaskioko.stargazers.common.compose.theme.go
@@ -16,14 +17,33 @@ import com.thomaskioko.stargazers.common.model.RepoViewDataModel
 
 internal object ViewDataMapper {
 
+    fun mapEntityToViewModel(entity: RepoEntity) = RepoViewDataModel(
+        repoId = entity.id,
+        repoName = entity.name,
+        description = entity.description ?: "",
+        userName = entity.userName,
+        userType = entity.userType,
+        stargazersCount = countFormatter(entity.stargazersCount.toLong()) ,
+        forksCount = countFormatter(entity.forksCount.toLong()),
+        contributorsUrl = entity.contributorsUrl,
+        createdDate = entity.createdDate,
+        updatedDate = entity.updatedDate,
+        language = entity.language,
+        avatarUrl = entity.avatarUrl,
+        languageDrawable = R.drawable.ic_language_drawable,
+        drawableColor = mapLanguageToColor(entity.language),
+        isBookmarked = entity.isBookmarked
+    )
+
     fun mapEntityToRepoViewModel(entity: RepoEntity) =
         RepoViewDataModel(
-            repoId = entity.repoId,
+            repoId = entity.id,
             repoName = entity.name,
             description = entity.description ?: "",
             userName = entity.userName,
-            stargazersCount = entity.stargazersCount,
-            forksCount = entity.forksCount,
+            userType = entity.userType,
+            stargazersCount = countFormatter(entity.stargazersCount.toLong()) ,
+            forksCount = countFormatter(entity.forksCount.toLong()),
             contributorsUrl = entity.contributorsUrl,
             createdDate = entity.createdDate,
             updatedDate = entity.updatedDate,
@@ -33,26 +53,6 @@ internal object ViewDataMapper {
             drawableColor = mapLanguageToColor(entity.language),
             isBookmarked = entity.isBookmarked
         )
-
-    fun mapEntityListToRepoViewModel(list: List<RepoEntity>) =
-        list.map { entity ->
-            RepoViewDataModel(
-                repoId = entity.repoId,
-                repoName = entity.name,
-                description = entity.description ?: "",
-                userName = entity.userName,
-                stargazersCount = entity.stargazersCount,
-                forksCount = entity.forksCount,
-                contributorsUrl = entity.contributorsUrl,
-                createdDate = entity.createdDate,
-                updatedDate = entity.updatedDate,
-                language = entity.language,
-                avatarUrl = entity.avatarUrl,
-                languageDrawable = R.drawable.ic_language_drawable,
-                drawableColor = mapLanguageToColor(entity.language),
-                isBookmarked = entity.isBookmarked
-            )
-        }
 
     private fun mapLanguageToColor(language: String): Color {
         return when {

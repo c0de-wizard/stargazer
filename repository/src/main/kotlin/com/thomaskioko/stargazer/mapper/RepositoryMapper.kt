@@ -10,10 +10,11 @@ object RepositoryMapper {
         isTrending: Boolean = false
     ): List<RepoEntity> = response.map {
         RepoEntity(
-            repoId = it.id,
+            id = it.id,
             name = it.name.capitalize(),
             description = it.description,
             userName = it.owner.login,
+            userType = it.owner.type,
             stargazersCount = it.stargazersCount,
             forksCount = it.forksCount,
             contributorsUrl = it.contributorsUrl,

@@ -11,6 +11,7 @@ import com.thomaskioko.stargazer.db.GithubDatabase
 import com.thomaskioko.stargazer.db.model.RepoEntity
 import com.thomaskioko.stargazer.mapper.RepositoryMapper.mapResponseToEntityList
 import com.thomaskioko.stargazer.paging.GithubRemoteMediator
+import com.thomaskioko.stargazer.paging.GithubSearchRemoteMediator
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
@@ -30,57 +31,39 @@ class GithubRepository @Inject constructor(
             .map { isConnected -> if (isConnected) loadFromNetwork() else loadCacheRepos() }
             .flowOn(ioDispatcher)
 
-    fun getTrendingTrendingRepositories(page: Int): Flow<List<RepoEntity>> =
-        flowNetworkObserver.observeInternetConnection()
-            .map { isConnected -> if (isConnected) loadTrendingFromNetwork(page) else loadTrendingCacheRepos() }
-            .flowOn(ioDispatcher)
-
-    private suspend fun loadTrendingFromNetwork(page: Int): List<RepoEntity> {
-        val apiResult = service.getTrendingRepositories(page)
-        database.repoDao()
-            .insertRepos(mapResponseToEntityList(apiResult.repositoriesList, true))
-        return loadTrendingCacheRepos()
-    }
-
     @OptIn(ExperimentalPagingApi::class)
     fun getTrendingTrendingRepositories(): Flow<PagingData<RepoEntity>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 10,
-                enablePlaceholders = true,
-                prefetchDistance = 5,
-                initialLoadSize = 30
+                initialLoadSize = 30,
+                enablePlaceholders = false,
+                prefetchDistance = 1,
             ),
             remoteMediator = remoteMediator,
             pagingSourceFactory = { database.repoDao().getPagedTrendingRepositories() }
         ).flow
     }
 
-    fun searchRepository(query: String): Flow<List<RepoEntity>> {
-        return flowNetworkObserver.observeInternetConnection()
-            .map { isConnected ->
-                if (isConnected) loadNetworkSearchQuery(query) else
-                    database.repoDao().searchRepository(query)
-            }
-            .flowOn(ioDispatcher)
+    @OptIn(ExperimentalPagingApi::class)
+    fun searchRepository(query: String): Flow<PagingData<RepoEntity>> {
+        return Pager(
+            config =  PagingConfig(
+                pageSize = 10,
+                initialLoadSize = 30,
+                enablePlaceholders = false,
+                prefetchDistance = 1,
+            ),
+            remoteMediator = GithubSearchRemoteMediator(query, service, database),
+            pagingSourceFactory = { database.repoDao().searchRepoByName(query) }
+        ).flow
     }
-
-    private suspend fun loadNetworkSearchQuery(query: String) : List<RepoEntity>
-        {
-            val apiResult = service.searchRepositories(query)
-            database.repoDao().insertRepos(mapResponseToEntityList(apiResult.repositoriesList))
-
-            return database.repoDao().searchRepository(query)
-        }
-
 
     private suspend fun loadFromNetwork(): List<RepoEntity> {
         val apiResult = service.getRepositories()
         database.repoDao().insertRepos(mapResponseToEntityList(apiResult))
         return loadCacheRepos()
     }
-
-    private suspend fun loadTrendingCacheRepos() = database.repoDao().getTrendingRepositories()
 
     private suspend fun loadCacheRepos() = database.repoDao().getRepositories()
 

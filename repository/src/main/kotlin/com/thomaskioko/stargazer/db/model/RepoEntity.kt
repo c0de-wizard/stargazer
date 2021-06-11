@@ -3,15 +3,13 @@ package com.thomaskioko.stargazer.db.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(
-    tableName = "repo"
-)
+@Entity(tableName = "repos")
 data class RepoEntity(
-    @PrimaryKey
-    val repoId: Long,
+    @PrimaryKey val id: Long,
     val name: String,
     val description: String?,
     val userName: String,
+    val userType: String,
     val stargazersCount: Int,
     val forksCount: Int,
     val contributorsUrl: String,
