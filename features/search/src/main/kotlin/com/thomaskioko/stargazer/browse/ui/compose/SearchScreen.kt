@@ -23,9 +23,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
+import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.cachedIn
 import androidx.paging.compose.LazyPagingItems
@@ -47,16 +47,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.flowOf
 
 @Composable
-fun SearchScreen() {
-    SearchScreen(
-        viewModel = hiltViewModel()
-    )
-}
-
-
-@Composable
 internal fun SearchScreen(
     viewModel: SearchReposViewModel,
+    navController: NavHostController
 ) {
 
     val scaffoldState = rememberScaffoldState()

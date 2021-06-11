@@ -32,25 +32,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.thomaskioko.stargazers.common.compose.components.AppBarPainterIcon
 import com.thomaskioko.stargazers.common.compose.theme.StargazerTheme
 import com.thomaskioko.stargazers.settings.R
 
-@Composable
-fun SettingsScreen(
-    onBackPressed: () -> Unit = { }
-) {
-    SettingsScreen(
-        viewModel = hiltViewModel(),
-        onBackPressed = onBackPressed
-    )
-}
 
 @Composable
-fun SettingsScreen(
+internal fun SettingsScreen(
     viewModel: SettingsViewModel,
-    onBackPressed: () -> Unit = { }
+    navController: NavHostController
 ) {
     Scaffold(
         topBar = {
@@ -59,7 +50,7 @@ fun SettingsScreen(
                 navigationIcon = {
                     AppBarPainterIcon(
                         painterResource = painterResource(R.drawable.ic_back),
-                        onClickAction = onBackPressed
+                        onClickAction = { navController.navigateUp() }
                     )
                 },
                 backgroundColor = MaterialTheme.colors.primarySurface

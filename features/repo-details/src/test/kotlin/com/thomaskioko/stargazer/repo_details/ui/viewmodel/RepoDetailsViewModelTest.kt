@@ -12,7 +12,6 @@ import com.thomaskioko.stargazer.details.domain.UpdateRepoBookmarkStateInteracto
 import com.thomaskioko.stargazer.details.ui.DetailAction
 import com.thomaskioko.stargazer.details.ui.DetailViewState
 import com.thomaskioko.stargazer.details.ui.viewmodel.RepoDetailsViewModel
-import com.thomaskioko.stargazer.navigation.ScreenNavigationManager
 import com.thomaskioko.stargazer.repo_details.util.ViewMockData.makeRepoViewDataModel
 import com.thomaskioko.stargazer.repo_details.util.ViewMockData.makeUpdatedRepo
 import kotlinx.coroutines.flow.flowOf
@@ -31,7 +30,6 @@ internal class RepoDetailsViewModelTest {
 
     private val updateObject = makeUpdatedRepo()
     private val repoViewModelData = makeRepoViewDataModel()
-    private val screenNavigator = mock<ScreenNavigationManager>()
     private val testCoroutineDispatcher = TestCoroutineDispatcher()
 
     private val getRepoByIdInteractor: GetRepoByIdInteractor = mock {
@@ -44,7 +42,6 @@ internal class RepoDetailsViewModelTest {
     private var viewModel: RepoDetailsViewModel = RepoDetailsViewModel(
         getRepoByIdInteractor,
         bookmarkStateInteractor,
-        screenNavigator,
         testCoroutineDispatcher
     )
 
