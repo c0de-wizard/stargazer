@@ -7,7 +7,6 @@ plugins {
     kotlin("android")
     id("kotlin-parcelize")
     kotlin("kapt")
-    id("androidx.navigation.safeargs.kotlin")
     id("dagger.hilt.android.plugin")
     id("de.mannodermaus.android-junit5")
 }
@@ -57,7 +56,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.get().toString()
+        kotlinCompilerExtensionVersion = libs.versions.compose.get()
     }
 
     hilt {
@@ -74,10 +73,6 @@ dependencies {
     implementation(libs.material)
 
     implementation(libs.lifecycle.runtime)
-
-    implementation(libs.navigation.fragment)
-    implementation(libs.navigation.ktx)
-    implementation(libs.navigation.runtime)
 
     implementation(libs.hilt.core)
     implementation(libs.hilt.viewmodel)
