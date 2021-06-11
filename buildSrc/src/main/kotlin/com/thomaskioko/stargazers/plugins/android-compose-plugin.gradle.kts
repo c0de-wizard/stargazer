@@ -54,5 +54,5 @@ dependencies {
     api(libs.compose.insets)
     api(libs.compose.accompanist.google.coil)
     api(libs.compose.accompanist.google.insets)
-    api(libs.hilt.compose)
+    api(libs.hilt.compose.navigation)
 }
