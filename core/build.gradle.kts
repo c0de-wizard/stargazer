@@ -1,3 +1,5 @@
+import com.thomaskioko.stargazers.util.libs
+
 plugins {
     `android-library-plugin`
 }
@@ -10,6 +12,7 @@ dependencies {
     implementation(libs.lifecycle.common)
     implementation(libs.lifecycle.runtime)
     implementation(libs.lifecycle.viewmodel)
+    implementation(libs.compose.runtime)
 
     implementation(libs.coroutines.android)
 }
