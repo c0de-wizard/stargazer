@@ -25,7 +25,8 @@ import com.thomaskioko.stargazer.navigation.NavigationScreen.TrendingRepositorie
 import com.thomaskioko.stargazer.navigation.TabScreens
 import com.thomaskioko.stargazer.navigation.addNavigation
 import com.thomaskioko.stargazers.common.compose.theme.StargazerTheme
-import com.thomaskioko.stargazers.settings.domain.SettingsManager
+import com.thomaskioko.stargazers.settings.domain.StargazerPreferences
+import com.thomaskioko.stargazers.settings.domain.shouldUseDarkColors
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -33,13 +34,13 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var settingsManager: SettingsManager
-
-    @Inject
     lateinit var composeNavigationFactories: @JvmSuppressWildcards Set<ComposeNavigationFactory>
 
     @Inject
     lateinit var flowNetworkObserver: FlowNetworkObserver
+
+    @Inject
+    lateinit var themePreference: StargazerPreferences
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 )
                 val route = currentRoute(navController)
 
-                StargazerTheme {
+                StargazerTheme(darkTheme = themePreference.shouldUseDarkColors()) {
                     Scaffold(
                         bottomBar = {
                             when {
