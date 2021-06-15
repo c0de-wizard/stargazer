@@ -28,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -72,7 +73,7 @@ internal fun SettingsScreen(
 
 @Composable
 fun SettingsList(
-    onThemeChanged: (Int) -> Unit,
+    onThemeChanged: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -88,7 +89,7 @@ fun SettingsList(
 
 @Composable
 private fun ThemeSettingsItem(
-    onThemeChanged: (Int) -> Unit,
+    onThemeChanged: (String) -> Unit,
 ) {
 
     var checkedState by remember { mutableStateOf(false) }
@@ -119,6 +120,8 @@ private fun ThemeSettingsItem(
             SettingDescription(stringResource(R.string.settings_theme_description))
         }
 
+        val resources = LocalContext.current.resources
+
         Switch(
             checked = checkedState,
             enabled = true,
@@ -126,8 +129,8 @@ private fun ThemeSettingsItem(
                 checkedState = it
 
                 when (it) {
-                    true -> onThemeChanged(1)
-                    false -> onThemeChanged(2)
+                    true -> onThemeChanged(resources.getString(R.string.pref_theme_dark_value))
+                    false -> onThemeChanged(resources.getString(R.string.pref_theme_light_value))
                 }
             },
             colors = SwitchDefaults.colors(
