@@ -13,6 +13,8 @@ import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -21,7 +23,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -38,7 +39,7 @@ import com.thomaskioko.stargazer.bookmarks.ui.BookmarkActions.NavigateToRepoDeta
 import com.thomaskioko.stargazer.bookmarks.ui.BookmarkActions.NavigateToSettingsScreen
 import com.thomaskioko.stargazer.bookmarks.ui.BookmarkViewState
 import com.thomaskioko.stargazer.bookmarks.ui.viewmodel.GetBookmarkedReposViewModel
-import com.thomaskioko.stargazers.common.compose.components.AppBarPainterIcon
+import com.thomaskioko.stargazers.common.compose.components.AppBarImageVectorIcon
 import com.thomaskioko.stargazers.common.compose.components.CircularLoadingView
 import com.thomaskioko.stargazers.common.compose.components.RepoCardItem
 import com.thomaskioko.stargazers.common.compose.components.RepoListDivider
@@ -76,8 +77,8 @@ internal fun BookmarksScreen(
             StargazersTopBar(
                 title = { Row { Text(text = stringResource(R.string.title_bookmarks)) } },
                 actions = {
-                    AppBarPainterIcon(
-                        painterResource = painterResource(R.drawable.ic_settings),
+                    AppBarImageVectorIcon(
+                        icon = Icons.Filled.Settings,
                         onClickAction = { viewModel.dispatchAction(NavigateToSettingsScreen) }
                     )
                 }

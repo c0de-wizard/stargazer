@@ -13,6 +13,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.primarySurface
 import androidx.compose.runtime.Composable
@@ -137,14 +139,14 @@ fun AppBarSettingsPreview() {
         StargazersTopBar(
             title = { Text("Stargazers") },
             navigationIcon = {
-                AppBarPainterIcon(
-                    painterResource = painterResource(R.drawable.ic_back),
+                AppBarImageVectorIcon(
+                    icon = Icons.Filled.ArrowBack,
                     onClickAction = {}
                 )
             },
             actions = {
-                AppBarPainterIcon(
-                    painterResource = painterResource(R.drawable.ic_settings),
+                AppBarImageVectorIcon(
+                    icon = Icons.Filled.Settings,
                     onClickAction = {}
                 )
             },

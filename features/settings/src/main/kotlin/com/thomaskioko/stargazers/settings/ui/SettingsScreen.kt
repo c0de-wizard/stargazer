@@ -19,6 +19,8 @@ import androidx.compose.material.Switch
 import androidx.compose.material.SwitchDefaults
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.primarySurface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -34,7 +36,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.thomaskioko.stargazers.common.compose.components.AppBarPainterIcon
+import com.thomaskioko.stargazers.common.compose.components.AppBarImageVectorIcon
 import com.thomaskioko.stargazers.common.compose.theme.StargazerTheme
 import com.thomaskioko.stargazers.settings.R
 
@@ -49,8 +51,8 @@ internal fun SettingsScreen(
             TopAppBar(
                 title = { Row { Text(text = stringResource(R.string.title_settings)) } },
                 navigationIcon = {
-                    AppBarPainterIcon(
-                        painterResource = painterResource(R.drawable.ic_back),
+                    AppBarImageVectorIcon(
+                        icon = Icons.Filled.ArrowBack,
                         onClickAction = { navController.navigateUp() }
                     )
                 },
