@@ -37,8 +37,6 @@ android {
     }
 
     buildFeatures {
-        dataBinding = true
-        viewBinding = true
         compose = true
     }
 
@@ -75,7 +73,6 @@ tasks.withType<Test>().configureEach {
 dependencies {
 
     implementation(project(":core"))
-    implementation(project(":design:common-ui"))
     implementation(project(":navigation"))
 
     testImplementation(project(":common-testing"))
