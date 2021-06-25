@@ -25,6 +25,6 @@ internal class UpdateRepoBookmarkStateInteractor @Inject constructor(
             .map { repository.updateRepoBookMarkStatus(it, params.repoId) }
             .map { repository.getRepoById(params.repoId) }
             .map { ViewStateResult.success(mapEntityToRepoViewModel(it)) }
-            .catch { emit(ViewStateResult.error(it.message.orEmpty())) }
+            .catch { emit(ViewStateResult.error(it)) }
             .flowOn(ioDispatcher)
 }

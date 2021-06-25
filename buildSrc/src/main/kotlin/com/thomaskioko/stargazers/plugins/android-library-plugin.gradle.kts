@@ -19,6 +19,7 @@ android {
         compileSdk = libs.versions.android.compile.get().toInt()
         targetSdk = libs.versions.android.target.get().toInt()
 
+        multiDexEnabled = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -36,8 +37,6 @@ android {
     }
 
     buildFeatures {
-        dataBinding = true
-        viewBinding = true
         compose = true
     }
 

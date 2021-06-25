@@ -37,7 +37,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":design:common-ui"))
 
     api(libs.compose.activity)
     api(libs.compose.foundation)

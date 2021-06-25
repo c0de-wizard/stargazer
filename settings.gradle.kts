@@ -13,6 +13,5 @@ include(
     ":features:repo-details",
     ":features:settings",
     ":common-testing",
-    ":design:common-ui",
     ":design:common-ui-compose",
 )

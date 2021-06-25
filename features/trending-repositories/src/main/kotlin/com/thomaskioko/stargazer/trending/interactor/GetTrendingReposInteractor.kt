@@ -24,6 +24,6 @@ internal class GetTrendingReposInteractor @Inject constructor(
         repository.getTrendingTrendingRepositories()
             .map { data -> data.map { mapEntityToViewModel(it) } }
             .map { pagedViewModelDataList -> ViewStateResult.success(pagedViewModelDataList) }
-            .catch { emit(ViewStateResult.error(it.message.orEmpty())) }
+            .catch { emit(ViewStateResult.error(it)) }
             .flowOn(ioDispatcher)
 }

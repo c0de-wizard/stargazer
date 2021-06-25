@@ -5,7 +5,6 @@ plugins {
 dependencies {
 
     implementation(project(":core"))
-    implementation(project(":design:common-ui"))
     implementation(project(":design:common-ui-compose"))
     implementation(project(":repository"))
     implementation(project(":navigation"))

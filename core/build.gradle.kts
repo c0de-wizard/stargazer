@@ -13,6 +13,8 @@ dependencies {
     implementation(libs.lifecycle.runtime)
     implementation(libs.lifecycle.viewmodel)
     implementation(libs.compose.runtime)
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.moshi)
 
     implementation(libs.coroutines.android)
 }

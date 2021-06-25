@@ -18,6 +18,7 @@ dependencies {
     implementation(libs.retrofit.moshi)
     implementation(libs.okhttp.core)
     implementation(libs.okhttp.logging)
+    implementation(libs.timber)
 
     implementation(libs.moshi.core)
     kapt(libs.moshi.kapt)

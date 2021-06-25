@@ -10,6 +10,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -18,7 +20,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,7 +38,7 @@ import com.thomaskioko.stargazer.trending.R
 import com.thomaskioko.stargazer.trending.ui.ReposAction
 import com.thomaskioko.stargazer.trending.ui.ReposViewState
 import com.thomaskioko.stargazer.trending.ui.TrendingRepoListViewModel
-import com.thomaskioko.stargazers.common.compose.components.AppBarPainterIcon
+import com.thomaskioko.stargazers.common.compose.components.AppBarImageVectorIcon
 import com.thomaskioko.stargazers.common.compose.components.CircularLoadingView
 import com.thomaskioko.stargazers.common.compose.components.LoadingItem
 import com.thomaskioko.stargazers.common.compose.components.RepoCardItem
@@ -76,8 +77,8 @@ internal fun TrendingRepositoryScreen(
             StargazersTopBar(
                 title = { Row { Text(text = stringResource(R.string.app_name)) } },
                 actions = {
-                    AppBarPainterIcon(
-                        painterResource = painterResource(R.drawable.ic_settings),
+                    AppBarImageVectorIcon(
+                        icon = Icons.Filled.Settings,
                         onClickAction = {
                             navController.navigate(SettingsNavScreen.route)
                         }
