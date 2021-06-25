@@ -48,7 +48,7 @@ class GithubRepository @Inject constructor(
     @OptIn(ExperimentalPagingApi::class)
     fun searchRepository(query: String): Flow<PagingData<RepoEntity>> {
         return Pager(
-            config =  PagingConfig(
+            config = PagingConfig(
                 pageSize = 10,
                 initialLoadSize = 30,
                 enablePlaceholders = false,

@@ -1,5 +1,7 @@
 package com.thomaskioko.stargazer.core
 
+import com.thomaskioko.stargazer.core.util.resolveError
+
 /**
  * Describes state of the view at any
  * point of time.
@@ -45,6 +47,7 @@ sealed class ViewStateResult<ResultType> {
         /**
          * Creates [ViewStateResult] object with [Error] state and [message].
          */
-        fun <ResultType> error(message: String): ViewStateResult<ResultType> = Error(message)
+        fun <ResultType> error(throwable: Throwable): ViewStateResult<ResultType> =
+            Error(throwable.resolveError().message)
     }
 }

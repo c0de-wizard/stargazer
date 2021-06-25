@@ -25,6 +25,6 @@ internal class GetRepoByIdInteractor @Inject constructor(
 
         emit(ViewStateResult.success(repoViewDataModel))
     }
-        .catch { emit(ViewStateResult.error(it.message.orEmpty())) }
+        .catch { emit(ViewStateResult.error(it)) }
         .flowOn(ioDispatcher)
 }

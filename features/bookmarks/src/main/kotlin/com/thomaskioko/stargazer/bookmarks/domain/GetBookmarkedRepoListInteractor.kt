@@ -24,6 +24,6 @@ class GetBookmarkedRepoListInteractor @Inject constructor(
 
         emit(ViewStateResult.success(result))
     }
-        .catch { emit(ViewStateResult.error(it.message.orEmpty())) }
+        .catch { emit(ViewStateResult.error(it)) }
         .flowOn(ioDispatcher)
 }
