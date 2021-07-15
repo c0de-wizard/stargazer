@@ -4,7 +4,7 @@ kotlin = "1.5.10"
 android-compile = "30"
 android-target = "30"
 android-min = "21"
-android-gradle = "7.1.0-alpha02"
+android-gradle = "7.1.0-alpha03"
 
 navigation = "2.4.0-alpha01"
 spotless = "5.10.2"
