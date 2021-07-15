@@ -59,7 +59,6 @@ implementations: **MVI** pattern.
 
 <img src="https://github.com/c0de-wizard/github-stargazer/blob/main/art/ArchitectureDiagram.png?raw=true"/>
 
-Here's how the sample project implements it:
 
 ### Core
 
