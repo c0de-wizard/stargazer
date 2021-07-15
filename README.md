@@ -17,7 +17,7 @@ Github Stargazer.
 ## Description
 
 Stargazer is a simple android project that consumes Github's Api & loads a list of repositories from Square's
-organization.
+organization. Ui is completely written in Jetpack Compose.
 
 ### Screenshots
 
@@ -55,8 +55,9 @@ organization.
 ## Architecture
 
 The architecture of the project follows the principles of Clean Architecture. This project demonstrates two Architecture
-implementations: **MVVM** & **MVI**. Most of the feature modules implement MVVM for now. **trending-repositories** on
-the other hand, implements the MVI pattern.
+implementations: **MVI** pattern.
+
+<img src="https://github.com/c0de-wizard/github-stargazer/blob/main/art/ArchitectureDiagram.png?raw=true" width="250" />
 
 Here's how the sample project implements it:
 
@@ -91,20 +92,6 @@ This layer is where we create different feature modules. Browse Repository & Boo
 
 This module is responsible for creating routes withing NavHost using factories. Each feature module has it's own navigation factory
 and is responsible for defining the route.
-
-### 🚧 Jetpack Compose (Under Development) 🚧
-
-I'm currently migrating each module to [Jetpack Compose](https://developer.android.com/jetpack/compose).
-
-### Progress
-
-- [x] Settings
-- [x] Trending Repositories
-- [x] Repo Details
-- [x] Add Pagination.
-- [x] Browse (Implement search functionality)
-- [x] Favorite
-- [x] Migrate Navigation & BottomBar to Navigation Compose
 
 ## Code style
 
@@ -149,7 +136,7 @@ configuration and you find them in the project root directory `.{toolName}`.
 
 ### TODO
 
-- [ ] Add flow diagram explaining the architecture
+- [ ] Cleaup navigation actions.
 
 ### License
 ```
