@@ -57,7 +57,7 @@ organization. Ui is completely written in Jetpack Compose.
 The architecture of the project follows the principles of Clean Architecture. This project demonstrates two Architecture
 implementations: **MVI** pattern.
 
-<img src="https://github.com/c0de-wizard/github-stargazer/blob/main/art/ArchitectureDiagram.png?raw=true" width="250" />
+<img src="https://github.com/c0de-wizard/github-stargazer/blob/main/art/ArchitectureDiagram.png?raw=true"/>
 
 Here's how the sample project implements it:
 
